@@ -204,7 +204,7 @@ public class PublishTextFragment extends BaseFragment {
                         params.put(Constant.USER_ID,String.valueOf(51));
                         params.put(Constant.PUBLISH_TEXT,content);
                         params.put(Constant.USER_LOCATION,location);
-                        SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(), Constant.BASE_URL,okRep);
+                        SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(), Constant.BASE_URL+Constant.PUBLISH_TEXT_URL,okRep);
                         request.setParams(params);
                         HttpClient.getInstance(getContext()).addToRequestQueue(request);
                     }
