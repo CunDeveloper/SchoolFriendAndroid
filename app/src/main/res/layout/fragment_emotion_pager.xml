@@ -10,8 +10,8 @@
         android:id="@+id/fragment_emotion_pager_gridview"
         android:paddingLeft="@dimen/padding_left"
         android:gravity="center"
-        android:horizontalSpacing="@dimen/padding_left"
-        android:verticalSpacing="20dp"
+        android:horizontalSpacing="@dimen/phone_apadding"
+        android:verticalSpacing="5dp"
         android:paddingRight="@dimen/padding_left"
         android:numColumns="8"
         />

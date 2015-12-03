@@ -30,7 +30,6 @@ import com.nju.http.HttpClient;
 import com.nju.http.HttpMethod;
 import com.nju.http.SchoolFriendOkRep;
 import com.nju.http.SchoolFriendRequest;
-import com.nju.util.AndroidEmoji;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;

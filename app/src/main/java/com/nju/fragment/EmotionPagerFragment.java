@@ -11,8 +11,10 @@ import android.widget.GridView;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionAdatper;
+import com.nju.adatper.EmotionAdatper1;
 import com.nju.util.Emotion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmotionPagerFragment extends BaseFragment {
@@ -24,6 +26,7 @@ public class EmotionPagerFragment extends BaseFragment {
     private GridView mGridView;
     private List<Drawable> mEmotions;
     private OnFragmentInputEmotionListener mListener;
+    public static  List<String> emotions ;
     public static EmotionPagerFragment newInstance(int position,String tag) {
         EmotionPagerFragment fragment = new EmotionPagerFragment();
         Bundle args = new Bundle();
@@ -42,6 +45,12 @@ public class EmotionPagerFragment extends BaseFragment {
             mTag = getArguments().getString(APG_PARAM1);
         }
         mEmotions = new Emotion(getActivity()).getEmotions();
+        if (emotions == null){
+            emotions = new ArrayList<>();
+            for (int i=0;i<40;i++) {
+                emotions.add("\uD83D\uDE00");
+            }
+        }
     }
 
     @Override
@@ -68,7 +77,7 @@ public class EmotionPagerFragment extends BaseFragment {
     @Override
     public void onStart(){
         super.onStart();
-        mGridView.setAdapter(new EmotionAdatper(mEmotions, getActivity()));
+        mGridView.setAdapter(new EmotionAdatper1(emotions, getActivity()));
     }
 
 

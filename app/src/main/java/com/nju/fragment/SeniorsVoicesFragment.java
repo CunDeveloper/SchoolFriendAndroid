@@ -5,17 +5,19 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.util.AndroidEmoji;
 import com.nju.util.Divice;
 
 
 public class SeniorsVoicesFragment extends BaseFragment {
+
+    private static final String TAG = SeniorsVoicesFragment.class.getSimpleName();
 
     public static SeniorsVoicesFragment newInstance() {
         SeniorsVoicesFragment fragment = new SeniorsVoicesFragment();
@@ -45,12 +47,17 @@ public class SeniorsVoicesFragment extends BaseFragment {
         TextView textView = (TextView) view.findViewById(R.id.fragment_seniors_voice_tv);
 
 
-        int unicode = 0x1F602;
-
-
-        textView.setText(getEmijoByUnicode(unicode)+"==="+"\uD83D\uDE00");
-//        Typeface font = AndroidEmoji.FontProvider.getInstance(getContext()).getFontEmoji();
+        int unicode = 0x1F600;
+//        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AppleColorEmoji.ttf");
 //        textView.setTypeface(font);
+        String str = getEmijoByUnicode(unicode);
+        for (char curr : str.toCharArray()){
+            //print out the character or do whatever you wanna have
+            int code = curr;
+            Log.e(TAG,String.format("%x",code));
+        }
+        Log.e(TAG,"\\"+getEmijoByUnicode(unicode));
+        textView.setText(getEmijoByUnicode(unicode)+"==="+"\uD83D\uDE00");
         return view;
     }
 
