@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:background="@color/black10"
+    android:layout_height="match_parent" tools:context="com.nju.fragment.WhoScanFragment">
+
+    <ExpandableListView
+        android:layout_marginTop="@dimen/padding_left"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:groupIndicator="@null"
+        android:id="@+id/fragment_who_scan_expandablelistView"
+        >
+
+    </ExpandableListView>
+
+</FrameLayout>

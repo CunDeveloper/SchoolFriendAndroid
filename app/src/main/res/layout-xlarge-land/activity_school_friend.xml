@@ -1,0 +1,86 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+    android:id="@+id/activity_school_friend_main"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/activity_school_friend_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/school_friend_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+            <ImageView
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@mipmap/ic_lockscreen_camera_activated"
+                android:paddingLeft="@dimen/button_padding"
+                android:paddingRight="@dimen/button_padding"
+                android:id="@+id/activity_school_friend_campera_imgV"
+                />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.nju.View.SchoolFriendListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:background="@android:color/white"
+        android:id="@+id/school_friend_listview"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/activity_school_friend_input_layout"
+        android:visibility="gone"
+        android:background="@drawable/input_dialog_bg"
+        >
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_school_friend_comment_edittext"
+            android:textSize="22sp"
+            android:paddingRight="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/activity_school_friend_send_button"
+            android:layout_alignParentBottom="true"
+            />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_menu_emoticons"
+            android:id="@+id/activity_school_friend_emotion_img"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_toStartOf="@+id/activity_school_friend_send_button"
+            android:layout_alignBottom="@+id/activity_school_friend_comment_edittext"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_button_bg"
+            android:text="@string/send"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/activity_school_friend_send_button"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"
+            android:layout_alignBottom="@+id/activity_school_friend_comment_edittext"
+            android:layout_alignParentEnd="true" />
+
+     </RelativeLayout>
+</LinearLayout>

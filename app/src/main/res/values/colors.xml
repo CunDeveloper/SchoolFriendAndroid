@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#00796B</color>
+    <!--<color name="colorPrimary">#00897B</color>-->
+    <color name="colorPrimary">#212121</color>
+    <color name="gray">#cccccc</color>
+    <color name="light_blue">#283593</color>
+    <color name="black100">#000000</color>
+    <color name="black80">#424242</color>
+    <color name="black10">#F5F5F5</color>
+    <color name="primay">#00897B</color>
+    <color name="primayDark">#00796B</color>
+    <color name="test">#16777261</color>
+</resources>

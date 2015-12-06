@@ -1,0 +1,172 @@
+[
+	{
+		"pid" : 1,
+		"provinceID" : 110000,
+		"pname" : "北京市"
+	},
+	{
+		"pid" : 2,
+		"provinceID" : 120000,
+		"pname" : "天津市"
+	},
+	{
+		"pid" : 3,
+		"provinceID" : 130000,
+		"pname" : "河北省"
+	},
+	{
+		"pid" : 4,
+		"provinceID" : 140000,
+		"pname" : "山西省"
+	},
+	{
+		"pid" : 5,
+		"provinceID" : 150000,
+		"pname" : "内蒙古自治区"
+	},
+	{
+		"pid" : 6,
+		"provinceID" : 210000,
+		"pname" : "辽宁省"
+	},
+	{
+		"pid" : 7,
+		"provinceID" : 220000,
+		"pname" : "吉林省"
+	},
+	{
+		"pid" : 8,
+		"provinceID" : 230000,
+		"pname" : "黑龙江省"
+	},
+	{
+		"pid" : 9,
+		"provinceID" : 310000,
+		"pname" : "上海市"
+	},
+	{
+		"pid" : 10,
+		"provinceID" : 320000,
+		"pname" : "江苏省"
+	},
+	{
+		"pid" : 11,
+		"provinceID" : 330000,
+		"pname" : "浙江省"
+	},
+	{
+		"pid" : 12,
+		"provinceID" : 340000,
+		"pname" : "安徽省"
+	},
+	{
+		"pid" : 13,
+		"provinceID" : 350000,
+		"pname" : "福建省"
+	},
+	{
+		"pid" : 14,
+		"provinceID" : 360000,
+		"pname" : "江西省"
+	},
+	{
+		"pid" : 15,
+		"provinceID" : 370000,
+		"pname" : "山东省"
+	},
+	{
+		"pid" : 16,
+		"provinceID" : 410000,
+		"pname" : "河南省"
+	},
+	{
+		"pid" : 17,
+		"provinceID" : 420000,
+		"pname" : "湖北省"
+	},
+	{
+		"pid" : 18,
+		"provinceID" : 430000,
+		"pname" : "湖南省"
+	},
+	{
+		"pid" : 19,
+		"provinceID" : 440000,
+		"pname" : "广东省"
+	},
+	{
+		"pid" : 20,
+		"provinceID" : 450000,
+		"pname" : "广西壮族自治区"
+	},
+	{
+		"pid" : 21,
+		"provinceID" : 460000,
+		"pname" : "海南省"
+	},
+	{
+		"pid" : 22,
+		"provinceID" : 500000,
+		"pname" : "重庆市"
+	},
+	{
+		"pid" : 23,
+		"provinceID" : 510000,
+		"pname" : "四川省"
+	},
+	{
+		"pid" : 24,
+		"provinceID" : 520000,
+		"pname" : "贵州省"
+	},
+	{
+		"pid" : 25,
+		"provinceID" : 530000,
+		"pname" : "云南省"
+	},
+	{
+		"pid" : 26,
+		"provinceID" : 540000,
+		"pname" : "西藏自治区"
+	},
+	{
+		"pid" : 27,
+		"provinceID" : 610000,
+		"pname" : "陕西省"
+	},
+	{
+		"pid" : 28,
+		"provinceID" : 620000,
+		"pname" : "甘肃省"
+	},
+	{
+		"pid" : 29,
+		"provinceID" : 630000,
+		"pname" : "青海省"
+	},
+	{
+		"pid" : 30,
+		"provinceID" : 640000,
+		"pname" : "宁夏回族自治区"
+	},
+	{
+		"pid" : 31,
+		"provinceID" : 650000,
+		"pname" : "新疆维吾尔自治区"
+	},
+	{
+		"pid" : 32,
+		"provinceID" : 710000,
+		"pname" : "台湾省"
+	},
+	{
+		"pid" : 33,
+		"provinceID" : 810000,
+		"pname" : "香港特别行政区"
+	},
+	{
+		"pid" : 34,
+		"provinceID" : 820000,
+		"pname" : "澳门特别行政区"
+	}
+]

@@ -1,0 +1,70 @@
+<resources>
+
+    <string name="app_name">SchoolFriend</string>
+    <string name="auth_progress_dialog_title">学信网授权</string>
+    <string name="auth_progress_dialog_content">正在授权...</string>
+    <string name="auth_username_empty_tip">用户名不能为空</string>
+    <string name="auth_password_empty_tip">密码不能为空</string>
+    <string name="auth_username_pass_empty_tip">用户名或密码不能为空</string>
+    <string name="auth_username_pass_error_tip">用户名或密码错误</string>
+    <string name="username">USERNAME</string>
+    <string name="visitor">访客</string>
+    <string name="shared_file_name">schoolFriend</string>
+    <string name="auth">授权</string>
+    <string name="title_activity_sdcard_images">SDCardImagesActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="time_idea">这一刻的想法...</string>
+    <string name="location">所在位置</string>
+    <string name="wh0_scan">谁可以看</string>
+    <string name="anyone_scan">公开</string>
+    <string name="reminder_who_scan">提醒谁看</string>
+    <string name="title_activity_publish_weibo">PublishWeiboActivity</string>
+    <string name="title_activity_user_loaction">所在位置</string>
+    <string name="no_display_location">不显示位置</string>
+    <string name="title_activity_school_friend">校友圈</string>
+    <string name="comment">评论</string>
+    <string name="send">发送</string>
+    <string name="title_activity_choose_images">图片</string>
+    <string name="finish">完成</string>
+    <string name="review">预览</string>
+    <string name="picture_choose_reminder">你最多能选择9张图片</string>
+    <string name="camera">拍摄照片</string>
+    <string name="title_activity_publish_text">发表文字</string>
+    <string name="empty" />
+    <string name="cancle">取消</string>
+    <string name="exit">退出</string>
+    <string name="exit_this_edit">退出此次编辑？</string>
+    <string name="title_activity_zoom_image">ZoomImageActivity</string>
+    <string name="title_activity_choose">图片</string>
+    <string name="choose">选择</string>
+    <string name="choosedReview">被选择图片预览</string>
+    <string name="chooseReview">图片预览</string>
+    <string name="title_activity_publish_text_with_pics">PublishTextWithPicsActivity</string>
+    <string name="IMGS">uploadImage</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="who_scan">谁可以看</string>
+    <string name="school_scan">校友可见</string>
+    <string name="a_public">公开</string>
+    <string name="school_friend_scan">校友可见</string>
+    <string name="edit_label">编辑标签</string>
+    <string name="xue_xin_auth">学信网授权</string>
+
+    <string-array name="who_scan_group">
+        <item>公开</item>
+        <item>私密</item>
+        <item>部分可见</item>
+        <item>不给谁看</item>
+    </string-array>
+
+    <string-array name="who_san_small_group">
+        <item>所有校友可见</item>
+        <item>仅自己可见</item>
+        <item>选中的校友可见</item>
+        <item>选中的校友不可见</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<who_scan>
+    <group>
+        <bigLabel>公开</bigLabel>
+        <smallLabel>所有校友可见</smallLabel>
+        <drwable>R.drawable.btn_check_buttonless_on</drwable>
+    </group>
+    <group>
+        <bigLabel>私密</bigLabel>
+        <smallLabel>仅自己可见</smallLabel>
+        <drwable>R.drawable.publish_content_edittext_bg</drwable>
+    </group>
+    <group>
+        <bigLabel>部分可见</bigLabel>
+        <smallLabel>选中的校友可见</smallLabel>
+        <drwable>R.drawable.publish_content_edittext_bg</drwable>
+        <child>
+            <childBigLabel>南京大学</childBigLabel>
+            <childSmallLabel>软件学院</childSmallLabel>
+        </child>
+        <child>
+            <childBigLabel>编辑标签</childBigLabel>
+        </child>
+    </group>
+    <group>
+        <bigLabel>不给谁看</bigLabel>
+        <smallLabel>选中的校友可见</smallLabel>
+        <drwable>R.drawable.publish_content_edittext_bg</drwable>
+    </group>
+</who_scan>

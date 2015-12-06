@@ -1,0 +1,12142 @@
+[
+	{
+		"coid" : 1001,
+		"name" : "清华大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1002,
+		"name" : "北京大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1003,
+		"name" : "中国人民大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1004,
+		"name" : "北京航空航天大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1005,
+		"name" : "北京邮电大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1006,
+		"name" : "北京师范大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1007,
+		"name" : "中国传媒大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1008,
+		"name" : "北京语言大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1009,
+		"name" : "北京科技大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1010,
+		"name" : "中国农业大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1011,
+		"name" : "北京理工大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1012,
+		"name" : "北京林业大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1013,
+		"name" : "北京交通大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1014,
+		"name" : "中国矿业大学（北京）",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1015,
+		"name" : "北京信息科技大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1016,
+		"name" : "北京工业大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1017,
+		"name" : "北京化工大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1018,
+		"name" : "中国政法大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1019,
+		"name" : "对外经贸大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1020,
+		"name" : "中央民族大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1021,
+		"name" : "中国地质大学（北京）",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1022,
+		"name" : "中科院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1023,
+		"name" : "北京中医药大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1024,
+		"name" : "首都经济贸易大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1025,
+		"name" : "中央财经大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1026,
+		"name" : "北方工业大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1027,
+		"name" : "中国石油大学（北京）",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1028,
+		"name" : "外交学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1029,
+		"name" : "首都师范大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1030,
+		"name" : "中央戏剧学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1031,
+		"name" : "中国青年政治学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1032,
+		"name" : "北京外国语大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1033,
+		"name" : "华北电力大学（北京）",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1034,
+		"name" : "中国人民公安大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1035,
+		"name" : "中国协和医科大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1036,
+		"name" : "北京体育大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1037,
+		"name" : "北京工商大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1038,
+		"name" : "北京联合大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1039,
+		"name" : "首都医科大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1040,
+		"name" : "国际关系学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1041,
+		"name" : "中央美术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1042,
+		"name" : "北京电子科技学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1043,
+		"name" : "中国劳动关系学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1044,
+		"name" : "中华女子学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1045,
+		"name" : "北京建筑工程学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1046,
+		"name" : "北京印刷学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1047,
+		"name" : "北京石油化工学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1048,
+		"name" : "首钢工学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1049,
+		"name" : "北京农学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1050,
+		"name" : "首都体育学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1051,
+		"name" : "北京第二外国语学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1052,
+		"name" : "北京物资学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1053,
+		"name" : "北京警察学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1054,
+		"name" : "中央音乐学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1055,
+		"name" : "中国戏曲学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1056,
+		"name" : "北京舞蹈学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1057,
+		"name" : "北京城市学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1058,
+		"name" : "北京电影学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1059,
+		"name" : "北京服装学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1060,
+		"name" : "北京工商大学嘉华学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1061,
+		"name" : "首都师范大学科德学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1062,
+		"name" : "北京工业大学耿丹学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1063,
+		"name" : "北京化工大学北方学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1064,
+		"name" : "北京联合大学广告学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1065,
+		"name" : "北京邮电大学世纪学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1066,
+		"name" : "北京大学医学部",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1067,
+		"name" : "北京政法职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1068,
+		"name" : "北京信息职业技术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1069,
+		"name" : "北京现代职业技术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1070,
+		"name" : "北京现代音乐研修学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1071,
+		"name" : "北京戏曲艺术职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1072,
+		"name" : "北京锡华国际经贸职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1073,
+		"name" : "北京盛基艺术学校",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1074,
+		"name" : "北京培黎职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1075,
+		"name" : "北京农业职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1076,
+		"name" : "北京科技职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1077,
+		"name" : "北京科技经营管理学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1078,
+		"name" : "北京经贸职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1079,
+		"name" : "北京经济技术职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1080,
+		"name" : "北京京北职业技术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1081,
+		"name" : "北京交通职业技术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1082,
+		"name" : "北京吉利大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1083,
+		"name" : "北京汇佳职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1084,
+		"name" : "北京工业职业技术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1085,
+		"name" : "北京工商管理专修学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1086,
+		"name" : "北京电子科技职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1087,
+		"name" : "北京财贸职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1088,
+		"name" : "北京北大方正软件技术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1089,
+		"name" : "北大资源美术学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1090,
+		"name" : "北京人文大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1091,
+		"name" : "北京高等秘书学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1092,
+		"name" : "北京应用技术大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1093,
+		"name" : "中国防卫科技学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1094,
+		"name" : "中国音乐学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1095,
+		"name" : "中国信息大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1096,
+		"name" : "北京青年政治学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1097,
+		"name" : "北京财经专修学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1098,
+		"name" : "北京经济管理职业学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1099,
+		"name" : "北京美国英语语言学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1100,
+		"name" : "中国管理软件学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1101,
+		"name" : "财政部财政科学研究所",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1102,
+		"name" : "北大资源学院",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1103,
+		"name" : "北京现代管理大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1104,
+		"name" : "网络销售大学",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 1105,
+		"name" : "朝阳二外",
+		"provinceID" : 110000
+	},
+	{
+		"coid" : 2001,
+		"name" : "复旦大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2002,
+		"name" : "上海交通大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2003,
+		"name" : "同济大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2004,
+		"name" : "华东师大",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2005,
+		"name" : "上海财经",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2006,
+		"name" : "华东理工",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2007,
+		"name" : "上海商学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2008,
+		"name" : "东华大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2009,
+		"name" : "上海理工",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2010,
+		"name" : "上海大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2011,
+		"name" : "上外",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2012,
+		"name" : "上海海事",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2013,
+		"name" : "上海工程",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2014,
+		"name" : "上海水产",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2015,
+		"name" : "上海中医药",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2016,
+		"name" : "上海师大",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2017,
+		"name" : "建桥学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2018,
+		"name" : "上海政法",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2019,
+		"name" : "上海电机",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2020,
+		"name" : "上海二工大",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2021,
+		"name" : "上海应用技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2022,
+		"name" : "上海电力",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2023,
+		"name" : "上海外贸",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2024,
+		"name" : "上海金融",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2025,
+		"name" : "上海立信会计学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2026,
+		"name" : "上海体院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2027,
+		"name" : "上海音乐学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2028,
+		"name" : "上戏",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2029,
+		"name" : "杉达学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2030,
+		"name" : "华东政法大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2031,
+		"name" : "上外贤达经济人文学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2032,
+		"name" : "同济大学同科学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2033,
+		"name" : "上海师范大学天华学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2034,
+		"name" : "上海东方文化职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2035,
+		"name" : "上海工商学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2036,
+		"name" : "复旦大学上海视觉艺术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2037,
+		"name" : "复旦大学上海医学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2038,
+		"name" : "复旦大学太平洋金融学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2039,
+		"name" : "上海邦德职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2040,
+		"name" : "上海诚信学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2041,
+		"name" : "上海城市管理职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2042,
+		"name" : "上海出版印刷高等专科学校",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2043,
+		"name" : "上海电影艺术职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2044,
+		"name" : "上海电子信息职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2045,
+		"name" : "上海东海职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2046,
+		"name" : "上海工会管理职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2047,
+		"name" : "上海工商外国语学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2048,
+		"name" : "上海工艺美术职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2049,
+		"name" : "上海公安高等专科学校",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2050,
+		"name" : "上海海关学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2051,
+		"name" : "上海海事职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2052,
+		"name" : "上海济光职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2053,
+		"name" : "上海建峰职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2054,
+		"name" : "上海交通职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2055,
+		"name" : "上海科学技术职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2056,
+		"name" : "上海立达职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2057,
+		"name" : "上海旅游高等专科学校",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2058,
+		"name" : "上海民远职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2059,
+		"name" : "上海农林职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2060,
+		"name" : "上海欧华职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2061,
+		"name" : "上海思博职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2062,
+		"name" : "上海托普信息技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2063,
+		"name" : "上海新侨职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2064,
+		"name" : "上海行健职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2065,
+		"name" : "上海医疗器械高等专科学校",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2066,
+		"name" : "上海医药高等专科学校",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2067,
+		"name" : "上海震旦职业学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2068,
+		"name" : "上海中华职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2069,
+		"name" : "上海中侨职业技术学院",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 2070,
+		"name" : "上海纺织工业职工大学",
+		"provinceID" : 310000
+	},
+	{
+		"coid" : 3001,
+		"name" : "南开大学",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3002,
+		"name" : "天津大学",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3003,
+		"name" : "河北工大",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3004,
+		"name" : "天津师大",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3005,
+		"name" : "天津工大",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3006,
+		"name" : "天津科大",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3007,
+		"name" : "天津理工",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3008,
+		"name" : "天津医大",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3009,
+		"name" : "天津中医药",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3010,
+		"name" : "天津财经",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3011,
+		"name" : "中国民航大学",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3012,
+		"name" : "天津城市建设学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3013,
+		"name" : "天津农院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3014,
+		"name" : "天津工程师范",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3015,
+		"name" : "天外",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3016,
+		"name" : "天津商业大学",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3017,
+		"name" : "天津体院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3018,
+		"name" : "天津音乐学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3019,
+		"name" : "天津美院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3020,
+		"name" : "民办天狮职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3021,
+		"name" : "天津滨海职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3022,
+		"name" : "天津渤海职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3023,
+		"name" : "天津城市建设管理职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3024,
+		"name" : "天津城市职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3025,
+		"name" : "天津电子信息职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3026,
+		"name" : "天津对外经济贸易职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3027,
+		"name" : "天津工程职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3028,
+		"name" : "天津工商职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3029,
+		"name" : "天津工业职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3030,
+		"name" : "天津工艺美术职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3031,
+		"name" : "天津公安警官职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3032,
+		"name" : "天津海运职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3033,
+		"name" : "天津机电职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3034,
+		"name" : "天津交通职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3035,
+		"name" : "天津开发区职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3036,
+		"name" : "天津青年职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3037,
+		"name" : "天津轻工职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3038,
+		"name" : "天津生物工程职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3039,
+		"name" : "天津石油职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3040,
+		"name" : "天津铁道职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3041,
+		"name" : "天津现代职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3042,
+		"name" : "天津冶金职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3043,
+		"name" : "天津医学高等专科学校",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3044,
+		"name" : "天津艺术职业学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3045,
+		"name" : "天津职业大学",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3046,
+		"name" : "天津中德职业技术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3047,
+		"name" : "天津市工会管理干部学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3048,
+		"name" : "天津外国语学院滨海外事学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3049,
+		"name" : "天津体育学院运动与文化艺术学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3050,
+		"name" : "天津商学院宝德学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3051,
+		"name" : "天津医科大学临床医学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3052,
+		"name" : "北京科技大学天津学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3053,
+		"name" : "天津师范大学津沽学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3054,
+		"name" : "天津理工大学中环信息学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3055,
+		"name" : "天津大学仁爱学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3056,
+		"name" : "天津财经大学珠江学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 3057,
+		"name" : "南开大学滨海学院",
+		"provinceID" : 120000
+	},
+	{
+		"coid" : 4001,
+		"name" : "重庆大学",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4002,
+		"name" : "西南大学",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4003,
+		"name" : "重庆师大",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4004,
+		"name" : "西南政法",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4005,
+		"name" : "重庆交大",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4006,
+		"name" : "重庆邮电大学",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4007,
+		"name" : "重庆医大",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4008,
+		"name" : "重庆工商",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4009,
+		"name" : "重庆科技学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4010,
+		"name" : "重庆工学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4011,
+		"name" : "长江师范学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4012,
+		"name" : "四川外国语",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4013,
+		"name" : "四川美院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4014,
+		"name" : "重庆三峡学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4015,
+		"name" : "重庆文理",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4016,
+		"name" : "重庆巴渝职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4017,
+		"name" : "重庆城市职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4018,
+		"name" : "重庆电力高等专科学校",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4019,
+		"name" : "重庆电子科技职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4020,
+		"name" : "重庆电子职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4021,
+		"name" : "重庆工程职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4022,
+		"name" : "重庆工商职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4023,
+		"name" : "重庆工业职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4024,
+		"name" : "重庆光彩职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4025,
+		"name" : "重庆海联职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4026,
+		"name" : "重庆机电职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4027,
+		"name" : "重庆警官职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4028,
+		"name" : "重庆民生职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4029,
+		"name" : "重庆三峡医药高等专科学校",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4030,
+		"name" : "重庆三峡职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4031,
+		"name" : "重庆水利电力职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4032,
+		"name" : "重庆信息技术职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4033,
+		"name" : "重庆医药高等专科学校",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4034,
+		"name" : "重庆正大软件职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4035,
+		"name" : "重庆职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4036,
+		"name" : "重庆教育学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4037,
+		"name" : "重庆应用外国语专修学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4038,
+		"name" : "重庆大学城市科技学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4039,
+		"name" : "西南大学育才学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4040,
+		"name" : "四川外语学院重庆南方翻译学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4041,
+		"name" : "重庆师范大学涉外商贸学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4042,
+		"name" : "重庆工商大学融智学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4043,
+		"name" : "重庆工商大学派斯学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4044,
+		"name" : "重庆邮电大学移通学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4045,
+		"name" : "重庆工贸职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4046,
+		"name" : "重庆青年职业技术学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 4047,
+		"name" : "重庆城市管理职业学院",
+		"provinceID" : 500000
+	},
+	{
+		"coid" : 5001,
+		"name" : "哈工大",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5002,
+		"name" : "哈工程",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5003,
+		"name" : "东北林大",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5004,
+		"name" : "东北农大",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5005,
+		"name" : "哈尔滨医科大",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5006,
+		"name" : "黑龙江中医药",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5007,
+		"name" : "黑工程",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5008,
+		"name" : "黑龙江科技大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5009,
+		"name" : "哈尔滨学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5010,
+		"name" : "哈尔滨体院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5011,
+		"name" : "东方学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5012,
+		"name" : "黑龙江大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5013,
+		"name" : "哈尔滨商业大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5014,
+		"name" : "哈师大",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5015,
+		"name" : "哈理工",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5016,
+		"name" : "佳木斯大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5017,
+		"name" : "齐齐哈尔大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5018,
+		"name" : "齐齐哈尔医学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5019,
+		"name" : "黑龙江八一农垦大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5020,
+		"name" : "大庆石油",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5021,
+		"name" : "大庆师范学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5022,
+		"name" : "牡丹江医学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5023,
+		"name" : "牡丹江师范",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5024,
+		"name" : "绥化学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5025,
+		"name" : "黑河学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5026,
+		"name" : "大庆医学高等专科学校",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5027,
+		"name" : "大庆职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5028,
+		"name" : "大兴安岭职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5029,
+		"name" : "哈尔滨电力职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5030,
+		"name" : "哈尔滨华夏计算机职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5031,
+		"name" : "哈尔滨金融高等专科学校",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5032,
+		"name" : "哈尔滨铁道职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5033,
+		"name" : "哈尔滨现代公共关系职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5034,
+		"name" : "哈尔滨职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5035,
+		"name" : "鹤岗师范高等专科学校",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5036,
+		"name" : "黑龙江北开职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5037,
+		"name" : "黑龙江工商职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5038,
+		"name" : "黑龙江公安警官职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5039,
+		"name" : "黑龙江建筑职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5040,
+		"name" : "黑龙江林业职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5041,
+		"name" : "黑龙江旅游职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5042,
+		"name" : "黑龙江煤炭职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5043,
+		"name" : "黑龙江民族职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5044,
+		"name" : "黑龙江农垦林业职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5045,
+		"name" : "黑龙江农垦农业职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5046,
+		"name" : "黑龙江农垦职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5047,
+		"name" : "黑龙江农业工程职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5048,
+		"name" : "黑龙江农业经济职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5049,
+		"name" : "黑龙江农业职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5050,
+		"name" : "黑龙江三江美术职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5051,
+		"name" : "黑龙江商业职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5052,
+		"name" : "黑龙江生态工程职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5053,
+		"name" : "黑龙江生物科技职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5054,
+		"name" : "黑龙江司法警官职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5055,
+		"name" : "黑龙江信息技术职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5056,
+		"name" : "黑龙江畜牧兽医职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5057,
+		"name" : "黑龙江艺术职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5058,
+		"name" : "鸡西大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5059,
+		"name" : "牡丹江大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5060,
+		"name" : "七台河职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5061,
+		"name" : "齐齐哈尔高等师范专科学校",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5062,
+		"name" : "齐齐哈尔职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5063,
+		"name" : "伊春职业学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5064,
+		"name" : "哈尔滨师范大学阿城学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5065,
+		"name" : "黑龙江工程学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5066,
+		"name" : "黑龙江省政法管理干部学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5067,
+		"name" : "黑龙江交通职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5068,
+		"name" : "哈尔滨应用职业技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5069,
+		"name" : "黑龙江省教育学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5070,
+		"name" : "哈尔滨理工大学远东学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5071,
+		"name" : "哈尔滨师范大学呼兰学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5072,
+		"name" : "哈尔滨师范大学恒星学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5073,
+		"name" : "哈尔滨商业大学德强商务学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5074,
+		"name" : "大庆石油学院华瑞学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5075,
+		"name" : "东北农业大学成栋学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5076,
+		"name" : "黑龙江大学剑桥学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5077,
+		"name" : "哈尔滨商业大学广厦学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5078,
+		"name" : "哈尔滨工业大学华德应用技术学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5079,
+		"name" : "鹤岗矿务局职工大学",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5080,
+		"name" : "哈尔滨市职工医学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5081,
+		"name" : "佳木斯教育学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5082,
+		"name" : "黑龙江幼儿师范高等专科学校",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 5083,
+		"name" : "哈尔滨外国语学院",
+		"provinceID" : 230000
+	},
+	{
+		"coid" : 6001,
+		"name" : "吉林大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6002,
+		"name" : "东北师范大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6003,
+		"name" : "长春大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6004,
+		"name" : "吉林农大",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6005,
+		"name" : "长春中医药",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6006,
+		"name" : "东北电力大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6007,
+		"name" : "吉林化工",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6008,
+		"name" : "吉林建筑",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6009,
+		"name" : "长春工程学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6010,
+		"name" : "长春师范学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6011,
+		"name" : "吉林工程师范",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6012,
+		"name" : "吉林华桥外语",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6013,
+		"name" : "长春税务",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6014,
+		"name" : "吉林体院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6015,
+		"name" : "吉林艺术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6016,
+		"name" : "长春工大",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6017,
+		"name" : "长春理工",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6018,
+		"name" : "延边大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6019,
+		"name" : "北华大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6020,
+		"name" : "吉林农业科技学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6021,
+		"name" : "吉林医药学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6022,
+		"name" : "吉林师范",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6023,
+		"name" : "白城师范学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6024,
+		"name" : "通化师范",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6025,
+		"name" : "白城医学高等专科学校",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6026,
+		"name" : "长春东方职业学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6027,
+		"name" : "长春金融高等专科学校",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6028,
+		"name" : "长春汽车工业高等专科学校",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6029,
+		"name" : "长春信息技术职业学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6030,
+		"name" : "长春医学高等专科学校",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6031,
+		"name" : "长春职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6032,
+		"name" : "东北师范大学人文学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6033,
+		"name" : "吉林工商学院—财经校区",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6034,
+		"name" : "吉林大学—莱姆顿学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6035,
+		"name" : "吉林电子信息职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6036,
+		"name" : "吉林对外经贸职业学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6037,
+		"name" : "吉林工业职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6038,
+		"name" : "吉林公安高等专科学校",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6039,
+		"name" : "吉林交通职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6040,
+		"name" : "吉林工商学院—工程校区",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6041,
+		"name" : "吉林农业工程职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6042,
+		"name" : "吉林工商学院—商贸校区",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6043,
+		"name" : "吉林司法警官职业学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6044,
+		"name" : "辽源职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6045,
+		"name" : "四平职业大学",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6046,
+		"name" : "松原职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6047,
+		"name" : "吉林省教育学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6048,
+		"name" : "吉林经济管理干部学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6049,
+		"name" : "长春大学光华学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6050,
+		"name" : "长春大学旅游学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6051,
+		"name" : "长春工业大学人文信息学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6052,
+		"name" : "吉林艺术学院动画学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6053,
+		"name" : "长春理工大学光电信息学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6054,
+		"name" : "长春税务学院信息经济学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6055,
+		"name" : "吉林农业大学发展学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6056,
+		"name" : "吉林师范大学博达学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6057,
+		"name" : "吉林铁道职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6058,
+		"name" : "白城职业技术学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6059,
+		"name" : "吉林建筑工程学院建筑装饰学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 6060,
+		"name" : "吉林建筑工程学院城建学院",
+		"provinceID" : 220000
+	},
+	{
+		"coid" : 7001,
+		"name" : "大连理工",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7002,
+		"name" : "东北大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7003,
+		"name" : "辽宁大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7004,
+		"name" : "大连海事",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7005,
+		"name" : "东北财经",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7006,
+		"name" : "大连大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7007,
+		"name" : "大连交大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7008,
+		"name" : "大连医大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7009,
+		"name" : "辽宁师大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7010,
+		"name" : "大连民族",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7011,
+		"name" : "大连工大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7012,
+		"name" : "大连水产",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7013,
+		"name" : "大连外国语学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7014,
+		"name" : "辽宁外经贸",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7015,
+		"name" : "沈阳大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7016,
+		"name" : "沈阳理工",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7017,
+		"name" : "沈阳工大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7018,
+		"name" : "沈阳建筑",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7019,
+		"name" : "沈阳农大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7020,
+		"name" : "辽宁中医药",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7021,
+		"name" : "沈阳药科",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7022,
+		"name" : "沈阳师范",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7023,
+		"name" : "中国刑警学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7024,
+		"name" : "沈阳化工",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7025,
+		"name" : "沈阳航空工业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7026,
+		"name" : "沈阳工程",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7027,
+		"name" : "沈阳医学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7028,
+		"name" : "沈阳体院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7029,
+		"name" : "鲁迅美院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7030,
+		"name" : "沈阳音乐学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7031,
+		"name" : "中国医科大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7032,
+		"name" : "辽宁工大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7033,
+		"name" : "辽宁石化",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7034,
+		"name" : "鞍山科大",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7035,
+		"name" : "鞍山师范学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7036,
+		"name" : "渤海大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7037,
+		"name" : "辽宁工业大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7038,
+		"name" : "辽宁医学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7039,
+		"name" : "辽宁科技学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7040,
+		"name" : "辽东学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7041,
+		"name" : "鞍山市高等职业专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7042,
+		"name" : "渤海船舶职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7043,
+		"name" : "渤海大学文理学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7044,
+		"name" : "朝阳师范高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7045,
+		"name" : "大连东软信息学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7046,
+		"name" : "大连翻译职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7047,
+		"name" : "大连枫叶职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7048,
+		"name" : "大连软件职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7049,
+		"name" : "大连商务职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7050,
+		"name" : "大连艺术职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7051,
+		"name" : "大连职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7052,
+		"name" : "抚顺师范高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7053,
+		"name" : "抚顺职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7054,
+		"name" : "阜新高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7055,
+		"name" : "锦州商务职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7056,
+		"name" : "锦州师范高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7057,
+		"name" : "辽宁广播电视大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7058,
+		"name" : "辽宁广告职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7059,
+		"name" : "辽宁机电职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7060,
+		"name" : "辽宁交通高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7061,
+		"name" : "沈阳大学师范学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7062,
+		"name" : "辽宁金融职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7063,
+		"name" : "辽宁经济职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7064,
+		"name" : "辽宁警官高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7065,
+		"name" : "辽宁科技大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7066,
+		"name" : "辽宁林业职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7067,
+		"name" : "辽宁美术职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7068,
+		"name" : "辽宁农业职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7069,
+		"name" : "辽宁商贸职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7070,
+		"name" : "辽宁石化职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7071,
+		"name" : "大连广播电视大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7072,
+		"name" : "辽宁体育运动职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7073,
+		"name" : "辽宁信息职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7074,
+		"name" : "辽阳职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7075,
+		"name" : "盘锦职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7076,
+		"name" : "沈阳航空职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7077,
+		"name" : "沈阳职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7078,
+		"name" : "辽宁职业学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7079,
+		"name" : "铁岭师范高等专科学校",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7080,
+		"name" : "营口职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7081,
+		"name" : "沈阳广播电视大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7082,
+		"name" : "青岛峻通科技专修学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7083,
+		"name" : "辽河石油职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7084,
+		"name" : "青岛广播电视大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7085,
+		"name" : "沈阳航空工业学院北方科技学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7086,
+		"name" : "沈阳理工大学应用技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7087,
+		"name" : "大连工业大学艺术与信息工程学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7088,
+		"name" : "大连交通大学信息工程学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7089,
+		"name" : "沈阳建筑大学城市建设学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7090,
+		"name" : "辽宁科技大学信息技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7091,
+		"name" : "辽宁石油化工大学顺华能源学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7092,
+		"name" : "沈阳化工学院科亚学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7093,
+		"name" : "沈阳农业大学科学技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7094,
+		"name" : "中国医科大学临床医药学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7095,
+		"name" : "大连医科大学中山学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7096,
+		"name" : "辽宁医学院医疗学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7097,
+		"name" : "辽宁中医药大学杏林学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7098,
+		"name" : "沈阳医学院何氏视觉科学学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7099,
+		"name" : "辽宁师范大学海华学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7100,
+		"name" : "东北财经大学津桥商学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7101,
+		"name" : "沈阳师范大学渤海学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7102,
+		"name" : "大连理工大学城市学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7103,
+		"name" : "沈阳大学科技工程学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7104,
+		"name" : "辽宁装备制造职业技术学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7105,
+		"name" : "辽宁文化艺术职工大学",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7106,
+		"name" : "辽宁公安司法管理干部学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 7107,
+		"name" : "沈阳工业大学工程学院",
+		"provinceID" : 210000
+	},
+	{
+		"coid" : 8001,
+		"name" : "山东大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8002,
+		"name" : "中国海洋大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8003,
+		"name" : "济南大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8004,
+		"name" : "山东建筑大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8005,
+		"name" : "山东师大",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8006,
+		"name" : "山东经济学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8007,
+		"name" : "山东中医药",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8008,
+		"name" : "山东轻工",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8009,
+		"name" : "山东交通学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8010,
+		"name" : "山东警院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8011,
+		"name" : "山东体院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8012,
+		"name" : "山东艺术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8013,
+		"name" : "山东工美",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8014,
+		"name" : "曲阜师大",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8015,
+		"name" : "烟台大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8016,
+		"name" : "鲁东大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8017,
+		"name" : "山东工商",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8018,
+		"name" : "南山学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8019,
+		"name" : "青岛大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8020,
+		"name" : "山东科大",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8021,
+		"name" : "青岛科大",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8022,
+		"name" : "青岛理工",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8023,
+		"name" : "青岛农业大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8024,
+		"name" : "滨海学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8025,
+		"name" : "中国石油大学华东",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8026,
+		"name" : "聊城大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8027,
+		"name" : "山东理工",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8028,
+		"name" : "潍坊医学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8029,
+		"name" : "潍坊学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8030,
+		"name" : "泰山医学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8031,
+		"name" : "山东财政",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8032,
+		"name" : "泰山学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8033,
+		"name" : "山东农大",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8034,
+		"name" : "滨州医学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8035,
+		"name" : "滨州学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8036,
+		"name" : "济宁医学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8037,
+		"name" : "临沂师范",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8038,
+		"name" : "德州学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8039,
+		"name" : "枣庄学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8040,
+		"name" : "菏泽学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8041,
+		"name" : "滨州职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8042,
+		"name" : "德州教育学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8043,
+		"name" : "德州科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8044,
+		"name" : "东营职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8045,
+		"name" : "哈工大(威海)",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8046,
+		"name" : "菏泽医学专科学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8047,
+		"name" : "济南工程职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8048,
+		"name" : "济南铁道职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8049,
+		"name" : "济南职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8050,
+		"name" : "济宁学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8051,
+		"name" : "济宁职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8052,
+		"name" : "莱芜职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8053,
+		"name" : "聊城职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8054,
+		"name" : "青岛飞洋职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8055,
+		"name" : "青岛港湾职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8056,
+		"name" : "青岛恒星职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8057,
+		"name" : "青岛黄海职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8058,
+		"name" : "青岛求实学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8059,
+		"name" : "青岛求实职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8060,
+		"name" : "青岛远洋船员学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8061,
+		"name" : "青岛职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8062,
+		"name" : "曲阜远东职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8063,
+		"name" : "日照职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8064,
+		"name" : "山东大王职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8065,
+		"name" : "山东大学威海分校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8066,
+		"name" : "山东电力高等专科学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8067,
+		"name" : "山东电子职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8068,
+		"name" : "山东纺织职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8069,
+		"name" : "山东服装职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8070,
+		"name" : "山东工业职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8071,
+		"name" : "山东华宇职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8072,
+		"name" : "山东化工职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8073,
+		"name" : "山东交通职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8074,
+		"name" : "山东经贸职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8075,
+		"name" : "山东军星职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8076,
+		"name" : "山东凯文科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8077,
+		"name" : "山东科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8078,
+		"name" : "山东劳动职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8079,
+		"name" : "山东力明科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8080,
+		"name" : "山东旅游职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8081,
+		"name" : "山东铝业职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8082,
+		"name" : "山东商业职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8083,
+		"name" : "山东胜利职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8084,
+		"name" : "山东省青岛酒店管理学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8085,
+		"name" : "山东水利职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8086,
+		"name" : "山东省潍坊艺术学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8087,
+		"name" : "山东圣翰财贸职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8088,
+		"name" : "山东水利职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8089,
+		"name" : "山东水利专科学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8090,
+		"name" : "山东丝绸纺织职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8091,
+		"name" : "山东外国语职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8092,
+		"name" : "山东外贸职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8093,
+		"name" : "山东外事翻译学院威海分校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8094,
+		"name" : "山东外事翻译职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8095,
+		"name" : "山东万杰医学高等专科学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8096,
+		"name" : "山东威海财经专修学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8097,
+		"name" : "山东威海外国语进修学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8098,
+		"name" : "山东现代职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8099,
+		"name" : "山东协和职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8100,
+		"name" : "山东信息职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8101,
+		"name" : "山东行政学院(山东经济管理干部学院)",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8102,
+		"name" : "山东杏林科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8103,
+		"name" : "山东畜牧兽医职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8104,
+		"name" : "山东药品食品职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8105,
+		"name" : "山东医学高等专科学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8106,
+		"name" : "山东英才职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8107,
+		"name" : "山东政法学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8108,
+		"name" : "山东中医药高等专科学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8109,
+		"name" : "泰山职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8110,
+		"name" : "万杰科技学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8111,
+		"name" : "威海市广播电视大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8112,
+		"name" : "威海市交通学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8113,
+		"name" : "威海职业(技术)学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8114,
+		"name" : "威海中加国际工商学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8115,
+		"name" : "潍坊工商职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8116,
+		"name" : "潍坊教育学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8117,
+		"name" : "潍坊科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8118,
+		"name" : "潍坊职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8119,
+		"name" : "文登师范",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8120,
+		"name" : "烟台职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8121,
+		"name" : "枣庄科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8122,
+		"name" : "中国石油大学(华东)东营校区",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8123,
+		"name" : "淄博广播电视大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8124,
+		"name" : "淄博恒星外国语学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8125,
+		"name" : "淄博科技职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8126,
+		"name" : "淄博师专",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8127,
+		"name" : "淄博职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8128,
+		"name" : "山东省教育学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8129,
+		"name" : "山东技师学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8130,
+		"name" : "日照广播电视大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8131,
+		"name" : "中华女子学院山东分院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8132,
+		"name" : "山东城市建设职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8133,
+		"name" : "烟台工程职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8134,
+		"name" : "山东商务职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8135,
+		"name" : "烟台汽车工程职业学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8136,
+		"name" : "山东省农业管理干部学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8137,
+		"name" : "山东省青年管理干部学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8138,
+		"name" : "山东省工会管理干部学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8139,
+		"name" : "山东广播电视大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8140,
+		"name" : "德州职业技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8141,
+		"name" : "中国石油大学胜利学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8142,
+		"name" : "烟台大学文经学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8143,
+		"name" : "青岛理工大学琴岛学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8144,
+		"name" : "山东科技大学泰山科技学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8145,
+		"name" : "中国海洋大学青岛学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8146,
+		"name" : "山东经济学院燕山学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8147,
+		"name" : "青岛农业大学海都学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8148,
+		"name" : "曲阜师范大学杏坛学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8149,
+		"name" : "山东财政学院东方学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8150,
+		"name" : "山东师范大学历山学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8151,
+		"name" : "聊城大学东昌学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8152,
+		"name" : "济南大学泉城学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8153,
+		"name" : "中国农业大学（烟台校区）",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8154,
+		"name" : "日照师范学校",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8155,
+		"name" : "山东艺术设计学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8156,
+		"name" : "滨州技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8157,
+		"name" : "山东省贸易职工大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8158,
+		"name" : "山东冶金技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8159,
+		"name" : "山东省济宁市技术学院",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 8160,
+		"name" : "济南广播电视大学",
+		"provinceID" : 370000
+	},
+	{
+		"coid" : 9001,
+		"name" : "山西大学",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9002,
+		"name" : "太原理工",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9003,
+		"name" : "中北大学",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9004,
+		"name" : "山西医大",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9005,
+		"name" : "山西中医学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9006,
+		"name" : "太原师范",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9007,
+		"name" : "太原科大",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9008,
+		"name" : "山西财经",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9009,
+		"name" : "山西师大",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9010,
+		"name" : "山西农大",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9011,
+		"name" : "大同大学",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9012,
+		"name" : "长治医学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9013,
+		"name" : "长治学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9014,
+		"name" : "运城学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9015,
+		"name" : "晋中学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9016,
+		"name" : "忻州师范",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9017,
+		"name" : "北岳职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9018,
+		"name" : "长治职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9019,
+		"name" : "晋城职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9020,
+		"name" : "晋中职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9021,
+		"name" : "临汾职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9022,
+		"name" : "潞安职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9023,
+		"name" : "吕梁高等专科学校",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9024,
+		"name" : "山西财贸职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9025,
+		"name" : "山西财政税务专科学校",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9026,
+		"name" : "山西电力职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9027,
+		"name" : "山西工程职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9028,
+		"name" : "山西工商职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9029,
+		"name" : "山西管理职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9030,
+		"name" : "山西国际商务职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9031,
+		"name" : "山西华澳商贸职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9032,
+		"name" : "山西机电职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9033,
+		"name" : "山西建筑职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9034,
+		"name" : "山西交通职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9035,
+		"name" : "山西金融职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9036,
+		"name" : "山西警官高等专科学校",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9037,
+		"name" : "山西警官职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9038,
+		"name" : "山西林业职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9039,
+		"name" : "山西旅游职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9040,
+		"name" : "山西煤炭职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9041,
+		"name" : "山西生物应用职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9042,
+		"name" : "山西水利职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9043,
+		"name" : "山西体育职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9044,
+		"name" : "山西同文外语职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9045,
+		"name" : "山西戏剧职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9046,
+		"name" : "山西信息职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9047,
+		"name" : "山西兴华职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9048,
+		"name" : "山西艺术职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9049,
+		"name" : "山西运城农业职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9050,
+		"name" : "山西运城学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9051,
+		"name" : "山西综合职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9052,
+		"name" : "太原城市职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9053,
+		"name" : "太原大学",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9054,
+		"name" : "太原电力高等专科学校",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9055,
+		"name" : "太原旅游职业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9056,
+		"name" : "忻州职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9057,
+		"name" : "阳泉职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9058,
+		"name" : "山西广播电影电视管理干部学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9059,
+		"name" : "山西城市职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9060,
+		"name" : "运城农业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9061,
+		"name" : "山西广播电视大学",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9062,
+		"name" : "晋中学院师范学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9063,
+		"name" : "朔州职业技术学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9064,
+		"name" : "山西农业大学平遥机电学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9065,
+		"name" : "山西农业大学信息学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9066,
+		"name" : "山西农业大学太原畜牧兽医学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9067,
+		"name" : "山西农业大学太原园艺学院（太原农业学校）",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9068,
+		"name" : "山西农业大学原平农学院（原平农业学校）",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9069,
+		"name" : "太原科技大学运城工学院（运城工学院）",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9070,
+		"name" : "山西财经大学运城学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9071,
+		"name" : "山西医科大学汾阳分院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9072,
+		"name" : "山西医科大学晋祠学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9073,
+		"name" : "太原科技大学华科学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9074,
+		"name" : "山西财经大学华商学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9075,
+		"name" : "中北大学信息商务学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9076,
+		"name" : "山西师范大学现代文理学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9077,
+		"name" : "忻州师范学院五寨分院（五寨师范学院）",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9078,
+		"name" : "山西大学商务学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9079,
+		"name" : "太原工业学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 9080,
+		"name" : "山西经济管理干部学院",
+		"provinceID" : 140000
+	},
+	{
+		"coid" : 10001,
+		"name" : "西安交大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10002,
+		"name" : "长安大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10003,
+		"name" : "西北工大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10004,
+		"name" : "西北大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10005,
+		"name" : "陕西师大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10006,
+		"name" : "西安电子科大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10007,
+		"name" : "西安理工",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10008,
+		"name" : "西安科大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10009,
+		"name" : "西安工大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10010,
+		"name" : "西外",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10011,
+		"name" : "西邮",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10012,
+		"name" : "西安医学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10013,
+		"name" : "西安财经",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10014,
+		"name" : "西北政法",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10015,
+		"name" : "西安体院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10016,
+		"name" : "西安美院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10017,
+		"name" : "西安音乐学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10018,
+		"name" : "西安文理学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10019,
+		"name" : "西京学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10020,
+		"name" : "西安翻译学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10021,
+		"name" : "培华学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10022,
+		"name" : "欧亚学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10023,
+		"name" : "西安外事",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10024,
+		"name" : "西安石油",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10025,
+		"name" : "西安建筑科大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10026,
+		"name" : "第四军医大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10027,
+		"name" : "西安电子科技大学高等职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10028,
+		"name" : "西北工业大学明德学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10029,
+		"name" : "陕西师范大学高等职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10030,
+		"name" : "长安大学兴华学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10031,
+		"name" : "延安大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10032,
+		"name" : "陕西中医学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10033,
+		"name" : "咸阳师范学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10034,
+		"name" : "陕西科大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10035,
+		"name" : "宝鸡文理学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10036,
+		"name" : "渭南师范",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10037,
+		"name" : "陕西理工",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10038,
+		"name" : "榆林学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10039,
+		"name" : "商洛学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10040,
+		"name" : "安康学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10041,
+		"name" : "西北农林科大",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10042,
+		"name" : "安康职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10043,
+		"name" : "宝鸡职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10044,
+		"name" : "汉中职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10045,
+		"name" : "陕西财经职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10046,
+		"name" : "陕西电子科技职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10047,
+		"name" : "陕西电子信息职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10048,
+		"name" : "陕西纺织服装职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10049,
+		"name" : "陕西服装艺术职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10050,
+		"name" : "陕西工业职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10051,
+		"name" : "陕西国防工业职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10052,
+		"name" : "陕西国际商贸职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10053,
+		"name" : "陕西航空职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10054,
+		"name" : "陕西交通职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10055,
+		"name" : "陕西经济管理职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10056,
+		"name" : "陕西警官职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10057,
+		"name" : "陕西旅游烹饪职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10058,
+		"name" : "陕西能源职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10059,
+		"name" : "陕西青年职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10060,
+		"name" : "陕西铁路工程职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10061,
+		"name" : "陕西邮电职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10062,
+		"name" : "陕西职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10063,
+		"name" : "商洛职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10064,
+		"name" : "铜川职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10065,
+		"name" : "渭南职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10066,
+		"name" : "西安电力高等专科学校",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10067,
+		"name" : "西安东方亚太职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10068,
+		"name" : "西安高新科技职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10069,
+		"name" : "西安工程大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10070,
+		"name" : "西安海棠职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10071,
+		"name" : "西安航空技术高等专科学校",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10072,
+		"name" : "西安航空职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10073,
+		"name" : "西安科技商贸职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10074,
+		"name" : "西安汽车科技职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10075,
+		"name" : "西安三资职业学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10076,
+		"name" : "西安思源学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10077,
+		"name" : "西安铁路职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10078,
+		"name" : "西安职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10079,
+		"name" : "咸阳职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10080,
+		"name" : "延安职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10081,
+		"name" : "杨凌职业技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10082,
+		"name" : "陕西银行学校",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10083,
+		"name" : "西安机电信息技术学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10084,
+		"name" : "陕西教育学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10085,
+		"name" : "陕西省旅游学校",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10086,
+		"name" : "西安铁路工程职工大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10087,
+		"name" : "西安华西专修大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10088,
+		"name" : "西安航空职工大学",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10089,
+		"name" : "西安建筑科技大学华清学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10090,
+		"name" : "西安财经学院行知学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10091,
+		"name" : "陕西科技大学镐京学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10092,
+		"name" : "西安工业大学北方信息工程学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10093,
+		"name" : "延安大学西安创新学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10094,
+		"name" : "西安电子科技大学长安学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10095,
+		"name" : "西安理工大学高科学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10096,
+		"name" : "西安科技大学高新学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10097,
+		"name" : "西安交通大学城市学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 10098,
+		"name" : "西北大学现代学院",
+		"provinceID" : 610000
+	},
+	{
+		"coid" : 11001,
+		"name" : "河北大学",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11002,
+		"name" : "河北农大",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11003,
+		"name" : "中央司法警官学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11004,
+		"name" : "石家庄铁院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11005,
+		"name" : "石家庄经院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11006,
+		"name" : "河北师大",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11007,
+		"name" : "河北科技",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11008,
+		"name" : "河北医科",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11009,
+		"name" : "河北经贸",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11010,
+		"name" : "河北体院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11011,
+		"name" : "石家庄学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11012,
+		"name" : "燕山大学",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11013,
+		"name" : "河北科师",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11014,
+		"name" : "河北理工",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11015,
+		"name" : "华北煤炭医学",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11016,
+		"name" : "唐山学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11017,
+		"name" : "唐山师范",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11018,
+		"name" : "华北航工",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11019,
+		"name" : "廊坊师范",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11020,
+		"name" : "防灾科技学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11021,
+		"name" : "华北科技",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11022,
+		"name" : "河北建工",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11023,
+		"name" : "北方学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11024,
+		"name" : "承德医学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11025,
+		"name" : "邢台学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11026,
+		"name" : "河北工程",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11027,
+		"name" : "邯郸学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11028,
+		"name" : "衡水学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11029,
+		"name" : "保定电力职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11030,
+		"name" : "保定科技职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11031,
+		"name" : "河北金融学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11032,
+		"name" : "保定学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11033,
+		"name" : "保定职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11034,
+		"name" : "渤海石油职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11035,
+		"name" : "沧州师范专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11036,
+		"name" : "沧州医学高等专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11037,
+		"name" : "沧州职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11038,
+		"name" : "河北旅游职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11039,
+		"name" : "承德民族师范高等专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11040,
+		"name" : "承德石油高等专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11041,
+		"name" : "大庆石油学院秦皇岛分院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11042,
+		"name" : "东北大学秦皇岛校区",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11043,
+		"name" : "邯郸职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11044,
+		"name" : "河北大学医学部",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11045,
+		"name" : "河北工程技术高等专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11046,
+		"name" : "河北工业职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11047,
+		"name" : "河北公安警察职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11048,
+		"name" : "河北化工医药职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11049,
+		"name" : "河北机电职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11050,
+		"name" : "河北建材职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11051,
+		"name" : "河北交通职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11052,
+		"name" : "河北京都高尔夫职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11053,
+		"name" : "河北农业大学",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11054,
+		"name" : "河北农业大学海洋学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11055,
+		"name" : "河北女子职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11056,
+		"name" : "河北软件职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11057,
+		"name" : "河北省艺术职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11058,
+		"name" : "河北石油职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11059,
+		"name" : "河北司法警官职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11060,
+		"name" : "河北通信职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11061,
+		"name" : "河北远东职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11062,
+		"name" : "河北政法管理干部学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11063,
+		"name" : "河北职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11064,
+		"name" : "衡水职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11065,
+		"name" : "华北电力大学(保定)",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11066,
+		"name" : "监督管理局",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11067,
+		"name" : "廊坊大学城北大方正软件学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11068,
+		"name" : "廊坊东方大学城北京澳际联邦英语学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11069,
+		"name" : "廊坊东方大学城北京财经学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11070,
+		"name" : "廊坊东方大学城北京城市学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11071,
+		"name" : "廊坊东方大学城北京传媒学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11072,
+		"name" : "廊坊东方大学城北京经济技术职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11073,
+		"name" : "廊坊东方大学城北京经贸职业学院航空服务学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11074,
+		"name" : "廊坊东方大学城北京联合大学",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11075,
+		"name" : "廊坊东方大学城北京中医药大学中专部",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11076,
+		"name" : "廊坊东方大学城河北体育学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11077,
+		"name" : "廊坊东方大学城廊坊职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11078,
+		"name" : "秦皇岛教育学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11079,
+		"name" : "秦皇岛外国语职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11080,
+		"name" : "秦皇岛职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11081,
+		"name" : "石家庄东方美术职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11082,
+		"name" : "石家庄法商职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11083,
+		"name" : "石家庄工商职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11084,
+		"name" : "石家庄计算机职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11085,
+		"name" : "石家庄科技信息职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11086,
+		"name" : "石家庄联合技术职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11087,
+		"name" : "石家庄铁路职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11088,
+		"name" : "石家庄外国语职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11089,
+		"name" : "石家庄外经贸职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11090,
+		"name" : "石家庄外语翻译职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11091,
+		"name" : "石家庄信息工程职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11092,
+		"name" : "石家庄医学高等专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11093,
+		"name" : "河北传媒学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11094,
+		"name" : "石家庄邮电职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11095,
+		"name" : "石家庄职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11096,
+		"name" : "唐山工业职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11097,
+		"name" : "唐山广播电视大学",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11098,
+		"name" : "唐山科技职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11099,
+		"name" : "唐山职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11100,
+		"name" : "邢台医学高等专科学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11101,
+		"name" : "邢台职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11102,
+		"name" : "张家口职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11103,
+		"name" : "中国地质大学长城学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11104,
+		"name" : "中国环境管理干部学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11105,
+		"name" : "中国民航管理干部学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11106,
+		"name" : "张家口教育学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11107,
+		"name" : "河北能源职业技术学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11108,
+		"name" : "承德卫生学校",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11109,
+		"name" : "邯郸中原外国语职业学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11110,
+		"name" : "河北师范大学汇华学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11111,
+		"name" : "华北煤炭医学院冀唐学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11112,
+		"name" : "河北医科大学临床学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11113,
+		"name" : "河北农业大学现代科技学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11114,
+		"name" : "石家庄铁道学院四方学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11115,
+		"name" : "燕山大学里仁学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11116,
+		"name" : "河北工程大学科信学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11117,
+		"name" : "河北理工大学轻工学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11118,
+		"name" : "河北大学工商学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 11119,
+		"name" : "河北经贸大学经济管理学院",
+		"provinceID" : 130000
+	},
+	{
+		"coid" : 12001,
+		"name" : "郑州大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12002,
+		"name" : "河南工业",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12003,
+		"name" : "河南农大",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12004,
+		"name" : "华北水利水电",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12005,
+		"name" : "郑州轻工",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12006,
+		"name" : "郑州航空工业",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12007,
+		"name" : "黄河科技",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12008,
+		"name" : "中原工学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12009,
+		"name" : "河南中医学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12010,
+		"name" : "河南财经",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12011,
+		"name" : "河南大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12012,
+		"name" : "河南科技大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12013,
+		"name" : "洛阳师院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12014,
+		"name" : "安阳工学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12015,
+		"name" : "安阳师院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12016,
+		"name" : "南阳理工",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12017,
+		"name" : "南阳师院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12018,
+		"name" : "平顶山工学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12019,
+		"name" : "平顶山学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12020,
+		"name" : "新乡医学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12021,
+		"name" : "河南科技学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12022,
+		"name" : "河南师大",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12023,
+		"name" : "信阳师院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12024,
+		"name" : "商丘师院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12025,
+		"name" : "周口师院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12026,
+		"name" : "黄淮学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12027,
+		"name" : "许昌学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12028,
+		"name" : "河南理工",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12029,
+		"name" : "河南财政税务高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12030,
+		"name" : "河南工程学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12031,
+		"name" : "河南工业贸易职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12032,
+		"name" : "河南工业职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12033,
+		"name" : "河南公安高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12034,
+		"name" : "河南广播影视学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12035,
+		"name" : "河南机电高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12036,
+		"name" : "河南检察职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12037,
+		"name" : "河南交通职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12038,
+		"name" : "河南教育学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12039,
+		"name" : "河南经贸职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12040,
+		"name" : "河南农业职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12041,
+		"name" : "河南商业高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12042,
+		"name" : "河南省工商行政管理广播电视大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12043,
+		"name" : "河南省政法管理干部学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12044,
+		"name" : "河南司法警官职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12045,
+		"name" : "河南新华电脑学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12046,
+		"name" : "河南职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12047,
+		"name" : "河南质量工程职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12048,
+		"name" : "鹤壁职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12049,
+		"name" : "黄河水利职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12050,
+		"name" : "济源职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12051,
+		"name" : "焦作大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12052,
+		"name" : "焦作师范高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12053,
+		"name" : "开封大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12054,
+		"name" : "开封市电子科技专修学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12055,
+		"name" : "洛阳大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12056,
+		"name" : "洛阳理工学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12057,
+		"name" : "漯河医学高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12058,
+		"name" : "漯河职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12059,
+		"name" : "南阳医学高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12060,
+		"name" : "平顶山教育学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12061,
+		"name" : "平顶山职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12062,
+		"name" : "平原大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12063,
+		"name" : "濮阳职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12064,
+		"name" : "三门峡职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12065,
+		"name" : "商丘科技职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12066,
+		"name" : "商丘医学高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12067,
+		"name" : "商丘职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12068,
+		"name" : "嵩山少林武术职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12069,
+		"name" : "铁道警官高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12070,
+		"name" : "新乡师范高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12071,
+		"name" : "新乡市教育学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12072,
+		"name" : "信阳农业高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12073,
+		"name" : "信阳职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12074,
+		"name" : "许昌职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12075,
+		"name" : "永城职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12076,
+		"name" : "郑州大学西亚斯国际学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12077,
+		"name" : "郑州电力高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12078,
+		"name" : "郑州电子信息职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12079,
+		"name" : "郑州工业安全职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12080,
+		"name" : "郑州华信职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12081,
+		"name" : "郑州交通学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12082,
+		"name" : "郑州经贸职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12083,
+		"name" : "郑州科技职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12084,
+		"name" : "郑州旅游职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12085,
+		"name" : "郑州牧业工程高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12086,
+		"name" : "郑州师范高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12087,
+		"name" : "郑州澍青医学高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12088,
+		"name" : "郑州铁路职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12089,
+		"name" : "郑州信息科技职业学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12090,
+		"name" : "郑州职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12091,
+		"name" : "中州大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12092,
+		"name" : "周口职业技术学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12093,
+		"name" : "郑州大学升达经贸管理学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12094,
+		"name" : "河南建筑职工大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12095,
+		"name" : "洛阳工业高等专科学校",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12096,
+		"name" : "河南职工医学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12097,
+		"name" : "河南科技学院新科学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12098,
+		"name" : "河南理工大学万方科技学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12099,
+		"name" : "中原工学院信息商务学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12100,
+		"name" : "安阳师范学院人文管理学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12101,
+		"name" : "河南农业大学华豫学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12102,
+		"name" : "河南财经学院成功学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12103,
+		"name" : "开封教育学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12104,
+		"name" : "河南政法管理干部学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12105,
+		"name" : "河南卫生职工学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12106,
+		"name" : "河南省建筑职工大学",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12107,
+		"name" : "河南大学民生学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12108,
+		"name" : "河南师范大学新联学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12109,
+		"name" : "新乡医学院三全学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 12110,
+		"name" : "信阳师范学院华锐学院",
+		"provinceID" : 410000
+	},
+	{
+		"coid" : 13001,
+		"name" : "武汉大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13002,
+		"name" : "华中科大",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13003,
+		"name" : "华中农大",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13004,
+		"name" : "武汉理工",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13005,
+		"name" : "中国地质大学（武汉）",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13006,
+		"name" : "中南财经政法",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13007,
+		"name" : "中南民族大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13008,
+		"name" : "华中师大",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13009,
+		"name" : "武汉工业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13010,
+		"name" : "武汉科技学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13011,
+		"name" : "湖北中医学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13012,
+		"name" : "湖北经济学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13013,
+		"name" : "湖北警官学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13014,
+		"name" : "武汉体院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13015,
+		"name" : "湖北美院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13016,
+		"name" : "武汉音乐学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13017,
+		"name" : "武汉生物工程学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13018,
+		"name" : "湖北工大",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13019,
+		"name" : "湖北大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13020,
+		"name" : "江汉大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13021,
+		"name" : "武汉工大",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13022,
+		"name" : "武汉科大",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13023,
+		"name" : "长江大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13024,
+		"name" : "三峡大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13025,
+		"name" : "湖北汽院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13026,
+		"name" : "郧阳医学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13027,
+		"name" : "孝感学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13028,
+		"name" : "湖北师范学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13029,
+		"name" : "黄石理工",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13030,
+		"name" : "黄冈师院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13031,
+		"name" : "湖北民族学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13032,
+		"name" : "襄樊学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13033,
+		"name" : "咸宁学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13034,
+		"name" : "长江工程职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13035,
+		"name" : "长江职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13036,
+		"name" : "鄂东职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13037,
+		"name" : "鄂州大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13038,
+		"name" : "恩施职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13039,
+		"name" : "湖北财经高等专科学校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13040,
+		"name" : "湖北财税职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13041,
+		"name" : "湖北城市建设职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13042,
+		"name" : "湖北工业大学商贸学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13043,
+		"name" : "湖北国土资源职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13044,
+		"name" : "湖北黄石机电职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13045,
+		"name" : "湖北交通职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13046,
+		"name" : "湖北第二师范学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13047,
+		"name" : "湖北经济管理干部学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13048,
+		"name" : "湖北开放职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13049,
+		"name" : "湖北民族学院科技学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13050,
+		"name" : "湖北轻工职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13051,
+		"name" : "湖北三峡职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13052,
+		"name" : "湖北生态工程职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13053,
+		"name" : "湖北生物科技职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13054,
+		"name" : "湖北省水利水电职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13055,
+		"name" : "湖北师范学院文理学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13056,
+		"name" : "湖北艺术职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13057,
+		"name" : "湖北职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13058,
+		"name" : "湖北中医药高等专科学校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13059,
+		"name" : "黄冈科技职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13060,
+		"name" : "黄冈职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13061,
+		"name" : "江汉艺术职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13062,
+		"name" : "荆楚理工学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13063,
+		"name" : "荆州职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13064,
+		"name" : "沙市职业大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13065,
+		"name" : "沙洋师范高等专科学校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13066,
+		"name" : "十堰职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13067,
+		"name" : "随州职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13068,
+		"name" : "武汉船舶职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13069,
+		"name" : "武汉电力职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13070,
+		"name" : "武汉工程职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13071,
+		"name" : "武汉工业职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13072,
+		"name" : "武汉航海职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13073,
+		"name" : "武汉交通职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13074,
+		"name" : "武汉警官职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13075,
+		"name" : "武汉科技职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13076,
+		"name" : "武汉理工大学华夏学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13077,
+		"name" : "武汉民政职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13078,
+		"name" : "武汉软件工程职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13079,
+		"name" : "武汉商贸学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13080,
+		"name" : "武汉商业服务学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13081,
+		"name" : "武汉时代职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13082,
+		"name" : "武汉铁路职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13083,
+		"name" : "武汉外语外事职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13084,
+		"name" : "武汉信息传播职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13085,
+		"name" : "武汉职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13086,
+		"name" : "仙桃职业学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13087,
+		"name" : "咸宁职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13088,
+		"name" : "襄樊职业技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13089,
+		"name" : "孝感学院新技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13090,
+		"name" : "郧阳师范高等专科学校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13091,
+		"name" : "中南民族大学工商学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13092,
+		"name" : "黄冈广播电视大学",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13093,
+		"name" : "华中科技大学文华学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13094,
+		"name" : "华中师范大学汉口分校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13095,
+		"name" : "湖北大学知行学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13096,
+		"name" : "三峡大学科技学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13097,
+		"name" : "武汉科技大学中南分校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13098,
+		"name" : "湖北工业大学工程技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13099,
+		"name" : "武汉工业学院工商学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13100,
+		"name" : "武汉工程大学邮电与信息工程学院　",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13101,
+		"name" : "武汉科技学院外经贸学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13102,
+		"name" : "江汉大学文理学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13103,
+		"name" : "湖北汽车工业学院科技学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13104,
+		"name" : "湖北经济学院法商学院　",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13105,
+		"name" : "武汉体育学院体育科技学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13106,
+		"name" : "郧阳医学院药护学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13107,
+		"name" : "襄樊学院理工学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13108,
+		"name" : "中国地质大学江城学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13109,
+		"name" : "长江大学文理学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13110,
+		"name" : "长江大学工程技术学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13111,
+		"name" : "华中师范大学武汉影视工程学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13112,
+		"name" : "武汉大学东湖分校",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13113,
+		"name" : "中南财经政法武汉学院",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 13114,
+		"name" : "华中科技大学武昌分校　",
+		"provinceID" : 420000
+	},
+	{
+		"coid" : 14001,
+		"name" : "湖南师大",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14002,
+		"name" : "中南大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14003,
+		"name" : "湖南大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14004,
+		"name" : "长沙理工",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14005,
+		"name" : "湖南农大",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14006,
+		"name" : "湖南中医药",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14007,
+		"name" : "中南林业科大",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14008,
+		"name" : "长沙学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14009,
+		"name" : "长沙医学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14010,
+		"name" : "湖南涉外经济",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14011,
+		"name" : "湖南商学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14012,
+		"name" : "湖南人文科技",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14013,
+		"name" : "湘潭大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14014,
+		"name" : "湖南科大",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14015,
+		"name" : "湖南工程学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14016,
+		"name" : "南华大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14017,
+		"name" : "吉首大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14018,
+		"name" : "湖南工大",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14019,
+		"name" : "湖南城市",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14020,
+		"name" : "湖南理工学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14021,
+		"name" : "湘南学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14022,
+		"name" : "衡阳师院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14023,
+		"name" : "湖南文理",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14024,
+		"name" : "怀化学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14025,
+		"name" : "湖南科技学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14026,
+		"name" : "邵阳学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14027,
+		"name" : "保险职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14028,
+		"name" : "长沙电力职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14029,
+		"name" : "长沙航空职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14030,
+		"name" : "长沙环境保护职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14031,
+		"name" : "长沙民政职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14032,
+		"name" : "长沙南方职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14033,
+		"name" : "长沙商贸旅游职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14034,
+		"name" : "长沙师范专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14035,
+		"name" : "长沙通信职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14036,
+		"name" : "长沙职工大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14037,
+		"name" : "长沙职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14038,
+		"name" : "常德职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14039,
+		"name" : "郴州职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14040,
+		"name" : "衡阳财经工业职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14041,
+		"name" : "湖南安全技术职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14042,
+		"name" : "湖南财经高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14043,
+		"name" : "湖南城建职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14044,
+		"name" : "湖南大众传媒学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14045,
+		"name" : "湖南第一师范",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14046,
+		"name" : "湖南对外经济贸易职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14047,
+		"name" : "湖南工程职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14048,
+		"name" : "湖南工学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14049,
+		"name" : "湖南工业职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14050,
+		"name" : "湖南工艺美术职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14051,
+		"name" : "湖南公安高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14052,
+		"name" : "湖南广播电视大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14053,
+		"name" : "湖南化工职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14054,
+		"name" : "湖南环境生物职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14055,
+		"name" : "湖南机电职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14056,
+		"name" : "湖南建材高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14057,
+		"name" : "湖南交通工程职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14058,
+		"name" : "湖南交通职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14059,
+		"name" : "湖南经济干部管理学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14060,
+		"name" : "湖南九嶷职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14061,
+		"name" : "湖南科技经贸职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14062,
+		"name" : "湖南科技职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14063,
+		"name" : "湖南理工职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14064,
+		"name" : "湖南娄底远东职业学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14065,
+		"name" : "湖南民族职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14066,
+		"name" : "湖南农业大学国际学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14067,
+		"name" : "湖南女子大学",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14068,
+		"name" : "湖南软件职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14069,
+		"name" : "湖南商务职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14070,
+		"name" : "湖南生物环境职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14071,
+		"name" : "湖南生物机电职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14072,
+		"name" : "湖南省水利水电职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14073,
+		"name" : "湖南石油化工职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14074,
+		"name" : "湖南税务高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14075,
+		"name" : "湖南司法警官职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14076,
+		"name" : "湖南体育职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14077,
+		"name" : "湖南铁道职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14078,
+		"name" : "湖南铁路科技职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14079,
+		"name" : "湖南同德职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14080,
+		"name" : "湖南网络工程职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14081,
+		"name" : "湖南现代物流职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14082,
+		"name" : "湖南信息科学职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14083,
+		"name" : "湖南信息职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14084,
+		"name" : "湖南行政学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14085,
+		"name" : "湖南冶金职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14086,
+		"name" : "湖南艺术职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14087,
+		"name" : "湖南中医药高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14088,
+		"name" : "怀化医学高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14089,
+		"name" : "怀化职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14090,
+		"name" : "娄底理工学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14091,
+		"name" : "娄底市卫生学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14092,
+		"name" : "娄底职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14093,
+		"name" : "邵阳医学高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14094,
+		"name" : "邵阳职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14095,
+		"name" : "湘潭职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14096,
+		"name" : "湘西民族职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14097,
+		"name" : "潇湘职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14098,
+		"name" : "益阳职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14099,
+		"name" : "永州职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14100,
+		"name" : "岳阳职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14101,
+		"name" : "张家界航空工业职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14102,
+		"name" : "株洲师范高等专科学校",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14103,
+		"name" : "株洲职业技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14104,
+		"name" : "湘潭大学兴湘学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14105,
+		"name" : "湖南工业大学科技学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14106,
+		"name" : "湖南科技大学潇湘学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14107,
+		"name" : "南华大学船山学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14108,
+		"name" : "湖南商学院北津学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14109,
+		"name" : "湖南师范大学树达学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14110,
+		"name" : "湖南农业大学东方科技学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14111,
+		"name" : "中南林业科技大学涉外学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14112,
+		"name" : "湖南文理学院芙蓉学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14113,
+		"name" : "湖南理工学院南湖学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14114,
+		"name" : "衡阳师范学院南岳学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14115,
+		"name" : "湖南工程学院应用技术学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14116,
+		"name" : "湖南中医药大学湘杏学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14117,
+		"name" : "吉首大学张家界学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14118,
+		"name" : "长沙理工大学城南学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14119,
+		"name" : "湖南都市职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14120,
+		"name" : "湖南电子科技职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 14121,
+		"name" : "湖南外国语职业学院",
+		"provinceID" : 430000
+	},
+	{
+		"coid" : 15001,
+		"name" : "海南大学",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15002,
+		"name" : "海南医学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15003,
+		"name" : "海南师范大学",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15004,
+		"name" : "华南热带农大",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15005,
+		"name" : "琼州大学",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15006,
+		"name" : "海口经济职业技术学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15007,
+		"name" : "海南经贸职业技术学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15008,
+		"name" : "海南软件职业技术学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15009,
+		"name" : "海南外国语职业学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15010,
+		"name" : "海南万和信息职业技术学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15011,
+		"name" : "海南政法职业学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15012,
+		"name" : "海南职业技术学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15013,
+		"name" : "琼台师范高等专科学校",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15014,
+		"name" : "三亚航空旅游职业学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15015,
+		"name" : "三亚卓达旅游职业学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 15016,
+		"name" : "海南大学三亚学院",
+		"provinceID" : 460000
+	},
+	{
+		"coid" : 16001,
+		"name" : "南京大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16002,
+		"name" : "河海大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16003,
+		"name" : "南京师大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16004,
+		"name" : "南京理工",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16005,
+		"name" : "东南大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16006,
+		"name" : "南航",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16007,
+		"name" : "南京财经",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16008,
+		"name" : "南京医科大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16009,
+		"name" : "南京工大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16010,
+		"name" : "南京农大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16011,
+		"name" : "南京林大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16012,
+		"name" : "南邮",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16013,
+		"name" : "南京信息工程大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16014,
+		"name" : "南京中医药",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16015,
+		"name" : "南京工程",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16016,
+		"name" : "金陵科技学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16017,
+		"name" : "晓庄学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16018,
+		"name" : "南京审计学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16019,
+		"name" : "江苏警官学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16020,
+		"name" : "南京体院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16021,
+		"name" : "南京艺术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16022,
+		"name" : "三江学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16023,
+		"name" : "中国药科大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16024,
+		"name" : "苏州大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16025,
+		"name" : "江南大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16026,
+		"name" : "中国矿大（徐州）",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16027,
+		"name" : "徐州师大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16028,
+		"name" : "徐州工程",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16029,
+		"name" : "徐州医学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16030,
+		"name" : "扬州大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16031,
+		"name" : "江苏大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16032,
+		"name" : "江苏科大",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16033,
+		"name" : "南通大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16034,
+		"name" : "江苏工业",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16035,
+		"name" : "常州工学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16036,
+		"name" : "江苏技术师范",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16037,
+		"name" : "淮阴工学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16038,
+		"name" : "淮阴师范",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16039,
+		"name" : "淮海工学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16040,
+		"name" : "盐城工学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16041,
+		"name" : "盐城师范学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16042,
+		"name" : "常熟理工",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16043,
+		"name" : "常州纺织服装职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16044,
+		"name" : "常州工程职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16045,
+		"name" : "常州机电职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16046,
+		"name" : "常州轻工职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16047,
+		"name" : "常州信息职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16048,
+		"name" : "硅湖职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16049,
+		"name" : "河海大学常州校区",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16050,
+		"name" : "淮安信息职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16051,
+		"name" : "建东职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16052,
+		"name" : "健雄职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16053,
+		"name" : "江海职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16054,
+		"name" : "江南影视艺术职业学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16055,
+		"name" : "江苏财经职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16056,
+		"name" : "江苏海事职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16057,
+		"name" : "江苏经贸职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16058,
+		"name" : "江苏联合职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16059,
+		"name" : "江苏农林职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16060,
+		"name" : "江苏食品职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16061,
+		"name" : "江苏信息职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16062,
+		"name" : "江苏畜牧兽医职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16063,
+		"name" : "江阴职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16064,
+		"name" : "金肯职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16065,
+		"name" : "金山职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16066,
+		"name" : "九州职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16067,
+		"name" : "昆山登云科技职业学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16068,
+		"name" : "连云港师范高等专科学校",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16069,
+		"name" : "连云港职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16070,
+		"name" : "民办明达职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16071,
+		"name" : "南京动力高等专科学校",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16072,
+		"name" : "南京工业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16073,
+		"name" : "南京化工职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16074,
+		"name" : "南京交通职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16075,
+		"name" : "南京人口管理干部学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16076,
+		"name" : "南京森林公安高等专科学校",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16077,
+		"name" : "南京视觉艺术职业学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16078,
+		"name" : "南京特殊教育职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16079,
+		"name" : "南京铁道职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16080,
+		"name" : "南京信息职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16081,
+		"name" : "南通纺织职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16082,
+		"name" : "南通航运职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16083,
+		"name" : "南通农业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16084,
+		"name" : "南通职业大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16085,
+		"name" : "培尔职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16086,
+		"name" : "沙洲职业工学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16087,
+		"name" : "苏州港大思培科技职业学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16088,
+		"name" : "苏州工业园区职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16089,
+		"name" : "苏州工业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16090,
+		"name" : "苏州工艺美术职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16091,
+		"name" : "苏州经贸职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16092,
+		"name" : "苏州科技大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16093,
+		"name" : "苏州农业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16094,
+		"name" : "苏州托普信息职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16095,
+		"name" : "苏州职业大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16096,
+		"name" : "宿迁学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16097,
+		"name" : "泰州师范高等专科学校",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16098,
+		"name" : "泰州职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16099,
+		"name" : "无锡城市职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16100,
+		"name" : "无锡工艺职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16101,
+		"name" : "无锡科技职业学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16102,
+		"name" : "无锡南洋职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16103,
+		"name" : "无锡轻工大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16104,
+		"name" : "无锡商业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16105,
+		"name" : "无锡职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16106,
+		"name" : "徐州工业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16107,
+		"name" : "徐州广播电视大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16108,
+		"name" : "徐州建筑职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16109,
+		"name" : "徐州教育学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16110,
+		"name" : "徐州工程学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16111,
+		"name" : "炎黄职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16112,
+		"name" : "盐城纺织职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16113,
+		"name" : "扬州工业职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16114,
+		"name" : "扬州环境资源管理学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16115,
+		"name" : "扬州环境资源职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16116,
+		"name" : "扬州教育学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16117,
+		"name" : "扬州职业大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16118,
+		"name" : "应天职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16119,
+		"name" : "镇江市高等专科学校",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16120,
+		"name" : "正德职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16121,
+		"name" : "中国传媒大学南广学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16122,
+		"name" : "钟山职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16123,
+		"name" : "紫琅职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16124,
+		"name" : "江苏广播电视大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16125,
+		"name" : "江苏教育学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16126,
+		"name" : "徐州师范高等专科学校",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16127,
+		"name" : "江苏省省级机关管理干部学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16128,
+		"name" : "江苏职工医科大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16129,
+		"name" : "苏州卫生职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16130,
+		"name" : "盐城卫生职业技术学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16131,
+		"name" : "金陵旅馆管理干部学院",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 16132,
+		"name" : "南京市广播电视大学",
+		"provinceID" : 320000
+	},
+	{
+		"coid" : 17001,
+		"name" : "江西财经",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17002,
+		"name" : "南昌大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17003,
+		"name" : "华东交通大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17004,
+		"name" : "南昌航空大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17005,
+		"name" : "南昌工程",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17006,
+		"name" : "南昌理工",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17007,
+		"name" : "江西中医学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17008,
+		"name" : "江西科技师范学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17009,
+		"name" : "蓝天学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17010,
+		"name" : "江西农大",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17011,
+		"name" : "江西师大",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17012,
+		"name" : "东华理工大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17013,
+		"name" : "景德镇陶瓷学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17014,
+		"name" : "赣南医学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17015,
+		"name" : "赣南师范学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17016,
+		"name" : "江西理工",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17017,
+		"name" : "上饶师范学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17018,
+		"name" : "井冈山大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17019,
+		"name" : "宜春学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17020,
+		"name" : "九江学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17021,
+		"name" : "抚州职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17022,
+		"name" : "赣南教育学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17023,
+		"name" : "赣西科技职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17024,
+		"name" : "江西财经职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17025,
+		"name" : "江西城市学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17026,
+		"name" : "江西大宇学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17027,
+		"name" : "江西电力职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17028,
+		"name" : "江西服装职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17029,
+		"name" : "江西赣江职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17030,
+		"name" : "江西工程职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17031,
+		"name" : "江西工业工程职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17032,
+		"name" : "江西工业贸易职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17033,
+		"name" : "江西工业职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17034,
+		"name" : "江西公安专科学校",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17035,
+		"name" : "江西航空职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17036,
+		"name" : "江西护理职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17037,
+		"name" : "江西环境工程职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17038,
+		"name" : "江西机电职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17039,
+		"name" : "江西建设职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17040,
+		"name" : "江西交通职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17041,
+		"name" : "江西教育学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17042,
+		"name" : "江西经济管理干部学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17043,
+		"name" : "江西经济管理职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17044,
+		"name" : "江西科技职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17045,
+		"name" : "江西旅游商贸职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17046,
+		"name" : "江西南昌教育学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17047,
+		"name" : "江西农业工程职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17048,
+		"name" : "江西青年职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17049,
+		"name" : "江西轻工职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17050,
+		"name" : "江西生物科技职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17051,
+		"name" : "江西省广播电视大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17052,
+		"name" : "江西司法警官职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17053,
+		"name" : "江西陶瓷工艺美术职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17054,
+		"name" : "江西外语外贸职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17055,
+		"name" : "江西先锋软件职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17056,
+		"name" : "江西现代职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17057,
+		"name" : "江西信息应用职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17058,
+		"name" : "江西行政管理干部学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17059,
+		"name" : "江西艺术职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17060,
+		"name" : "江西应用技术职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17061,
+		"name" : "江西渝州科技职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17062,
+		"name" : "江西制造职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17063,
+		"name" : "江西中医药高等专科学校",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17064,
+		"name" : "景德镇高等专科学校",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17065,
+		"name" : "九江职业大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17066,
+		"name" : "九江职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17067,
+		"name" : "南昌钢铁职工大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17068,
+		"name" : "南昌师范高等专科学校",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17069,
+		"name" : "南昌市业余大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17070,
+		"name" : "南昌市职工科技大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17071,
+		"name" : "萍乡高等专科学校",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17072,
+		"name" : "上饶职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17073,
+		"name" : "新余钢铁有限责任公司职工大学",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17074,
+		"name" : "新余高等专科学校",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17075,
+		"name" : "宜春职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17076,
+		"name" : "鹰潭职业技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17077,
+		"name" : "江西应用工程职业学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17078,
+		"name" : "江西农业大学南昌商学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17079,
+		"name" : "江西师范大学科学技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17080,
+		"name" : "华东交通大学理工学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17081,
+		"name" : "江西理工大学应用科学学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17082,
+		"name" : "东华理工大学长江学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17083,
+		"name" : "南昌航空大学科技学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17084,
+		"name" : "江西中医学院科技学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17085,
+		"name" : "江西财经大学现代经济管理学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17086,
+		"name" : "赣南师范学院科技学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17087,
+		"name" : "景德镇陶瓷学院科技艺术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17088,
+		"name" : "江西科技师范学院理工学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17089,
+		"name" : "南昌大学共青学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 17090,
+		"name" : "南昌大学科学技术学院",
+		"provinceID" : 360000
+	},
+	{
+		"coid" : 18001,
+		"name" : "华南理工大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18002,
+		"name" : "中山大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18003,
+		"name" : "暨南大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18004,
+		"name" : "华南师范大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18005,
+		"name" : "广东工业大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18006,
+		"name" : "华南农业大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18007,
+		"name" : "广州大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18008,
+		"name" : "广东外语外贸大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18009,
+		"name" : "广州中医药大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18010,
+		"name" : "南方医科大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18011,
+		"name" : "仲恺农业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18012,
+		"name" : "广州医学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18013,
+		"name" : "广东药学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18014,
+		"name" : "广东金融学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18015,
+		"name" : "广东商学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18016,
+		"name" : "广东警官学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18017,
+		"name" : "广州体育学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18018,
+		"name" : "广州美术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18019,
+		"name" : "星海音乐学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18020,
+		"name" : "广东技术师范学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18021,
+		"name" : "广东培正学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18022,
+		"name" : "广东白云学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18023,
+		"name" : "深圳大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18024,
+		"name" : "汕头大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18025,
+		"name" : "五邑大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18026,
+		"name" : "肇庆学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18027,
+		"name" : "茂名学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18028,
+		"name" : "东莞理工",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18029,
+		"name" : "广东医学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18030,
+		"name" : "湛江师范",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18031,
+		"name" : "广东海洋",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18032,
+		"name" : "韶关学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18033,
+		"name" : "韩山师范",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18034,
+		"name" : "嘉应学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18035,
+		"name" : "惠州学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18036,
+		"name" : "佛山科技学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18037,
+		"name" : "中山大学南方学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18038,
+		"name" : "广东外语外贸大学南国商学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18039,
+		"name" : "华南理工大学广州汽车学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18040,
+		"name" : "北京理工大学珠海学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18041,
+		"name" : "北京师范大学珠海分校",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18042,
+		"name" : "电子科技大学中山学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18043,
+		"name" : "东莞理工学院城市学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18044,
+		"name" : "东莞南博职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18045,
+		"name" : "番禺职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18046,
+		"name" : "佛山职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18047,
+		"name" : "广东财经职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18048,
+		"name" : "广东潮汕职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18049,
+		"name" : "广东纺织职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18050,
+		"name" : "广东工程职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18051,
+		"name" : "广东工贸职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18052,
+		"name" : "广东工业大学华立学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18053,
+		"name" : "广东海洋大学寸金学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18054,
+		"name" : "广东海洋大学海滨学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18055,
+		"name" : "广东化工制药职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18056,
+		"name" : "广东机电职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18057,
+		"name" : "广东技术师范学院北校区",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18058,
+		"name" : "广东建华职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18059,
+		"name" : "广东建设职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18060,
+		"name" : "广东交通职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18061,
+		"name" : "广东教育学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18062,
+		"name" : "广东科学技术职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18063,
+		"name" : "广东理工职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18064,
+		"name" : "广东岭南职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18065,
+		"name" : "广东农工商职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18066,
+		"name" : "广东女子职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18067,
+		"name" : "广东轻工职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18068,
+		"name" : "广东省新闻出版技师学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18069,
+		"name" : "广东水利电力职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18070,
+		"name" : "广东司法警官职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18071,
+		"name" : "广东松山职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18072,
+		"name" : "广东体育职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18073,
+		"name" : "广东外语外贸大学公开学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18074,
+		"name" : "广东外语艺术职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18075,
+		"name" : "广东文艺职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18076,
+		"name" : "广东新安职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18077,
+		"name" : "广东行政职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18078,
+		"name" : "广东亚视演艺职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18079,
+		"name" : "广东邮电职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18080,
+		"name" : "广州城市职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18081,
+		"name" : "广州大学城建学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18082,
+		"name" : "广州大学华软软件学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18083,
+		"name" : "广州大学市政技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18084,
+		"name" : "广州大学松田学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18085,
+		"name" : "广州工程技术职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18086,
+		"name" : "广州工商职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18087,
+		"name" : "广州航海高等专科学校",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18088,
+		"name" : "广州华立科技职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18089,
+		"name" : "广州华南商贸职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18090,
+		"name" : "广州康大职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18091,
+		"name" : "广州科技贸易职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18092,
+		"name" : "广州科技职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18093,
+		"name" : "广州民航职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18094,
+		"name" : "广州南洋理工职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18095,
+		"name" : "广州涉外经济职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18096,
+		"name" : "广州体育职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18097,
+		"name" : "广州铁路职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18098,
+		"name" : "广州现代信息工程职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18099,
+		"name" : "河源职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18100,
+		"name" : "华澳国际会计学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18101,
+		"name" : "华南农业大学珠江学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18102,
+		"name" : "华南师范大学增城学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18103,
+		"name" : "惠州经济职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18104,
+		"name" : "吉林大学珠海学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18105,
+		"name" : "江门职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18106,
+		"name" : "揭阳职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18107,
+		"name" : "罗定职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18108,
+		"name" : "茂名职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18109,
+		"name" : "南华工商学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18110,
+		"name" : "南海东软信息技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18111,
+		"name" : "清远职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18112,
+		"name" : "汕头职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18113,
+		"name" : "汕尾职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18114,
+		"name" : "深圳信息职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18115,
+		"name" : "深圳振西科技学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18116,
+		"name" : "深圳职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18117,
+		"name" : "顺德职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18118,
+		"name" : "私立华联学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18119,
+		"name" : "阳江职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18120,
+		"name" : "湛江技师学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18121,
+		"name" : "湛江教育学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18122,
+		"name" : "湛师基础教育学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18123,
+		"name" : "肇庆工商职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18124,
+		"name" : "肇庆科技职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18125,
+		"name" : "肇庆医学高等专科学校",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18126,
+		"name" : "中山火炬职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18127,
+		"name" : "珠海城市职业技术学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18128,
+		"name" : "珠海艺术职业学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18129,
+		"name" : "遵义医学院珠海校区",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18130,
+		"name" : "广东技术师范天河分院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18131,
+		"name" : "广东科学技术职业学院国防工大",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18132,
+		"name" : "茂名广播电视大学",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18133,
+		"name" : "广东石油化工职业技术学校",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18134,
+		"name" : "中山大学新华学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18135,
+		"name" : "广东商学院华商学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18136,
+		"name" : "南开大学深圳金融工程学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18137,
+		"name" : "北京师范大学－香港浸会大学联合国际学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18138,
+		"name" : "广州金桥管理干部学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18139,
+		"name" : "广州大学纺织服装学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18140,
+		"name" : "华南师范大学南海校区",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18141,
+		"name" : "暨南大学深圳旅游学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 18142,
+		"name" : "暨南大学珠海学院",
+		"provinceID" : 440000
+	},
+	{
+		"coid" : 19001,
+		"name" : "广西大学",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19002,
+		"name" : "广西医科大学",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19003,
+		"name" : "广西民族大学",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19004,
+		"name" : "广西中医学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19005,
+		"name" : "广西师范学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19006,
+		"name" : "广西财经学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19007,
+		"name" : "广西艺术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19008,
+		"name" : "桂林电子科技大学",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19009,
+		"name" : "广西师范大学",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19010,
+		"name" : "桂林工学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19011,
+		"name" : "桂林医学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19012,
+		"name" : "广西工学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19013,
+		"name" : "右江民族医学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19014,
+		"name" : "百色学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19015,
+		"name" : "河池学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19016,
+		"name" : "玉林师范学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19017,
+		"name" : "钦州学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19018,
+		"name" : "贺州学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19019,
+		"name" : "梧州学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19020,
+		"name" : "广西大学行健文理学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19021,
+		"name" : "广西师范大学漓江学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19022,
+		"name" : "桂林电子科技大学信息科技学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19023,
+		"name" : "桂林工学院博文管理学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19024,
+		"name" : "广西工学院鹿山学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19025,
+		"name" : "广西师范学院师园学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19026,
+		"name" : "广西民族大学相思湖学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19027,
+		"name" : "广西中医学院赛恩斯新医药学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19028,
+		"name" : "北海宏源足球职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19029,
+		"name" : "北海艺术设计职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19030,
+		"name" : "北海职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19031,
+		"name" : "广西城市职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19032,
+		"name" : "广西电力职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19033,
+		"name" : "广西东方外语职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19034,
+		"name" : "广西工商职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19035,
+		"name" : "广西工业职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19036,
+		"name" : "广西国际商务职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19037,
+		"name" : "广西机电职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19038,
+		"name" : "广西建设职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19039,
+		"name" : "广西交通职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19040,
+		"name" : "广西经济管理干部学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19041,
+		"name" : "广西经贸职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19042,
+		"name" : "广西警管高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19043,
+		"name" : "广西农业职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19044,
+		"name" : "广西轻工高级技工学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19045,
+		"name" : "广西生态工程职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19046,
+		"name" : "广西水利电力职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19047,
+		"name" : "广西体育高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19048,
+		"name" : "广西演艺职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19049,
+		"name" : "广西英华国际职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19050,
+		"name" : "广西邕江大学",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19051,
+		"name" : "广西幼儿师范学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19052,
+		"name" : "广西职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19053,
+		"name" : "贵港职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19054,
+		"name" : "桂林航天工业高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19055,
+		"name" : "桂林旅游高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19056,
+		"name" : "桂林山水职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19057,
+		"name" : "桂林师范高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19058,
+		"name" : "河池职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19059,
+		"name" : "柳州师范高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19060,
+		"name" : "柳州医学高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19061,
+		"name" : "柳州运输职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19062,
+		"name" : "柳州职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19063,
+		"name" : "南宁师范高等专科学校",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19064,
+		"name" : "南宁职业技术学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19065,
+		"name" : "南宁地区教育学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19066,
+		"name" : "北京航空航天大学北海学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19067,
+		"name" : "桂林工学院南宁分院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 19068,
+		"name" : "百色职业学院",
+		"provinceID" : 450000
+	},
+	{
+		"coid" : 20001,
+		"name" : "昆明理工",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20002,
+		"name" : "云南农大",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20003,
+		"name" : "云南师大",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20004,
+		"name" : "云南财经",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20005,
+		"name" : "云南民大",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20006,
+		"name" : "西南林学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20007,
+		"name" : "昆明医学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20008,
+		"name" : "云南中医学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20009,
+		"name" : "红河学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20010,
+		"name" : "云南警官学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20011,
+		"name" : "云南艺术",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20012,
+		"name" : "云南大学",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20013,
+		"name" : "曲靖师范",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20014,
+		"name" : "玉溪师院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20015,
+		"name" : "楚雄师院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20016,
+		"name" : "大理学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20017,
+		"name" : "保山师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20018,
+		"name" : "保山中医药高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20019,
+		"name" : "楚雄医药高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20020,
+		"name" : "德宏师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20021,
+		"name" : "云南大学滇池学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20022,
+		"name" : "昆明大学",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20023,
+		"name" : "昆明工业职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20024,
+		"name" : "昆明师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20025,
+		"name" : "昆明扬帆职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20026,
+		"name" : "昆明冶金高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20027,
+		"name" : "昆明艺术职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20028,
+		"name" : "丽江师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20029,
+		"name" : "曲靖医学高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20030,
+		"name" : "思茅师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20031,
+		"name" : "文山师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20032,
+		"name" : "西双版纳职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20033,
+		"name" : "玉溪农业职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20034,
+		"name" : "云南爱因森软件职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20035,
+		"name" : "云南北美职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20036,
+		"name" : "云南广播电视大学",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20037,
+		"name" : "云南国防工业职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20038,
+		"name" : "云南国土资源职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20039,
+		"name" : "云南机电职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20040,
+		"name" : "云南交通职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20041,
+		"name" : "云南经济管理职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20042,
+		"name" : "云南科技信息职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20043,
+		"name" : "云南林业职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20044,
+		"name" : "云南能源职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20045,
+		"name" : "云南农业职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20046,
+		"name" : "云南热带作物职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20047,
+		"name" : "云南省林业科学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20048,
+		"name" : "云南师范大学商学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20049,
+		"name" : "云南司法警官职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20050,
+		"name" : "云南体育运动职业技术学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20051,
+		"name" : "云南文化艺术职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20052,
+		"name" : "云南新兴职业学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20053,
+		"name" : "云南医学高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20054,
+		"name" : "云南昭通师范专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20055,
+		"name" : "昭通师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20056,
+		"name" : "昆明学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20057,
+		"name" : "昆明理工大学津桥学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20058,
+		"name" : "云南师范大学文理学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20059,
+		"name" : "昆明医学院海源学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20060,
+		"name" : "云南艺术学院文华学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20061,
+		"name" : "云南大学旅游文化学院",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 20062,
+		"name" : "临沧师范高等专科学校",
+		"provinceID" : 530000
+	},
+	{
+		"coid" : 21001,
+		"name" : "贵州大学",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21002,
+		"name" : "贵阳医学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21003,
+		"name" : "贵阳中医学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21004,
+		"name" : "贵州财经",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21005,
+		"name" : "贵州民族",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21006,
+		"name" : "贵阳学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21007,
+		"name" : "贵州师大",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21008,
+		"name" : "铜仁学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21009,
+		"name" : "遵义医学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21010,
+		"name" : "遵义师范",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21011,
+		"name" : "毕节学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21012,
+		"name" : "黔南师院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21013,
+		"name" : "安顺学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21014,
+		"name" : "凯里学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21015,
+		"name" : "安顺职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21016,
+		"name" : "贵州电力职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21017,
+		"name" : "贵州电子信息职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21018,
+		"name" : "贵州航天职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21019,
+		"name" : "贵州鸿源管理工程职业学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21020,
+		"name" : "贵州交通职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21021,
+		"name" : "贵州警官职业学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21022,
+		"name" : "贵州科技工程职业学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21023,
+		"name" : "贵州理工职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21024,
+		"name" : "贵州轻工职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21025,
+		"name" : "贵州商业高等专科学校",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21026,
+		"name" : "六盘水师范高等专科学校",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21027,
+		"name" : "六盘水职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21028,
+		"name" : "黔东南民族职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21029,
+		"name" : "黔南民族医学高等专科学校",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21030,
+		"name" : "黔南民族职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21031,
+		"name" : "黔西南民族师范高等专科学校",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21032,
+		"name" : "黔西南民族职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21033,
+		"name" : "铜仁职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21034,
+		"name" : "遵义医药高等专科学校",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21035,
+		"name" : "遵义职业技术学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21036,
+		"name" : "贵州财经学院商务学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21037,
+		"name" : "贵州民族学院人文科技学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21038,
+		"name" : "贵州师范大学求是学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21039,
+		"name" : "贵阳医学院神奇民族医药学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21040,
+		"name" : "遵义医学院医学与科技学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21041,
+		"name" : "贵阳中医学院时珍学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21042,
+		"name" : "贵州大学明德学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21043,
+		"name" : "贵州大学科技学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21044,
+		"name" : "贵阳护理职业学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21045,
+		"name" : "贵州亚泰职业学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 21046,
+		"name" : "贵州教育学院",
+		"provinceID" : 520000
+	},
+	{
+		"coid" : 22001,
+		"name" : "四川大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22002,
+		"name" : "四川农大",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22003,
+		"name" : "电子科大",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22004,
+		"name" : "西南交大",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22005,
+		"name" : "成都理工",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22006,
+		"name" : "四川师大",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22007,
+		"name" : "西南民族大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22008,
+		"name" : "成都大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22009,
+		"name" : "西南财经",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22010,
+		"name" : "西华大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22011,
+		"name" : "成都中医药",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22012,
+		"name" : "成都信息工程大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22013,
+		"name" : "成都医学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22014,
+		"name" : "四川文理学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22015,
+		"name" : "成都体院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22016,
+		"name" : "四川音乐学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22017,
+		"name" : "西南石油",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22018,
+		"name" : "中国民航飞行学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22019,
+		"name" : "四川理工",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22020,
+		"name" : "泸州医学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22021,
+		"name" : "四川警察学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22022,
+		"name" : "川北医学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22023,
+		"name" : "西华师大",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22024,
+		"name" : "内江师范",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22025,
+		"name" : "乐山师院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22026,
+		"name" : "绵阳师范",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22027,
+		"name" : "西南科大",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22028,
+		"name" : "西昌学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22029,
+		"name" : "宜宾学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22030,
+		"name" : "攀枝花学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22031,
+		"name" : "阿坝师范高等专科学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22032,
+		"name" : "成都电子机械高等专科学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22033,
+		"name" : "成都东软信息技术职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22034,
+		"name" : "成都纺织高等专科学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22035,
+		"name" : "成都广播电视大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22036,
+		"name" : "成都航空职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22037,
+		"name" : "成都理工大学广播影视学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22038,
+		"name" : "成都农业科技职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22039,
+		"name" : "成都艺术职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22040,
+		"name" : "成都职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22041,
+		"name" : "达州职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22042,
+		"name" : "电子科技大学成都学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22043,
+		"name" : "广安职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22044,
+		"name" : "康定民族师范高等专科学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22045,
+		"name" : "乐山职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22046,
+		"name" : "泸州职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22047,
+		"name" : "眉山职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22048,
+		"name" : "绵阳职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22049,
+		"name" : "民办四川天一学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22050,
+		"name" : "内江职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22051,
+		"name" : "南充职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22052,
+		"name" : "四川大学龙泉校区",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22053,
+		"name" : "四川电力职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22054,
+		"name" : "四川工程职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22055,
+		"name" : "四川工商职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22056,
+		"name" : "四川管理职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22057,
+		"name" : "四川广播电视大学",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22058,
+		"name" : "四川国际标榜职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22059,
+		"name" : "四川航天职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22060,
+		"name" : "四川华新现代职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22061,
+		"name" : "四川化工职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22062,
+		"name" : "四川机电职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22063,
+		"name" : "四川建筑职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22064,
+		"name" : "四川交通职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22065,
+		"name" : "四川教育学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22066,
+		"name" : "四川警安职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22067,
+		"name" : "四川烹饪高等专科学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22068,
+		"name" : "四川商务职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22069,
+		"name" : "四川师范大学绵阳初等教育学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22070,
+		"name" : "四川水利职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22071,
+		"name" : "四川司法警官职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22072,
+		"name" : "四川托普信息技术职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22073,
+		"name" : "四川外语学院成都学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22074,
+		"name" : "四川文化传媒职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22075,
+		"name" : "四川信息工程学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22076,
+		"name" : "四川邮电职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22077,
+		"name" : "四川职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22078,
+		"name" : "四川中医药高等专科学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22079,
+		"name" : "雅安职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22080,
+		"name" : "宜宾职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22081,
+		"name" : "四川大学锦城学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22082,
+		"name" : "四川大学锦江学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22083,
+		"name" : "德阳职业技术学校",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22084,
+		"name" : "四川信息职业技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22085,
+		"name" : "四川艺术职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22086,
+		"name" : "四川师范大学成都学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22087,
+		"name" : "四川师范大学文理学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22088,
+		"name" : "成都信息工程学院银杏酒店管理学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22089,
+		"name" : "成都理工大学工程技术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22090,
+		"name" : "四川文化产业职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22091,
+		"name" : "四川科技职业学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22092,
+		"name" : "西南科技大学城市学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22093,
+		"name" : "四川音乐学院绵阳艺术学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 22094,
+		"name" : "西南财经大学天府学院",
+		"provinceID" : 510000
+	},
+	{
+		"coid" : 23001,
+		"name" : "内蒙古大学",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23002,
+		"name" : "内蒙古工业大学",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23003,
+		"name" : "内蒙古农大",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23004,
+		"name" : "内蒙古师大",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23005,
+		"name" : "内蒙古医学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23006,
+		"name" : "内蒙古财经",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23007,
+		"name" : "内蒙古科大",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23008,
+		"name" : "内蒙古民族大学",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23009,
+		"name" : "赤峰学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23010,
+		"name" : "呼伦贝尔学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23011,
+		"name" : "包头钢铁职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23012,
+		"name" : "包头轻工职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23013,
+		"name" : "包头职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23014,
+		"name" : "河套大学",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23015,
+		"name" : "呼和浩特职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23016,
+		"name" : "集宁师范高等专科学校",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23017,
+		"name" : "科尔沁艺术职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23018,
+		"name" : "内蒙古财税职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23019,
+		"name" : "内蒙古电子信息职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23020,
+		"name" : "内蒙古青城大学",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23021,
+		"name" : "内蒙古化工职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23022,
+		"name" : "内蒙古机电职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23023,
+		"name" : "内蒙古建筑职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23024,
+		"name" : "内蒙古交通职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23025,
+		"name" : "内蒙古民族高等专科学校",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23026,
+		"name" : "内蒙古商贸职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23027,
+		"name" : "内蒙古体育职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23028,
+		"name" : "通辽职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23029,
+		"name" : "乌海职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23030,
+		"name" : "乌兰察布职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23031,
+		"name" : "锡林郭勒职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23032,
+		"name" : "兴安职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23033,
+		"name" : "内蒙古警察职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23034,
+		"name" : "内蒙古北方职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23035,
+		"name" : "内蒙古丰州学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23036,
+		"name" : "内蒙古经贸外语职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23037,
+		"name" : "内蒙古科技职业学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 23038,
+		"name" : "赤峰职业技术学院",
+		"provinceID" : 150000
+	},
+	{
+		"coid" : 24001,
+		"name" : "宁夏大学",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24002,
+		"name" : "北方民大",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24003,
+		"name" : "宁夏医学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24004,
+		"name" : "宁夏理工",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24005,
+		"name" : "宁夏师范",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24006,
+		"name" : "吴忠职业技术学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24007,
+		"name" : "宁夏职业技术学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24008,
+		"name" : "宁夏财经职业技术学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24009,
+		"name" : "宁夏司法警官职业学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24010,
+		"name" : "宁夏师范学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24011,
+		"name" : "宁夏工业职业学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24012,
+		"name" : "宁夏经贸职业技术学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24013,
+		"name" : "宁夏建设职业技术学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24014,
+		"name" : "银川科技职业学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 24015,
+		"name" : "宁夏大学新华学院",
+		"provinceID" : 640000
+	},
+	{
+		"coid" : 25001,
+		"name" : "兰州大学",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25002,
+		"name" : "西北民大",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25003,
+		"name" : "西北师大",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25004,
+		"name" : "甘肃中医学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25005,
+		"name" : "兰州商院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25006,
+		"name" : "甘肃政法学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25007,
+		"name" : "兰州城市学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25008,
+		"name" : "甘肃农大",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25009,
+		"name" : "兰州理工",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25010,
+		"name" : "兰州交大",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25011,
+		"name" : "天水师院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25012,
+		"name" : "陇东学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25013,
+		"name" : "河西学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25014,
+		"name" : "兰州石化职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25015,
+		"name" : "甘肃工业职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25016,
+		"name" : "甘肃警察职业学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25017,
+		"name" : "兰州理工大学技术工程学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25018,
+		"name" : "兰州职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25019,
+		"name" : "武威职业学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25020,
+		"name" : "张掖医学高等专科学校",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25021,
+		"name" : "甘肃畜牧工程职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25022,
+		"name" : "陇南师范高等专科学校",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25023,
+		"name" : "合作民族师范高等专科学校",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25024,
+		"name" : "甘肃联合大学",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25025,
+		"name" : "甘肃林业职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25026,
+		"name" : "甘肃建筑职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25027,
+		"name" : "酒泉职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25028,
+		"name" : "甘肃农业职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25029,
+		"name" : "平凉医学高等专科学校",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25030,
+		"name" : "兰州资源环境职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25031,
+		"name" : "定西师范高等专科学校",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25032,
+		"name" : "兰州交通大学博文学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25033,
+		"name" : "兰州工业高等专科学校",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25034,
+		"name" : "兰州外语职业学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25035,
+		"name" : "兰州教育学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 25036,
+		"name" : "甘肃钢铁职业技术学院",
+		"provinceID" : 620000
+	},
+	{
+		"coid" : 26001,
+		"name" : "青海大学",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26002,
+		"name" : "青海师大",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26003,
+		"name" : "青海民院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26004,
+		"name" : "青海民族师范高等专科学校",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26005,
+		"name" : "青海财经职业学院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26006,
+		"name" : "青海畜牧兽医职业技术学院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26007,
+		"name" : "青海建筑职业技术学院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26008,
+		"name" : "青海师范高等专科学校",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26009,
+		"name" : "青海警官职业学院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26010,
+		"name" : "青海交通职业技术学院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 26011,
+		"name" : "青海卫生职业技术学院",
+		"provinceID" : 630000
+	},
+	{
+		"coid" : 27001,
+		"name" : "西藏大学",
+		"provinceID" : 540000
+	},
+	{
+		"coid" : 27002,
+		"name" : "西藏藏医学院",
+		"provinceID" : 540000
+	},
+	{
+		"coid" : 27003,
+		"name" : "西藏民院",
+		"provinceID" : 540000
+	},
+	{
+		"coid" : 27004,
+		"name" : "拉萨师范高等专科学校",
+		"provinceID" : 540000
+	},
+	{
+		"coid" : 27005,
+		"name" : "西藏警官高等专科学校",
+		"provinceID" : 540000
+	},
+	{
+		"coid" : 27006,
+		"name" : "西藏职业技术学院",
+		"provinceID" : 540000
+	},
+	{
+		"coid" : 28001,
+		"name" : "新疆大学",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28002,
+		"name" : "新疆农大",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28003,
+		"name" : "新疆医科大",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28004,
+		"name" : "新疆师大",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28005,
+		"name" : "新疆财经",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28006,
+		"name" : "新疆艺术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28007,
+		"name" : "石河子大学",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28008,
+		"name" : "塔里木大学",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28009,
+		"name" : "喀什师院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28010,
+		"name" : "伊犁师院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28011,
+		"name" : "昌吉学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28012,
+		"name" : "阿克苏职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28013,
+		"name" : "巴音郭楞职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28014,
+		"name" : "昌吉职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28015,
+		"name" : "和田师范专科学校",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28016,
+		"name" : "克拉玛依职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28017,
+		"name" : "乌鲁木齐职业大学",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28018,
+		"name" : "新疆兵团警官高等专科学校",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28019,
+		"name" : "新疆工业高等专科学校",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28020,
+		"name" : "新疆机电职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28021,
+		"name" : "新疆建设职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28022,
+		"name" : "新疆交通职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28023,
+		"name" : "新疆警官高等专科学校",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28024,
+		"name" : "新疆能源职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28025,
+		"name" : "新疆农业职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28026,
+		"name" : "新疆轻工职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28027,
+		"name" : "新疆石河子职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28028,
+		"name" : "新疆天山职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28029,
+		"name" : "新疆维吾尔医学专科学校",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28030,
+		"name" : "新疆现代职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28031,
+		"name" : "伊犁职业技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28032,
+		"name" : "新疆科信学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28033,
+		"name" : "新疆职业大学",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28034,
+		"name" : "新疆石油学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28035,
+		"name" : "新疆大学科学技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28036,
+		"name" : "新疆农业大学科学技术学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28037,
+		"name" : "新疆财经大学商务学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28038,
+		"name" : "新疆医科大学厚博学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 28039,
+		"name" : "石河子大学科技学院",
+		"provinceID" : 650000
+	},
+	{
+		"coid" : 29001,
+		"name" : "中国科大",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29002,
+		"name" : "安徽大学",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29003,
+		"name" : "合肥工大",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29004,
+		"name" : "安徽医科大",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29005,
+		"name" : "安徽建工",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29006,
+		"name" : "安徽中医",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29007,
+		"name" : "合肥学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29008,
+		"name" : "安徽农大",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29009,
+		"name" : "安徽工业大学",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29010,
+		"name" : "安徽科技",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29011,
+		"name" : "皖南医学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29012,
+		"name" : "安徽师大",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29013,
+		"name" : "安徽工程科技",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29014,
+		"name" : "蚌埠医学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29015,
+		"name" : "安徽财经",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29016,
+		"name" : "阜阳师范",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29017,
+		"name" : "淮南师范",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29018,
+		"name" : "安徽理工",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29019,
+		"name" : "淮北煤炭师范",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29020,
+		"name" : "安庆师范",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29021,
+		"name" : "铜陵学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29022,
+		"name" : "皖西学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29023,
+		"name" : "巢湖学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29024,
+		"name" : "滁州学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29025,
+		"name" : "宿州学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29026,
+		"name" : "黄山学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29027,
+		"name" : "新华学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29028,
+		"name" : "蚌埠学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29029,
+		"name" : "安徽财贸职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29030,
+		"name" : "安徽城市管理职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29031,
+		"name" : "安徽电气工程职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29032,
+		"name" : "安徽电子信息职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29033,
+		"name" : "安徽工贸职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29034,
+		"name" : "安徽工商职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29035,
+		"name" : "安徽工业经济职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29036,
+		"name" : "安徽公安职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29037,
+		"name" : "安徽广播影视职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29038,
+		"name" : "安徽国防科技职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29039,
+		"name" : "安徽国际商务职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29040,
+		"name" : "安徽机电职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29041,
+		"name" : "安徽交通职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29042,
+		"name" : "安徽教育学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29043,
+		"name" : "安徽经济管理学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29044,
+		"name" : "安徽警官职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29045,
+		"name" : "安徽林业职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29046,
+		"name" : "安徽明星科技职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29047,
+		"name" : "安徽商贸职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29048,
+		"name" : "安徽审计职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29049,
+		"name" : "安徽省三联职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29050,
+		"name" : "安徽水利水电职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29051,
+		"name" : "安徽体育运动职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29052,
+		"name" : "安徽文达信息技术职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29053,
+		"name" : "安徽新闻出版职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29054,
+		"name" : "安徽冶金科技职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29055,
+		"name" : "安徽医学高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29056,
+		"name" : "安徽艺术职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29057,
+		"name" : "安徽邮电职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29058,
+		"name" : "安徽职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29059,
+		"name" : "安徽中澳科技职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29060,
+		"name" : "安徽中医药高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29061,
+		"name" : "安庆职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29062,
+		"name" : "蚌埠高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29063,
+		"name" : "蚌埠职业教育专修学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29064,
+		"name" : "亳州师范高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29065,
+		"name" : "亳州职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29066,
+		"name" : "巢湖职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29067,
+		"name" : "池州师范专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29068,
+		"name" : "池州职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29069,
+		"name" : "滁州职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29070,
+		"name" : "阜阳科技职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29071,
+		"name" : "阜阳职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29072,
+		"name" : "合肥市万博科技职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29073,
+		"name" : "合肥通用职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29074,
+		"name" : "淮北职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29075,
+		"name" : "淮南联合大学",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29076,
+		"name" : "淮南职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29077,
+		"name" : "六安职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29078,
+		"name" : "马鞍山师范高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29079,
+		"name" : "民办安徽外国语职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29080,
+		"name" : "民办合肥经济技术职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29081,
+		"name" : "宿州职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29082,
+		"name" : "铜陵职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29083,
+		"name" : "芜湖信息技术职业学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29084,
+		"name" : "芜湖职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29085,
+		"name" : "宣城职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29086,
+		"name" : "安徽师范大学皖江学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29087,
+		"name" : "合肥师范学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29088,
+		"name" : "凤阳师范高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29089,
+		"name" : "安庆医药高等专科学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29090,
+		"name" : "安徽工业职业技术学院",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 29091,
+		"name" : "合肥幼儿师范学校",
+		"provinceID" : 340000
+	},
+	{
+		"coid" : 30001,
+		"name" : "浙江大学",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30002,
+		"name" : "浙江理工",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30003,
+		"name" : "浙江工大",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30004,
+		"name" : "杭州电子科大",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30005,
+		"name" : "浙江中医药",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30006,
+		"name" : "浙江工商",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30007,
+		"name" : "中国计量",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30008,
+		"name" : "浙江科技",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30009,
+		"name" : "浙江林院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30010,
+		"name" : "杭州师范",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30011,
+		"name" : "浙江传媒",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30012,
+		"name" : "浙江财经",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30013,
+		"name" : "中国美术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30014,
+		"name" : "树人大学",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30015,
+		"name" : "宁波大学",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30016,
+		"name" : "宁波工程",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30017,
+		"name" : "万里学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30018,
+		"name" : "诺丁汉大学",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30019,
+		"name" : "嘉兴学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30020,
+		"name" : "浙江海洋",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30021,
+		"name" : "温州大学",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30022,
+		"name" : "温州医学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30023,
+		"name" : "湖州师范",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30024,
+		"name" : "台州学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30025,
+		"name" : "绍兴文理学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30026,
+		"name" : "丽水学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30027,
+		"name" : "浙江师大",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30028,
+		"name" : "长征职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30029,
+		"name" : "公安海警高等专科学校",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30030,
+		"name" : "杭州万向职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30031,
+		"name" : "杭州职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30032,
+		"name" : "湖州职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30033,
+		"name" : "嘉兴职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30034,
+		"name" : "金华职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30035,
+		"name" : "科技求是学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30036,
+		"name" : "丽水职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30037,
+		"name" : "宁波城市职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30038,
+		"name" : "宁波大红鹰职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30039,
+		"name" : "宁波大学科技学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30040,
+		"name" : "宁波天一职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30041,
+		"name" : "宁波职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30042,
+		"name" : "衢州职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30043,
+		"name" : "绍兴托普信息职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30044,
+		"name" : "绍兴越秀外国语职业学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30045,
+		"name" : "台州职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30046,
+		"name" : "温州职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30047,
+		"name" : "义乌工商职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30048,
+		"name" : "浙江大学城市学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30049,
+		"name" : "浙江大学宁波理工学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30050,
+		"name" : "浙江东方职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30051,
+		"name" : "浙江纺织服装职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30052,
+		"name" : "浙江工贸职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30053,
+		"name" : "浙江工商职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30054,
+		"name" : "浙江工业职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30055,
+		"name" : "浙江警察学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30056,
+		"name" : "浙江广厦建设职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30057,
+		"name" : "浙江机电职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30058,
+		"name" : "浙江建设职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30059,
+		"name" : "浙江交通职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30060,
+		"name" : "浙江教育学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30061,
+		"name" : "浙江金融职业学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30062,
+		"name" : "浙江经济职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30063,
+		"name" : "浙江经贸职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30064,
+		"name" : "浙江警官职业学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30065,
+		"name" : "浙江旅游职业学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30066,
+		"name" : "浙江商业职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30067,
+		"name" : "浙江水利水电专科学校",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30068,
+		"name" : "浙江医学高等专科学校",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30069,
+		"name" : "浙江医药高等专科学校",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30070,
+		"name" : "浙江艺术职业学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30071,
+		"name" : "浙江育英职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30072,
+		"name" : "浙江电力职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30073,
+		"name" : "嘉兴南洋职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30074,
+		"name" : "浙江国际海运职业技术学校",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30075,
+		"name" : "浙江工业大学浙西分校",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 30076,
+		"name" : "浙江国际海运职业技术学院",
+		"provinceID" : 330000
+	},
+	{
+		"coid" : 31001,
+		"name" : "厦门大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31002,
+		"name" : "集美大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31003,
+		"name" : "厦门理工学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31004,
+		"name" : "福州大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31005,
+		"name" : "福建师范大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31006,
+		"name" : "福建农林大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31007,
+		"name" : "福建医科大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31008,
+		"name" : "福建工程学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31009,
+		"name" : "福建中医学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31010,
+		"name" : "闽江学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31011,
+		"name" : "华侨大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31012,
+		"name" : "仰恩大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31013,
+		"name" : "泉州师范学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31014,
+		"name" : "漳州师范",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31015,
+		"name" : "莆田学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31016,
+		"name" : "三明学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31017,
+		"name" : "龙岩学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31018,
+		"name" : "厦门大学嘉庚学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31019,
+		"name" : "集美大学诚毅学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31020,
+		"name" : "福州大学阳光学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31021,
+		"name" : "福州大学至诚学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31022,
+		"name" : "福建师范大学协和学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31023,
+		"name" : "福建师范大学闽南科技学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31024,
+		"name" : "福建农林大学东方学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31025,
+		"name" : "福建农林大学金山学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31026,
+		"name" : "华侨大学福建音乐学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31027,
+		"name" : "福建电力职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31028,
+		"name" : "福建对外经济贸易职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31029,
+		"name" : "福建警察学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31030,
+		"name" : "福建广播电视大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31031,
+		"name" : "福建华南女子职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31032,
+		"name" : "福建交通职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31033,
+		"name" : "福建教育学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31034,
+		"name" : "福建金融职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31035,
+		"name" : "福建警官职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31036,
+		"name" : "福建林业职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31037,
+		"name" : "福建农业职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31038,
+		"name" : "福建商业高等专科学校",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31039,
+		"name" : "福建生物工程职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31040,
+		"name" : "福建水利电力职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31041,
+		"name" : "福建卫生职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31042,
+		"name" : "福建信息职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31043,
+		"name" : "福建行政学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31044,
+		"name" : "福建中医学院五洲科技学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31045,
+		"name" : "福州海峡职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31046,
+		"name" : "福州科技职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31047,
+		"name" : "福州黎明职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31048,
+		"name" : "福州软件职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31049,
+		"name" : "福州外语外贸职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31050,
+		"name" : "福州英华职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31051,
+		"name" : "福州职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31052,
+		"name" : "黎明职业大学",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31053,
+		"name" : "湄洲湾职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31054,
+		"name" : "闽北职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31055,
+		"name" : "闽西职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31056,
+		"name" : "武夷学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31057,
+		"name" : "宁德师范高等专科学校",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31058,
+		"name" : "泉州纺织服装职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31059,
+		"name" : "泉州光电信息职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31060,
+		"name" : "泉州华光摄影艺术职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31061,
+		"name" : "泉州经贸职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31062,
+		"name" : "泉州信息职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31063,
+		"name" : "泉州医学高等专科学校",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31064,
+		"name" : "泉州理工学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31065,
+		"name" : "三明职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31066,
+		"name" : "厦门海洋职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31067,
+		"name" : "厦门华天涉外职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31068,
+		"name" : "厦门华厦职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31069,
+		"name" : "厦门南洋学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31070,
+		"name" : "厦门兴才职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31071,
+		"name" : "厦门演艺职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31072,
+		"name" : "漳州职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31073,
+		"name" : "福建政法管理干部学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31074,
+		"name" : "武夷职业技术学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31075,
+		"name" : "厦门城市职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 31076,
+		"name" : "漳州卫生职业学院",
+		"provinceID" : 350000
+	},
+	{
+		"coid" : 32001,
+		"name" : "国立台湾大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32002,
+		"name" : "国立中正大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32003,
+		"name" : "国立台湾艺术大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32004,
+		"name" : "国立清华大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32005,
+		"name" : "国立中山大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32006,
+		"name" : "国立政治大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32007,
+		"name" : "国立成功大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32008,
+		"name" : "国立中央大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32009,
+		"name" : "国立阳明大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32010,
+		"name" : "国立东华大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32011,
+		"name" : "国立中兴大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32012,
+		"name" : "国立台湾师范大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32013,
+		"name" : "国立台湾海洋大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32014,
+		"name" : "国立高雄大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32015,
+		"name" : "国立嘉义大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32016,
+		"name" : "国立台湾科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32017,
+		"name" : "国立空中大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32018,
+		"name" : "国立台北大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32019,
+		"name" : "国立高雄师范大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32020,
+		"name" : "国立联合大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32021,
+		"name" : "国立暨南国际大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32022,
+		"name" : "国立屏东科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32023,
+		"name" : "国立彰化师范大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32024,
+		"name" : "国立台北科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32025,
+		"name" : "国立台东大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32026,
+		"name" : "国立宜蓝大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32027,
+		"name" : "国立台北艺术大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32028,
+		"name" : "国立云林科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32029,
+		"name" : "国立台南大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32030,
+		"name" : "国立虎尾科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32031,
+		"name" : "国立花莲教育大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32032,
+		"name" : "国立高雄第一科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32033,
+		"name" : "国立屏东教育大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32034,
+		"name" : "国立新竹教育大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32035,
+		"name" : "国立澎湖科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32036,
+		"name" : "建国科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32037,
+		"name" : "国立台南艺术大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32038,
+		"name" : "国立高雄应用科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32039,
+		"name" : "国立高雄海洋科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32040,
+		"name" : "国立勤益科技大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 32041,
+		"name" : "东吴大学",
+		"provinceID" : 710000
+	},
+	{
+		"coid" : 33001,
+		"name" : "香港大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33002,
+		"name" : "香港中文大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33003,
+		"name" : "香港科技大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33004,
+		"name" : "香港理工大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33005,
+		"name" : "香港城市大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33006,
+		"name" : "香港浸会大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33007,
+		"name" : "香港岭南大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33008,
+		"name" : "香港国际工商管理学院",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33009,
+		"name" : "香港珠海学院",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33010,
+		"name" : "香港教育学院",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33011,
+		"name" : "香港树仁大学",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 33012,
+		"name" : "香港演艺学院",
+		"provinceID" : 810000
+	},
+	{
+		"coid" : 34001,
+		"name" : "澳门大学",
+		"provinceID" : 820000
+	},
+	{
+		"coid" : 34002,
+		"name" : "澳门理工学院",
+		"provinceID" : 820000
+	},
+	{
+		"coid" : 34003,
+		"name" : "澳门科技大学",
+		"provinceID" : 820000
+	},
+	{
+		"coid" : 34004,
+		"name" : "澳门旅游学院",
+		"provinceID" : 820000
+	},
+	{
+		"coid" : 34005,
+		"name" : "澳门镜湖护理学院",
+		"provinceID" : 820000
+	},
+	{
+		"coid" : 34006,
+		"name" : "澳门国际公开大学",
+		"provinceID" : 820000
+	}
+]
