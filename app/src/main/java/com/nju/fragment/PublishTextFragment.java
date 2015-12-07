@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.nju.activity.R;
+import com.nju.util.Divice;
 
 public class PublishTextFragment extends Fragment {
 
@@ -17,8 +18,7 @@ public class PublishTextFragment extends Fragment {
     private Button mSendButton;
 
     public static PublishTextFragment newInstance() {
-        PublishTextFragment fragment = new PublishTextFragment();
-        return fragment;
+        return new PublishTextFragment();
     }
 
     public PublishTextFragment() {
@@ -33,15 +33,28 @@ public class PublishTextFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_publish_text, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle(getString(R.string.publish_text));
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null){
+            actionBar.setTitle(getString(R.string.publish_text));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         getActivity().findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
         mSendButton = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
         mSendButton.setText(getString(R.string.send));
         mSendButton.setVisibility(View.VISIBLE);
+        initSendEvent();
         return view;
+    }
+
+    private void initSendEvent() {
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 }

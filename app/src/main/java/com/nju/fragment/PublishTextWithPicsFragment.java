@@ -3,7 +3,6 @@ package com.nju.fragment;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -40,7 +39,6 @@ import java.util.List;
 public class PublishTextWithPicsFragment extends Fragment {
 
     public static final String TAG = PublishTextWithPicsFragment.class.getSimpleName() ;
-    private List<Drawable> lists = null;
     private LinearLayout emoLineLayout = null;
     private LinearLayout mainLayout;
     private ImageView mEmotionView;

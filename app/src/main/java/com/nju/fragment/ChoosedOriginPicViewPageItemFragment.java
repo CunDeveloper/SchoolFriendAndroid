@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.nju.View.CustomImageVIew;
 import com.nju.activity.R;
@@ -52,15 +51,14 @@ public class ChoosedOriginPicViewPageItemFragment extends Fragment {
 
     private class LoadLocalImg extends AsyncTask<String,Void,Bitmap> {
 
-
+        private int mTargetHeight = Divice.getDisplayWidth(getActivity());
 
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
-            int height = Divice.getDisplayWidth(getActivity());
             try {
                 bitmap = Picasso.with(getActivity()).load(new File(params[0])).
-                        resize(height,height).get();
+                        resize(mTargetHeight,mTargetHeight).get();
             } catch (IOException e) {
                 e.printStackTrace();
             }

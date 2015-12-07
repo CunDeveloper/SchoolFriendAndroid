@@ -17,7 +17,7 @@ import java.util.List;
 public class EmotionPagerFragment extends Fragment {
 
     private static final String ARG_PARAM = "param";
-    private int mPagerPosition;
+
     private GridView mGridView;
     private List<Drawable> mEmotions;
     private OnFragmentInputEmotionListener mListener;
@@ -34,9 +34,6 @@ public class EmotionPagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mPagerPosition = getArguments().getInt(ARG_PARAM);
-        }
         mEmotions = new Emotion(getActivity()).getEmotions();
     }
 
@@ -81,7 +78,7 @@ public class EmotionPagerFragment extends Fragment {
     }
 
     public interface OnFragmentInputEmotionListener {
-        public void onFragmentInputEmotion(Drawable drawable);
+        void onFragmentInputEmotion(Drawable drawable);
     }
 
 }

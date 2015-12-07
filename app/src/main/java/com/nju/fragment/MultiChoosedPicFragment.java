@@ -187,7 +187,7 @@ public class MultiChoosedPicFragment extends Fragment {
                 }
                 if (msg.what == MultiChoosedPicAdapter.REMOVE_PIC_OK) {
                     int position = (int) msg.obj;
-                    fragment.chooseImgPaths.remove(fragment.mImgPaths.get(position).getData());
+                    fragment.chooseImgPaths.remove(fragment.mImgPaths.get(position));
                 }
             }
         }
