@@ -1,4 +1,4 @@
-package util.dialog;
+package com.nju.View;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,16 +16,16 @@ public class SchoolFriendDialog extends MaterialDialog {
     }
 
     public static SchoolFriendDialog showProgressDialog(Context context,String title,String content) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(context).title(title).content(content).progress(true,0);
+        Builder builder = new Builder(context).title(title).content(content).progress(true,0);
         SchoolFriendDialog testDialog = new SchoolFriendDialog(builder);
         return testDialog;
     }
 
     public static SchoolFriendDialog exitReminderDialog(final Activity context,String title) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(context).title(title);
+        Builder builder = new Builder(context).title(title);
         builder.positiveText(context.getString(R.string.cancle))
         .negativeText(context.getString(R.string.exit));
-        builder.onNegative(new MaterialDialog.SingleButtonCallback() {
+        builder.onNegative(new SingleButtonCallback() {
 
             @Override
             public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {

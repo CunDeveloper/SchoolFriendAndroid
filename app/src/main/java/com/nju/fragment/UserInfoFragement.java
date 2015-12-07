@@ -12,10 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.model.UserInfo;
 
 import java.util.ArrayList;
 
-import model.UserInfo;
 
 public class UserInfoFragement extends Fragment {
 

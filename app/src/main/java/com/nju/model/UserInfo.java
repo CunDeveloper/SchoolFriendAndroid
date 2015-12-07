@@ -1,9 +1,7 @@
-package model;
+package com.nju.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * Created by xiaojuzhang on 2015/11/12.

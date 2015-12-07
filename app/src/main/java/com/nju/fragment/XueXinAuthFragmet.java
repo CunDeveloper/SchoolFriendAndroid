@@ -2,7 +2,6 @@ package com.nju.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,21 +15,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.SchoolFriendHttp;
+import com.nju.model.UserInfo;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
-
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import auth.Authorization;
-import model.UserInfo;
-import util.dialog.SchoolFriendDialog;
 
 public class XueXinAuthFragmet extends Fragment {
     public static final String TAG = XueXinAuthFragmet.class.getSimpleName();

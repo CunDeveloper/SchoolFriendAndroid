@@ -1,22 +1,13 @@
 package com.nju.adatper;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,16 +18,14 @@ import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by xiaojuzhang on 2015/11/25.
  */
-public class ChooseImageAdapter extends BaseAdapter {
+public class MultiChoosedPicAdapter extends BaseAdapter {
 
     public static final int CHOOSE_OK = 0;
     public static final int ADD_PIC_OK = 10;
@@ -46,12 +35,12 @@ public class ChooseImageAdapter extends BaseAdapter {
     private static final int TYPE_CAPTURE = 0;
     private static final  int TYPE_IMAGE = 1;
     private static final int TYPE_MAX_COUNT = TYPE_IMAGE + 1;
-    private static final String TAG = ChooseImageAdapter.class.getSimpleName();
+    private static final String TAG = MultiChoosedPicAdapter.class.getSimpleName();
     private ArrayList<Image> mImages;
     private AppCompatActivity mContext;
     private int choosedPicNumber = 0;
     private Handler mHandler;
-    public ChooseImageAdapter(AppCompatActivity context,ArrayList<Image> imgs,Handler handler){
+    public MultiChoosedPicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler){
         mContext = context;
         mImages = imgs;
         mHandler = handler;
@@ -100,7 +89,7 @@ public class ChooseImageAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                              mContext.getSupportFragmentManager().beginTransaction().
-                                     replace(R.id.activity_choose_container, CameraImageViewFragment.
+                                     replace(R.id.container, CameraImageViewFragment.
                                              newInstance(mImages,position,mContext.getResources().getString(R.string.chooseReview))).
                                      commit();
                         }

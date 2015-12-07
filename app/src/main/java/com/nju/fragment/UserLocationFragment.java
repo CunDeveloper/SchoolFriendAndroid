@@ -4,26 +4,28 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import com.nju.activity.R;
 import com.nju.adatper.UserLocationAdapter;
 import com.nju.model.LocationInfo;
+import com.nju.util.Divice;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.map.geolocation.TencentLocationManager;
 import com.tencent.map.geolocation.TencentLocationRequest;
 import com.tencent.map.geolocation.TencentPoi;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,37 +37,17 @@ public class UserLocationFragment extends Fragment {
     private static final int OK = 0 ;
     private TencentLocationManager mLocationManager;
     private TencentLocationListener listener;
-    private List<LocationInfo> lists ;
+    private List<LocationInfo> mLoncationInfolist ;
     private ProgressBar mProgressBar;
     private ListView mListView;
     private UserLocationAdapter mLocationAdapter;
     private int choosedPosition = -1;
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if(msg.what == OK) {
-                mLocationManager.removeUpdates(listener);
-                List<LocationInfo> temlists = (List<LocationInfo>) msg.obj;
-                if(temlists!=null && temlists.size()>0) {
-                    lists.remove(0);
-                    lists.addAll(temlists);
-                    Collections.sort(lists, new LocatCompator());
-                    mLocationAdapter.notifyDataSetChanged();
-                }
-                mProgressBar.setVisibility(View.GONE);
-                mListView.setVisibility(View.VISIBLE);
-            }
-        }
-    };
-
+    private Handler mHandler = new MyHandler(this);
     public static UserLocationFragment newInstance() {
-        UserLocationFragment fragment = new UserLocationFragment();
-        return fragment;
+        return new UserLocationFragment();
     }
 
     public UserLocationFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -77,11 +59,16 @@ public class UserLocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_location, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setTitle(getString(R.string.title_activity_user_loaction));
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.publish_text_with_pics_toolbar);
-        Button button = (Button) toolbar.findViewById(R.id.publish_text_with_pics_toolbar_finish_button);
-        button.setVisibility(View.GONE);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.user_loaction));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        activity.findViewById(R.id.main_viewpager_menu_bn).setVisibility(View.GONE);
+        activity.findViewById(R.id.main_viewpager_menu_delete_img).setVisibility(View.GONE);
+        activity.findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
         mProgressBar = (ProgressBar)view.findViewById(R.id.user_location_progressBar);
         listener = new MyLocationListener();
         initListContent(view);
@@ -103,9 +90,9 @@ public class UserLocationFragment extends Fragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                headImageView.setImageDrawable(getResources().getDrawable(R.drawable.btn_check_buttonless_on));
+                headImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
                 if(choosedPosition != -1) {
-                    lists.get(choosedPosition).setSelectBg(getResources().getDrawable(R.drawable.publish_content_edittext_bg));
+                    mLoncationInfolist.get(choosedPosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                     choosedPosition = -1;
                     mLocationAdapter.notifyDataSetChanged();
                 }
@@ -113,19 +100,19 @@ public class UserLocationFragment extends Fragment {
         });
 
         mListView.addHeaderView(headerView);
-        lists = new ArrayList<>();
+        mLoncationInfolist = new ArrayList<>();
         LocationInfo info = new LocationInfo();
-        lists.add(info);
-        mLocationAdapter = new UserLocationAdapter(lists,getActivity());
+        mLoncationInfolist.add(info);
+        mLocationAdapter = new UserLocationAdapter(mLoncationInfolist,getActivity());
         mListView.setAdapter(mLocationAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lists.get(position - 1).setSelectBg(getResources().getDrawable(R.drawable.btn_check_buttonless_on));
+                mLoncationInfolist.get(position - 1).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
                 if (choosedPosition == -1){
-                    headImageView.setImageDrawable(getResources().getDrawable(R.drawable.publish_content_edittext_bg));
+                    headImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                 } else{
-                    lists.get(choosedPosition).setSelectBg(getResources().getDrawable(R.drawable.publish_content_edittext_bg));
+                    mLoncationInfolist.get(choosedPosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                 }
                 choosedPosition = position-1;
                 mLocationAdapter.notifyDataSetChanged();
@@ -137,7 +124,7 @@ public class UserLocationFragment extends Fragment {
 
         @Override
         public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
-            LocationInfo info = null;
+            LocationInfo info;
             info = new LocationInfo();
             info.setLocatName(tencentLocation.getProvince());
             info.setAddress("");
@@ -149,7 +136,7 @@ public class UserLocationFragment extends Fragment {
                 info.setLocatName(poi.getName());
                 info.setAddress(poi.getAddress());
                 info.setDistance(poi.getDistance());
-                info.setSelectBg(getResources().getDrawable(R.drawable.publish_content_edittext_bg));
+                info.setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                 locationLists.add(info);
             }
             Message message = new Message();
@@ -165,7 +152,7 @@ public class UserLocationFragment extends Fragment {
         }
     }
 
-    private class LocatCompator implements Comparator<LocationInfo> {
+    private static class LocatCompator implements Comparator<LocationInfo> {
         @Override
         public int compare(LocationInfo lhs, LocationInfo rhs) {
             if(lhs.getDistance()<rhs.getDistance()) {
@@ -173,6 +160,35 @@ public class UserLocationFragment extends Fragment {
             }
             else{
                 return 1;
+            }
+        }
+    }
+
+    private static class MyHandler extends  Handler {
+
+        private final WeakReference<UserLocationFragment> mUserLocationFragment;
+
+        private MyHandler(UserLocationFragment userLocationFragment) {
+            this.mUserLocationFragment = new WeakReference<>(userLocationFragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            UserLocationFragment fragment = mUserLocationFragment.get();
+            if (fragment != null) {
+                super.handleMessage(msg);
+                if(msg.what == OK) {
+                    fragment.mLocationManager.removeUpdates(fragment.listener);
+                    List<LocationInfo> temlists = (List<LocationInfo>) msg.obj;
+                    if(temlists!=null && temlists.size()>0) {
+                        fragment.mLoncationInfolist.remove(0);
+                        fragment.mLoncationInfolist.addAll(temlists);
+                        Collections.sort(fragment.mLoncationInfolist, new LocatCompator());
+                        fragment.mLocationAdapter.notifyDataSetChanged();
+                    }
+                    fragment.mProgressBar.setVisibility(View.GONE);
+                    fragment.mListView.setVisibility(View.VISIBLE);
+                }
             }
         }
     }

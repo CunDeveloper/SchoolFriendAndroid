@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.nju.fragment.PublishTextFragment">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="@dimen/padding_right"
+        android:layout_marginRight="@dimen/padding_right"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:layout_gravity="center_horizontal" />
+</FrameLayout>

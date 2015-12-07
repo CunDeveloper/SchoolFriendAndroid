@@ -1,19 +1,17 @@
 package com.nju.fragment;
-import android.content.Intent;
+
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,13 +54,13 @@ public class PublishTextWithPicsFragment extends Fragment {
     private View mView1,mView2,mView3;
     private List<ImageView> mUploadImgs;
     private ArrayList<Image> mUploadImgPaths;
-    private AppBarLayout mAppBarLayout;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
+    private Button mFinishBn;
 
-    public static PublishTextWithPicsFragment newInstance(ArrayList<String> uploadImgPaths) {
+    public static PublishTextWithPicsFragment newInstance(ArrayList<Image> uploadImgPaths) {
         PublishTextWithPicsFragment fragment = new PublishTextWithPicsFragment();
         Bundle args = new Bundle();
-        args.putStringArrayList(TAG, uploadImgPaths);
+        args.putParcelableArrayList(TAG, uploadImgPaths);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,13 +79,19 @@ public class PublishTextWithPicsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar!=null) {
+            actionBar.setTitle(getString(R.string.empty));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        mFinishBn = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
+        mFinishBn.setText(getString(R.string.finish));
         View view= inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.publish_text_with_pics_toolbar);
-        Button button = (Button) toolbar.findViewById(R.id.publish_text_with_pics_toolbar_finish_button);
-        button.setVisibility(View.VISIBLE);
-        mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.publish_text_with_activity_appbar);
+
         emoLineLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_emto_layout);
         mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
+        mainLayout.setPadding(mainLayout.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),mainLayout.getPaddingRight(),mainLayout.getPaddingBottom());
         mEmotionView = (ImageView)view.findViewById(R.id.publish_wei_bo_emotion_fab);
         mScrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
@@ -104,6 +108,7 @@ public class PublishTextWithPicsFragment extends Fragment {
         initLoadImage();
         openChooseLocation(view);
         openWhoScan(view);
+        initFinishBnEvent();
         return view;
     }
 
@@ -125,19 +130,28 @@ public class PublishTextWithPicsFragment extends Fragment {
         });
     }
 
+    private void initFinishBnEvent() {
+        mFinishBn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
     private void changeSlectColor(int mPagerPosition) {
         if(0 == mPagerPosition) {
-            mView1.setBackground(getResources().getDrawable(R.drawable.select_circle_label_bg));
-            mView2.setBackground(getResources().getDrawable(R.drawable.unselect_circle_label_bg));
-            mView3.setBackground(getResources().getDrawable(R.drawable.unselect_circle_label_bg));
+            mView1.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.select_circle_label_bg));
+            mView2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
+            mView3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
         }else if(1 == mPagerPosition) {
-            mView2.setBackground(getResources().getDrawable(R.drawable.select_circle_label_bg));
-            mView1.setBackground(getResources().getDrawable(R.drawable.unselect_circle_label_bg));
-            mView3.setBackground(getResources().getDrawable(R.drawable.unselect_circle_label_bg));
+            mView2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.select_circle_label_bg));
+            mView1.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
+            mView3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
         }else if(2 == mPagerPosition) {
-            mView3.setBackground(getResources().getDrawable(R.drawable.select_circle_label_bg));
-            mView1.setBackground(getResources().getDrawable(R.drawable.unselect_circle_label_bg));
-            mView2.setBackground(getResources().getDrawable(R.drawable.unselect_circle_label_bg));
+            mView3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.select_circle_label_bg));
+            mView1.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
+            mView2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
         }
     }
 
@@ -146,9 +160,7 @@ public class PublishTextWithPicsFragment extends Fragment {
             @Override
             public void onGlobalLayout() {
                 Rect r = new Rect();
-                //r will be populated with the coordinates of your view that area still visible.
                 mainLayout.getWindowVisibleDisplayFrame(r);
-                int heightDiff = mainLayout.getRootView().getHeight() - (r.bottom - r.top);
                 rootHeight = mainLayout.getRootView().getHeight();
                 subHeight = r.bottom - r.top;
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
@@ -158,7 +170,7 @@ public class PublishTextWithPicsFragment extends Fragment {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
                     if(Divice.isPhone()) {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 50, mAppBarLayout));
+                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 50));
                     } else {
                         mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 90));
                     }
@@ -173,12 +185,12 @@ public class PublishTextWithPicsFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                    mEmotionView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_menu_emoticons));
+                    mEmotionView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_menu_emoticons));
                     SoftInput.close(getActivity(), mEmotionView);
                     isEmotionOpen = false;
                     label = false;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
-                    mEmotionView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_menu_emoticons));
+                    mEmotionView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_menu_emoticons));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
                     label = false;
@@ -190,7 +202,7 @@ public class PublishTextWithPicsFragment extends Fragment {
 
     private void initUpladImageView(View view) {
         mUploadImgs = new ArrayList<>();
-        ImageView imageView = null;
+        ImageView imageView ;
         imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im1);
         mUploadImgs.add(imageView);
         imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im2);
@@ -231,7 +243,7 @@ public class PublishTextWithPicsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     getFragmentManager().beginTransaction()
-                            .replace(R.id.activity_publish_text_with_pics_main,ChoosedImageViewFragment.newInstance(mUploadImgPaths,finalI)).commit();
+                            .replace(R.id.container,ChoosedImageViewFragment.newInstance(mUploadImgPaths,finalI)).commit();
                 }
             });
         }
@@ -254,7 +266,7 @@ public class PublishTextWithPicsFragment extends Fragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.activity_publish_text_with_pics_main,
+                getFragmentManager().beginTransaction().replace(R.id.container,
                         UserLocationFragment.newInstance()).commit();
             }
         });
@@ -265,7 +277,7 @@ public class PublishTextWithPicsFragment extends Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.activity_publish_text_with_pics_main,
+                getFragmentManager().beginTransaction().replace(R.id.container,
                         WhoScanFragment.newInstance()).commit();
             }
         });

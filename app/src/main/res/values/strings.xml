@@ -52,6 +52,10 @@
     <string name="school_friend_scan">校友可见</string>
     <string name="edit_label">编辑标签</string>
     <string name="xue_xin_auth">学信网授权</string>
+    <string name="alumn_circle">校友圈</string>
+    <string name="publish_text">发表文字</string>
+    <string name="picture">图片</string>
+    <string name="user_loaction">所在位置</string>
 
     <string-array name="who_scan_group">
         <item>公开</item>

@@ -3,29 +3,27 @@ package com.nju.fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.nju.activity.R;
 import com.nju.adatper.WhoScanListAdapter;
 import com.nju.model.Entry;
 import com.nju.model.WhoScan;
+import com.nju.util.Divice;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +45,6 @@ public class WhoScanFragment extends Fragment {
     }
 
     public WhoScanFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -58,22 +55,27 @@ public class WhoScanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_who_scan, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setTitle(getString(R.string.who_scan));
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.publish_text_with_pics_toolbar);
-        Button button = (Button) toolbar.findViewById(R.id.publish_text_with_pics_toolbar_finish_button);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.who_scan));
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        Button button = (Button)getActivity().findViewById(R.id.main_viewpager_menu_bn);
         button.setText(getString(R.string.finish));
+        getActivity().findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.main_viewpager_menu_delete_img).setVisibility(View.GONE);
         mExpandableListView = (ExpandableListView) view.findViewById(R.id.fragment_who_scan_expandablelistView);
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         final ArrayList<Entry> labelInfo = loadLabel();
         mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                labelInfo.get(choosedPosition).setDrawable(getResources().getDrawable(R.drawable.publish_content_edittext_bg));
+                labelInfo.get(choosedPosition).setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                 choosedPosition = groupPosition;
-                labelInfo.get(choosedPosition).setDrawable(getResources().getDrawable(R.drawable.btn_check_buttonless_on));
+                labelInfo.get(choosedPosition).setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
                 return false;
             }
         });
@@ -87,23 +89,23 @@ public class WhoScanFragment extends Fragment {
         ArrayList<Entry> groupList = new ArrayList<>();
         String[] bigLabel = getResources().getStringArray(R.array.who_scan_group);
         String[] smallLabel = getResources().getStringArray(R.array.who_san_small_group);
-        Entry entry = null;
+        Entry entry;
         for (int i =0;i<bigLabel.length;i++) {
             entry = new Entry();
             entry.setBigLabel(bigLabel[i]);
             entry.setSamllLabel(smallLabel[i]);
             if(i == 0){
                 choosedPosition = 0;
-                entry.setDrawable(getResources().getDrawable(R.drawable.btn_check_buttonless_on));
+                entry.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
             }
             else{
-                entry.setDrawable(getResources().getDrawable(R.drawable.publish_content_edittext_bg));
+                entry.setDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.publish_content_edittext_bg));
             }
             if (i == 2){
                 String[] bigChildLabel = getResources().getStringArray(R.array.who_scan_partily_big_scan);
                 String[] smallChildLabel = getResources().getStringArray(R.array.who_scan_partily_small_scan);
                 ArrayList<Entry> childList = new ArrayList<>();
-                Entry childEntry = null;
+                Entry childEntry;
                 for (int j =0;j<bigChildLabel.length;j++){
                     childEntry = new Entry();
                     childEntry.setBigLabel(bigChildLabel[j]);
@@ -161,9 +163,9 @@ public class WhoScanFragment extends Fragment {
             Log.e(TAG,groupList.getLength()+"===");
             int length = groupList.getLength();
             ArrayList<WhoScan> whoScans = new ArrayList<>();
-            WhoScan whoScan = null;
-            WhoScan.ChildItem childItem = null;
-            ArrayList<WhoScan.ChildItem> childItems = null;
+            WhoScan whoScan ;
+            WhoScan.ChildItem childItem;
+            ArrayList<WhoScan.ChildItem> childItems;
             for (int i =0;i<length;i++) {
                 whoScan = new WhoScan();
                 Node node = groupList.item(i);
@@ -173,32 +175,45 @@ public class WhoScanFragment extends Fragment {
                     Node node1 = nodeList.item(j);
                     String name = node1.getNodeName();
                     Log.e(TAG, name);
-                    if (name.equals("bigLabel")){
-                        whoScan.setBigLabel(node1.getTextContent());
-                    } else if(name.equals("smallLabel")) {
-                        whoScan.setSmallLabel(node1.getTextContent());
-                    } else if (name.equals("drwable")){
-                        whoScan.setChoosedLabel(node1.getTextContent());
-                    } else if (name.equals("child")) {
-                        NodeList nodeList1 = node1.getChildNodes();
-                        childItem = new WhoScan.ChildItem();
-                        for (int k=0;k<nodeList1.getLength();k++) {
-                            Node node2 = nodeList1.item(k);
-                            String name1 =node2.getNodeName();
-                            if (name1.equals("childBigLabel")) {
-                                childItem.setChildBigLabel(node2.getTextContent());
-                            } else if (name1.equals("childSmallLabel")) {
-                                childItem.setChildSmallLabel(node2.getTextContent());
-                            }
+                    switch (name){
+                        case "bigLabel":{
+                            whoScan.setBigLabel(node1.getTextContent());
+                            break;
                         }
-                        childItems.add(childItem);
-                    }
-                    whoScan.setChildItems(childItems);
-                }
-                whoScans.add(whoScan);
-            }
-            return whoScans;
-        }
-    }
+                        case "smallLabel":{
+                            whoScan.setSmallLabel(node1.getTextContent());
+                            break;
+                        }
+                        case "drwable":{
+                            whoScan.setChoosedLabel(node1.getTextContent());
+                            break;
+                        }
+                        case "child":{
+                            NodeList nodeList1 = node1.getChildNodes();
+                            childItem = new WhoScan.ChildItem();
+                            for (int k=0;k<nodeList1.getLength();k++) {
+                                Node node2 = nodeList1.item(k);
+                                String name1 =node2.getNodeName();
+                                if (name1.equals("childBigLabel")) {
+                                    childItem.setChildBigLabel(node2.getTextContent());
+                                } else if (name1.equals("childSmallLabel")) {
+                                    childItem.setChildSmallLabel(node2.getTextContent());
+                                }
+                            }
+                            childItems.add(childItem);
+                            break;
+                        }
 
+                       }
+                    whoScan.setChildItems(childItems);
+
+                    }
+                whoScans.add(whoScan);
+
+               }
+            return whoScans;
+         }
+    }
 }
+
+

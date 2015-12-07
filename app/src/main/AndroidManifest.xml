@@ -35,33 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SchoolFriendActivity"
-            android:label="@string/title_activity_school_friend"
-            android:windowSoftInputMode="adjustResize" >
-        </activity>
-        <activity
-            android:name=".PublishTextActivity"
-            android:label="@string/title_activity_publish_text" >
-        </activity>
-        <activity
-            android:name=".ZoomImageActivity"
-            android:label="@string/title_activity_zoom_image" >
-        </activity>
-        <activity
-            android:name=".ChoosePicActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_choose" >
-        </activity>
-        <activity
-            android:name=".PublishTextWithPicsActivity"
-            android:label="@string/empty"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".StartActivity"
-            android:label="@string/title_activity_start" >
-        </activity>
     </application>
 
 </manifest>

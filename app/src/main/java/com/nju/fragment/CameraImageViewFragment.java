@@ -1,28 +1,20 @@
 package com.nju.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
-
-import com.nju.activity.PublishTextWithPicsActivity;
 import com.nju.activity.R;
 import com.nju.adatper.OriginPicViewPagerAdapter;
 import com.nju.model.Image;
+import com.nju.util.Divice;
 
 import java.util.ArrayList;
 
@@ -36,7 +28,6 @@ public class CameraImageViewFragment extends Fragment {
     private ArrayList<Image> mImgs;
     private int mPosition;
     private ActionBar mActionBar;
-    private Toolbar mToolbar;
     private Button mFinishButton;
     private CheckBox mCheckBox;
     private String mLabel;//
@@ -51,7 +42,6 @@ public class CameraImageViewFragment extends Fragment {
     }
 
     public CameraImageViewFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -68,12 +58,17 @@ public class CameraImageViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_camera_image_view, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         mActionBar = activity.getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
         mActionBar.setTitle((mPosition + 1) + "" + "/" + mImgs.size());
         mViewPager = (ViewPager) view.findViewById(R.id.fragment_camera_imgage_view_pager);
-        mFinishButton = (Button) view.findViewById(R.id.fragment_camera_image_view_finish_button);
+        mFinishButton = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
+        activity.findViewById(R.id.main_viewpager_menu_delete_img).setVisibility(View.GONE);
+        activity.findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
         mCheckBox = (CheckBox) view.findViewById(R.id.fragment_camera_image_view_checkBox);
         mViewPager.setAdapter(new OriginPicViewPagerAdapter(getFragmentManager(),mImgs));
         mViewPager.setCurrentItem(mPosition);
@@ -91,13 +86,6 @@ public class CameraImageViewFragment extends Fragment {
             mFinishButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(),PublishTextWithPicsActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList(getString(R.string.IMGS),mImgs);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    CameraImageViewFragment.this.onDestroy();
-                    getActivity().finish();
                 }
             });
         } else {

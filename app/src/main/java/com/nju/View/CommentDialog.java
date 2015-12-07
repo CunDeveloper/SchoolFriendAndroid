@@ -1,4 +1,4 @@
-package util.dialog;
+package com.nju.View;
 
 
 import android.os.Bundle;

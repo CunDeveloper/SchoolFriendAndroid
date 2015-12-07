@@ -48,7 +48,7 @@ public class ChoosedImageViewFragment extends Fragment {
     }
 
     public ChoosedImageViewFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -63,19 +63,15 @@ public class ChoosedImageViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         mActionBar = activity.getSupportActionBar();
         mActionBar.setTitle((mPostion + 1) + "/" + mImgPaths.size());
         mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
-
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.publish_text_with_pics_toolbar);
-        ImageView imageView = (ImageView) getActivity().findViewById(R.id.publish_text_with_pics_toolbar_delete_img);
+        ImageView imageView = (ImageView) getActivity().findViewById(R.id.main_viewpager_menu_delete_img);
         imageView.setVisibility(View.VISIBLE);
-        Button button = (Button) toolbar.findViewById(R.id.publish_text_with_pics_toolbar_finish_button);
+        Button button = (Button)getActivity().findViewById(R.id.main_viewpager_menu_bn);
         button.setVisibility(View.GONE);
         mViewPager.setAdapter(new ChoosedOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
-
         mViewPager.setCurrentItem(mPostion);
         initViewPagerSlideListener();
         return mViewPager;
