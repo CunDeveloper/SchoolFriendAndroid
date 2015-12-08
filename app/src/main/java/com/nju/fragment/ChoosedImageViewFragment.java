@@ -1,7 +1,6 @@
 package com.nju.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +16,11 @@ import com.nju.model.Image;
 
 import java.util.ArrayList;
 
-public class ChoosedImageViewFragment extends Fragment {
+public class ChoosedImageViewFragment extends BaseFragment {
 
     private static  final String IMG_PATH = "img_path";
     private static final String POSITION = "position";
-    private static final String TAG = ChoosedImageViewFragment.class.getSimpleName();
+    public static final String TAG = ChoosedImageViewFragment.class.getSimpleName();
     private ArrayList<Image> mImgPaths;
     private ViewPager mViewPager;
     private int mPostion;

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -31,9 +29,10 @@ import com.nju.util.SoftInput;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import static com.nju.adatper.UserCommentItemListAdapter.*;
+import static com.nju.adatper.UserCommentItemListAdapter.COMMENT_OK;
+import static com.nju.adatper.UserCommentItemListAdapter.PRAISE_OK;
 
-public class AlumniCircleFragment extends Fragment {
+public class AlumniCircleFragment extends BaseFragment {
 
     public static final String TAG = AlumniCircleFragment.class.getSimpleName();
     private ListView mListView;
@@ -62,16 +61,26 @@ public class AlumniCircleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(getString(R.string.alumn_circle));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+//        ActionBar actionBar = activity.getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setTitle(getString(R.string.alumn_circle));
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//        }
         Button menuBn = (Button) getActivity().findViewById(R.id.main_viewpager_menu_bn);
         menuBn.setVisibility(View.GONE);
         mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
         mCameraImageView = (ImageView) getActivity().findViewById(R.id.main_viewpager_camera_imageView);
         mCameraImageView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.alumn_circle));
+        getHostActivity().getMenuCameraView().setVisibility(View.VISIBLE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        getHostActivity().getMenuBn().setVisibility(View.GONE);
+
     }
 
     @Override
@@ -151,15 +160,13 @@ public class AlumniCircleFragment extends Fragment {
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, MultiChoosedPicFragment.newInstance(),MultiChoosedPicFragment.TAG).commit();
+                getHostActivity().open(MultiChoosedPicFragment.newInstance());
             }
         });
         mCameraImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, PublishTextFragment.newInstance(),PublishTextFragment.TAG).commit();
+                getHostActivity().open(PublishTextFragment.newInstance());
                 return true;
             }
         });

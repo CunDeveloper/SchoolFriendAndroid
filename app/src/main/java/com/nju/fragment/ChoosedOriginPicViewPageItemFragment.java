@@ -3,7 +3,6 @@ package com.nju.fragment;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.IOException;
 
-public class ChoosedOriginPicViewPageItemFragment extends Fragment {
+public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
+
+    public static final String TAG = ChoosedOriginPicViewPageItemFragment.class.getSimpleName();
     private static final String PARAM = "param";
     private String mImgPath;
     private CustomImageVIew mImgView;

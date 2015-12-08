@@ -3,7 +3,6 @@ package com.nju.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,9 @@ import com.nju.model.UserInfo;
 import java.util.ArrayList;
 
 
-public class UserInfoFragement extends Fragment {
+public class UserInfoFragement extends BaseFragment {
 
-    private static final String TAG = UserInfoFragement.class.getSimpleName() ;
+    public static final String TAG = UserInfoFragement.class.getSimpleName() ;
     private static UserInfoFragement fragment = null;
     private ArrayList<UserInfo> lists = null;
     private ListView mListView;

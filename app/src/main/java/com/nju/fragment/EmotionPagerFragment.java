@@ -3,19 +3,21 @@ package com.nju.fragment;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
 import com.nju.activity.R;
 import com.nju.adatper.EmotionAdatper;
 import com.nju.util.Emotion;
+
 import java.util.List;
 
-public class EmotionPagerFragment extends Fragment {
+public class EmotionPagerFragment extends BaseFragment {
 
+    public static final String TAG = EmotionPagerFragment.class.getSimpleName();
     private static final String ARG_PARAM = "param";
 
     private GridView mGridView;

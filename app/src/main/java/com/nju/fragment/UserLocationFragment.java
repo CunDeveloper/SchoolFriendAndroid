@@ -3,7 +3,6 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+
 import com.nju.activity.R;
 import com.nju.adatper.UserLocationAdapter;
 import com.nju.model.LocationInfo;
@@ -31,9 +31,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class UserLocationFragment extends Fragment {
+public class UserLocationFragment extends BaseFragment {
 
-    private static final String TAG = UserLocationFragment.class.getSimpleName();
+    public static final String TAG = UserLocationFragment.class.getSimpleName();
     private static final int OK = 0 ;
     private TencentLocationManager mLocationManager;
     private TencentLocationListener listener;

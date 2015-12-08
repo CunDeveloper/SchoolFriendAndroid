@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +29,7 @@ import com.nju.util.Divice;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class MultiChoosedPicFragment extends Fragment {
+public class MultiChoosedPicFragment extends BaseFragment {
 
     public static final String TAG = MultiChoosedPicFragment.class.getSimpleName();
     private ProgressBar mProgressBar;
@@ -98,8 +96,7 @@ public class MultiChoosedPicFragment extends Fragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, PublishTextWithPicsFragment.newInstance(chooseImgPaths),PublishTextWithPicsFragment.TAG).commit();
+                getHostActivity().open(PublishTextWithPicsFragment.newInstance(chooseImgPaths));
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.nju.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
 import com.nju.activity.R;
 import com.nju.adatper.OriginPicViewPagerAdapter;
 import com.nju.model.Image;
@@ -19,7 +19,7 @@ import com.nju.util.Divice;
 import java.util.ArrayList;
 
 
-public class CameraImageViewFragment extends Fragment {
+public class CameraImageViewFragment extends BaseFragment {
 
     private static final String TAG = CameraImageViewFragment.class.getSimpleName();
     public static final String POSITION = "position";

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,13 +21,15 @@ import com.nju.http.SchoolFriendHttp;
 import com.nju.model.UserInfo;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.SoftInput;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class XueXinAuthFragmet extends Fragment {
+public class XueXinAuthFragmet extends BaseFragment {
     public static final String TAG = XueXinAuthFragmet.class.getSimpleName();
     private static final int ERROR_USER_PASS = 0;
     private static final int USERNAME_EMPTY = 1;
@@ -38,31 +39,10 @@ public class XueXinAuthFragmet extends Fragment {
     private Button mButton;
     private TextView mTipTextView;
     private OpenFragmentListener mListener;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if(msg.what == ERROR_USER_PASS) {
-                String tip = (String) msg.obj;
-                mTipTextView.setText(tip);
-                mUserNameEditText.requestFocus();
-            } else if (msg.what == USERNAME_EMPTY) {
-                String tip = (String) msg.obj;
-                mTipTextView.setText(tip);
-                mUserNameEditText.requestFocus();
-            } else if (msg.what == PASSWORD_EMPTY) {
-                String tip = (String) msg.obj;
-                mTipTextView.setText(tip);
-                mPassEditText.requestFocus();
+    private  Handler handler = new MyHandler(this);
 
-            }
-            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-        }
-    };
     public static XueXinAuthFragmet newInstance() {
-        XueXinAuthFragmet fragment = new XueXinAuthFragmet();
-        return fragment;
+        return new XueXinAuthFragmet();
     }
 
     public XueXinAuthFragmet() {
@@ -147,20 +127,7 @@ public class XueXinAuthFragmet extends Fragment {
         new Thread() {
             @Override
             public void run() {
-                //Authorization authorization = new Authorization();
                 try {
-//                    String it = authorization.getIt();
-//                    String html = authorization.postForm(it, userName, pass);
-//                    Document doc = authorization.getXueXinDoc(html);
-//                    if (doc != null && authorization.validate(html) == 0) {
-//                        ArrayList<UserInfo> lists = authorization.getUserInfo(doc);
-//                        mListener.openFragment(lists);
-//                    } else {
-//                        Message message = new Message();
-//                        message.obj = getString(R.string.auth_username_pass_error_tip);
-//                        message.what = ERROR_USER_PASS;
-//                        handler.sendMessage(message);
-//                    }
                     Map<String,String> params = new HashMap<String,String>();
                     params.put(Constant.XUE_XIN_USERNAME,userName);
                     params.put(Constant.XUE_XIN_PASSWORD, pass);
@@ -217,7 +184,39 @@ public class XueXinAuthFragmet extends Fragment {
     }
 
     public interface OpenFragmentListener {
-        public void openFragment(ArrayList<UserInfo> lists);
+         void openFragment(ArrayList<UserInfo> lists);
+    }
+
+    private static class MyHandler extends  Handler {
+
+        private final WeakReference<XueXinAuthFragmet> mXueXinAuthFragment;
+
+        private MyHandler(XueXinAuthFragmet xueXinAuthFragmet) {
+            this.mXueXinAuthFragment = new WeakReference<>(xueXinAuthFragmet);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            XueXinAuthFragmet fragment = mXueXinAuthFragment.get();
+            if (fragment != null) {
+                super.handleMessage(msg);
+                if(msg.what == ERROR_USER_PASS) {
+                    String tip = (String) msg.obj;
+                    fragment.mTipTextView.setText(tip);
+                    fragment.mUserNameEditText.requestFocus();
+                } else if (msg.what == USERNAME_EMPTY) {
+                    String tip = (String) msg.obj;
+                    fragment.mTipTextView.setText(tip);
+                    fragment.mUserNameEditText.requestFocus();
+                } else if (msg.what == PASSWORD_EMPTY) {
+                    String tip = (String) msg.obj;
+                    fragment.mTipTextView.setText(tip);
+                    fragment.mPassEditText.requestFocus();
+
+                }
+                SoftInput.open(fragment.getActivity());
+            }
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package com.nju.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.widget.Button;
 import com.nju.activity.R;
 import com.nju.util.Divice;
 
-public class PublishTextFragment extends Fragment {
+public class PublishTextFragment extends BaseFragment {
 
     public static final String TAG = PublishTextFragment.class.getSimpleName();
     private Button mSendButton;

@@ -2,7 +2,6 @@ package com.nju.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,9 +32,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class WhoScanFragment extends Fragment {
+public class WhoScanFragment extends BaseFragment {
 
-    private static final String TAG = WhoScanFragment.class.getSimpleName();
+    public static final String TAG = WhoScanFragment.class.getSimpleName();
     private ExpandableListView mExpandableListView;
     private WhoScanListAdapter mAdapter;
     private int choosedPosition;
