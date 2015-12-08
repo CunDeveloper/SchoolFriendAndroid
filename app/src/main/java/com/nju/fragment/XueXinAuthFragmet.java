@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class XueXinAuthFragmet extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_xue_xin_auth, container, false);
+        view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         mUserNameEditText = (EditText) view.findViewById(R.id.etUsername);
         mPassEditText = (EditText) view.findViewById(R.id.etPassword);
         mButton = (Button) view.findViewById(R.id.fragment_xue_xin_auth_bn);
@@ -68,6 +70,18 @@ public class XueXinAuthFragmet extends BaseFragment {
         editTextChangeListener();
         return view;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.xue_xin_auth));
+        getHostActivity().getToolBar().setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_menu));
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        getHostActivity().getMenuBn().setVisibility(View.GONE);
+    }
+
+
     private void authClick() {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override

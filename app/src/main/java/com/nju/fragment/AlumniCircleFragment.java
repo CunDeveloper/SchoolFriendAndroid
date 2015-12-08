@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,14 +59,6 @@ public class AlumniCircleFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        ActionBar actionBar = activity.getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setTitle(getString(R.string.alumn_circle));
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
-        Button menuBn = (Button) getActivity().findViewById(R.id.main_viewpager_menu_bn);
-        menuBn.setVisibility(View.GONE);
         mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
         mCameraImageView = (ImageView) getActivity().findViewById(R.id.main_viewpager_camera_imageView);
         mCameraImageView.setVisibility(View.VISIBLE);
@@ -80,7 +71,6 @@ public class AlumniCircleFragment extends BaseFragment {
         getHostActivity().getMenuCameraView().setVisibility(View.VISIBLE);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);
-
     }
 
     @Override
@@ -160,13 +150,13 @@ public class AlumniCircleFragment extends BaseFragment {
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MultiChoosedPicFragment.newInstance());
+                getHostActivity().open(MultiChoosedPicFragment.newInstance(),MultiChoosedPicFragment.class);
             }
         });
         mCameraImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                getHostActivity().open(PublishTextFragment.newInstance());
+                getHostActivity().open(PublishTextFragment.newInstance(),PublishTextFragment.class);
                 return true;
             }
         });

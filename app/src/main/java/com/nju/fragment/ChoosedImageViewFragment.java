@@ -50,25 +50,27 @@ public class ChoosedImageViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        mActionBar = activity.getSupportActionBar();
-        mActionBar.setTitle((mPostion + 1) + "/" + mImgPaths.size());
         mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
-        ImageView imageView = (ImageView) getActivity().findViewById(R.id.main_viewpager_menu_delete_img);
-        imageView.setVisibility(View.VISIBLE);
-        Button button = (Button)getActivity().findViewById(R.id.main_viewpager_menu_bn);
-        button.setVisibility(View.GONE);
         mViewPager.setAdapter(new ChoosedOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
         mViewPager.setCurrentItem(mPostion);
         initViewPagerSlideListener();
         return mViewPager;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle((mPostion + 1) + "/" + mImgPaths.size());
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.VISIBLE);
+        getHostActivity().getMenuBn().setVisibility(View.GONE);
+    }
+
     private void initViewPagerSlideListener (){
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mActionBar.setTitle((position + 1) + "" + "/" + mImgPaths.size());
+                getHostActivity().getToolBar().setTitle((position + 1) + "" + "/" + mImgPaths.size());
             }
 
             @Override

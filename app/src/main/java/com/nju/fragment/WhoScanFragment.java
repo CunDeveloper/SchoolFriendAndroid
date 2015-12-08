@@ -38,6 +38,7 @@ public class WhoScanFragment extends BaseFragment {
     private ExpandableListView mExpandableListView;
     private WhoScanListAdapter mAdapter;
     private int choosedPosition;
+    private Button mFinishBn;
     public static WhoScanFragment newInstance( ) {
         WhoScanFragment fragment = new WhoScanFragment();
         return fragment;
@@ -55,17 +56,7 @@ public class WhoScanFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_who_scan, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(getString(R.string.who_scan));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        Button button = (Button)getActivity().findViewById(R.id.main_viewpager_menu_bn);
-        button.setText(getString(R.string.finish));
-        getActivity().findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
-        getActivity().findViewById(R.id.main_viewpager_menu_delete_img).setVisibility(View.GONE);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mExpandableListView = (ExpandableListView) view.findViewById(R.id.fragment_who_scan_expandablelistView);
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         final ArrayList<Entry> labelInfo = loadLabel();
@@ -82,6 +73,17 @@ public class WhoScanFragment extends BaseFragment {
         mExpandableListView.setAdapter(mAdapter);
         new LoadData().execute("who_scan.xml");
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.who_scan));
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        mFinishBn = getHostActivity().getMenuBn();
+        mFinishBn.setText(getString(R.string.finish));
+        mFinishBn.setVisibility(View.VISIBLE);
     }
 
     private ArrayList<Entry> loadLabel(){

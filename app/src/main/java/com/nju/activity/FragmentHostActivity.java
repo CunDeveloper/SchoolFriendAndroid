@@ -11,10 +11,9 @@ import com.nju.fragment.BaseFragment;
  * Created by xiaojuzhang on 2015/12/8.
  */
 public interface FragmentHostActivity {
-    void open(BaseFragment fragment);
+    void open(BaseFragment fragment,Class mClass);
     Toolbar getToolBar();
     Button getMenuBn();
     ImageView getMenuCameraView();
     ImageView getMenuDeleteView();
-
 }

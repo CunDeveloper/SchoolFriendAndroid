@@ -1,7 +1,6 @@
 package com.nju.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolBar;
-    private ActionBar mActionBar;
     private Button mMenuBn;
     private ImageView mMenuCameraView;
     private ImageView mMenuDeleteView;
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
         initNavigationViewListener();
-        open(XueXinAuthFragmet.newInstance());
+        open(XueXinAuthFragmet.newInstance(),XueXinAuthFragmet.class);
     }
 
 
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
                 item.setChecked(true);
                 switch (item.getItemId()) {
                     case R.id.nav_discussion:
-                        open(AlumniCircleFragment.newInstance());
+                        open(AlumniCircleFragment.newInstance(),AlumniCircleFragment.class);
 
                 }
                 return false;
@@ -112,14 +111,14 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
         if (xueXinAuthFragmet != null) {
             manager.beginTransaction().remove(xueXinAuthFragmet).commit();
         }
-        manager.beginTransaction()
-                .replace(R.id.container, UserInfoFragement.newInstance()).addToBackStack(null).commit();
+        open(UserInfoFragement.newInstance(),UserInfoFragement.class);
     }
 
     @Override
-    public void open(BaseFragment fragment) {
+    public void open(BaseFragment fragment,Class mClass) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container,fragment).addToBackStack(fragment.TAG);
+        Log.e(TAG,mClass.getSimpleName());
+        ft.replace(R.id.container,fragment).addToBackStack(mClass.getSimpleName());
         ft.commit();
     }
 

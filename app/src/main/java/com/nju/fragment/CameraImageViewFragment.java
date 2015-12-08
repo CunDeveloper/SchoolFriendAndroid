@@ -58,24 +58,25 @@ public class CameraImageViewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_camera_image_view, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        mActionBar = activity.getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        mActionBar.setTitle((mPosition + 1) + "" + "/" + mImgs.size());
-        mViewPager = (ViewPager) view.findViewById(R.id.fragment_camera_imgage_view_pager);
-        mFinishButton = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
-        activity.findViewById(R.id.main_viewpager_menu_delete_img).setVisibility(View.GONE);
-        activity.findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mCheckBox = (CheckBox) view.findViewById(R.id.fragment_camera_image_view_checkBox);
+        mViewPager = (ViewPager) view.findViewById(R.id.fragment_camera_imgage_view_pager);
         mViewPager.setAdapter(new OriginPicViewPagerAdapter(getFragmentManager(),mImgs));
         mViewPager.setCurrentItem(mPosition);
         dependLabelConditionInit();
         initViewPagerSlideListener();
         initViewPageTouchListener();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle((mPosition + 1) + "" + "/" + mImgs.size());
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        mFinishButton = getHostActivity().getMenuBn();
+        mFinishButton.setVisibility(View.VISIBLE);
     }
 
     private void dependLabelConditionInit() {
@@ -97,7 +98,7 @@ public class CameraImageViewFragment extends BaseFragment {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mActionBar.setTitle((position+1)+""+"/"+mImgs.size());
+                 getHostActivity().getToolBar().setTitle((position+1)+""+"/"+mImgs.size());
             }
             @Override
             public void onPageSelected(int position) {

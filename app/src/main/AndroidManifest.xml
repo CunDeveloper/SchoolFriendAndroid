@@ -27,7 +27,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/xue_xin_auth"
+            android:label="@string/alumn_circle"
             android:windowSoftInputMode="stateHidden"
              >
             <intent-filter>

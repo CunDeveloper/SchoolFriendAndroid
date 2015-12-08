@@ -76,19 +76,10 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.empty));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        mFinishBn = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
-        mFinishBn.setText(getString(R.string.finish));
         View view= inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
-
+        view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         emoLineLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_emto_layout);
         mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
-        mainLayout.setPadding(mainLayout.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),mainLayout.getPaddingRight(),mainLayout.getPaddingBottom());
         mEmotionView = (ImageView)view.findViewById(R.id.publish_wei_bo_emotion_fab);
         mScrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
@@ -105,8 +96,19 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         initLoadImage();
         openChooseLocation(view);
         openWhoScan(view);
-        initFinishBnEvent();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.empty));
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        mFinishBn = getHostActivity().getMenuBn();
+        mFinishBn.setText(getString(R.string.finish));
+        mFinishBn.setVisibility(View.VISIBLE);
+        initFinishBnEvent();
     }
 
     private void initViewPagerListener() {

@@ -55,18 +55,6 @@ public class MultiChoosedPicFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setTitle(getString(R.string.picture));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        mFinishBn = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
-        mFinishBn.setEnabled(false);
-        mFinishBn.setText(getString(R.string.finish));
-        mFinishBn.setAlpha(0.5F);
-        mFinishBn.setVisibility(View.VISIBLE);
-        activity.findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
         View view = inflater.inflate(R.layout.fragment_multi_choosed_pic, container, false);
         view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         mImgPaths = new ArrayList<>();
@@ -74,11 +62,24 @@ public class MultiChoosedPicFragment extends BaseFragment {
         mProgressBar = (ProgressBar)view.findViewById(R.id.activity_choose_images_progressBar);
         mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
         mReviewTv = (TextView)view.findViewById(R.id.activity_choose_image_review_textView);
-        initFinishBnEvent();
         initReviewText();
         initGridItemClistener();
         new loadImg().execute();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.picture));
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        mFinishBn = getHostActivity().getMenuBn();
+        mFinishBn.setEnabled(false);
+        mFinishBn.setText(getString(R.string.finish));
+        mFinishBn.setAlpha(0.5F);
+        mFinishBn.setVisibility(View.VISIBLE);
+        initFinishBnEvent();
     }
 
     private void initGridItemClistener() {
@@ -96,7 +97,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishTextWithPicsFragment.newInstance(chooseImgPaths));
+                getHostActivity().open(PublishTextWithPicsFragment.newInstance(chooseImgPaths), PublishTextWithPicsFragment.class);
             }
         });
     }

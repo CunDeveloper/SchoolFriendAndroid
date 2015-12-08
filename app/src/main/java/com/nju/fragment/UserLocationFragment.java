@@ -59,16 +59,7 @@ public class UserLocationFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_location, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(getString(R.string.user_loaction));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        activity.findViewById(R.id.main_viewpager_menu_bn).setVisibility(View.GONE);
-        activity.findViewById(R.id.main_viewpager_menu_delete_img).setVisibility(View.GONE);
-        activity.findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         mProgressBar = (ProgressBar)view.findViewById(R.id.user_location_progressBar);
         listener = new MyLocationListener();
         initListContent(view);
@@ -82,6 +73,16 @@ public class UserLocationFragment extends BaseFragment {
         return view;
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.user_loaction));
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        getHostActivity().getMenuBn().setVisibility(View.GONE);
+
+    }
 
     private void initListContent(View view) {
         mListView = (ListView)view.findViewById(R.id.user_location_listView);

@@ -32,19 +32,20 @@ public class PublishTextFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_publish_text, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setTitle(getString(R.string.publish_text));
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        getActivity().findViewById(R.id.main_viewpager_camera_imageView).setVisibility(View.GONE);
-        mSendButton = (Button) activity.findViewById(R.id.main_viewpager_menu_bn);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getHostActivity().getToolBar().setTitle(getString(R.string.publish_text));
+        getHostActivity().getMenuCameraView().setVisibility(View.GONE);
+        getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+        mSendButton = getHostActivity().getMenuBn();
         mSendButton.setText(getString(R.string.send));
         mSendButton.setVisibility(View.VISIBLE);
         initSendEvent();
-        return view;
     }
 
     private void initSendEvent() {
