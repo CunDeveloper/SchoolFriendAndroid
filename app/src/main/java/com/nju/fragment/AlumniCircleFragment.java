@@ -102,7 +102,8 @@ public class AlumniCircleFragment extends BaseFragment {
                 int subHeight = mMainLayout.getHeight();
                 if ((rootHeight - subHeight) < (rootHeight / 3)) {
                     if (Divice.isPhone()) {
-                        mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParamsFragment(subHeight, mAppBarLayout, Divice.getStatusBarHeight(getActivity())));
+                        mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
+                        mListView.setTranscriptMode(ListView.ITEM_VIEW_TYPE_IGNORE);
                     } else {
                         mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
                     }
@@ -117,7 +118,8 @@ public class AlumniCircleFragment extends BaseFragment {
                     }
                 } else {
                     if (Divice.isPhone()) {
-                        mListView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 80));
+                        mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+                        mListView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 60));
                     } else {
                         mListView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 80));
                     }
@@ -150,13 +152,13 @@ public class AlumniCircleFragment extends BaseFragment {
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MultiChoosedPicFragment.newInstance(),MultiChoosedPicFragment.class);
+                getHostActivity().open(MultiChoosedPicFragment.newInstance());
             }
         });
         mCameraImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                getHostActivity().open(PublishTextFragment.newInstance(),PublishTextFragment.class);
+                getHostActivity().open(PublishTextFragment.newInstance());
                 return true;
             }
         });

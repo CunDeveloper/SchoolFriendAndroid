@@ -28,12 +28,16 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/alumn_circle"
-            android:windowSoftInputMode="stateHidden"
-             >
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base" >
         </activity>
     </application>
 

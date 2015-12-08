@@ -12,8 +12,8 @@ public class CommentPopupWindow extends ListPopupWindow{
     public CommentPopupWindow(Context context,View view) {
         super(context);
         this.setHeight(ListPopupWindow.WRAP_CONTENT);
-        this.setVerticalOffset(-80);
-        this.setHorizontalOffset(-350);
+        this.setVerticalOffset(-90);
+        this.setHorizontalOffset(-330);
         this.setWidth((int) Divice.convertDpToPixel(160, context));
         this.setAnchorView(view);
         this.setModal(true);

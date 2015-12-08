@@ -97,7 +97,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishTextWithPicsFragment.newInstance(chooseImgPaths), PublishTextWithPicsFragment.class);
+                getHostActivity().open(PublishTextWithPicsFragment.newInstance(chooseImgPaths));
             }
         });
     }

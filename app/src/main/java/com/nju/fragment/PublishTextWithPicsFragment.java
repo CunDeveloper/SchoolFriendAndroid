@@ -3,6 +3,7 @@ package com.nju.fragment;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -52,6 +53,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     private List<ImageView> mUploadImgs;
     private ArrayList<Image> mUploadImgPaths;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
+    private AppBarLayout mAppBarLayout;
     private Button mFinishBn;
 
     public static PublishTextWithPicsFragment newInstance(ArrayList<Image> uploadImgPaths) {
@@ -78,6 +80,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
         view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
+        mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
         emoLineLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_emto_layout);
         mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
         mEmotionView = (ImageView)view.findViewById(R.id.publish_wei_bo_emotion_fab);
@@ -105,6 +108,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         getHostActivity().getToolBar().setTitle(getString(R.string.empty));
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
+
         mFinishBn = getHostActivity().getMenuBn();
         mFinishBn.setText(getString(R.string.finish));
         mFinishBn.setVisibility(View.VISIBLE);
@@ -159,9 +163,11 @@ public class PublishTextWithPicsFragment extends BaseFragment {
             @Override
             public void onGlobalLayout() {
                 Rect r = new Rect();
-                mainLayout.getWindowVisibleDisplayFrame(r);
+                mScrollView.getWindowVisibleDisplayFrame(r);
                 rootHeight = mainLayout.getRootView().getHeight();
                 subHeight = r.bottom - r.top;
+//                int rootHeight = mainLayout.getRootView().getHeight();
+//                int subHeight = mainLayout.getHeight();
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
                     emoLineLayout.setVisibility(View.GONE);
                     mScrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
@@ -169,9 +175,9 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
                     if(Divice.isPhone()) {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 50));
+                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight,45,mAppBarLayout));
                     } else {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 90));
+                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
                     }
                     emoLineLayout.setVisibility(View.VISIBLE);
                 }

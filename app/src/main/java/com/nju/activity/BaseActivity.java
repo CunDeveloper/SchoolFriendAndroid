@@ -1,0 +1,40 @@
+package com.nju.activity;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.nju.fragment.BaseFragment;
+
+import java.util.EmptyStackException;
+import java.util.Stack;
+
+public abstract class BaseActivity extends AppCompatActivity implements FragmentHostActivity {
+
+    private static final String TAG = BaseFragment.class.getSimpleName();
+    protected LocalStack<BaseFragment> mLocalBackstack = new LocalStack<>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public LocalStack<BaseFragment> getBackStack() {
+        return mLocalBackstack;
+    }
+
+    public static class LocalStack<E> extends Stack<E> {
+        private static final long serialVersionUID = 1553870122121064116L;
+
+        public E getSecondLastElement() {
+            E topElem = pop();
+            E returnElem = null;
+            try {
+                returnElem = peek();
+            } catch (EmptyStackException e) {
+                Log.e(TAG, "EmptyStackException");
+            }
+            push(topElem);
+            return returnElem;
+        }
+    }
+}

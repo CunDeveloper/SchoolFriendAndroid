@@ -70,5 +70,7 @@
         <item>选中的校友可见</item>
         <item>选中的校友不可见</item>
     </string-array>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="praise">点赞</string>
 
 </resources>

@@ -1,16 +1,16 @@
 package com.nju.activity;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.EmotionPagerFragment;
+import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.UserInfoFragement;
 import com.nju.fragment.XueXinAuthFragmet;
 import com.nju.model.UserInfo;
@@ -30,7 +32,7 @@ import com.nju.util.Divice;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet.OpenFragmentListener,FragmentHostActivity {
+public class MainActivity extends BaseActivity implements XueXinAuthFragmet.OpenFragmentListener,EmotionPagerFragment.OnFragmentInputEmotionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName() ;
     private NavigationView mNavigationView;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
     private Button mMenuBn;
     private ImageView mMenuCameraView;
     private ImageView mMenuDeleteView;
+    int fragmentIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
         initNavigationViewListener();
-        open(XueXinAuthFragmet.newInstance(),XueXinAuthFragmet.class);
+        open(XueXinAuthFragmet.newInstance());
     }
 
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
                 item.setChecked(true);
                 switch (item.getItemId()) {
                     case R.id.nav_discussion:
-                        open(AlumniCircleFragment.newInstance(),AlumniCircleFragment.class);
+                        open(AlumniCircleFragment.newInstance());
 
                 }
                 return false;
@@ -111,16 +114,42 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
         if (xueXinAuthFragmet != null) {
             manager.beginTransaction().remove(xueXinAuthFragmet).commit();
         }
-        open(UserInfoFragement.newInstance(),UserInfoFragement.class);
+        open(UserInfoFragement.newInstance());
     }
 
     @Override
-    public void open(BaseFragment fragment,Class mClass) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Log.e(TAG,mClass.getSimpleName());
-        ft.replace(R.id.container,fragment).addToBackStack(mClass.getSimpleName());
-        ft.commit();
+    public void open(BaseFragment fragment) {
+        open(fragment,false,null);
     }
+
+    @Override
+    public void open(BaseFragment fragment, boolean clearBackStack, Fragment fragmentToRemove) {
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (clearBackStack) {
+            clearBackStack();
+        }
+        ft.replace(R.id.container, fragment);
+        mLocalBackstack.push(fragment);
+        ft.commitAllowingStateLoss();
+        fragmentIndex++;
+        if (fragmentToRemove != null) {
+            mLocalBackstack.remove(fragmentToRemove);
+        }
+
+    }
+
+    @Override
+    public void open(BaseFragment fragment, Fragment fragmentToRemove) {
+        open(fragment,false,fragmentToRemove);
+    }
+
+    @Override
+    public void open(BaseFragment fragment, boolean clearBackStack) {
+        open(fragment,clearBackStack);
+    }
+
+
 
     @Override
     public Toolbar getToolBar() {
@@ -144,10 +173,33 @@ public class MainActivity extends AppCompatActivity implements XueXinAuthFragmet
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
+        if (mLocalBackstack.isEmpty() || (mLocalBackstack.size() == 1)) {
+            finish();
+            return;
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (mLocalBackstack.size() >=2) {
+            mLocalBackstack.pop();
+        }
+        ft.replace(R.id.container,mLocalBackstack.peek());
+        ft.commit();
+    }
+
+    private void clearBackStack() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        while (mLocalBackstack.size() > 1) {
+            BaseFragment removeThis = mLocalBackstack.pop();
+            ft.remove(removeThis);
+            Log.d(TAG, "Removing " + removeThis.getTag() + " (" + removeThis.getClass().getSimpleName() + ")");
+        }
+        ft.commit();
+    }
+
+    @Override
+    public void onFragmentInputEmotion(Drawable drawable) {
+        PublishTextWithPicsFragment fragment = (PublishTextWithPicsFragment) mLocalBackstack.peek();
+        if (fragment != null){
+            fragment.inputEmotion(drawable);
         }
     }
 }

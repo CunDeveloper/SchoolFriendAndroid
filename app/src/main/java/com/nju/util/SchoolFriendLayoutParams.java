@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -57,6 +58,11 @@ public class SchoolFriendLayoutParams {
         return params;
     }
 
+    public FrameLayout.LayoutParams noSoftInputParamsFrame(int subHeight){
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, subHeight);
+        return params;
+    }
+
     public LinearLayout.LayoutParams noSoftInputParams(int subHeight,View view){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, subHeight-view.getHeight());
         return params;
@@ -74,9 +80,22 @@ public class SchoolFriendLayoutParams {
         return params;
     }
 
+    public LinearLayout.LayoutParams softInputParams(int subHeight,int bottomViewHeight,int statasBarHeight){
+        int scrollWidth = subHeight - (int) Divice.convertDpToPixel(bottomViewHeight,mContext)
+                -statasBarHeight;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
+        return params;
+    }
+
     public LinearLayout.LayoutParams softInputParams(int subHeight,int bottomViewHeight){
         int scrollWidth = subHeight - (int) Divice.convertDpToPixel(bottomViewHeight,mContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
+        return params;
+    }
+
+    public FrameLayout.LayoutParams softInputParamsFrame(int subHeight,int bottomViewHeight){
+        int scrollWidth = subHeight - (int) Divice.convertDpToPixel(bottomViewHeight,mContext);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
         return params;
     }
 

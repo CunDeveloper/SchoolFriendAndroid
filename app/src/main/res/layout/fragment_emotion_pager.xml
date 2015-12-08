@@ -6,7 +6,7 @@
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/emotion_top_margin"
+        android:paddingTop="50dp"
         android:id="@+id/fragment_emotion_pager_gridview"
         android:paddingLeft="@dimen/padding_left"
         android:gravity="center"

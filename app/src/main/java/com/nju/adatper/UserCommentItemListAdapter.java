@@ -74,12 +74,6 @@ public class UserCommentItemListAdapter extends BaseAdapter {
         commentTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                int x = (int) commentTextView.getX();
-//                int y = (int) commentTextView.getY();
-//                SoftInput.open(mContext);
-//                mListView.setTranscriptMode(mPosition);
-//                mListView.smoothScrollToPosition(mPosition);
-//                mPopupWindow.dismiss();
                 Message message = new Message();
                 message.what = COMMENT_OK;
                 message.obj = mPosition;
