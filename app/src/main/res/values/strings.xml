@@ -84,6 +84,7 @@
     <string name="student">学生</string>
     <string name="she_tuan">社团</string>
     <string name="more">更多</string>
+    <string name="tu_cao">吐槽</string>
     <string name="title_activity_no_action_bar">NoActionBarActivity</string>
 
 </resources>
