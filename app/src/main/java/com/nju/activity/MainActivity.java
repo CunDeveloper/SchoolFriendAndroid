@@ -1,6 +1,7 @@
 package com.nju.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,12 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.EmotionPagerFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
+import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.UserInfoFragement;
 import com.nju.fragment.XueXinAuthFragmet;
 import com.nju.model.UserInfo;
@@ -41,6 +44,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     private Button mMenuBn;
     private ImageView mMenuCameraView;
     private ImageView mMenuDeleteView;
+    private LinearLayout noActionBarLinearLayout;
     int fragmentIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
         mMenuBn = (Button) findViewById(R.id.main_viewpager_menu_bn);
         mMenuDeleteView = (ImageView) findViewById(R.id.main_viewpager_menu_delete_img);
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
+        noActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
         CoordinatorLayout mCoorDinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
         if (Build.VERSION.SDK_INT>19) {
             mCoorDinatorLayout.setPadding(mCoorDinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)
@@ -75,8 +80,12 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
                 mDrawerLayout.closeDrawers();
                 item.setChecked(true);
                 switch (item.getItemId()) {
-                    case R.id.nav_discussion:
+                    case R.id.nav_alumni_circle:
                         open(AlumniCircleFragment.newInstance());
+                        break;
+                    case R.id.nav_tucao:
+                        open(TuCaoFragment.newInstance());
+                        break;
 
                 }
                 return false;
@@ -169,6 +178,11 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     @Override
     public ImageView getMenuDeleteView() {
         return mMenuDeleteView;
+    }
+
+    @Override
+    public LinearLayout geLinearLayout() {
+        return noActionBarLinearLayout;
     }
 
     @Override

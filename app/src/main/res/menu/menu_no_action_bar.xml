@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.nju.activity.NoActionBarActivity">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+         app:showAsAction="always" />
+    <item
+        android:id="@+id/nav_heat_voice"
+
+        app:showAsAction="always"
+        android:title="@string/xuezhang_heat_voice" />
+
+    <item
+        android:id="@+id/nav_recrict"
+
+        app:showAsAction="always"
+        android:title="@string/recrict" />
+</menu>

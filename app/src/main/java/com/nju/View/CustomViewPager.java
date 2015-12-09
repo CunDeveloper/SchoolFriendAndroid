@@ -1,11 +1,13 @@
 package com.nju.View;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.Toast;
 
 /**
@@ -13,47 +15,50 @@ import android.widget.Toast;
  */
 public class CustomViewPager extends ViewPager {
 
-    private OnItemClickListener mOnItemClickListener;
-
+    private int mTouchSlop;
+    private boolean mIsScrolling = false;
     public CustomViewPager(Context context) {
         super(context);
-
-        setup();
+        ViewConfiguration vc = ViewConfiguration.get(getContext());
+        mTouchSlop = vc.getScaledTouchSlop();
     }
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        setup();
+        ViewConfiguration vc = ViewConfiguration.get(getContext());
+        mTouchSlop = vc.getScaledTouchSlop();
     }
 
-    private void setup() {
-        final GestureDetector tapGestureDetector = new   GestureDetector(getContext(), new TapGestureListener());
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                tapGestureDetector.onTouchEvent(event);
-                return false;
-            }
-        });
-    }
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    private class TapGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-            if(mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClick(getCurrentItem());
-            }
-            return true;
+        final int action = MotionEventCompat.getActionMasked(ev);
+        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
+            return false;
         }
+
+        switch (action) {
+            case MotionEvent.ACTION_MOVE: {
+                if (mIsScrolling) {
+                    return true;
+                }
+
+                final int xDiff = 800;
+                if (xDiff > mTouchSlop) {
+                    mIsScrolling = true;
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        Toast.makeText(getContext(),"Helo",Toast.LENGTH_LONG).show();
+
+       return super.onTouchEvent(ev);
     }
 }

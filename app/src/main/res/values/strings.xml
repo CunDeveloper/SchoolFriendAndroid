@@ -72,5 +72,18 @@
     </string-array>
     <string name="title_activity_base">BaseActivity</string>
     <string name="praise">点赞</string>
+    <string name="alumn_dynamic">校友动态</string>
+    <string name="recrict">院最新招聘</string>
+    <string name="my_tucao">我要吐槽</string>
+    <string name="xuezhang_heat_voice">学长心声</string>
+    <string name="others_school">其他高校</string>
+    <string name="do_task">做任务</string>
+    <string name="hot_dynamic">热门动态</string>
+    <string name="food">食堂</string>
+    <string name="teacher">老师</string>
+    <string name="student">学生</string>
+    <string name="she_tuan">社团</string>
+    <string name="more">更多</string>
+    <string name="title_activity_no_action_bar">NoActionBarActivity</string>
 
 </resources>

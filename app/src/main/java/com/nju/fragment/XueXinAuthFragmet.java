@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -75,7 +76,10 @@ public class XueXinAuthFragmet extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getHostActivity().getToolBar().setTitle(getString(R.string.xue_xin_auth));
-        getHostActivity().getToolBar().setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_menu));
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getHostActivity().geLinearLayout().setVisibility(View.GONE);
+       // getHostActivity().getToolBar().setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_menu));
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);

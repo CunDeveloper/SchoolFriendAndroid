@@ -5,11 +5,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.nju.View.CustomViewPager;
 import com.nju.activity.R;
 import com.nju.adatper.ChoosedOriginPicViewPagerAdapter;
 import com.nju.model.Image;
@@ -22,7 +25,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
     private static final String POSITION = "position";
     public static final String TAG = ChoosedImageViewFragment.class.getSimpleName();
     private ArrayList<Image> mImgPaths;
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
     private int mPostion;
     private ActionBar mActionBar;
     public static ChoosedImageViewFragment newInstance(ArrayList<Image> imgPaths,int postion) {
@@ -50,7 +53,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
+        mViewPager = (CustomViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
         mViewPager.setAdapter(new ChoosedOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
         mViewPager.setCurrentItem(mPostion);
         initViewPagerSlideListener();

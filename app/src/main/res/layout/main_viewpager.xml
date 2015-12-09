@@ -50,6 +50,62 @@
                     android:visibility="gone"
                     android:id="@+id/main_viewpager_menu_delete_img"
                     />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:id="@+id/main_viewpager_no_action_bar_layout"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/food"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/teacher"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/student"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/she_tuan"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/more"
+                        />
+
+                </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

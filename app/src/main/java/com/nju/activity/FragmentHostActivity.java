@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nju.fragment.BaseFragment;
 
@@ -20,5 +21,6 @@ public interface FragmentHostActivity {
     Button getMenuBn();
     ImageView getMenuCameraView();
     ImageView getMenuDeleteView();
+    LinearLayout geLinearLayout();
     BaseActivity.LocalStack<BaseFragment> getBackStack();
 }

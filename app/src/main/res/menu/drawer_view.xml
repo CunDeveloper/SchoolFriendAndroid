@@ -18,31 +18,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_dashboard"
-            android:title="Home" />
-        <item
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/ic_event"
-            android:title="Messages" />
-        <item
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_headset"
-            android:title="Friends" />
-        <item
-            android:id="@+id/nav_discussion"
+            android:id="@+id/nav_alumni_circle"
             android:icon="@drawable/ic_forum"
-            android:title="Discussion" />
+            android:title="@string/alumn_dynamic" />
+        <item
+            android:id="@+id/nav_tucao"
+            android:icon="@drawable/ic_event"
+            android:title="@string/my_tucao" />
+
+        <item
+            android:id="@+id/nav_heat_voice"
+            android:icon="@drawable/ic_headset"
+            android:title="@string/xuezhang_heat_voice" />
+
+        <item
+            android:id="@+id/nav_recrict"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/recrict" />
+
     </group>
 
-    <item android:title="Sub items">
+    <item android:title="@string/others_school">
         <menu>
             <item
                 android:icon="@drawable/ic_dashboard"
-                android:title="Sub item 1" />
+                android:title="@string/do_task" />
             <item
                 android:icon="@drawable/ic_forum"
-                android:title="Sub item 2" />
+                android:title="@string/hot_dynamic" />
         </menu>
     </item>
 
