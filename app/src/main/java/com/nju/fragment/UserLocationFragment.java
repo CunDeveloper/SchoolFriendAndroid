@@ -3,6 +3,7 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.UserLocationAdapter;
 import com.nju.model.LocationInfo;
@@ -117,8 +120,23 @@ public class UserLocationFragment extends BaseFragment {
                 }
                 choosedPosition = position-1;
                 mLocationAdapter.notifyDataSetChanged();
+                TextView locationText = (TextView) view.findViewById(R.id.user_location_item_name);
+                BaseActivity.LocalStack stack = getHostActivity().getBackStack();
+                stack.pop();
+                PublishTextFragment fragment = (PublishTextFragment) stack.peek();
+                fragment.setLocation(locationText.getText().toString());
+                getHostActivity().open(fragment);
+
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mLocationManager != null) {
+            mLocationManager.removeUpdates(listener);
+        }
     }
 
     private  class MyLocationListener implements TencentLocationListener{

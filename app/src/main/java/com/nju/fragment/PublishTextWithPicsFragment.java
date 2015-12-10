@@ -81,9 +81,9 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         View view= inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
         view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
-        emoLineLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_emto_layout);
+        emoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
         mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
-        mEmotionView = (ImageView)view.findViewById(R.id.publish_wei_bo_emotion_fab);
+        mEmotionView = (ImageView)view.findViewById(R.id.emotion_icon);
         mScrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
@@ -91,7 +91,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mView2 = view.findViewById(R.id.emotion_pager_view2);
         mView3 = view.findViewById(R.id.emotion_pager_view3);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
-        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager()));
+        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(),TAG));
         initViewPagerListener();
         initOnGlobalListener();
         initFloaingBn();

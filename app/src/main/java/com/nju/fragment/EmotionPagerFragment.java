@@ -19,14 +19,16 @@ public class EmotionPagerFragment extends BaseFragment {
 
     public static final String TAG = EmotionPagerFragment.class.getSimpleName();
     private static final String ARG_PARAM = "param";
-
+    private static final String APG_PARAM1 = "param1";
+    private static String mTag;
     private GridView mGridView;
     private List<Drawable> mEmotions;
     private OnFragmentInputEmotionListener mListener;
-    public static EmotionPagerFragment newInstance(int position) {
+    public static EmotionPagerFragment newInstance(int position,String tag) {
         EmotionPagerFragment fragment = new EmotionPagerFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM, position);
+        args.putString(APG_PARAM1,tag);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,6 +38,9 @@ public class EmotionPagerFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments()!=null) {
+            mTag = getArguments().getString(APG_PARAM1);
+        }
         mEmotions = new Emotion(getActivity()).getEmotions();
     }
 
@@ -51,7 +56,12 @@ public class EmotionPagerFragment extends BaseFragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mListener.onFragmentInputEmotion(mEmotions.get(position));
+                if (mTag.equals(PublishTextFragment.TAG)) {
+                    mListener.onTextFragmentInputEmotion(mEmotions.get(position));
+                }else {
+                    mListener.onFragmentInputEmotion(mEmotions.get(position));
+                }
+
             }
         });
     }
@@ -81,6 +91,7 @@ public class EmotionPagerFragment extends BaseFragment {
 
     public interface OnFragmentInputEmotionListener {
         void onFragmentInputEmotion(Drawable drawable);
+        void onTextFragmentInputEmotion(Drawable drawable);
     }
 
 }

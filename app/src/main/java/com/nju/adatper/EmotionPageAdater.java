@@ -12,13 +12,15 @@ import com.nju.fragment.EmotionPagerFragment;
  */
 public class EmotionPageAdater extends FragmentStatePagerAdapter {
 
-    public EmotionPageAdater(FragmentManager fm) {
+    private static String TAG;
+    public EmotionPageAdater(FragmentManager fm,String tag) {
         super(fm);
+        TAG = tag;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = EmotionPagerFragment.newInstance(position);
+        Fragment fragment = EmotionPagerFragment.newInstance(position,TAG);
         return fragment;
     }
 

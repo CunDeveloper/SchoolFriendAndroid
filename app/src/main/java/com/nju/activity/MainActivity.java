@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.EmotionPagerFragment;
+import com.nju.fragment.PublishTextFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.UserInfoFragement;
@@ -212,6 +213,14 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     @Override
     public void onFragmentInputEmotion(Drawable drawable) {
         PublishTextWithPicsFragment fragment = (PublishTextWithPicsFragment) mLocalBackstack.peek();
+        if (fragment != null){
+            fragment.inputEmotion(drawable);
+        }
+    }
+
+    @Override
+    public void onTextFragmentInputEmotion(Drawable drawable) {
+        PublishTextFragment fragment = (PublishTextFragment) mLocalBackstack.peek();
         if (fragment != null){
             fragment.inputEmotion(drawable);
         }

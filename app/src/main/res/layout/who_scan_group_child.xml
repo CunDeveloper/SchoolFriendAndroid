@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_height"
+    android:layout_height="@dimen/phone_item_height"
     android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
@@ -14,7 +14,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
             android:id="@+id/who_scan_group_item_child_big_label"
              />
 
@@ -28,7 +29,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/padding_right"
+        android:paddingRight="@dimen/phone_apadding"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:id="@+id/who_scan_group_child_check"

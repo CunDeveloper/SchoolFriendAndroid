@@ -42,15 +42,25 @@ public class EmotionAdatper extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if (viewHolder == null) {
+        if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.publish_content_image_item,null);
             int screenWidth = Divice.getDisplayWidth(mContext);
-            float paddingLeft = mContext.getResources().getDimension(R.dimen.padding_right);
-            int paddingWidth = (int) Divice.convertDpToPixel(6*paddingLeft,mContext);
-            int width = (screenWidth-paddingWidth)/16;
-            int height = width;
-            AbsListView.LayoutParams parms = new AbsListView.LayoutParams(width,height);
+            float paddingLeft;
+            int paddingWidth;
+            int width;
+            if (Divice.isPhone()) {
+                paddingLeft = mContext.getResources().getDimension(R.dimen.phone_apadding);
+                paddingWidth = (int) Divice.convertDpToPixel(8*paddingLeft,mContext);
+                width = (screenWidth-paddingWidth)/8;
+            }
+            else{
+                paddingLeft = mContext.getResources().getDimension(R.dimen.padding_right);
+                paddingWidth = (int) Divice.convertDpToPixel(6*paddingLeft,mContext);
+                width = (screenWidth-paddingWidth)/16;
+            }
+
+            AbsListView.LayoutParams parms = new AbsListView.LayoutParams(width,width);
             viewHolder.imageView = (ImageView) convertView;
             viewHolder.imageView.setLayoutParams(parms);
             convertView.setTag(viewHolder);
