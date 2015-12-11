@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.EmotionPagerFragment;
 import com.nju.fragment.PublishTextFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
@@ -45,7 +46,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     private Button mMenuBn;
     private ImageView mMenuCameraView;
     private ImageView mMenuDeleteView;
-    private LinearLayout noActionBarLinearLayout;
+    private LinearLayout mNoActionBarLinearLayout;
     int fragmentIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
         mMenuBn = (Button) findViewById(R.id.main_viewpager_menu_bn);
         mMenuDeleteView = (ImageView) findViewById(R.id.main_viewpager_menu_delete_img);
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
-        noActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
+        mNoActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
         CoordinatorLayout mCoorDinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
         if (Build.VERSION.SDK_INT>19) {
             mCoorDinatorLayout.setPadding(mCoorDinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)
@@ -135,6 +136,9 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     @Override
     public void open(BaseFragment fragment, boolean clearBackStack, Fragment fragmentToRemove) {
 
+        if (fragment.getClass().getSimpleName().equals(CircleImageViewFragment.TAG)){
+            Divice.hideStatusBar(this);
+        }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (clearBackStack) {
             clearBackStack();
@@ -152,6 +156,14 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     @Override
     public void open(BaseFragment fragment, Fragment fragmentToRemove) {
         open(fragment,false,fragmentToRemove);
+    }
+
+    @Override
+    public void hideAllMenuView() {
+        mMenuBn.setVisibility(View.GONE);
+        mMenuCameraView.setVisibility(View.GONE);
+        mMenuDeleteView.setVisibility(View.GONE);
+        mNoActionBarLinearLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -183,7 +195,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
 
     @Override
     public LinearLayout geLinearLayout() {
-        return noActionBarLinearLayout;
+        return mNoActionBarLinearLayout;
     }
 
     @Override

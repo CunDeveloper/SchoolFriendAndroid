@@ -19,11 +19,24 @@ import java.util.Map;
  */
 public class SchoolFriendHttp {
 
-    private static final OkHttpClient mClient = new OkHttpClient() ;
+    private static SchoolFriendHttp mInstance;
+    private OkHttpClient mClient ;
     public static final MediaType MEDIA_TYPE_MARKDOWN
             = MediaType.parse("text/x-markdown; charset=utf-8");
 
-    public static String postForm(String url,Map<String,String> params) throws IOException {
+    private SchoolFriendHttp() {
+        mClient = new OkHttpClient();
+    }
+
+    public static SchoolFriendHttp getInstance () {
+        if (mInstance == null) {
+            mInstance = new SchoolFriendHttp();
+        }
+
+        return  mInstance;
+    }
+
+    public  String postForm(final String url,final Map<String,String> params) throws IOException {
         FormEncodingBuilder builder = new FormEncodingBuilder();
         for (Map.Entry<String,String> entry:params.entrySet()) {
             builder.add(entry.getKey(),entry.getValue());
@@ -36,7 +49,7 @@ public class SchoolFriendHttp {
         return response.body().string();
     }
 
-    public static String SynGet (String url) throws IOException {
+    public  String SynGet (final String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -52,7 +65,7 @@ public class SchoolFriendHttp {
      * @param url
      * @param callback
      */
-    public static void AsynGet(String url,ResponseCallback callback) {
+    public  void AsynGet(final String url,final ResponseCallback callback) {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -70,7 +83,7 @@ public class SchoolFriendHttp {
      * @return
      * @throws IOException
      */
-    public static String postString (String url,String postBody) throws IOException {
+    public String postString (final String url,final String postBody) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
@@ -79,7 +92,7 @@ public class SchoolFriendHttp {
         return response.body().string();
     }
 
-    public static String postStream (String url,SchFriendRequestBody requestBody )throws IOException {
+    public  String postStream (final String url,final SchFriendRequestBody requestBody )throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
@@ -88,7 +101,7 @@ public class SchoolFriendHttp {
         return response.body().string();
     }
 
-    public static String postFile (String url,SchFriendRequestBody requestBody,File file) throws IOException {
+    public  String postFile (final String url,final SchFriendRequestBody requestBody,final File file) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))

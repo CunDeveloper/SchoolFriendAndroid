@@ -150,7 +150,7 @@ public class XueXinAuthFragmet extends BaseFragment {
                     params.put(Constant.XUE_XIN_USERNAME,userName);
                     params.put(Constant.XUE_XIN_PASSWORD, pass);
                     params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
-                    String result= SchoolFriendHttp.postForm(Constant.BASE_URL + Constant.XUE_AUTH,params);
+                    String result= SchoolFriendHttp.getInstance().postForm(Constant.BASE_URL + Constant.XUE_AUTH,params);
                     Message message = new Message();
                     message.obj = result;
                     message.what = ERROR_USER_PASS;

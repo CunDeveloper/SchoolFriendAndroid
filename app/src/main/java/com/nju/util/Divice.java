@@ -5,8 +5,11 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 
 /**
@@ -83,5 +86,25 @@ public class Divice {
         String android_id = Settings.Secure.getString(content.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         return  android_id;
+    }
+
+    public static void hideStatusBar(AppCompatActivity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        int uiOption = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOption);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+    }
+
+    public static void showStatusBar(AppCompatActivity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        int uiOption = View.SYSTEM_UI_FLAG_VISIBLE;;
+        decorView.setSystemUiVisibility(uiOption);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.show();
+        }
     }
 }

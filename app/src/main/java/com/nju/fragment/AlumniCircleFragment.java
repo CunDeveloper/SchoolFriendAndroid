@@ -44,7 +44,6 @@ public class AlumniCircleFragment extends BaseFragment {
     private RelativeLayout mInputLayout;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
     private ImageView mCameraImageView;
-    private AppBarLayout mAppBarLayout;
     private boolean label = false;
     private int mPosition = 1;
 
@@ -59,18 +58,17 @@ public class AlumniCircleFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
-        mCameraImageView = (ImageView) getActivity().findViewById(R.id.main_viewpager_camera_imageView);
-        mCameraImageView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getHostActivity().getToolBar().setTitle(getString(R.string.alumn_circle));
-        getHostActivity().getMenuCameraView().setVisibility(View.VISIBLE);
+        mCameraImageView = getHostActivity().getMenuCameraView();
+        mCameraImageView.setVisibility(View.VISIBLE);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);
+        initChooseImage();
     }
 
     @Override
@@ -85,12 +83,11 @@ public class AlumniCircleFragment extends BaseFragment {
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
         weibos = WeiBoData.weiBos(getActivity());
         sumWeiBos = WeiBoData.weiBos(getActivity());
-        mFriendContentAdapter = new FriendContentAdapter(weibos,getActivity(),mHandler,mListView);
+        mFriendContentAdapter = new FriendContentAdapter(weibos,getActivity(),mHandler,mListView,this);
         mListView.setAdapter(mFriendContentAdapter);
-        mListView.setPadding(mListView.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),mListView.getPaddingRight(),mListView.getPaddingBottom());
+        mListView.setPadding(mListView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mListView.getPaddingRight(), mListView.getPaddingBottom());
         initOnGlobalListener();
         initSendListener();
-        initChooseImage();
         return view;
     }
 

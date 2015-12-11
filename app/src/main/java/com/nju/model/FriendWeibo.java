@@ -1,7 +1,9 @@
 package com.nju.model;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
 public class FriendWeibo {
 
     private String content;
-    private List<Drawable> images;
+    private ArrayList<Bitmap> images;
     private Drawable headIcon;
     private User user;
     private String publishDate;
@@ -25,11 +27,11 @@ public class FriendWeibo {
         this.content = content;
     }
 
-    public List<Drawable> getImages() {
+    public ArrayList<Bitmap> getImages() {
         return images;
     }
 
-    public void setImages(List<Drawable> images) {
+    public void setImages(ArrayList<Bitmap> images) {
         this.images = images;
     }
 

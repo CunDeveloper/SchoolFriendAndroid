@@ -17,6 +17,7 @@ public interface FragmentHostActivity {
     void open(BaseFragment fragment,boolean clearBackStack);
     void open(BaseFragment fragment,boolean clearBackStack,Fragment fragmentToRemove);
     void open(BaseFragment fragment,Fragment fragmentToRemove);
+    void hideAllMenuView();
     Toolbar getToolBar();
     Button getMenuBn();
     ImageView getMenuCameraView();

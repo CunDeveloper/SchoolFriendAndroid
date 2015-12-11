@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="180dp"
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
 
-    >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView8"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView9"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/textView8" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView10"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/textView8"
-        android:layout_marginTop="128dp" />
-</RelativeLayout>
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/phone_apadding">
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center"
+                android:background="@drawable/select_circle_label_bg"
+                />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

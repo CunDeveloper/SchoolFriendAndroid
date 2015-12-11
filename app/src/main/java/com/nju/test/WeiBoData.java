@@ -2,6 +2,8 @@ package com.nju.test;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 
 import com.nju.activity.R;
@@ -19,11 +21,11 @@ public class WeiBoData {
 
     public static List<FriendWeibo> weiBos(Context context){
         List<FriendWeibo> weibos = new ArrayList<>();
-        FriendWeibo friendWeibo = null;
-        List<Drawable> list = null;
-        User user = null;
-        List<Comment> comments = null;
-        Comment comment = null;
+        FriendWeibo friendWeibo;
+        ArrayList<Bitmap> list;
+        User user;
+        List<Comment> comments;
+        Comment comment;
         Resources resources = context.getResources();
         /**
          * test1
@@ -33,9 +35,13 @@ public class WeiBoData {
                 " UI elements fade in and out instead of appearing and disappearing. Motions begin" +
                 " and end smoothly instead of starting and stopping abruptly.");
         list = new ArrayList<>();
-        list.add(resources.getDrawable(R.drawable.cheese_2));
-        list.add(resources.getDrawable(R.drawable.cheese_1));
-        list.add(resources.getDrawable(R.drawable.cheese_3));
+        Bitmap bitmap;
+        bitmap = BitmapFactory.decodeResource(resources,R.drawable.cheese_2);
+        list.add(bitmap);
+        bitmap = BitmapFactory.decodeResource(resources,R.drawable.cheese_1);
+        list.add(bitmap);
+        bitmap = BitmapFactory.decodeResource(resources,R.drawable.cheese_3);
+        list.add(bitmap);
 
         user = new User();
         user.setHigherSchool("南京大学");

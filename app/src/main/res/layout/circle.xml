@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<View
+    android:layout_width="8dp"
+    android:layout_height="8dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginStart="8dp"
+    android:background="@drawable/unselect_circle_label_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

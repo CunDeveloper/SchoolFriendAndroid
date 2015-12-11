@@ -2,6 +2,7 @@ package com.nju.adatper;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -13,8 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleImageViewFragment;
+import com.nju.fragment.PersonCircleFragment;
 import com.nju.model.FriendWeibo;
 import com.nju.model.User;
 import com.nju.util.CommentPopupWindow;
@@ -36,11 +41,13 @@ public class FriendContentAdapter extends BaseAdapter {
     private Context mContext;
     private Handler mHandler;
     private ListView mListView;
-    public FriendContentAdapter(List<FriendWeibo> list, Context context,Handler handler,ListView listView) {
+    private BaseFragment mFragment;
+    public FriendContentAdapter(List<FriendWeibo> list, Context context,Handler handler,ListView listView,BaseFragment fragment) {
         mWeibolist = list;
         mContext = context;
         mHandler = handler;
         mListView = listView;
+        mFragment = fragment;
     }
     @Override
     public int getViewTypeCount() {
@@ -76,6 +83,12 @@ public class FriendContentAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.mContentTextView = (TextView) convertView.findViewById(R.id.school_friend_item_content);
             holder.headImg = (ImageView) convertView.findViewById(R.id.school_friend_item_headicon_img);
+            holder.headImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFragment.getHostActivity().open(PersonCircleFragment.newInstance(mWeibolist.get(position).getUser().getName()));
+                }
+            });
             holder.mUserNameTextView = (TextView) convertView.findViewById(R.id.school_friend_item_name_text);
             holder.mUserLabel = (TextView) convertView.findViewById(R.id.school_friend_item_label_text);
             holder.mPublishDate = (TextView) convertView.findViewById(R.id.school_friend_item_publish_date);
@@ -83,6 +96,12 @@ public class FriendContentAdapter extends BaseAdapter {
             holder.mCommentListView = (ListView) convertView.findViewById(R.id.school_friend_item_listView);
             holder.praiseView = LayoutInflater.from(mContext).inflate(R.layout.user_comment_list_header,holder.mCommentListView,false);
             holder.mPraiseUserTextView = (TextView) holder.praiseView.findViewById(R.id.user_comment_list_header_parise_username);
+            holder.mPraiseUserTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFragment.getHostActivity().open(PersonCircleFragment.newInstance(mWeibolist.get(position).getPraiseUserName()));
+                }
+            });
             holder.imageViewList = new ArrayList<>();
 
             final ImageView imageView = (ImageView) convertView.findViewById(R.id.school_friend_item_com_img);
@@ -163,12 +182,19 @@ public class FriendContentAdapter extends BaseAdapter {
             holder.mLocationTextView.setLayoutParams(holder.mLocationParams);
             holder.mLocationTextView.setText(friendWeibo.getLocation());
         }
-        List<Drawable> drawables = friendWeibo.getImages();
+        final ArrayList<Bitmap> drawables = friendWeibo.getImages();
         int length = drawables.size();
         for (int i = 0;i<length;i++) {
             ImageView imageView = holder.imageViewList.get(i);
+            final int finalI = i;
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(drawables, finalI));
+                }
+            });
             imageView.setLayoutParams(holder.mParams);
-            imageView.setImageDrawable(drawables.get(i));
+            imageView.setImageBitmap(drawables.get(i));
         }
         return convertView;
     }
