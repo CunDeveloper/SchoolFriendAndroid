@@ -26,6 +26,8 @@ public class CircleImageViewFragment extends BaseFragment {
     private ArrayList<Bitmap> mImages;
     private int mPostion;
     private ViewPager mViewPager;
+    private ArrayList<View> views;
+    private int mChoosedPostion;
 
     public static CircleImageViewFragment newInstance(ArrayList<Bitmap> images,int postion) {
         CircleImageViewFragment fragment = new CircleImageViewFragment();
@@ -45,6 +47,7 @@ public class CircleImageViewFragment extends BaseFragment {
         if (getArguments() != null) {
             mImages = getArguments().getParcelableArrayList(IMAGE);
             mPostion = getArguments().getInt(POSITION);
+            mChoosedPostion = mPostion;
         }
     }
 
@@ -56,8 +59,31 @@ public class CircleImageViewFragment extends BaseFragment {
         mLableLinearLayout = (LinearLayout) view.findViewById(R.id.fragment_circle_image_view_label_layout);
         mViewPager = (ViewPager) view.findViewById(R.id.fragment_circle_image_view_viewpager);
         mViewPager.setAdapter(new CircleImageViewAdapter(getFragmentManager(),mImages));
+        views = new ArrayList<>(9);
         initLabel(inflater);
+        initViewPagerChageEvent();
         return view;
+    }
+
+    private void initViewPagerChageEvent() {
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                views.get(mChoosedPostion).setBackground(ContextCompat.getDrawable(getContext(),R.drawable.unselect_circle_label_bg));
+                mChoosedPostion = i ;
+                views.get(mChoosedPostion).setBackground(ContextCompat.getDrawable(getContext(),R.drawable.select_circle_label_bg));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     private void initLabel(LayoutInflater inflater) {
@@ -65,13 +91,12 @@ public class CircleImageViewFragment extends BaseFragment {
         int length = mImages.size();
         for (int i =0 ;i < length ; i++) {
             View view = inflater.inflate(R.layout.circle,mLableLinearLayout,false);
+            views.add(view);
             if (i == mPostion) {
                 view.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.select_circle_label_bg));
             }
             mLableLinearLayout.addView(view);
         }
-
-
 
     }
 

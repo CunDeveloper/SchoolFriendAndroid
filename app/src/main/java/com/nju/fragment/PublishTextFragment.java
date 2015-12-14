@@ -25,9 +25,16 @@ import android.widget.Toast;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdater;
+import com.nju.http.HttpClient;
+import com.nju.http.HttpMethod;
+import com.nju.http.SchoolFriendOkRep;
+import com.nju.http.SchoolFriendRequest;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
+
+import java.util.HashMap;
 
 public class PublishTextFragment extends BaseFragment {
 
@@ -45,6 +52,13 @@ public class PublishTextFragment extends BaseFragment {
     private ViewPager mViewPager;
     private View mView1,mView2,mView3;
     private String mLocation;
+    private SchoolFriendOkRep okRep = new SchoolFriendOkRep(){
+        @Override
+        public void onResponse(Object response) {
+            super.onResponse(response);
+        }
+    };
+
     public static PublishTextFragment newInstance() {
         return new PublishTextFragment();
     }
@@ -72,7 +86,7 @@ public class PublishTextFragment extends BaseFragment {
         mScrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
         mEmotionView = (ImageView) view.findViewById(R.id.emotion_icon);
         mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
-        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(),TAG));
+        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(), TAG));
         mView1 = view.findViewById(R.id.emotion_pager_view1);
         mView2 = view.findViewById(R.id.emotion_pager_view2);
         mView3 = view.findViewById(R.id.emotion_pager_view3);
@@ -181,8 +195,20 @@ public class PublishTextFragment extends BaseFragment {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String content = mContentEditText.getText().toString();
-                String location = mLocationTextView.getText().toString();
+                final String content = mContentEditText.getText().toString();
+                final String location = mLocationTextView.getText().toString();
+                new Thread(){
+                    @Override
+                    public void run(){
+                        HashMap<String,String> params = new HashMap<String, String>();
+                        params.put(Constant.USER_ID,String.valueOf(51));
+                        params.put(Constant.PUBLISH_TEXT,content);
+                        params.put(Constant.USER_LOCATION,location);
+                        SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(), Constant.BASE_URL,okRep);
+                        request.setParams(params);
+                        HttpClient.getInstance(getContext()).addToRequestQueue(request);
+                    }
+                }.start();
                 Toast.makeText(getActivity(), content + location, Toast.LENGTH_LONG).show();
             }
         });

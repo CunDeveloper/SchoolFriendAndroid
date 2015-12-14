@@ -1,8 +1,11 @@
 package com.nju.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,8 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
     private static final String PARAM = "param";
     private String mImgPath;
     private CustomImageVIew mImgView;
+    private static final String LABEL = "label";
+    private static SharedPreferences mPreference;
     public static ChoosedOriginPicViewPageItemFragment newInstance(String imgPath) {
         ChoosedOriginPicViewPageItemFragment fragment = new ChoosedOriginPicViewPageItemFragment();
         Bundle args = new Bundle();
@@ -39,6 +44,9 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
         if (getArguments() != null) {
             mImgPath = getArguments().getString(PARAM);
         }
+        if (mPreference == null) {
+            mPreference = getActivity().getPreferences(Context.MODE_PRIVATE);
+        }
     }
 
     @Override
@@ -47,7 +55,24 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_choosed_origin_pic_view_page_item, container, false);
         mImgView = (CustomImageVIew) view.findViewById(R.id.fragment_choosed_origin_pic_view_page_item_imageView);
         new LoadLocalImg().execute(mImgPath);
+        initImageViewClickEvent();
         return view;
+    }
+
+    private void initImageViewClickEvent(){
+        mImgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPreference.getBoolean(LABEL,true)) {
+                    Divice.hideStatusBar((AppCompatActivity) getActivity());
+                    mPreference.edit().putBoolean(LABEL,false).apply();
+                }
+                else {
+                    Divice.showStatusBar((AppCompatActivity) getActivity());
+                    mPreference.edit().putBoolean(LABEL,true).apply();
+                }
+            }
+        });
     }
 
     private class LoadLocalImg extends AsyncTask<String,Void,Bitmap> {

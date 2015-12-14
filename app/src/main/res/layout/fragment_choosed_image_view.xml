@@ -1,4 +1,4 @@
-<com.nju.View.CustomViewPager
+<android.support.v4.view.ViewPager
     android:id="@+id/fragment_camera_imgage_view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

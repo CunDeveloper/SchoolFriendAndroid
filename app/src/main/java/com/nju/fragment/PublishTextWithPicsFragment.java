@@ -247,9 +247,8 @@ public class PublishTextWithPicsFragment extends BaseFragment {
             mUploadImgs.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.container,ChoosedImageViewFragment.newInstance(mUploadImgPaths,finalI)).commit();
-                }
+                    getHostActivity().open(ChoosedImageViewFragment.newInstance(mUploadImgPaths,finalI));
+                 }
             });
         }
     }

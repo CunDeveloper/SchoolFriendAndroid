@@ -158,7 +158,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
             super.onPostExecute(list);
             mImgPaths = list;
             AppCompatActivity activity = (AppCompatActivity) getActivity();
-            mGridView.setAdapter(new MultiChoosedPicAdapter(activity,list,mHandler));
+            mGridView.setAdapter(new MultiChoosedPicAdapter(activity,list,mHandler,MultiChoosedPicFragment.this));
             mProgressBar.setVisibility(View.GONE);
         }
     }

@@ -2,6 +2,7 @@ package com.nju.View;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -15,7 +16,7 @@ public class SchoolFriendDialog extends MaterialDialog {
         super(builder);
     }
 
-    public static SchoolFriendDialog showProgressDialog(Context context,String title,String content) {
+    public static SchoolFriendDialog showProgressDialog(final Context context,final String title,final String content) {
         Builder builder = new Builder(context).title(title).content(content).progress(true,0);
         SchoolFriendDialog testDialog = new SchoolFriendDialog(builder);
         return testDialog;
@@ -36,5 +37,15 @@ public class SchoolFriendDialog extends MaterialDialog {
         return testDialog;
     }
 
+    public static SchoolFriendDialog listDialog(final Context context,final String[] itmes,final ListItemCallback listCallback){
+        Builder builder = new Builder(context)
+                .items(itmes)
+                .itemsCallback(listCallback);
+        SchoolFriendDialog dialog = new SchoolFriendDialog(builder);
+        return dialog;
+    }
 
+    public static abstract class ListItemCallback implements ListCallback {
+
+    }
 }

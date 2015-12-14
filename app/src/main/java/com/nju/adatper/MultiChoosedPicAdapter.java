@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CameraImageViewFragment;
 import com.nju.model.Image;
 import com.nju.util.Divice;
@@ -40,10 +41,12 @@ public class MultiChoosedPicAdapter extends BaseAdapter {
     private AppCompatActivity mContext;
     private int choosedPicNumber = 0;
     private Handler mHandler;
-    public MultiChoosedPicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler){
+    private BaseFragment mFragment;
+    public MultiChoosedPicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler,BaseFragment fragment){
         mContext = context;
         mImages = imgs;
         mHandler = handler;
+        mFragment = fragment;
     }
 
     @Override
@@ -85,14 +88,11 @@ public class MultiChoosedPicAdapter extends BaseAdapter {
                     holder.imageView = (ImageView) convertView.findViewById(R.id.choose_image_item_imageView);
                     final ViewHolder finalHolder1 = holder;
                     holder.imageView.setOnClickListener(new View.OnClickListener() {
-                        Message message = null;
+                        Message message;
                         @Override
                         public void onClick(View v) {
-                             mContext.getSupportFragmentManager().beginTransaction().
-                                     replace(R.id.container, CameraImageViewFragment.
-                                             newInstance(mImages,position,mContext.getResources().getString(R.string.chooseReview))).
-                                     commit();
-                        }
+                           mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.choosedReview)));
+                         }
                     });
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.choose_image_item_checkBox);
                     holder.checkBox.setOnClickListener(new View.OnClickListener() {

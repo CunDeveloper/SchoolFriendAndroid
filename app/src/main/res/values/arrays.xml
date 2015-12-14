@@ -8,4 +8,10 @@
         <item>软件学院</item>
         <item/>
     </string-array>
+
+    <string-array name="dialog_item">
+        <item>保存到手机</item>
+        <item>收藏</item>
+        <item>举报</item>
+    </string-array>
 </resources>

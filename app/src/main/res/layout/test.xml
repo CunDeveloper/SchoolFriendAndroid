@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="140dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_height="@dimen/phone_apadding">
-            <View
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="center"
-                android:background="@drawable/select_circle_label_bg"
-                />
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView8"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView9"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_toEndOf="@+id/textView8" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignBottom="@+id/textView9"
+        android:layout_toEndOf="@+id/textView9" />
+</RelativeLayout>

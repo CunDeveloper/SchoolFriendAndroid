@@ -13,6 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
         android:alpha="0.7"
+        android:id="@+id/fragment_camera_image_view_bottom_layout"
         android:background="@color/colorPrimary"
         >
 
@@ -25,7 +26,7 @@
             android:scaleY="1"
             android:buttonTint="@android:color/white"
             android:scaleX="1"
-            android:paddingRight="@dimen/padding_right"
+            android:paddingEnd="@dimen/padding_right"
             android:textSize="@dimen/big_font_size"
             android:id="@+id/fragment_camera_image_view_checkBox"
             android:layout_centerVertical="true"

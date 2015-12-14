@@ -25,7 +25,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
     private static final String POSITION = "position";
     public static final String TAG = ChoosedImageViewFragment.class.getSimpleName();
     private ArrayList<Image> mImgPaths;
-    private CustomViewPager mViewPager;
+    private ViewPager mViewPager;
     private int mPostion;
     private ActionBar mActionBar;
     public static ChoosedImageViewFragment newInstance(ArrayList<Image> imgPaths,int postion) {
@@ -53,7 +53,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mViewPager = (CustomViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
+        mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
         mViewPager.setAdapter(new ChoosedOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
         mViewPager.setCurrentItem(mPostion);
         initViewPagerSlideListener();

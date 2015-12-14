@@ -23,7 +23,7 @@ public class OriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = OriginPicsViewFragment.newInstance(mImgs.get(position).getData());
+        OriginPicsViewFragment fragment = OriginPicsViewFragment.newInstance(mImgs.get(position).getData());
         return fragment;
     }
 
