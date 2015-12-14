@@ -1,10 +1,13 @@
 package com.nju.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.nju.fragment.BaseFragment;
+import com.nju.util.Constant;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -20,6 +23,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Fragment
     @Override
     public LocalStack<BaseFragment> getBackStack() {
         return mLocalBackstack;
+    }
+
+    @Override
+    public ApplicationHandler getAppHandler() {
+        return ApplicationHandler.newInstance();
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences(){
+        return getSharedPreferences(Constant.SCHOOL_FRIEND_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 
     public static class LocalStack<E> extends Stack<E> {

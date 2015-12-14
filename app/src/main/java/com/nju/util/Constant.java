@@ -21,4 +21,22 @@ public class Constant {
     public static final String PERSON_CIRCLE_URL ="/UserContentContrller";
     public static final String USER_LOCATION ="user_location";
     public static final String PUBLISH_TEXT ="publish_text";
+    public static final String SCHOOL_FRIEND_SHARED_PREFERENCE ="school_friend_shared_preferences";
+
+    public static final String INSERT_INTO =" INSERT INTO ";
+    public static final String DELETE_FROM = " DELETE FROM ";
+    public static final String WHERE =" WHERE ";
+    public static final String UPDATE ="UPDATE ";
+
+    public static final String LEFT_BACKUT = "(";
+    public static final String RIGHT_BACKUT = ")";
+    public static final String COMMA_SEP = " ,";
+
+    public static final int SAVE_CONTENT_MESG = 200;//保存缓存的信号量
+    public static final int DELETE_CONTENT_MSG = 201;//删除缓存的信号量
+    public static final int UPDATE_CONTENT_MSG = 202;//更新本地缓存的信号量
+
+    public static final int MAX_SAVE_NUMBER = 250;//本地缓存的用户发表的最大纪录数
+    public static final String MAX_ID_SAVE_CONTENT ="max_id_save_content";//用于纪录缓存在本地的content的最大id;
+
 }

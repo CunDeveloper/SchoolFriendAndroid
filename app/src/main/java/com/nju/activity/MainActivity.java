@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
         textView.setText(username);
         initNavigationViewListener();
         open(XueXinAuthFragmet.newInstance());
+        initDataBase();
     }
 
 
@@ -168,7 +170,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
 
     @Override
     public void open(BaseFragment fragment, boolean clearBackStack) {
-        open(fragment,clearBackStack);
+        open(fragment, clearBackStack);
     }
 
 
@@ -236,5 +238,9 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
         if (fragment != null){
             fragment.inputEmotion(drawable);
         }
+    }
+
+    private void initDataBase(){
+        SchoolFriendDbHelper.newInstance(this);
     }
 }

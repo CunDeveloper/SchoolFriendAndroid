@@ -1,5 +1,6 @@
 package com.nju.activity;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,8 @@ public interface FragmentHostActivity {
     void open(BaseFragment fragment,boolean clearBackStack,Fragment fragmentToRemove);
     void open(BaseFragment fragment,Fragment fragmentToRemove);
     void hideAllMenuView();
+    ApplicationHandler getAppHandler();
+    SharedPreferences getSharedPreferences();
     Toolbar getToolBar();
     Button getMenuBn();
     ImageView getMenuCameraView();

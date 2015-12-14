@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.CustomImageVIew;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
@@ -33,6 +34,13 @@ public class CircleImageViewItemFragment extends Fragment {
     public CircleImageViewItemFragment() {
     }
 
+    SchoolFriendDialog.ListItemCallback callback = new SchoolFriendDialog.ListItemCallback() {
+        @Override
+        public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+            Toast.makeText(getContext(),"CANGCHANG",Toast.LENGTH_LONG).show();
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +61,7 @@ public class CircleImageViewItemFragment extends Fragment {
         mCustomImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                 SchoolFriendDialog dialog =SchoolFriendDialog.listDialog(getContext(), dialog_items, null);
+                 SchoolFriendDialog dialog =SchoolFriendDialog.listDialog(getContext(), dialog_items, callback);
                  dialog.show();
                  return true;
             }

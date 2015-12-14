@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-import com.nju.db.DbUtil;
 import com.nju.db.ProvinceEntry;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.model.Province;
@@ -20,7 +19,7 @@ public class ProvinceService {
     private static final String TAG = ProvinceService.class.getSimpleName();
     private SQLiteDatabase db;
     public ProvinceService(Context context) {
-        db = DbUtil.newInstance(context).getWritableDatabase();
+        db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
     }
     public void save(ArrayList<Province> provinces) {
         db.beginTransaction();
