@@ -1,0 +1,302 @@
+1	U+1F600	😀	😀	😀	😀	😀	😀	😀	missing	missing	missing	grinning face	2012ˣ	emoji	face, grin, person
+2	U+1F601	😁	😁	😁	😁	😁	😁	😁	😁	😁	😁	grinning face with smiling eyes	2010ʲ	emoji	eye, face, grin, person, smile
+3	U+1F602	😂	😂	😂	😂	😂	😂	😂	missing	😂	😂	face with tears of joy	2010ʲ	emoji	face, joy, laugh, person, tear
+4	U+1F603	😃	😃	😃	😃	😃	😃	😃	😃	😃	😃	smiling face with open mouth	2010ʲ	emoji	face, mouth, open, person, smile
+5	U+1F604	😄	😄	😄	😄	😄	😄	😄	missing	missing	😄	smiling face with open mouth and smiling eyes	2010ʲ	emoji	eye, face, mouth, open, person, smile
+6	U+1F605	😅	😅	😅	😅	😅	😅	😅	😅	missing	missing	smiling face with open mouth and cold sweat	2010ʲ	emoji	cold, face, open, person, smile, sweat
+7	U+1F606	😆	😆	😆	😆	😆	😆	😆	😆	missing	missing	smiling face with open mouth and tightly-closed eyes	2010ʲ	emoji	face, laugh, mouth, open, person, satisfied, smile
+8	U+1F609	😉	😉	😉	😉	😉	😉	😉	😉	😉	😉	winking face	2010ʲ	emoji	face, person, wink
+9	U+1F60A	😊	😊	😊	😊	😊	😊	😊	missing	😊	😊	smiling face with smiling eyes	2010ʲ	emoji	blush, eye, face, person, smile
+10	U+1F60B	😋	😋	😋	😋	😋	😋	😋	😋	missing	missing	face savouring delicious food	2010ʲ	emoji	delicious, face, food, person, savouring, smile, um, yum
+11	U+1F60E	😎	😎	😎	😎	😎	😎	😎	missing	missing	missing	smiling face with sunglasses	2010ˣ	emoji	bright, cool, eye, eyewear, face, glasses, person, smile, sun, sunglasses, weather
+12	U+1F60D	😍	😍	😍	😍	😍	😍	😍	😍	😍	😍	smiling face with heart-shaped eyes	2010ʲ	emoji	eye, face, heart, love, person, smile
+13	U+1F618	😘	😘	😘	😘	😘	😘	😘	missing	😘	😘	face throwing a kiss	2010ʲ	emoji	face, heart, kiss, person
+14	U+1F617	😗	😗	😗	😗	😗	😗	missing	missing	missing	missing	kissing face	2012ˣ	emoji	face, kiss, person
+15	U+1F619	😙	😙	😙	😙	😙	😙	missing	missing	missing	missing	kissing face with smiling eyes	2012ˣ	emoji	eye, face, kiss, person, smile
+16	U+1F61A	😚	😚	😚	😚	😚	😚	😚	missing	😚	😚	kissing face with closed eyes	2010ʲ	emoji	closed, eye, face, kiss, person
+17	U+263A	☺️	☺	☺	☺	☺	☺	☺	missing	☺	☺	white smiling face	1995ʲʷ	text*	face, outlined, person, relaxed, smile
+18	U+1F642	🙂	🙂	🙂	🙂	missing	🙂	🙂	missing	missing	missing	slightly smiling face	2014ˣ	emoji	face, person, smile
+19	U+1F917	🤗	🤗	🤗	🤗	missing	missing	missing	missing	missing	missing	hugging face	2015ˣ	emoji	face, hug, hugging, person
+20	U+1F607	😇	😇	😇	😇	😇	😇	missing	missing	missing	missing	smiling face with halo	2010ˣ	emoji	angel, face, fairy tale, fantasy, halo, innocent, person, smile
+21	U+1F914	🤔	🤔	🤔	🤔	missing	missing	missing	missing	missing	missing	thinking face	2015ˣ	emoji	face, person, thinking
+22	U+1F610	😐	😐	😐	😐	😐	😐	missing	missing	missing	missing	neutral face	2010ʷ	emoji	deadpan, face, neutral, person
+23	U+1F611	😑	😑	😑	😑	😑	😑	missing	missing	missing	missing	expressionless face	2012ˣ	emoji	expressionless, face, inexpressive, person, unexpressive
+24	U+1F636	😶	😶	😶	😶	😶	😶	missing	missing	missing	missing	face without mouth	2010ˣ	emoji	face, mouth, person, quiet, silent
+25	U+1F644	🙄	🙄	🙄	🙄	missing	missing	missing	missing	missing	missing	face with rolling eyes	2015ˣ	emoji	eyes, face, person, rolling
+26	U+1F60F	😏	😏	😏	😏	😏	😏	😏	😏	😏	😏	smirking face	2010ʲ	emoji	face, person, smirk
+27	U+1F623	😣	😣	😣	😣	😣	😣	😣	😣	😣	😣	persevering face	2010ʲ	emoji	face, persevere, person
+28	U+1F625	😥	😥	😥	😥	😥	😥	😥	missing	missing	😥	disappointed but relieved face	2010ʲ	emoji	disappointed, face, person, relieved, whew
+29	U+1F62E	😮	😮	😮	😮	😮	😮	missing	missing	missing	missing	face with open mouth	2012ˣ	emoji	face, mouth, open, person, sympathy
+30	U+1F910	🤐	🤐	🤐	🤐	missing	missing	missing	missing	missing	missing	zipper-mouth face	2015ˣ	emoji	face, mouth, person, zipper
+31	U+1F62F	😯	😯	😯	😯	😯	😯	missing	missing	missing	missing	hushed face	2012ˣ	emoji	face, hushed, person, stunned, surprised
+32	U+1F62A	😪	😪	😪	😪	😪	😪	😪	missing	😪	😪	sleepy face	2010ʲ	emoji	face, person, sleep
+33	U+1F62B	😫	😫	😫	😫	😫	😫	😫	missing	😫	missing	tired face	2010ʲ	emoji	face, person, tired
+34	U+1F634	😴	😴	😴	😴	😴	😴	missing	missing	missing	missing	sleeping face	2012ˣ	emoji	face, person, sleep, zzz
+35	U+1F60C	😌	😌	😌	😌	😌	😌	😌	😌	😌	😌	relieved face	2010ʲ	emoji	face, person, relieved
+36	U+1F913	🤓	🤓	🤓	🤓	missing	missing	missing	missing	missing	missing	nerd face	2015ˣ	emoji	face, geek, nerd, person
+37	U+1F61B	😛	😛	😛	😛	😛	😛	missing	missing	missing	missing	face with stuck-out tongue	2012ˣ	emoji	face, person, tongue
+38	U+1F61C	😜	😜	😜	😜	😜	😜	😜	😜	😜	😜	face with stuck-out tongue and winking eye	2010ʲ	emoji	eye, face, joke, person, tongue, wink
+39	U+1F61D	😝	😝	😝	😝	😝	😝	😝	missing	missing	😝	face with stuck-out tongue and tightly-closed eyes	2010ʲ	emoji	eye, face, horrible, person, taste, tongue
+40	U+2639	☹	☹	☹	☹	missing	☹	missing	missing	missing	missing	white frowning face	1995ʷ	text	face, frown, person
+41	U+1F641	🙁	🙁	🙁	🙁	missing	🙁	missing	missing	missing	missing	slightly frowning face	2014ˣ	emoji	face, frown, person
+42	U+1F612	😒	😒	😒	😒	😒	😒	😒	😒	😒	😒	unamused face	2010ʲ	emoji	face, person, unamused, unhappy
+43	U+1F613	😓	😓	😓	😓	😓	😓	😓	😓	😓	😓	face with cold sweat	2010ʲ	emoji	cold, face, person, sweat
+44	U+1F614	😔	😔	😔	😔	😔	😔	😔	😔	😔	😔	pensive face	2010ʲ	emoji	dejected, face, pensive, person
+45	U+1F615	😕	😕	😕	😕	😕	😕	😕	missing	missing	missing	confused face	2012ˣ	emoji	confused, face, person
+46	U+1F616	😖	😖	😖	😖	😖	😖	😖	😖	😖	😖	confounded face	2010ʲ	emoji	confounded, face, person
+47	U+1F643	🙃	🙃	🙃	🙃	missing	missing	missing	missing	missing	missing	upside-down face	2015ˣ	emoji	face, person, upside-down
+48	U+1F637	😷	😷	😷	😷	😷	😷	😷	missing	😷	😷	face with medical mask	2010ʲ	emoji	cold, doctor, face, mask, medicine, person, sick
+49	U+1F912	🤒	🤒	🤒	🤒	missing	missing	missing	missing	missing	missing	face with thermometer	2015ˣ	emoji	face, ill, person, sick, thermometer
+50	U+1F915	🤕	🤕	🤕	🤕	missing	missing	missing	missing	missing	missing	face with head-bandage	2015ˣ	emoji	bandage, face, hurt, injury, person
+51	U+1F911	🤑	🤑	🤑	🤑	missing	missing	missing	missing	missing	missing	money-mouth face	2015ˣ	emoji	face, money, mouth, person
+52	U+1F632	😲	😲	😲	😲	😲	😲	😲	missing	😲	😲	astonished face	2010ʲ	emoji	astonished, face, person, shocked, totally
+53	U+1F61E	😞	😞	😞	😞	😞	😞	😞	😞	missing	😞	disappointed face	2010ʲ	emoji	disappointed, face, person
+54	U+1F61F	😟	😟	😟	😟	😟	😟	😟	missing	missing	missing	worried face	2012ˣ	emoji	face, person, worried
+55	U+1F624	😤	😤	😤	😤	😤	😤	😤	missing	😤	missing	face with look of triumph	2010ʲ	emoji	face, person, triumph, won
+56	U+1F622	😢	😢	😢	😢	😢	😢	😢	😢	😢	😢	crying face	2010ʲ	emoji	cry, face, person, sad, tear
+57	U+1F62D	😭	😭	😭	😭	😭	😭	😭	😭	😭	😭	loudly crying face	2010ʲ	emoji	cry, face, person, sad, sob, tear
+58	U+1F626	😦	😦	😦	😦	😦	😦	missing	missing	missing	missing	frowning face with open mouth	2012ˣ	emoji	face, frown, mouth, open, person
+59	U+1F627	😧	😧	😧	😧	😧	😧	missing	missing	missing	missing	anguished face	2012ˣ	emoji	anguished, face, person
+60	U+1F628	😨	😨	😨	😨	😨	😨	😨	missing	😨	😨	fearful face	2010ʲ	emoji	face, fear, fearful, person, scared
+61	U+1F629	😩	😩	😩	😩	😩	😩	😩	missing	😩	missing	weary face	2010ʲ	emoji	face, person, tired, weary
+62	U+1F62C	😬	😬	😬	😬	😬	😬	missing	missing	missing	missing	grimacing face	2012ˣ	emoji	face, grimace, person
+63	U+1F630	😰	😰	😰	😰	😰	😰	😰	missing	😰	😰	face with open mouth and cold sweat	2010ʲ	emoji	blue, cold, face, mouth, open, person, rushed, sweat
+64	U+1F631	😱	😱	😱	😱	😱	😱	😱	😱	😱	😱	face screaming in fear	2010ʲ	emoji	face, fear, fearful, munch, person, scared, scream
+65	U+1F633	😳	😳	😳	😳	😳	😳	😳	missing	😳	😳	flushed face	2010ʲ	emoji	dazed, face, flushed, person
+66	U+1F635	😵	😵	😵	😵	😵	😵	😵	😵	😵	missing	dizzy face	2010ʲ	emoji	dizzy, face, person
+67	U+1F621	😡	😡	😡	😡	😡	😡	😡	😡	😡	😡	pouting face	2010ʲ	emoji	angry, face, mad, person, pouting, rage, red
+68	U+1F620	😠	😠	😠	😠	😠	😠	😠	😠	😠	😠	angry face	2010ʲ	emoji	angry, face, mad, person
+69	U+1F608	😈	😈	😈	😈	😈	😈	missing	missing	missing	missing	smiling face with horns	2010ˣ	emoji	face, fairy tale, fantasy, horns, person, smile
+70	U+1F47F	👿	👿	👿	👿	👿	👿	👿	missing	👿	👿	imp	2010ʲ	emoji	demon, devil, face, fairy tale, fantasy, imp, person
+71	U+1F479	👹	👹	👹	👹	👹	👹	👹	missing	👹	missing	japanese ogre	2010ʲ	emoji	creature, face, fairy tale, fantasy, japanese, monster, ogre, person
+72	U+1F47A	👺	👺	👺	👺	👺	👺	👺	missing	👺	missing	japanese goblin	2010ʲ	emoji	creature, face, fairy tale, fantasy, goblin, japanese, monster, person
+73	U+1F480	💀	💀	💀	💀	💀	💀	💀	missing	💀	💀	skull	2010ʲ	emoji	body, death, face, fairy tale, monster, person, skull
+74	U+2620	☠	☠	☠	☠	missing	missing	missing	missing	missing	missing	skull and crossbones	1995ˣ	text	body, crossbones, death, face, monster, person, skull
+75	U+1F47B	👻	👻	👻	👻	👻	👻	👻	missing	👻	👻	ghost	2010ʲ	emoji	creature, face, fairy tale, fantasy, ghost, monster, person
+76	U+1F47D	👽	👽	👽	👽	👽	👽	👽	missing	👽	👽	extraterrestrial alien	2010ʲʷ	emoji	alien, creature, extraterrestrial, face, fairy tale, fantasy, monster, nature, person, space, ufo
+77	U+1F47E	👾	👾	👾	👾	👾	👾	👾	missing	👾	👾	alien monster	2010ʲ	emoji	alien, creature, extraterrestrial, face, fairy tale, fantasy, monster, nature, person, space, ufo
+78	U+1F916	🤖	🤖	🤖	🤖	missing	missing	missing	missing	missing	missing	robot face	2015ˣ	emoji	face, monster, person, robot
+79	U+1F4A9	💩	💩	💩	💩	💩	💩	💩	missing	💩	💩	pile of poo	2010ʲ	emoji	comic, dung, face, monster, nature, object, poo, poop
+80	U+1F63A	😺	😺	😺	😺	😺	😺	😺	missing	😺	missing	smiling cat face with open mouth	2010ʲ	emoji	animal, cat, face, mouth, nature, open, smile
+81	U+1F638	😸	😸	😸	😸	😸	😸	😸	missing	😸	missing	grinning cat face with smiling eyes	2010ʲ	emoji	animal, cat, eye, face, grin, nature, smile
+82	U+1F639	😹	😹	😹	😹	😹	😹	😹	missing	😹	missing	cat face with tears of joy	2010ʲ	emoji	animal, cat, face, joy, nature, tear
+83	U+1F63B	😻	😻	😻	😻	😻	😻	😻	missing	😻	missing	smiling cat face with heart-shaped eyes	2010ʲ	emoji	animal, cat, eye, face, heart, love, nature, smile
+84	U+1F63C	😼	😼	😼	😼	😼	😼	😼	missing	😼	missing	cat face with wry smile	2010ʲ	emoji	animal, cat, face, ironic, nature, smile, wry
+85	U+1F63D	😽	😽	😽	😽	😽	😽	😽	missing	😽	missing	kissing cat face with closed eyes	2010ʲ	emoji	animal, cat, eye, face, kiss, nature
+86	U+1F640	🙀	🙀	🙀	🙀	🙀	🙀	🙀	missing	🙀	missing	weary cat face	2010ʲ	emoji	animal, cat, face, nature, oh, surprised, weary
+87	U+1F63F	😿	😿	😿	😿	😿	😿	😿	missing	😿	missing	crying cat face	2010ʲ	emoji	animal, cat, cry, face, nature, sad, tear
+88	U+1F63E	😾	😾	😾	😾	😾	😾	😾	missing	😾	missing	pouting cat face	2010ʲ	emoji	animal, cat, face, nature, pouting
+89	U+1F648	🙈	🙈	🙈	🙈	🙈	🙈	🙈	missing	🙈	missing	see-no-evil monkey	2010ʲ	emoji	animal, evil, face, forbidden, gesture, monkey, nature, no, not, prohibited, see
+90	U+1F649	🙉	🙉	🙉	🙉	🙉	🙉	🙉	missing	🙉	missing	hear-no-evil monkey	2010ʲ	emoji	animal, evil, face, forbidden, gesture, hear, monkey, nature, no, not, prohibited
+91	U+1F64A	🙊	🙊	🙊	🙊	🙊	🙊	🙊	missing	🙊	missing	speak-no-evil monkey	2010ʲ	emoji	animal, evil, face, forbidden, gesture, monkey, nature, no, not, prohibited, speak
+92	U+1F466	👦	👦	👦	👦	👦	👦	👦	missing	missing	👦	boy	2010ʲ	emoji	boy, person
+93	U+1F467	👧	👧	👧	👧	👧	👧	👧	missing	missing	👧	girl	2010ʲ	emoji	girl, maiden, person, virgin, virgo, zodiac
+94	U+1F468	👨	👨	👨	👨	👨	👨	👨	missing	👨	👨	man	2010ʲ	emoji	man, person
+95	U+1F469	👩	👩	👩	👩	👩	👩	👩	missing	👩	👩	woman	2010ʲ	emoji	person, woman
+96	U+1F474	👴	👴	👴	👴	👴	👴	👴	missing	👴	👴	older man	2010ʲ	emoji	man, old, person
+97	U+1F475	👵	👵	👵	👵	👵	👵	👵	missing	👵	👵	older woman	2010ʲ	emoji	old, person, woman
+98	U+1F476	👶	👶	👶	👶	👶	👶	👶	missing	👶	👶	baby	2010ʲ	emoji	baby, person
+99	U+1F471	👱	👱	👱	👱	👱	👱	👱	missing	👱	👱	person with blond hair	2010ʲ	emoji	blond, person
+100	U+1F46E	👮	👮	👮	👮	👮	👮	👮	missing	👮	👮	police officer	2010ʲ	emoji	cop, officer, person, police
+101	U+1F472	👲	👲	👲	👲	👲	👲	👲	missing	👲	👲	man with gua pi mao	2010ʲ	emoji	gua pi mao, hat, man, person
+102	U+1F473	👳	👳	👳	👳	👳	👳	👳	missing	👳	👳	man with turban	2010ʲ	emoji	man, person, turban
+103	U+1F477	👷	👷	👷	👷	👷	👷	👷	missing	👷	👷	construction worker	2010ʲ	emoji	construction, hat, person, worker
+104	U+26D1	⛑	⛑	⛑	⛑	missing	missing	missing	missing	missing	missing	helmet with white cross	2009ª	text	aid, cross, face, hat, helmet, person
+105	U+1F478	👸	👸	👸	👸	👸	👸	👸	missing	👸	👸	princess	2010ʲ	emoji	fairy tale, fantasy, person, princess
+106	U+1F482	💂	💂	💂	💂	💂	💂	💂	missing	missing	💂	guardsman	2010ʲ	emoji	guard, guardsman, person
+107	U+1F575	🕵	🕵	🕵	🕵	missing	missing	missing	missing	missing	missing	sleuth or spy	2014ʷ	text	person, sleuth, spy
+108	U+1F385	🎅	🎅	🎅	🎅	🎅	🎅	🎅	missing	🎅	🎅	father christmas	2010ʲ	emoji	activity, celebration, christmas, fairy tale, fantasy, father, person, santa
+109	U+1F47C	👼	👼	👼	👼	👼	👼	👼	missing	👼	👼	baby angel	2010ʲ	emoji	angel, baby, face, fairy tale, fantasy, person
+110	U+1F46F	👯	👯	👯	👯	👯	👯	👯	missing	👯	👯	woman with bunny ears	2010ʲ	emoji	bunny, dancer, ear, girl, person, woman
+111	U+1F486	💆	💆	💆	💆	💆	💆	💆	missing	💆	💆	face massage	2010ʲ	emoji	massage, person, salon
+112	U+1F487	💇	💇	💇	💇	💇	💇	💇	missing	💇	💇	haircut	2010ʲ	emoji	barber, beauty, haircut, parlor, person
+113	U+1F470	👰	👰	👰	👰	👰	👰	👰	missing	👰	missing	bride with veil	2010ʲ	emoji	bride, person, veil, wedding
+114	U+1F64D	🙍	🙍	🙍	🙍	🙍	🙍	🙍	missing	🙍	missing	person frowning	2010ʲ	emoji	frown, gesture, person
+115	U+1F64E	🙎	🙎	🙎	🙎	🙎	🙎	🙎	missing	🙎	missing	person with pouting face	2010ʲ	emoji	gesture, person, pouting
+116	U+1F645	🙅	🙅	🙅	🙅	🙅	🙅	🙅	missing	🙅	🙅	face with no good gesture	2010ʲ	emoji	forbidden, gesture, hand, no, not, person, prohibited
+117	U+1F646	🙆	🙆	🙆	🙆	🙆	🙆	🙆	missing	🙆	🙆	face with ok gesture	2010ʲ	emoji	gesture, hand, ok, person
+118	U+1F481	💁	💁	💁	💁	💁	💁	💁	missing	missing	💁	information desk person	2010ʲ	emoji	hand, help, information, person, sassy
+119	U+1F64B	🙋	🙋	🙋	🙋	🙋	🙋	🙋	missing	🙋	missing	happy person raising one hand	2010ʲ	emoji	gesture, hand, happy, person, raised
+120	U+1F647	🙇	🙇	🙇	🙇	🙇	🙇	🙇	missing	🙇	🙇	person bowing deeply	2010ʲ	emoji	apology, bow, gesture, person, sorry
+121	U+1F64C	🙌	🙌	🙌	🙌	🙌	🙌	🙌	missing	🙌	🙌	person raising both hands in celebration	2010ʲ	emoji	body, celebration, gesture, hand, hooray, person, raised
+122	U+1F64F	🙏	🙏	🙏	🙏	🙏	🙏	🙏	missing	🙏	🙏	person with folded hands	2010ʲ	emoji	ask, body, bow, folded, gesture, hand, person, please, pray, thanks
+123	U+1F5E3	🗣	🗣	🗣	🗣	missing	missing	missing	missing	missing	missing	speaking head in silhouette	2014ʷ	text	face, head, person, silhouette, speak, speaking
+124	U+1F464	👤	👤	👤	👤	👤	👤	👤	👤	missing	missing	bust in silhouette	2010ʲ	emoji	bust, person, silhouette
+125	U+1F465	👥	👥	👥	👥	👥	👥	missing	missing	missing	missing	busts in silhouette	2010ˣ	emoji	bust, person, silhouette
+126	U+1F6B6	🚶	🚶	🚶	🚶	🚶	🚶	🚶	missing	🚶	🚶	pedestrian	2010ʲ	emoji	hike, pedestrian, person, walk, walking
+127	U+1F3C3	🏃	🏃	🏃	🏃	🏃	🏃	🏃	🏃	🏃	🏃	runner	2010ʲ	emoji	marathon, person, runner, running
+128	U+1F483	💃	💃	💃	💃	💃	💃	💃	missing	💃	💃	dancer	2010ʲ	emoji	dancer, person
+129	U+1F574	🕴	🕴	🕴	🕴	missing	missing	missing	missing	missing	missing	man in business suit levitating	2014ʷ	text	business, man, person, suit
+130	U+1F48F	💏	💏	💏	💏	💏	💏	💏	missing	💏	💏	kiss	2010ʲ	emoji	couple, kiss, person, romance
+131	U+1F491	💑	💑	💑	💑	💑	💑	💑	missing	💑	💑	couple with heart	2010ʲ	emoji	couple, heart, love, person, romance
+132	U+1F46A	👪	👪	👪	👪	👪	👪	👪	missing	👪	missing	family	2010ʲʷ	emoji	child, family, father, mother, person
+133	U+1F46B	👫	👫	👫	👫	👫	👫	👫	missing	missing	👫	man and woman holding hands	2010ʲ	emoji	couple, hand, hold, man, person, woman
+134	U+1F46C	👬	👬	👬	👬	👬	👬	missing	missing	missing	missing	two men holding hands	2010ˣ	emoji	couple, gemini, hand, hold, man, person, twins, zodiac
+135	U+1F46D	👭	👭	👭	👭	👭	👭	missing	missing	missing	missing	two women holding hands	2010ˣ	emoji	couple, hand, hold, person, woman
+136	U+1F3FB	🏻	🏻	🏻	missing	missing	🏻	missing	missing	missing	missing	emoji modifier fitzpatrick type-1-2	2015ˣ	emoji	emoji modifier, fitzpatrick, skin, symbol, tone
+137	U+1F3FC	🏼	🏼	🏼	missing	missing	🏼	missing	missing	missing	missing	emoji modifier fitzpatrick type-3	2015ˣ	emoji	emoji modifier, fitzpatrick, skin, symbol, tone
+138	U+1F3FD	🏽	🏽	🏽	missing	missing	🏽	missing	missing	missing	missing	emoji modifier fitzpatrick type-4	2015ˣ	emoji	emoji modifier, fitzpatrick, skin, symbol, tone
+139	U+1F3FE	🏾	🏾	🏾	missing	missing	🏾	missing	missing	missing	missing	emoji modifier fitzpatrick type-5	2015ˣ	emoji	emoji modifier, fitzpatrick, skin, symbol, tone
+140	U+1F3FF	🏿	🏿	🏿	missing	missing	🏿	missing	missing	missing	missing	emoji modifier fitzpatrick type-6	2015ˣ	emoji	emoji modifier, fitzpatrick, skin, symbol, tone
+141	U+1F4AA	💪	💪	💪	💪	💪	💪	💪	missing	💪	💪	flexed biceps	2010ʲ	emoji	biceps, body, comic, flex, muscle, person
+142	U+1F448	👈	👈	👈	👈	👈	👈	👈	missing	👈	👈	white left pointing backhand index	2010ʲʷ	emoji	backhand, body, finger, hand, index, person, point
+143	U+1F449	👉	👉	👉	👉	👉	👉	👉	missing	👉	👉	white right pointing backhand index	2010ʲʷ	emoji	backhand, body, finger, hand, index, person, point
+144	U+261D	☝️	☝	☝	☝	☝	☝	☝	missing	☝	☝	white up pointing index	1995ʲʷ	text*	body, finger, hand, index, person, point, up
+145	U+1F446	👆	👆	👆	👆	👆	👆	👆	missing	👆	👆	white up pointing backhand index	2010ʲʷ	emoji	backhand, body, finger, hand, index, person, point, up
+146	U+1F595	🖕	🖕	🖕	🖕	missing	🖕	missing	missing	missing	missing	reversed hand with middle finger extended	2014ˣ	emoji	body, finger, hand, middle finger, person
+147	U+1F447	👇	👇	👇	👇	👇	👇	👇	missing	👇	👇	white down pointing backhand index	2010ʲʷ	emoji	backhand, body, down, finger, hand, index, person, point
+148	U+270C	✌️	✌	✌	✌	✌	✌	✌	✌	✌	✌	victory hand	1995ᶻʲʷ	text*	body, hand, person, v, victory
+149	U+1F596	🖖	🖖	🖖	🖖	missing	🖖	missing	missing	missing	missing	raised hand with part between middle and ring fingers	2014ˣ	emoji	body, finger, hand, person, spock, vulcan
+150	U+1F918	🤘	🤘	🤘	🤘	missing	missing	missing	missing	missing	missing	sign of the horns	2015ˣ	emoji	body, finger, hand, horns, person, rock-on
+151	U+1F590	🖐	🖐	🖐	🖐	missing	🖐	missing	missing	missing	missing	raised hand with fingers splayed	2014ʷ	text	body, finger, hand, person, splayed
+152	U+270A	✊	✊	✊	✊	✊	✊	✊	✊	✊	✊	raised fist	2010ʲ	emoji	body, clenched, fist, hand, person, punch
+153	U+270B	✋	✋	✋	✋	✋	✋	✋	✋	✋	✋	raised hand	2010ʲ	emoji	body, hand, person
+154	U+1F44A	👊	👊	👊	👊	👊	👊	👊	👊	👊	👊	fisted hand sign	2010ʲ	emoji	body, clenched, fist, hand, person, punch
+155	U+1F44C	👌	👌	👌	👌	👌	👌	👌	missing	👌	👌	ok hand sign	2010ʲ	emoji	body, hand, ok, person
+156	U+1F44D	👍	👍	👍	👍	👍	👍	👍	👍	👍	👍	thumbs up sign	2010ʲʷ	emoji	+1, body, hand, person, thumb, thumbs up, up
+157	U+1F44E	👎	👎	👎	👎	👎	👎	👎	missing	👎	👎	thumbs down sign	2010ʲʷ	emoji	-1, body, down, hand, person, thumb, thumbs down
+158	U+1F44B	👋	👋	👋	👋	👋	👋	👋	missing	👋	👋	waving hand sign	2010ʲ	emoji	body, hand, person, wave, waving
+159	U+1F44F	👏	👏	👏	👏	👏	👏	👏	missing	👏	👏	clapping hands sign	2010ʲ	emoji	body, clap, hand, person
+160	U+1F450	👐	👐	👐	👐	👐	👐	👐	missing	missing	👐	open hands sign	2010ʲ	emoji	body, hand, open, person
+161	U+270D	✍	✍	✍	✍	missing	missing	missing	missing	missing	missing	writing hand	1995ᶻʷ	text	body, education, hand, person, write
+162	U+1F485	💅	💅	💅	💅	💅	💅	💅	missing	💅	💅	nail polish	2010ʲ	emoji	body, care, cosmetics, manicure, nail, person, polish
+163	U+1F442	👂	👂	👂	👂	👂	👂	👂	👂	👂	👂	ear	2010ʲʷ	emoji	body, ear, person
+164	U+1F443	👃	👃	👃	👃	👃	👃	👃	missing	👃	👃	nose	2010ʲ	emoji	body, nose, person
+165	U+1F463	👣	👣	👣	👣	👣	👣	👣	👣	👣	👣	footprints	2010ʲ	emoji	body, clothing, footprint, person, print
+166	U+1F440	👀	👀	👀	👀	👀	👀	👀	👀	👀	👀	eyes	2010ʲ	emoji	body, eye, face, person
+167	U+1F441	👁	👁	👁	👁	missing	missing	missing	missing	missing	missing	eye	2014ʷ	text	body, eye, person
+168	U+1F445	👅	👅	👅	👅	👅	👅	👅	missing	👅	missing	tongue	2010ʲ	emoji	body, person, tongue
+169	U+1F444	👄	👄	👄	👄	👄	👄	👄	missing	👄	👄	mouth	2010ʲ	emoji	body, lips, mouth, person
+170	U+1F48B	💋	💋	💋	💋	💋	💋	💋	💋	💋	💋	kiss mark	2010ʲ	emoji	emotion, heart, kiss, lips, mark, person, romance
+171	U+1F498	💘	💘	💘	💘	💘	💘	💘	missing	💘	💘	heart with arrow	2010ʲ	emoji	arrow, cupid, emotion, heart, person, romance
+172	U+2764	❤️	❤	❤	❤	❤	❤	❤	❤	❤	❤	heavy black heart	1995ᶻʲ	text*	emotion, heart, person
+173	U+1F493	💓	💓	💓	💓	💓	💓	💓	💓	💓	💓	beating heart	2010ʲ	emoji	beating, emotion, heart, heartbeat, person, pulsating
+174	U+1F494	💔	💔	💔	💔	💔	💔	💔	💔	💔	💔	broken heart	2010ʲ	emoji	break, broken, emotion, heart, person
+175	U+1F495	💕	💕	💕	💕	💕	💕	💕	💕	💕	missing	two hearts	2010ʲ	emoji	emotion, heart, love, person
+176	U+1F496	💖	💖	💖	💖	💖	💖	💖	missing	💖	missing	sparkling heart	2010ʲ	emoji	emotion, excited, heart, person, sparkle
+177	U+1F497	💗	💗	💗	💗	💗	💗	💗	missing	missing	💗	growing heart	2010ʲ	emoji	emotion, excited, growing, heart, heartpulse, nervous, person
+178	U+1F499	💙	💙	💙	💙	💙	💙	💙	missing	💙	💙	blue heart	2010ʲ	emoji	blue, emotion, heart, person
+179	U+1F49A	💚	💚	💚	💚	💚	💚	💚	missing	💚	💚	green heart	2010ʲ	emoji	emotion, green, heart, person
+180	U+1F49B	💛	💛	💛	💛	💛	💛	💛	missing	💛	💛	yellow heart	2010ʲ	emoji	emotion, heart, person, yellow
+181	U+1F49C	💜	💜	💜	💜	💜	💜	💜	missing	💜	💜	purple heart	2010ʲ	emoji	emotion, heart, person, purple
+182	U+1F49D	💝	💝	💝	💝	💝	💝	💝	missing	💝	💝	heart with ribbon	2010ʲ	emoji	emotion, heart, object, person, ribbon, valentine
+183	U+1F49E	💞	💞	💞	💞	💞	💞	💞	missing	💞	missing	revolving hearts	2010ʲ	emoji	emotion, heart, person, revolving
+184	U+1F49F	💟	💟	💟	💟	💟	💟	💟	missing	missing	💟	heart decoration	2010ʲ	emoji	emotion, heart, person, symbol
+185	U+2763	❣	❣	❣	❣	missing	missing	missing	missing	missing	missing	heavy heart exclamation mark ornament	1995ᶻ	text	emotion, exclamation, heart, mark, punctuation, symbol
+186	U+1F48C	💌	💌	💌	💌	💌	💌	💌	💌	💌	missing	love letter	2010ʲ	emoji	emotion, heart, letter, love, mail, person, romance
+187	U+1F4A4	💤	💤	💤	💤	💤	💤	💤	💤	💤	💤	sleeping symbol	2010ʲ	emoji	comic, emotion, person, sleep, symbol, word, zzz
+188	U+1F4A2	💢	💢	💢	💢	💢	💢	💢	💢	💢	💢	anger symbol	2010ʲ	emoji	angry, comic, emotion, mad, person, symbol
+189	U+1F4A3	💣	💣	💣	💣	💣	💣	💣	💣	💣	💣	bomb	2010ʲʷ	emoji	bomb, comic, object
+190	U+1F4A5	💥	💥	💥	💥	💥	💥	💥	💥	💥	missing	collision symbol	2010ʲ	emoji	boom, collision, comic, emotion, person
+191	U+1F4A6	💦	💦	💦	💦	💦	💦	💦	💦	💦	💦	splashing sweat symbol	2010ʲ	emoji	comic, emotion, object, person, splashing, sweat
+192	U+1F4A8	💨	💨	💨	💨	💨	💨	💨	💨	💨	💨	dash symbol	2010ʲ	emoji	comic, dash, emotion, object, person, running
+193	U+1F4AB	💫	💫	💫	💫	💫	💫	💫	missing	💫	missing	dizzy symbol	2010ʲ	emoji	comic, dizzy, emotion, person, star
+194	U+1F4AC	💬	💬	💬	💬	💬	💬	💬	missing	💬	missing	speech balloon	2010ʲ	emoji	balloon, bubble, comic, dialog, emotion, object, person, speech
+195	U+1F5E8	🗨	🗨	🗨	🗨	missing	missing	missing	missing	missing	missing	left speech bubble	2014ʷ	text	dialog, other, speech
+196	U+1F5EF	🗯	🗯	🗯	🗯	missing	missing	missing	missing	missing	missing	right anger bubble	2014ʷ	text	angry, balloon, bubble, emotion, mad, symbol
+197	U+1F4AD	💭	💭	💭	💭	💭	💭	missing	missing	missing	missing	thought balloon	2010ˣ	emoji	balloon, bubble, comic, emotion, object, person, thought
+198	U+1F573	🕳	🕳	🕳	🕳	missing	missing	missing	missing	missing	missing	hole	2014ʷ	text	hole, symbol
+199	U+1F453	👓	👓	👓	👓	👓	👓	👓	👓	👓	missing	eyeglasses	2010ʲʷ	emoji	clothing, eye, eyeglasses, eyewear, glasses, object, person
+200	U+1F576	🕶	🕶	🕶	🕶	missing	missing	missing	missing	missing	missing	dark sunglasses	2014ʷ	text	dark, eye, eyewear, glasses, object, sunglasses
+201	U+1F454	👔	👔	👔	👔	👔	👔	👔	missing	👔	👔	necktie	2010ʲ	emoji	clothing, necktie, object, person
+202	U+1F455	👕	👕	👕	👕	👕	👕	👕	👕	👕	👕	t-shirt	2010ʲ	emoji	clothing, object, person, shirt, tshirt
+203	U+1F456	👖	👖	👖	👖	👖	👖	👖	👖	👖	missing	jeans	2010ʲ	emoji	clothing, jeans, object, pants, person, trousers
+204	U+1F457	👗	👗	👗	👗	👗	👗	👗	missing	👗	👗	dress	2010ʲ	emoji	clothing, dress, object, person
+205	U+1F458	👘	👘	👘	👘	👘	👘	👘	missing	👘	👘	kimono	2010ʲ	emoji	clothing, kimono, object, person
+206	U+1F459	👙	👙	👙	👙	👙	👙	👙	missing	👙	👙	bikini	2010ʲ	emoji	bikini, clothing, object, person, swim
+207	U+1F45A	👚	👚	👚	👚	👚	👚	👚	missing	👚	missing	womans clothes	2010ʲ	emoji	clothing, object, person, woman
+208	U+1F45B	👛	👛	👛	👛	👛	👛	👛	👛	👛	missing	purse	2010ʲ	emoji	clothing, coin, object, person, purse
+209	U+1F45C	👜	👜	👜	👜	👜	👜	👜	👜	👜	👜	handbag	2010ʲ	emoji	bag, clothing, handbag, object, person
+210	U+1F45D	👝	👝	👝	👝	👝	👝	👝	👝	missing	missing	pouch	2010ʲ	emoji	bag, clothing, object, person, pouch
+211	U+1F6CD	🛍	🛍	🛍	🛍	missing	missing	missing	missing	missing	missing	shopping bags	2014ʷ	text	bag, hotel, object, shopping
+212	U+1F392	🎒	🎒	🎒	🎒	🎒	🎒	🎒	missing	🎒	🎒	school satchel	2010ʲ	emoji	activity, bag, education, object, satchel, school
+213	U+1F45E	👞	👞	👞	👞	👞	👞	👞	missing	👞	missing	mans shoe	2010ʲ	emoji	clothing, man, object, person, shoe
+214	U+1F45F	👟	👟	👟	👟	👟	👟	👟	👟	👟	👟	athletic shoe	2010ʲ	emoji	athletic, clothing, object, person, shoe, sneaker
+215	U+1F460	👠	👠	👠	👠	👠	👠	👠	👠	👠	👠	high-heeled shoe	2010ʲ	emoji	clothing, heel, object, person, shoe, woman
+216	U+1F461	👡	👡	👡	👡	👡	👡	👡	missing	missing	👡	womans sandal	2010ʲ	emoji	clothing, object, person, sandal, shoe, woman
+217	U+1F462	👢	👢	👢	👢	👢	👢	👢	missing	👢	👢	womans boots	2010ʲ	emoji	boot, clothing, object, person, shoe, woman
+218	U+1F451	👑	👑	👑	👑	👑	👑	👑	👑	👑	👑	crown	2010ʲ	emoji	clothing, crown, king, object, person, queen
+219	U+1F452	👒	👒	👒	👒	👒	👒	👒	missing	👒	👒	womans hat	2010ʲ	emoji	clothing, hat, object, person, woman
+220	U+1F3A9	🎩	🎩	🎩	🎩	🎩	🎩	🎩	🎩	🎩	🎩	top hat	2010ʲ	emoji	activity, clothing, entertainment, hat, object, person, top, tophat
+221	U+1F393	🎓	🎓	🎓	🎓	🎓	🎓	🎓	missing	🎓	🎓	graduation cap	2010ʲʷ	emoji	activity, cap, celebration, clothing, education, graduation, hat, object
+222	U+1F4FF	📿	📿	📿	📿	missing	missing	missing	missing	missing	missing	prayer beads	2015ˣ	emoji	beads, clothing, necklace, object, person, prayer, religion
+223	U+1F484	💄	💄	💄	💄	💄	💄	💄	💄	💄	💄	lipstick	2010ʲ	emoji	cosmetics, lipstick, makeup, object, person
+224	U+1F48D	💍	💍	💍	💍	💍	💍	💍	💍	💍	💍	ring	2010ʲ	emoji	diamond, emotion, object, person, ring, romance
+225	U+1F48E	💎	💎	💎	💎	💎	💎	💎	missing	missing	💎	gem stone	2010ʲ	emoji	diamond, emotion, gem, jewel, object, person, romance
+226	U+1F435	🐵	🐵	🐵	🐵	🐵	🐵	🐵	missing	🐵	🐵	monkey face	2010ʲ	emoji	animal, face, monkey, nature
+227	U+1F412	🐒	🐒	🐒	🐒	🐒	🐒	🐒	missing	missing	🐒	monkey	2010ʲ	emoji	animal, monkey, nature
+228	U+1F436	🐶	🐶	🐶	🐶	🐶	🐶	🐶	🐶	🐶	🐶	dog face	2010ʲ	emoji	animal, dog, face, nature, pet
+229	U+1F415	🐕	🐕	🐕	🐕	🐕	🐕	missing	missing	missing	missing	dog	2010ʷ	emoji	animal, dog, nature, pet
+230	U+1F429	🐩	🐩	🐩	🐩	🐩	🐩	🐩	missing	🐩	missing	poodle	2010ʲ	emoji	animal, dog, nature, poodle
+231	U+1F43A	🐺	🐺	🐺	🐺	🐺	🐺	🐺	missing	missing	🐺	wolf face	2010ʲ	emoji	animal, face, nature, wolf
+232	U+1F431	🐱	🐱	🐱	🐱	🐱	🐱	🐱	🐱	🐱	🐱	cat face	2010ʲ	emoji	animal, cat, face, nature, pet
+233	U+1F408	🐈	🐈	🐈	🐈	🐈	🐈	missing	missing	missing	missing	cat	2010ʷ	emoji	animal, cat, nature, pet
+234	U+1F981	🦁	🦁	🦁	🦁	missing	missing	missing	missing	missing	missing	lion face	2015ˣ	emoji	animal, face, leo, lion, nature, zodiac
+235	U+1F42F	🐯	🐯	🐯	🐯	🐯	🐯	🐯	missing	🐯	🐯	tiger face	2010ʲ	emoji	animal, face, nature, tiger
+236	U+1F405	🐅	🐅	🐅	🐅	🐅	🐅	missing	missing	missing	missing	tiger	2010ˣ	emoji	animal, nature, tiger
+237	U+1F406	🐆	🐆	🐆	🐆	🐆	🐆	missing	missing	missing	missing	leopard	2010ˣ	emoji	animal, leopard, nature
+238	U+1F434	🐴	🐴	🐴	🐴	🐴	🐴	🐴	🐴	🐴	🐴	horse face	2010ʲ	emoji	animal, face, horse, nature
+239	U+1F40E	🐎	🐎	🐎	🐎	🐎	🐎	🐎	missing	missing	🐎	horse	2010ʲ	emoji	animal, horse, nature, place, racehorse, racing
+240	U+1F984	🦄	🦄	🦄	🦄	missing	missing	missing	missing	missing	missing	unicorn face	2015ˣ	emoji	animal, face, nature, unicorn
+241	U+1F42E	🐮	🐮	🐮	🐮	🐮	🐮	🐮	missing	🐮	🐮	cow face	2010ʲ	emoji	animal, cow, face, nature
+242	U+1F402	🐂	🐂	🐂	🐂	🐂	🐂	missing	missing	missing	missing	ox	2010ˣ	emoji	animal, bull, nature, ox, taurus, zodiac
+243	U+1F403	🐃	🐃	🐃	🐃	🐃	🐃	missing	missing	missing	missing	water buffalo	2010ˣ	emoji	animal, buffalo, nature, water
+244	U+1F404	🐄	🐄	🐄	🐄	🐄	🐄	missing	missing	missing	missing	cow	2010ˣ	emoji	animal, cow, nature
+245	U+1F437	🐷	🐷	🐷	🐷	🐷	🐷	🐷	🐷	🐷	🐷	pig face	2010ʲ	emoji	animal, face, nature, pig
+246	U+1F416	🐖	🐖	🐖	🐖	🐖	🐖	missing	missing	missing	missing	pig	2010ˣ	emoji	animal, nature, pig, sow
+247	U+1F417	🐗	🐗	🐗	🐗	🐗	🐗	🐗	missing	🐗	🐗	boar	2010ʲ	emoji	animal, boar, nature, pig
+248	U+1F43D	🐽	🐽	🐽	🐽	🐽	🐽	🐽	missing	🐽	missing	pig nose	2010ʲ	emoji	animal, face, nature, nose, pig
+249	U+1F40F	🐏	🐏	🐏	🐏	🐏	🐏	missing	missing	missing	missing	ram	2010ˣ	emoji	animal, aries, nature, ram, sheep, zodiac
+250	U+1F411	🐑	🐑	🐑	🐑	🐑	🐑	🐑	missing	missing	🐑	sheep	2010ʲ	emoji	animal, ewe, nature, sheep
+251	U+1F410	🐐	🐐	🐐	🐐	🐐	🐐	missing	missing	missing	missing	goat	2010ˣ	emoji	animal, capricorn, goat, nature, zodiac
+252	U+1F42A	🐪	🐪	🐪	🐪	🐪	🐪	missing	missing	missing	missing	dromedary camel	2010ˣ	emoji	animal, camel, dromedary, hump, nature
+253	U+1F42B	🐫	🐫	🐫	🐫	🐫	🐫	🐫	missing	🐫	🐫	bactrian camel	2010ʲ	emoji	animal, bactrian, camel, hump, nature
+254	U+1F418	🐘	🐘	🐘	🐘	🐘	🐘	🐘	missing	🐘	🐘	elephant	2010ʲ	emoji	animal, elephant, nature
+255	U+1F42D	🐭	🐭	🐭	🐭	🐭	🐭	🐭	missing	🐭	🐭	mouse face	2010ʲ	emoji	animal, face, mouse, nature
+256	U+1F401	🐁	🐁	🐁	🐁	🐁	🐁	missing	missing	missing	missing	mouse	2010ˣ	emoji	animal, mouse, nature
+257	U+1F400	🐀	🐀	🐀	🐀	🐀	🐀	missing	missing	missing	missing	rat	2010ˣ	emoji	animal, nature, rat
+258	U+1F439	🐹	🐹	🐹	🐹	🐹	🐹	🐹	missing	missing	🐹	hamster face	2010ʲ	emoji	animal, face, hamster, nature, pet
+259	U+1F430	🐰	🐰	🐰	🐰	🐰	🐰	🐰	missing	🐰	🐰	rabbit face	2010ʲ	emoji	animal, bunny, face, nature, pet, rabbit
+260	U+1F407	🐇	🐇	🐇	🐇	🐇	🐇	missing	missing	missing	missing	rabbit	2010ˣ	emoji	animal, bunny, nature, pet, rabbit
+261	U+1F43F	🐿	🐿	🐿	🐿	missing	missing	missing	missing	missing	missing	chipmunk	2014ʷ	text	animal, chipmunk, nature
+262	U+1F43B	🐻	🐻	🐻	🐻	🐻	🐻	🐻	missing	🐻	🐻	bear face	2010ʲ	emoji	animal, bear, face, nature
+263	U+1F428	🐨	🐨	🐨	🐨	🐨	🐨	🐨	missing	🐨	🐨	koala	2010ʲ	emoji	animal, bear, koala, nature
+264	U+1F43C	🐼	🐼	🐼	🐼	🐼	🐼	🐼	missing	🐼	missing	panda face	2010ʲ	emoji	animal, face, nature, panda
+265	U+1F43E	🐾	🐾	🐾	🐾	🐾	🐾	🐾	missing	🐾	missing	paw prints	2010ʲ	emoji	animal, feet, nature, paw, print
+266	U+1F983	🦃	🦃	🦃	🦃	missing	missing	missing	missing	missing	missing	turkey	2015ˣ	emoji	animal, nature, turkey
+267	U+1F414	🐔	🐔	🐔	🐔	🐔	🐔	🐔	missing	🐔	🐔	chicken	2010ʲ	emoji	animal, chicken, nature
+268	U+1F413	🐓	🐓	🐓	🐓	🐓	🐓	missing	missing	missing	missing	rooster	2010ˣ	emoji	animal, nature, rooster
+269	U+1F423	🐣	🐣	🐣	🐣	🐣	🐣	🐣	missing	🐣	missing	hatching chick	2010ʲ	emoji	animal, baby, chick, hatching, nature
+270	U+1F424	🐤	🐤	🐤	🐤	🐤	🐤	🐤	🐤	🐤	🐤	baby chick	2010ʲ	emoji	animal, baby, chick, nature
+271	U+1F425	🐥	🐥	🐥	🐥	🐥	🐥	🐥	missing	🐥	missing	front-facing baby chick	2010ʲ	emoji	animal, baby, chick, nature
+272	U+1F426	🐦	🐦	🐦	🐦	🐦	🐦	🐦	missing	missing	🐦	bird	2010ʲʷ	emoji	animal, bird, nature
+273	U+1F427	🐧	🐧	🐧	🐧	🐧	🐧	🐧	🐧	🐧	🐧	penguin	2010ʲ	emoji	animal, nature, penguin
+274	U+1F54A	🕊	🕊	🕊	🕊	missing	missing	missing	missing	missing	missing	dove of peace	2014ʷ	text	animal, bird, dove, fly, nature, peace
+275	U+1F438	🐸	🐸	🐸	🐸	🐸	🐸	🐸	missing	🐸	🐸	frog face	2010ʲ	emoji	animal, face, frog, nature
+276	U+1F40A	🐊	🐊	🐊	🐊	🐊	🐊	missing	missing	missing	missing	crocodile	2010ˣ	emoji	animal, crocodile, nature
+277	U+1F422	🐢	🐢	🐢	🐢	🐢	🐢	🐢	missing	🐢	missing	turtle	2010ʲ	emoji	animal, nature, turtle
+278	U+1F40D	🐍	🐍	🐍	🐍	🐍	🐍	🐍	missing	🐍	🐍	snake	2010ʲ	emoji	animal, bearer, nature, ophiuchus, serpent, snake, zodiac
+279	U+1F432	🐲	🐲	🐲	🐲	🐲	🐲	🐲	missing	🐲	missing	dragon face	2010ʲ	emoji	animal, dragon, face, fairy tale, nature
+280	U+1F409	🐉	🐉	🐉	🐉	🐉	🐉	missing	missing	missing	missing	dragon	2010ˣ	emoji	animal, dragon, fairy tale, nature
+281	U+1F433	🐳	🐳	🐳	🐳	🐳	🐳	🐳	missing	🐳	🐳	spouting whale	2010ʲ	emoji	animal, face, nature, spouting, whale
+282	U+1F40B	🐋	🐋	🐋	🐋	🐋	🐋	missing	missing	missing	missing	whale	2010ˣ	emoji	animal, nature, whale
+283	U+1F42C	🐬	🐬	🐬	🐬	🐬	🐬	🐬	missing	🐬	🐬	dolphin	2010ʲ	emoji	animal, dolphin, flipper, nature
+284	U+1F41F	🐟	🐟	🐟	🐟	🐟	🐟	🐟	🐟	missing	🐟	fish	2010ʲʷ	emoji	animal, fish, nature, pisces, zodiac
+285	U+1F420	🐠	🐠	🐠	🐠	🐠	🐠	🐠	missing	🐠	🐠	tropical fish	2010ʲ	emoji	animal, fish, nature, tropical
+286	U+1F421	🐡	🐡	🐡	🐡	🐡	🐡	🐡	missing	🐡	missing	blowfish	2010ʲ	emoji	animal, blowfish, fish, nature
+287	U+1F419	🐙	🐙	🐙	🐙	🐙	🐙	🐙	missing	🐙	🐙	octopus	2010ʲ	emoji	animal, nature, octopus
+288	U+1F41A	🐚	🐚	🐚	🐚	🐚	🐚	🐚	missing	🐚	🐚	spiral shell	2010ʲ	emoji	animal, nature, shell, spiral
+289	U+1F980	🦀	🦀	🦀	🦀	missing	missing	missing	missing	missing	missing	crab	2015ˣ	emoji	animal, cancer, crab, nature, zodiac
+290	U+1F40C	🐌	🐌	🐌	🐌	🐌	🐌	🐌	🐌	🐌	missing	snail	2010ʲ	emoji	animal, nature, snail
+291	U+1F41B	🐛	🐛	🐛	🐛	🐛	🐛	🐛	missing	🐛	🐛	bug	2010ʲ	emoji	animal, bug, insect, nature
+292	U+1F41C	🐜	🐜	🐜	🐜	🐜	🐜	🐜	missing	🐜	missing	ant	2010ʲ	emoji	animal, ant, insect, nature
+293	U+1F41D	🐝	🐝	🐝	🐝	🐝	🐝	🐝	missing	🐝	missing	honeybee	2010ʲ	emoji	animal, bee, honeybee, insect, nature
+294	U+1F41E	🐞	🐞	🐞	🐞	🐞	🐞	🐞	missing	🐞	missing	lady beetle	2010ʲ	emoji	animal, beetle, insect, lady beetle, ladybird, ladybug, nature
+295	U+1F577	🕷	🕷	🕷	🕷	missing	missing	missing	missing	missing	missing	spider	2014ʷ	text	animal, insect, object, spider
+296	U+1F578	🕸	🕸	🕸	🕸	missing	missing	missing	missing	missing	missing	spider web	2014ʷ	text	animal, object, spider, web
+297	U+1F982	🦂	🦂	🦂	🦂	missing	missing	missing	missing	missing	missing	scorpion	2015ˣ	emoji	animal, nature, scorpio, scorpion, scorpius, zodiac
+298	U+1F490	💐	💐	💐	💐	💐	💐	💐	missing	💐	💐	bouquet	2010ʲ	emoji	bouquet, flower, nature, object, place, plant, romance
+299	U+1F338	🌸	🌸	🌸	🌸	🌸	🌸	🌸	🌸	🌸	🌸	cherry blossom	2010ʲ	emoji	blossom, cherry, flower, nature, plant
+300	U+1F4AE	💮	💮	💮	💮	💮	💮	💮	missing	💮	missing	white flower	2010ʲ	emoji	flower, object, symbol
+
+

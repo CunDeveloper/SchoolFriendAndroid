@@ -29,6 +29,7 @@ import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.EmotionPagerFragment;
 import com.nju.fragment.PublishTextFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
+import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.UserInfoFragement;
 import com.nju.fragment.XueXinAuthFragmet;
@@ -89,6 +90,9 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
                         break;
                     case R.id.nav_tucao:
                         open(TuCaoFragment.newInstance());
+                        break;
+                    case R.id.nav_heat_voice:
+                        open(SeniorsVoicesFragment.newInstance());
                         break;
 
                 }

@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.nju.http.HttpClient;
 import com.nju.http.HttpMethod;
 import com.nju.http.SchoolFriendOkRep;
 import com.nju.http.SchoolFriendRequest;
+import com.nju.util.AndroidEmoji;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
@@ -113,6 +115,7 @@ public class PublishTextFragment extends BaseFragment {
     }
 
     public void inputEmotion(Drawable drawable) {
+
         int selectionCursor = mContentEditText.getSelectionStart();
         mContentEditText.getText().insert(selectionCursor, ".");
         selectionCursor = mContentEditText.getSelectionStart();
@@ -120,6 +123,13 @@ public class PublishTextFragment extends BaseFragment {
         builder.setSpan(new ImageSpan(drawable
         ), selectionCursor - ".".length(), selectionCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mContentEditText.setText(builder);
+        char[] chars = builder.toString().toCharArray();
+        char c = 'c';
+        Log.e(TAG,(int)c+"==");
+        for (char ch:chars) {
+            int a =(int)ch;
+            Log.e(TAG,String.valueOf(Character.toChars(Integer.parseInt(String.valueOf(a),16))));
+        }
         mContentEditText.setSelection(selectionCursor);
         mContentEditText.invalidate();
     }
