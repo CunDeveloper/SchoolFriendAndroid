@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -191,13 +192,14 @@ public class PublishTextFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 final String content = mContentEditText.getText().toString();
+                final String encodeString = Base64.encodeToString(content.getBytes(),Base64.DEFAULT);
                 final String location = mLocationTextView.getText().toString();
                 new Thread(){
                     @Override
                     public void run(){
                         HashMap<String,String> params = new HashMap<String, String>();
                         params.put(Constant.USER_ID,String.valueOf(51));
-                        params.put(Constant.PUBLISH_TEXT,content);
+                        params.put(Constant.PUBLISH_TEXT,encodeString);
                         params.put(Constant.USER_LOCATION,location);
                         SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(), Constant.BASE_URL+Constant.PUBLISH_TEXT_URL,okRep);
                         request.setParams(params);

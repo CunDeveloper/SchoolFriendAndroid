@@ -3,6 +3,7 @@ package com.nju.fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.nju.http.SchoolFriendRequest;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,24 +43,34 @@ public class PersonCircleFragment extends BaseFragment {
         public void onResponse(Object response) {
             super.onResponse(response);
             Log.e(TAG, response.toString());
-            String result = response.toString();
+            final String result = response.toString();
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<Content>>(){}.getType();
             ArrayList<Content> posts = gson.fromJson(result, listType);
-            Collections.sort(posts, new Comparator<Content>() {
+            ArrayList<Content> decodeContents = new ArrayList<>();
+            for (Content content:posts) {
+                Content temp = content;
+                try {
+                    temp.setContent(new String(Base64.decode(content.getContent(), Base64.DEFAULT),"UTF-8"));
+                    decodeContents.add(temp);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+            Collections.sort(decodeContents, new Comparator<Content>() {
                 @Override
                 public int compare(Content lhs, Content rhs) {
                     return rhs.getId()-lhs.getId();
                 }
             });
             if (posts.size()>0){
-                getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,posts.get(0).getId()).commit();
+                getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,decodeContents.get(0).getId()).commit();
             }
             Message message = new Message();
             message.what = Constant.SAVE_CONTENT_MESG;
-            message.obj = posts;
+            message.obj = decodeContents;
             getHostActivity().getAppHandler().sendMessage(message);
-            mListView.setAdapter(new PersonCircleAdapter(getContext(), posts));
+            mListView.setAdapter(new PersonCircleAdapter(getContext(), decodeContents));
             Log.e(TAG,getHostActivity().getSharedPreferences().getInt(Constant.MAX_ID_SAVE_CONTENT,0)+"==");
         }
     };

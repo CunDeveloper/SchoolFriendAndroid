@@ -26,15 +26,20 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdater;
+import com.nju.http.SchoolFriendHttp;
 import com.nju.model.Image;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PublishTextWithPicsFragment extends BaseFragment {
 
@@ -121,6 +126,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 changeSlectColor(position);
@@ -137,6 +143,20 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String content = mContentEditText.getText().toString();
+                final Map<String,String> params = new HashMap<String, String>();
+                params.put("user_id",String.valueOf(51));
+                params.put("content",content);
+                new Thread(){
+                        @Override
+                        public void run(){
+                            try {
+                                SchoolFriendHttp.getInstance().postMultiFile(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL, params, mUploadImgPaths.get(0).getData());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                }.start();
 
             }
         });

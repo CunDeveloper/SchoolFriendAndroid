@@ -20,6 +20,7 @@ public class Constant {
     public static final String PIC_SHARED_NAME="picSharedName";
     public static final String PERSON_CIRCLE_URL ="/UserContentContrller";
     public static final String PUBLISH_TEXT_URL ="/PublishTextController";
+    public static final String PUBLISH_TEXT_WITH_PIC_URL ="/UserPublishContentController?school=lanzhouuniversity";
     public static final String USER_LOCATION ="user_location";
     public static final String PUBLISH_TEXT ="publish_text";
     public static final String SCHOOL_FRIEND_SHARED_PREFERENCE ="school_friend_shared_preferences";

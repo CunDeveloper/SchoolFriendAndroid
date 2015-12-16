@@ -2,7 +2,9 @@ package com.nju.http;
 
 import com.nju.model.School;
 import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -19,6 +21,7 @@ import java.util.Map;
  */
 public class SchoolFriendHttp {
 
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");;
     private static SchoolFriendHttp mInstance;
     private OkHttpClient mClient ;
     public static final MediaType MEDIA_TYPE_MARKDOWN
@@ -111,5 +114,25 @@ public class SchoolFriendHttp {
         return response.body().string();
     }
 
+    public void postMultiFile(final String url,final Map<String,String> params,final String fileName) throws IOException {
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        for (Map.Entry<String,String> entry:params.entrySet()) {
+            builder.add(entry.getKey(), entry.getValue());
+        }
+        File sourceFile = new File(fileName);
+        RequestBody requestBody = new MultipartBuilder()
+                .type(MultipartBuilder.FORM).addFormDataPart("user_id", String.valueOf(51))
+                .addFormDataPart("content", "I BELIEVE YOU")
+                .addFormDataPart("file", "profile.png", RequestBody.create(MediaType.parse(sourceFile.toURL().openConnection().getContentType()),sourceFile))
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
 
+        Response response = mClient.newCall(request).execute();
+        if (!response.isSuccessful())
+            throw new IOException("Unexpected code " + response);
+        System.out.println(response.body().string());
+    }
 }
