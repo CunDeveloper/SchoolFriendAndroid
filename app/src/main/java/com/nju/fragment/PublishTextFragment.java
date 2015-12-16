@@ -47,7 +47,7 @@ public class PublishTextFragment extends BaseFragment {
     private LinearLayout mEmoLineLayout;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
     private ScrollView mScrollView;
-    private ImageView mEmotionView;
+    private TextView mEmotionView;
     private boolean isEmotionOpen = true;
     private boolean label;
     private ViewPager mViewPager;
@@ -85,7 +85,7 @@ public class PublishTextFragment extends BaseFragment {
         mEmoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
         mScrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
-        mEmotionView = (ImageView) view.findViewById(R.id.emotion_icon);
+        mEmotionView = (TextView) view.findViewById(R.id.emotion_icon);
         mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
         mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(), TAG));
         mView1 = view.findViewById(R.id.emotion_pager_view1);
@@ -113,23 +113,9 @@ public class PublishTextFragment extends BaseFragment {
         initOpenLocationEvent();
     }
 
-    public void inputEmotion(Drawable drawable) {
-
+    public void inputEmotion(String text) {
         int selectionCursor = mContentEditText.getSelectionStart();
-        mContentEditText.getText().insert(selectionCursor, ".");
-        selectionCursor = mContentEditText.getSelectionStart();
-        SpannableStringBuilder builder = new SpannableStringBuilder(mContentEditText.getText());
-        builder.setSpan(new ImageSpan(drawable
-        ), selectionCursor - ".".length(), selectionCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mContentEditText.setText(builder);
-        char[] chars = builder.toString().toCharArray();
-        char c = 'c';
-        Log.e(TAG,(int)c+"==");
-        for (char ch:chars) {
-            int a =(int)ch;
-            Log.e(TAG,String.valueOf(Character.toChars(Integer.parseInt(String.valueOf(a),16))));
-        }
-        mContentEditText.setSelection(selectionCursor);
+        mContentEditText.getText().insert(selectionCursor, text);
         mContentEditText.invalidate();
     }
 
@@ -228,12 +214,12 @@ public class PublishTextFragment extends BaseFragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                    mEmotionView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_menu_emoticons));
+                    mEmotionView.setText(getString(R.string.keyboard));
                     SoftInput.close(getActivity(), mEmotionView);
                     isEmotionOpen = false;
                     label = false;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
-                    mEmotionView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_menu_emoticons));
+                    mEmotionView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
                     label = true;

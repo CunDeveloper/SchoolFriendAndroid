@@ -41,7 +41,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     public static final String TAG = PublishTextWithPicsFragment.class.getSimpleName() ;
     private LinearLayout emoLineLayout = null;
     private LinearLayout mainLayout;
-    private ImageView mEmotionView;
+    private TextView mEmotionView;
     private boolean label = true;
     private ScrollView mScrollView;
     private boolean isEmotionOpen = true;
@@ -83,7 +83,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
         emoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
         mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
-        mEmotionView = (ImageView)view.findViewById(R.id.emotion_icon);
+        mEmotionView = (TextView)view.findViewById(R.id.emotion_icon);
         mScrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
@@ -190,12 +190,12 @@ public class PublishTextWithPicsFragment extends BaseFragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                    mEmotionView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_menu_emoticons));
+                    mEmotionView.setText(getString(R.string.keyboard));
                     SoftInput.close(getActivity(), mEmotionView);
                     isEmotionOpen = false;
                     label = false;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
-                    mEmotionView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_menu_emoticons));
+                    mEmotionView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
                     label = false;

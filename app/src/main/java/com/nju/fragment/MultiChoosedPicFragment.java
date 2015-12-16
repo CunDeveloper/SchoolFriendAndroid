@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nju.activity.R;
 import com.nju.adatper.MultiChoosedPicAdapter;
 import com.nju.model.Image;
 import com.nju.service.ChoosedImageService;
+import com.nju.util.CapturePic;
 import com.nju.util.Divice;
 
 import java.lang.ref.WeakReference;
@@ -87,8 +90,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 if(position == 0) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                    new CapturePic(MultiChoosedPicFragment.this).dispatchTakePictureIntent();
                 }
             }
         });
@@ -142,8 +144,13 @@ public class MultiChoosedPicFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == FragmentActivity.RESULT_OK){
-
+        if (requestCode == CapturePic.REQUEST_TAKE_PHOTO && resultCode == FragmentActivity.RESULT_OK){
+            CapturePic.galleryAddPic(MultiChoosedPicFragment.this);
+            Image image = new Image();
+            image.setData(CapturePic.getImgPath());
+            ArrayList<Image> images = new ArrayList<>();
+            images.add(image);
+            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,"photo"));
         }
     }
 

@@ -56,7 +56,6 @@
     <string name="publish_text">发表文字</string>
     <string name="picture">图片</string>
     <string name="user_loaction">所在位置</string>
-
     <string-array name="who_scan_group">
         <item>公开</item>
         <item>私密</item>

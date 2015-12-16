@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +48,9 @@ public class OriginPicsViewFragment extends BaseFragment {
         if (getArguments() != null) {
             mImgPath = getArguments().getString(IMG_PATH);
         }
-        if (mCameraImageViewFragment == null) {
-            mCameraImageViewFragment = (CameraImageViewFragment) getHostActivity().getBackStack().peek();
-        }
+//        if (mCameraImageViewFragment == null) {
+//            mCameraImageViewFragment = (CameraImageViewFragment) getHostActivity().getBackStack().peek();
+//        }
     }
 
     @Override
@@ -70,10 +71,10 @@ public class OriginPicsViewFragment extends BaseFragment {
                 if (mPreferences.getBoolean(LABEL,true)) {
                     Divice.hideStatusBar((AppCompatActivity) getActivity());
                     mPreferences.edit().putBoolean(LABEL, false).apply();
-                    mCameraImageViewFragment.hideBottomLayout();
+                   // mCameraImageViewFragment.hideBottomLayout();
                 } else {
                     Divice.showStatusBar((AppCompatActivity) getActivity());
-                    mCameraImageViewFragment.showBottomLayout();
+                    //mCameraImageViewFragment.showBottomLayout();
                     mPreferences.edit().putBoolean(LABEL,true).apply();
                 }
             }
@@ -85,10 +86,10 @@ public class OriginPicsViewFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         if (mPreferences.getBoolean(LABEL,true)) {
             Divice.showStatusBar((AppCompatActivity) getActivity());
-            mCameraImageViewFragment.showBottomLayout();
+//            mCameraImageViewFragment.showBottomLayout();
         } else{
             Divice.hideStatusBar((AppCompatActivity) getActivity());
-            mCameraImageViewFragment.hideBottomLayout();
+           // mCameraImageViewFragment.hideBottomLayout();
         }
     }
     @Override
@@ -104,6 +105,7 @@ public class OriginPicsViewFragment extends BaseFragment {
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
+                Log.e(TAG,params[0]);
                bitmap = Picasso.with(getActivity()).load(new File(params[0])).resize(width,width).get();
             } catch (IOException e) {
                 e.printStackTrace();

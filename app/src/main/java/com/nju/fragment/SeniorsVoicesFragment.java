@@ -56,8 +56,7 @@ public class SeniorsVoicesFragment extends BaseFragment {
             int code = curr;
             Log.e(TAG,String.format("%x",code));
         }
-        Log.e(TAG,"\\"+getEmijoByUnicode(unicode));
-        textView.setText(getEmijoByUnicode(unicode)+"==="+"\uD83D\uDE00");
+
         return view;
     }
 

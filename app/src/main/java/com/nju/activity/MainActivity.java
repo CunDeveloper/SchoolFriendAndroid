@@ -237,10 +237,10 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     }
 
     @Override
-    public void onTextFragmentInputEmotion(Drawable drawable) {
+    public void onTextFragmentInputEmotion(String text) {
         PublishTextFragment fragment = (PublishTextFragment) mLocalBackstack.peek();
         if (fragment != null){
-            fragment.inputEmotion(drawable);
+            fragment.inputEmotion(text);
         }
     }
 

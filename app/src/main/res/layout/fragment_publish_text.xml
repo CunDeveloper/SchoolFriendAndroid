@@ -17,7 +17,7 @@
             android:id="@+id/publish_wei_bo_layout"
             android:duplicateParentState="true"
             android:layout_height="wrap_content">
-            <EditText
+            <com.nju.View.SchoolFriendEditText
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:inputType="textMultiLine"

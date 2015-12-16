@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:layout_marginTop="60dp"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    android:layout_height="100dp"
+    android:background="@android:color/darker_gray"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Button"
+        android:id="@+id/button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
         android:id="@+id/textView8"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@+id/button"
         android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/checkBox2"
+        android:layout_toStartOf="@+id/button"
+        android:layout_above="@+id/textView8" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:background="@android:color/holo_blue_light"
+        android:layout_alignBottom="@+id/checkBox2"
+        android:layout_toStartOf="@+id/checkBox2" />
+
+
 </RelativeLayout>

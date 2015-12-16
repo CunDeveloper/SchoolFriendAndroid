@@ -46,10 +46,7 @@ public class EmotionPagerFragment extends BaseFragment {
         }
         mEmotions = new Emotion(getActivity()).getEmotions();
         if (emotions == null){
-            emotions = new ArrayList<>();
-            for (int i=0;i<40;i++) {
-                emotions.add("\uD83D\uDE00");
-            }
+            emotions = Emotion.emotions();
         }
     }
 
@@ -66,7 +63,7 @@ public class EmotionPagerFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mTag.equals(PublishTextFragment.TAG)) {
-                    mListener.onTextFragmentInputEmotion(mEmotions.get(position));
+                    mListener.onTextFragmentInputEmotion(emotions.get(position));
                 }else {
                     mListener.onFragmentInputEmotion(mEmotions.get(position));
                 }
@@ -100,7 +97,7 @@ public class EmotionPagerFragment extends BaseFragment {
 
     public interface OnFragmentInputEmotionListener {
         void onFragmentInputEmotion(Drawable drawable);
-        void onTextFragmentInputEmotion(Drawable drawable);
+        void onTextFragmentInputEmotion(String str);
     }
 
 }

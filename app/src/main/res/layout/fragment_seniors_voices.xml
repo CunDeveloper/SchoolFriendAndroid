@@ -3,9 +3,13 @@
     android:background="@android:color/white"
     android:layout_height="match_parent" tools:context="com.nju.fragment.SeniorsVoicesFragment">
 
-    <com.nju.View.SchoolFriendTextView
+    <com.nju.View.SchoolFriendAweTextView
         android:layout_width="match_parent"
         android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/smile"
         android:id="@+id/fragment_seniors_voice_tv"
         android:layout_height="wrap_content" />
 
