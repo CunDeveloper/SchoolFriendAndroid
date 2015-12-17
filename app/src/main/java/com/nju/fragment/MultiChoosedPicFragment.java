@@ -27,6 +27,7 @@ import com.nju.adatper.MultiChoosedPicAdapter;
 import com.nju.model.Image;
 import com.nju.service.ChoosedImageService;
 import com.nju.util.CapturePic;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
 
 import java.lang.ref.WeakReference;
@@ -150,7 +151,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
             image.setData(CapturePic.getImgPath());
             ArrayList<Image> images = new ArrayList<>();
             images.add(image);
-            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,"photo"));
+            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,getString(R.string.capture_image)));
         }
     }
 

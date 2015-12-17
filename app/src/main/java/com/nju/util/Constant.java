@@ -17,6 +17,7 @@ public class Constant {
     public static final String QUERY_ANOTHER = "query_another";
     public static final String USER_ID ="user_id";
     public static final String LABEL = "lable";
+    public static final String CONTENT ="content";
     public static final String PIC_SHARED_NAME="picSharedName";
     public static final String PERSON_CIRCLE_URL ="/UserContentContrller";
     public static final String PUBLISH_TEXT_URL ="/PublishTextController";
@@ -40,5 +41,6 @@ public class Constant {
 
     public static final int MAX_SAVE_NUMBER = 250;//本地缓存的用户发表的最大纪录数
     public static final String MAX_ID_SAVE_CONTENT ="max_id_save_content";//用于纪录缓存在本地的content的最大id;
+
 
 }

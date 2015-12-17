@@ -85,5 +85,6 @@
     <string name="more">更多</string>
     <string name="tu_cao">吐槽</string>
     <string name="title_activity_no_action_bar">NoActionBarActivity</string>
+    <string name="capture_image">capture_image</string>
 
 </resources>

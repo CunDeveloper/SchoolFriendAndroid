@@ -1,15 +1,10 @@
 package com.nju.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.text.style.ImageSpan;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,24 +13,25 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdater;
-import com.nju.http.HttpClient;
-import com.nju.http.HttpMethod;
-import com.nju.http.SchoolFriendOkRep;
-import com.nju.http.SchoolFriendRequest;
+import com.nju.http.HttpManager;
+import com.nju.http.ResponseCallback;
+
+import com.nju.http.request.PostRequest;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
+import com.nju.util.StringBase64;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class PublishTextFragment extends BaseFragment {
@@ -54,12 +50,6 @@ public class PublishTextFragment extends BaseFragment {
     private ViewPager mViewPager;
     private View mView1,mView2,mView3;
     private String mLocation;
-    private SchoolFriendOkRep okRep = new SchoolFriendOkRep(){
-        @Override
-        public void onResponse(Object response) {
-            super.onResponse(response);
-        }
-    };
 
     public static PublishTextFragment newInstance() {
         return new PublishTextFragment();
@@ -187,26 +177,29 @@ public class PublishTextFragment extends BaseFragment {
         }
     }
 
+    ResponseCallback callback = new ResponseCallback() {
+
+        @Override
+        public void onFail(Exception error) {
+
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+
+        }
+    };
     private void initSendEvent() {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String content = mContentEditText.getText().toString();
-                final String encodeString = Base64.encodeToString(content.getBytes(),Base64.DEFAULT);
                 final String location = mLocationTextView.getText().toString();
-                new Thread(){
-                    @Override
-                    public void run(){
-                        HashMap<String,String> params = new HashMap<String, String>();
-                        params.put(Constant.USER_ID,String.valueOf(51));
-                        params.put(Constant.PUBLISH_TEXT,encodeString);
-                        params.put(Constant.USER_LOCATION,location);
-                        SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(), Constant.BASE_URL+Constant.PUBLISH_TEXT_URL,okRep);
-                        request.setParams(params);
-                        HttpClient.getInstance(getContext()).addToRequestQueue(request);
-                    }
-                }.start();
-                Toast.makeText(getActivity(), content + location, Toast.LENGTH_LONG).show();
+                HashMap<String,String> params = new HashMap<>();
+                params.put(Constant.USER_ID,String.valueOf(51));
+                params.put(Constant.PUBLISH_TEXT, StringBase64.encode(content));
+                params.put(Constant.USER_LOCATION,location);
+                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, callback));
             }
         });
     }

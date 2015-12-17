@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
@@ -26,12 +24,16 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdater;
-import com.nju.http.SchoolFriendHttp;
+import com.nju.http.HttpManager;
+import com.nju.http.ResponseCallback;
+import com.nju.http.request.MultiRequest;
 import com.nju.model.Image;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
+import com.nju.util.StringBase64;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -39,7 +41,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PublishTextWithPicsFragment extends BaseFragment {
 
@@ -139,24 +140,28 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         });
     }
 
+    ResponseCallback callback = new ResponseCallback() {
+
+        @Override
+        public void onFail(Exception error) {
+
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+
+        }
+    };
+
     private void initFinishBnEvent() {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String content = mContentEditText.getText().toString();
-                final Map<String,String> params = new HashMap<String, String>();
-                params.put("user_id",String.valueOf(51));
-                params.put("content",content);
-                new Thread(){
-                        @Override
-                        public void run(){
-                            try {
-                                SchoolFriendHttp.getInstance().postMultiFile(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL, params, mUploadImgPaths.get(0).getData());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                }.start();
+                final HashMap<String,String> params = new HashMap<String, String>();
+                params.put(Constant.USER_ID,String.valueOf(151));
+                params.put(Constant.CONTENT, StringBase64.encode(content));
+                HttpManager.getInstance().exeRequest(new MultiRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,mUploadImgPaths,callback));
 
             }
         });
@@ -186,8 +191,6 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                 mScrollView.getWindowVisibleDisplayFrame(r);
                 rootHeight = mainLayout.getRootView().getHeight();
                 subHeight = r.bottom - r.top;
-//                int rootHeight = mainLayout.getRootView().getHeight();
-//                int subHeight = mainLayout.getHeight();
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
                     emoLineLayout.setVisibility(View.GONE);
                     mScrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));

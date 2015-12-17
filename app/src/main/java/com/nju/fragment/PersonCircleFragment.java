@@ -1,34 +1,26 @@
 package com.nju.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nju.activity.R;
 import com.nju.adatper.PersonCircleAdapter;
-import com.nju.http.GsonRequest;
-import com.nju.http.HttpClient;
-import com.nju.http.HttpMethod;
-import com.nju.http.SchoolFriendOkRep;
-import com.nju.http.SchoolFriendRequest;
+import com.nju.http.HttpManager;
+import com.nju.http.ResponseCallback;
+import com.nju.http.request.PostRequest;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.SchoolFriendGson;
+import com.nju.util.StringBase64;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 import model.Content;
 
@@ -37,46 +29,6 @@ public class PersonCircleFragment extends BaseFragment {
     private String mUserName;
     private static final String USERNAME = "username";
     private ListView mListView;
-
-    private SchoolFriendOkRep okRep = new SchoolFriendOkRep(){
-        @Override
-        public void onResponse(Object response) {
-            super.onResponse(response);
-            Log.e(TAG, response.toString());
-            final String result = response.toString();
-            Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Content>>(){}.getType();
-            ArrayList<Content> posts = gson.fromJson(result, listType);
-            ArrayList<Content> decodeContents = new ArrayList<>();
-            for (Content content:posts) {
-                Content temp = content;
-                try {
-                    temp.setContent(new String(Base64.decode(content.getContent(), Base64.DEFAULT),"UTF-8"));
-                    decodeContents.add(temp);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-            Collections.sort(decodeContents, new Comparator<Content>() {
-                @Override
-                public int compare(Content lhs, Content rhs) {
-                    return rhs.getId()-lhs.getId();
-                }
-            });
-            if (posts.size()>0){
-                getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,decodeContents.get(0).getId()).commit();
-            }
-            Message message = new Message();
-            message.what = Constant.SAVE_CONTENT_MESG;
-            message.obj = decodeContents;
-            getHostActivity().getAppHandler().sendMessage(message);
-            mListView.setAdapter(new PersonCircleAdapter(getContext(), decodeContents));
-            Log.e(TAG,getHostActivity().getSharedPreferences().getInt(Constant.MAX_ID_SAVE_CONTENT,0)+"==");
-        }
-    };
-
-
-
 
     public static PersonCircleFragment newInstance(String userName) {
         PersonCircleFragment fragment = new PersonCircleFragment();
@@ -97,22 +49,59 @@ public class PersonCircleFragment extends BaseFragment {
         }
     }
 
+    ResponseCallback callback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            ArrayList<Content> contents = SchoolFriendGson.newInstance().fromJsonToList(responseBody, Content.class);
+            ArrayList<Content> decodeContents = new ArrayList<>();
+            for (Content content:contents) {
+                Content temp = content;
+                temp.setContent(StringBase64.decode(content.getContent()));
+                decodeContents.add(temp);
+            }
+            Collections.sort(decodeContents, new Comparator<Content>() {
+                @Override
+                public int compare(Content lhs, Content rhs) {
+                    return rhs.getId()-lhs.getId();
+                }
+            });
+            if (contents.size()>0){
+                getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,decodeContents.get(0).getId()).commit();
+            }
+            Message message = new Message();
+            message.what = Constant.SAVE_CONTENT_MESG;
+            message.obj = decodeContents;
+            //getHostActivity().getAppHandler().sendMessage(message);
+            mListView.setAdapter(new PersonCircleAdapter(getContext(), decodeContents));
+        }
+
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        new Thread(){
-            @Override
-            public void run(){
-                Type listType = new TypeToken<ArrayList<Content>>(){}.getType();
-                //GsonRequest<ArrayList<Content>> request = new GsonRequest<ArrayList<Content>>(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,listType,okRep);
-                SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(),Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,okRep);
-                HashMap<String,String> paras = new HashMap<String,String>();
-                paras.put(Constant.USER_ID,String.valueOf(51));
-                paras.put(Constant.LABEL,Constant.QUERY_ALL);
-                request.setParams(paras);
-                HttpClient.getInstance(getContext()).addToRequestQueue(request);
-            }
-        }.start();
+        HashMap<String,String> paras = new HashMap<String,String>();
+        paras.put(Constant.USER_ID,String.valueOf(51));
+        paras.put(Constant.LABEL,Constant.QUERY_ALL);
+        HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,paras,callback));
+//        new Thread(){
+//            @Override
+//            public void run(){
+//                Type listType = new TypeToken<ArrayList<Content>>(){}.getType();
+//                //GsonRequest<ArrayList<Content>> request = new GsonRequest<ArrayList<Content>>(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,listType,okRep);
+//                SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(),Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,okRep);
+//                HashMap<String,String> paras = new HashMap<String,String>();
+//                paras.put(Constant.USER_ID,String.valueOf(51));
+//                paras.put(Constant.LABEL,Constant.QUERY_ALL);
+//                request.setParams(paras);
+//                HttpClient.getInstance(getContext()).addToRequestQueue(request);
+//            }
+//        }.start();
         View view = inflater.inflate(R.layout.fragment_person_circle, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mListView = (ListView) view.findViewById(R.id.fragment_person_circle_listview);
