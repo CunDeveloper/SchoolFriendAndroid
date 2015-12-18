@@ -2,6 +2,7 @@ package com.nju.fragment;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class PersonCircleFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
+            Log.e(TAG,responseBody);
             ArrayList<Content> contents = SchoolFriendGson.newInstance().fromJsonToList(responseBody, Content.class);
             ArrayList<Content> decodeContents = new ArrayList<>();
             for (Content content:contents) {

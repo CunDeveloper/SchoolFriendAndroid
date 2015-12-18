@@ -86,5 +86,9 @@
     <string name="tu_cao">吐槽</string>
     <string name="title_activity_no_action_bar">NoActionBarActivity</string>
     <string name="capture_image">capture_image</string>
+    <string name="width">width</string>
+    <string name="diviceWidth">diviceWidth</string>
+    <string name="diviceHeight">diviceHeight</string>
+    <string name="visiDiviceHeight">visiDiviceHeight</string>
 
 </resources>

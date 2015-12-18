@@ -1,5 +1,8 @@
 package com.nju.http;
 
+import android.graphics.Bitmap;
+
+import com.nju.model.BitmaWrapper;
 import com.nju.model.Image;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
@@ -12,6 +15,7 @@ import com.squareup.okhttp.Response;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -141,6 +145,27 @@ public class SchoolFriendHttp {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        Request request = builder
+                .url(url)
+                .post(multipartBuilder.build())
+                .build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
+    public void postMultiImg(final Request.Builder builder,final String url,final HashMap<String,String> params,final ArrayList<BitmaWrapper> bitmaWrappers,ResponseCallback callback) {
+        MultipartBuilder multipartBuilder = new MultipartBuilder();
+        multipartBuilder.type(MultipartBuilder.FORM);
+        for (Map.Entry<String,String> entry:params.entrySet()) {
+            multipartBuilder.addFormDataPart(entry.getKey(),entry.getValue());
+        }
+
+        for (BitmaWrapper bitmaWrapper:bitmaWrappers) {
+            Bitmap bitmap = bitmaWrapper.getBitmap();
+            final int size = bitmap.getRowBytes()*bitmap.getHeight();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+            bitmap.copyPixelsFromBuffer(byteBuffer);
+            multipartBuilder.addFormDataPart(FILE, bitmaWrapper.getFileName(), RequestBody.create(MediaType.parse(bitmaWrapper.getFileType()),byteBuffer.array()));
         }
         Request request = builder
                 .url(url)

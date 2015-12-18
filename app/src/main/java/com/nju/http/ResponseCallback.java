@@ -39,15 +39,11 @@ public abstract class ResponseCallback implements Callback {
             onFailure(response.request(), new IOException("Failed"));
             return;
         }
+        final String result = response.body().string();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    onSuccess(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    onFailure(response.request(), new IOException("Failed"));
-                }
+                onSuccess(result);
             }
         });
     }

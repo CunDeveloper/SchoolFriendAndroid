@@ -1,5 +1,6 @@
 package com.nju.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -31,6 +32,20 @@ public class Divice {
         return dp;
     }
 
+    public static float getDeviceXdpi(Activity context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        // these will return the actual dpi horizontally and vertically
+        return dm.xdpi;
+    }
+
+    public static float getDeviceYdpi(Activity context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        // these will return the actual dpi horizontally and vertically
+        return dm.ydpi;
+    }
+
     public static int getDisplayWidth(Context context) {
         WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display d = w.getDefaultDisplay();
@@ -56,10 +71,24 @@ public class Divice {
     }
 
     public static int getDisplayHeight(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display d = w.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(metrics);
-        return metrics.heightPixels;
+        d.getMetrics(metrics);
+        int heightPixels = metrics.heightPixels;
+        if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17)
+            try {
+                heightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(d);
+            } catch (Exception ignored) {
+            }
+        if (Build.VERSION.SDK_INT >= 17)
+            try {
+                Point realSize = new Point();
+                Display.class.getMethod("getRealSize", Point.class).invoke(d, realSize);
+                heightPixels = realSize.y;
+            } catch (Exception ignored) {
+            }
+        return heightPixels;
     }
 
     public static int dividerScreen(Context context,int dividerNum){

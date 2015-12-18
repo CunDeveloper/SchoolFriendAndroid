@@ -1,8 +1,19 @@
 package com.nju.http;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.nju.http.request.CompressRequest;
+import com.nju.model.BitmaWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * Created by xiaojuzhang on 2015/12/17.
  */
 public class HttpManager {
-
+    private static final String TAG = HttpManager.class.getSimpleName();
     private static final int KEEP_ALIVE_TIME = 1;
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT;
     private final BlockingDeque<Runnable> mDownloadWorkQueue;
@@ -44,6 +55,24 @@ public class HttpManager {
             mDownloadThreadPool.execute(runnable);
         }
 
+    }
+
+    public ArrayList<BitmaWrapper> compressBitmap(Context context,ArrayList<BitmaWrapper> bitmaWrappers) {
+        ArrayList<BitmaWrapper> bitmaps = new ArrayList<>();
+        ArrayList<CompressRequest> compressRequests = new ArrayList<>();
+        for (BitmaWrapper bitmaWrapper:bitmaWrappers) {
+            compressRequests.add(new CompressRequest(context,bitmaWrapper));
+        }
+        try {
+            List<Future<BitmaWrapper>> futures =mDownloadThreadPool.invokeAll(compressRequests);
+            for (Future<BitmaWrapper> future:futures){
+                bitmaps.add(future.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG,e.getMessage());
+        }
+        return bitmaps;
     }
 
     public void exeRequest(RequestRunnable requestRunnable) {

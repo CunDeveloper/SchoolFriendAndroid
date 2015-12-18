@@ -1,5 +1,6 @@
 package com.nju.fragment;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,12 +22,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdater;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
+import com.nju.http.request.MultiImgRequest;
 import com.nju.http.request.MultiRequest;
+import com.nju.model.BitmaWrapper;
 import com.nju.model.Image;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
@@ -149,7 +153,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-
+            Toast.makeText(getContext(),responseBody,Toast.LENGTH_LONG).show();
         }
     };
 
@@ -161,7 +165,23 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                 final HashMap<String,String> params = new HashMap<String, String>();
                 params.put(Constant.USER_ID,String.valueOf(151));
                 params.put(Constant.CONTENT, StringBase64.encode(content));
-                HttpManager.getInstance().exeRequest(new MultiRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,mUploadImgPaths,callback));
+                final ArrayList<BitmaWrapper> bitmaWrappers = new ArrayList<>();
+                BitmaWrapper bitmaWrapper;
+                File sourceFile;
+                for (Image image :mUploadImgPaths) {
+                    final String path = image.getData();
+                    bitmaWrapper = new BitmaWrapper();
+                    sourceFile = new File(path);
+                    bitmaWrapper.setPath(path);bitmaWrapper.setFileName(sourceFile.getName());
+                    try {
+                        bitmaWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
+                        bitmaWrappers.add(bitmaWrapper);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ArrayList<BitmaWrapper> bitmaWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmaWrappers);
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,bitmaWrapperArrayList,callback));
 
             }
         });

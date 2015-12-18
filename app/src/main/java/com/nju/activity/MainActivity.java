@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     private ImageView mMenuCameraView;
     private ImageView mMenuDeleteView;
     private LinearLayout mNoActionBarLinearLayout;
+    private static final String FINAL_TAG = "final_tag";
     int fragmentIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,14 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
         initDataBase();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getSharedPreferences().getBoolean(FINAL_TAG,false)) {
+            initFinalValue();
+            getSharedPreferences().edit().putBoolean(FINAL_TAG,true).commit();
+        }
+    }
 
     private void initNavigationViewListener () {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -102,6 +111,15 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     }
 
 
+    private void initFinalValue() {
+        final int diviceWidth = Divice.getDisplayWidth(this);
+        final int diviceHeight = Divice.getDisplayHeight(this);
+        final int visiDiviceHeight = diviceHeight -(int)( Divice.convertDpToPixel(mToolBar.getHeight(),this)
+                        +Divice.getStatusBarHeight(this));
+        getSharedPreferences().edit().putInt(getString(R.string.diviceWidth),diviceWidth).commit();
+        getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), diviceHeight);
+        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight),visiDiviceHeight);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,7 +194,6 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
     public void open(BaseFragment fragment, boolean clearBackStack) {
         open(fragment, clearBackStack);
     }
-
 
 
     @Override

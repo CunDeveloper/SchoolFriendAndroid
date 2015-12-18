@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class OriginPicsViewFragment extends BaseFragment {
     private static final String LABEL ="label";
     private SharedPreferences mPreferences;
     private static CameraImageViewFragment mCameraImageViewFragment;
+    private AppBarLayout mAppBarLayout;
     public static OriginPicsViewFragment newInstance(String imgPath) {
         OriginPicsViewFragment  fragment = new OriginPicsViewFragment();
         Bundle args = new Bundle();
@@ -99,14 +101,17 @@ public class OriginPicsViewFragment extends BaseFragment {
     }
 
     private class LoadLocalImg extends AsyncTask<String,Void,Bitmap>{
-        private int width = Divice.getDisplayWidth(getActivity());
-
+        final int width = Divice.getDisplayWidth(getActivity());
+        int topHeight = (int) (Divice.convertDpToPixel(getHostActivity().getToolBar().getHeight(),getContext())
+                        +Divice.getStatusBarHeight(getContext()));
+        final int height = Divice.getDisplayHeight(getActivity())-topHeight;
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
-                Log.e(TAG,params[0]);
-               bitmap = Picasso.with(getActivity()).load(new File(params[0])).resize(width,width).get();
+
+                bitmap = Picasso.with(getActivity()).load(new File(params[0])).resize(width,height).get();
+                Log.e(TAG,"width="+bitmap.getWidth()+"==height="+bitmap.getHeight());
             } catch (IOException e) {
                 e.printStackTrace();
             }
