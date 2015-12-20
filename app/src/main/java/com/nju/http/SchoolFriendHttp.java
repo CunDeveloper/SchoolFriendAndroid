@@ -1,9 +1,11 @@
 package com.nju.http;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.nju.model.BitmaWrapper;
 import com.nju.model.Image;
+import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -14,6 +16,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ import java.util.Map;
 public class SchoolFriendHttp {
 
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");;
+    private static final String TAG = SchoolFriendHttp.class.getSimpleName();
     private static SchoolFriendHttp mInstance;
     private OkHttpClient mClient ;
     private static final MediaType MEDIA_TYPE_MARKDOWN
@@ -34,6 +40,10 @@ public class SchoolFriendHttp {
 
     private SchoolFriendHttp() {
         mClient = new OkHttpClient();
+        CookieManager cookieManager = new CookieManager();
+        CookieHandler.setDefault(cookieManager);
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        mClient.setCookieHandler(cookieManager);
     }
 
     public static SchoolFriendHttp getInstance () {
@@ -81,7 +91,20 @@ public class SchoolFriendHttp {
         mClient.newCall(request).enqueue(callback);
     }
 
-    public  void AsynPost(final Request.Builder builder,final String url,final HashMap<String,String> params,final ResponseCallback callback) {
+    public  void AsynPost(final Request.Builder builder,final String url,final HashMap<String,String> params,final Callback callback) {
+        final FormEncodingBuilder formBuilder = new FormEncodingBuilder();
+        for (Map.Entry<String,String> entry:params.entrySet()) {
+            formBuilder.add(entry.getKey(),entry.getValue());
+            Log.e(TAG,entry.getKey()+"===="+entry.getValue());
+        }
+        Request request = builder
+                .url(url)
+                .post(formBuilder.build())
+                .build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
+    public  void AsynPost1(final Request.Builder builder,final String url,final HashMap<String,String> params,final Callback callback) {
         final FormEncodingBuilder formBuilder = new FormEncodingBuilder();
         for (Map.Entry<String,String> entry:params.entrySet()) {
             formBuilder.add(entry.getKey(),entry.getValue());

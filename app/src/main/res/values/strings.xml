@@ -90,5 +90,10 @@
     <string name="diviceWidth">diviceWidth</string>
     <string name="diviceHeight">diviceHeight</string>
     <string name="visiDiviceHeight">visiDiviceHeight</string>
+    <string name="captcha">输入验证码</string>
+    <string name="user_name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="major">专业</string>
+    <string name="start_date">入学日期</string>
 
 </resources>

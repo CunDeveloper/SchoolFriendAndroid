@@ -3,32 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#F5F5F5"
     android:layout_height="match_parent">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="@dimen/phone_apadding"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/phone_apadding"
         android:id="@+id/fragment_user_info_item_label_text" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/phone_item_height"
         android:background="#ffffff"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="@dimen/phone_apadding"
+        android:layout_marginTop="@dimen/phone_apadding"
+        android:paddingRight="@dimen/phone_apadding"
         android:divider="?android:horizontalDivider"
         >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="学院"
+            android:textColor="@android:color/black"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,20 +38,20 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/phone_item_height"
         android:background="#ffffff"
-        android:paddingLeft="20dp"
+        android:paddingLeft="@dimen/phone_apadding"
         android:layout_marginTop="2dp"
-        android:paddingRight="20dp"
+        android:paddingRight="@dimen/phone_apadding"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="专业"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/major"
+            android:textColor="@android:color/black"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,20 +62,20 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/phone_item_height"
         android:background="#ffffff"
-        android:paddingLeft="20dp"
+        android:paddingLeft="@dimen/phone_apadding"
         android:layout_marginTop="2dp"
-        android:paddingRight="20dp"
+        android:paddingRight="@dimen/phone_apadding"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="入学日期"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:text="@string/start_date"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

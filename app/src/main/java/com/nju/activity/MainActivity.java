@@ -39,7 +39,7 @@ import com.nju.util.Divice;
 import java.util.ArrayList;
 
 
-public class MainActivity extends BaseActivity implements XueXinAuthFragmet.OpenFragmentListener,EmotionPagerFragment.OnFragmentInputEmotionListener {
+public class MainActivity extends BaseActivity implements EmotionPagerFragment.OnFragmentInputEmotionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName() ;
     private NavigationView mNavigationView;
@@ -135,21 +135,6 @@ public class MainActivity extends BaseActivity implements XueXinAuthFragmet.Open
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void openFragment(ArrayList<UserInfo> lists) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("VALUE", lists);
-        UserInfoFragement fragement = UserInfoFragement.newInstance();
-        fragement.setArguments(bundle);
-        FragmentManager manager = getSupportFragmentManager();
-        XueXinAuthFragmet xueXinAuthFragmet= (XueXinAuthFragmet) manager.findFragmentByTag(XueXinAuthFragmet.TAG);
-        if (xueXinAuthFragmet != null) {
-            manager.beginTransaction().remove(xueXinAuthFragmet).commit();
-        }
-        open(UserInfoFragement.newInstance());
     }
 
     @Override

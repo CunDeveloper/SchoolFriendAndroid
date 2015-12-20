@@ -1,31 +1,36 @@
 package com.nju.fragment;
 
-import android.app.Activity;
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
-import com.nju.http.SchoolFriendHttp;
+import com.nju.http.ByteResponseCallback;
+import com.nju.http.HttpManager;
+import com.nju.http.request.PostRequest1;
 import com.nju.model.UserInfo;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,9 +43,14 @@ public class XueXinAuthFragmet extends BaseFragment {
     private static final int PASSWORD_EMPTY = 2;
     private EditText mUserNameEditText;
     private EditText mPassEditText;
+    private EditText mCaptchaEditText;
     private Button mButton;
     private TextView mTipTextView;
-    private OpenFragmentListener mListener;
+    private ImageView mCaptchaImg;
+    private SchoolFriendDialog mDialog;
+    private RelativeLayout mCaptchaLayout;
+    private boolean isNeedCaptcha = false;
+    private PostRequest1 request = new PostRequest1();
     private  Handler handler = new MyHandler(this);
 
     public static XueXinAuthFragmet newInstance() {
@@ -66,7 +76,10 @@ public class XueXinAuthFragmet extends BaseFragment {
         mUserNameEditText = (EditText) view.findViewById(R.id.etUsername);
         mPassEditText = (EditText) view.findViewById(R.id.etPassword);
         mButton = (Button) view.findViewById(R.id.fragment_xue_xin_auth_bn);
+        mCaptchaImg = (ImageView) view.findViewById(R.id.fragment_xue_xin_auth_image);
         mTipTextView = (TextView) view.findViewById(R.id.fragment_xue_xin_tip_textView);
+        mCaptchaEditText = (EditText) view.findViewById(R.id.etCaptcha);
+        mCaptchaLayout = (RelativeLayout) view.findViewById(R.id.fragment_xue_xin_captcha_layout);
         authClick();
         editTextChangeListener();
         return view;
@@ -85,6 +98,46 @@ public class XueXinAuthFragmet extends BaseFragment {
         getHostActivity().getMenuBn().setVisibility(View.GONE);
     }
 
+    ByteResponseCallback callbacks = new ByteResponseCallback() {
+        private final SchoolFriendGson gson = SchoolFriendGson.newInstance();
+        @Override
+        public void onFail(Exception error) {
+            error.printStackTrace();
+            //Log.e(TAG,error.printStackTrace());
+            mDialog.dismiss();
+        }
+        @Override
+        public void onSuccess(byte[] responseBody) {
+            try {
+                String result = new String(responseBody,"utf-8");
+                Log.e(TAG,result);
+                if (result.equals(Constant.HTTP_ERROR) || result.equals(Constant.HTTP_URL_ERROR)) {
+                    mDialog.dismiss();
+                }else if(responseBody[responseBody.length-1]=='#') {
+                    isNeedCaptcha = true;//设置验证码标签
+                    mCaptchaLayout.setVisibility(View.VISIBLE);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(responseBody,0,responseBody.length-1);
+                    mCaptchaImg.setImageBitmap(bitmap);
+                    mCaptchaImg.invalidate();
+                } else {
+                    Map<String,Object> stringMap = gson.fromJsonToMap(result);
+                    if (stringMap.containsKey(Constant.XUE_XIN_INFO)) {
+                        String[] strs = result.split(":\\[");
+                        Log.e(TAG,stringMap.get(Constant.XUE_XIN_INFO).toString());
+                        Log.e(TAG,"["+strs[1]);
+                        String temp = "["+strs[1];
+                        ArrayList<UserInfo> userInfos = gson.fromJsonToList(temp.substring(0,temp.length()-1),UserInfo.class);
+                        getHostActivity().open(UserInfoFragement.newInstance(userInfos));
+                    }
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }finally {
+                mDialog.dismiss();
+            }
+
+        }
+    };
 
     private void authClick() {
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -92,9 +145,33 @@ public class XueXinAuthFragmet extends BaseFragment {
             public void onClick(View v) {
                 final String userName = mUserNameEditText.getText().toString();
                 final String pass = mPassEditText.getText().toString();
-                if (validte(userName, pass)) {
-                    exeAuth(userName, pass);
+                final String captcha = mCaptchaEditText.getText().toString();
+                final HashMap<String, String> params = new HashMap<String, String>();
+                if (!isNeedCaptcha) {
+                    if (validte(userName, pass)) {
+                        params.put(Constant.XUE_XIN_USERNAME, userName);
+                        params.put(Constant.XUE_XIN_PASSWORD, pass);
+                        params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
+                        mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
+                        mDialog.show();
+                        request.setmUrl(Constant.XUE_AUTH);
+                        request.setmParams(params);
+                        request.setmCallback(callbacks);
+                        HttpManager.getInstance().exeRequest(request);
                 }
+                } else {
+                        params.put(Constant.XUE_XIN_USERNAME, userName);
+                        params.put(Constant.XUE_XIN_PASSWORD, pass);
+                        params.put(Constant.XUE_XIN_CAPTCHA, captcha);
+                        Log.e(TAG, Constant.XUE_XIN_CAPTCHA + "==" + captcha);
+                        params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
+                        request.setmParams(params);
+                        mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
+                        mDialog.show();
+                        HttpManager.getInstance().exeRequest(request);
+
+                }
+
             }
         });
     }
@@ -105,12 +182,14 @@ public class XueXinAuthFragmet extends BaseFragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (count==1) {
+                if (count == 1) {
                     mTipTextView.setText("");
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -137,34 +216,6 @@ public class XueXinAuthFragmet extends BaseFragment {
         });
     }
 
-    private void exeAuth(final String userName,final String pass) {
-        final SchoolFriendDialog dialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
-        dialog.show();
-        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
-                hideSoftInputFromWindow(mPassEditText.getWindowToken(), 0);
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Map<String,String> params = new HashMap<String,String>();
-                    params.put(Constant.XUE_XIN_USERNAME,userName);
-                    params.put(Constant.XUE_XIN_PASSWORD, pass);
-                    params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
-                    String result= SchoolFriendHttp.getInstance().postForm(Constant.BASE_URL + Constant.XUE_AUTH,params);
-                    Message message = new Message();
-                    message.obj = result;
-                    message.what = ERROR_USER_PASS;
-                    handler.sendMessage(message);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    dialog.dismiss();
-                }
-            }
-        }.start();
-    }
 
     private boolean  validte(String name,String pass) {
         if (name ==null || name.equals("")) {
@@ -184,26 +235,7 @@ public class XueXinAuthFragmet extends BaseFragment {
             return true;
         }
     }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OpenFragmentListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OpenFragmentListener {
-         void openFragment(ArrayList<UserInfo> lists);
-    }
 
     private static class MyHandler extends  Handler {
 

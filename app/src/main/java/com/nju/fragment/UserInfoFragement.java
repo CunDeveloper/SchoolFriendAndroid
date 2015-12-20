@@ -11,7 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.adatper.UserInfoAdapter;
 import com.nju.model.UserInfo;
+import com.nju.util.Divice;
 
 import java.util.ArrayList;
 
@@ -19,14 +21,14 @@ import java.util.ArrayList;
 public class UserInfoFragement extends BaseFragment {
 
     public static final String TAG = UserInfoFragement.class.getSimpleName() ;
-    private static UserInfoFragement fragment = null;
-    private ArrayList<UserInfo> lists = null;
+    private static final String USER_INFO = "user_info";
+    private ArrayList<UserInfo> mUserInfos = null;
     private ListView mListView;
-    public static UserInfoFragement newInstance( ) {
-        if(fragment == null) {
-            fragment = new UserInfoFragement();
-        }
-
+    public static UserInfoFragement newInstance(ArrayList<UserInfo> userInfos ) {
+        UserInfoFragement fragment = new UserInfoFragement();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(USER_INFO,userInfos);
+        fragment.setArguments(args );
         return fragment;
     }
 
@@ -38,37 +40,44 @@ public class UserInfoFragement extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments()!=null) {
-            lists = getArguments().getParcelableArrayList("VALUE");
+            mUserInfos = getArguments().getParcelableArrayList(USER_INFO);
         }
-
-        getActivity().getSharedPreferences(getString(R.string.shared_file_name), Context.MODE_PRIVATE).
-                edit().putString(getString(R.string.username),lists.get(0).getName()).commit();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_info_fragement, container, false);
-        TextView nameText = (TextView) view.findViewById(R.id.fragment_user_info_fragement_name_text);
-        nameText.setText(lists.get(0).getName());
-        TextView sexText = (TextView) view.findViewById(R.id.fragment_user_info_fragement_sex_text);
-        sexText.setText(lists.get(0).getSex());
-        mListView = (ListView) view.findViewById(R.id.fragment_user_info_fragement_list);
-        mListView.setAdapter(new MyAdapter());
+        View view = inflater.inflate(R.layout.fragment_user_info, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        mListView = (ListView) view;
+        View headView = inflater.inflate(R.layout.fragment_user_info_listview_header,mListView,false);
+        mListView.addHeaderView(headView);
+        initHeaderText(headView);
+        mListView.setAdapter(new UserInfoAdapter(getContext(),mUserInfos));
         return view;
     }
 
+    private void initHeaderText(View view){
+        TextView nameTV,sexTV;
+        nameTV = (TextView) view.findViewById(R.id.fragment_user_info_listview_name_tv);
+        sexTV = (TextView) view.findViewById(R.id.fragment_user_info_listview_sex_tv);
+        for (UserInfo userInfo:mUserInfos){
+            nameTV.setText(userInfo.getName());
+            sexTV.setText(userInfo.getSex());
+            break;
+        }
+    }
 
     private class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return lists.size();
+            return mUserInfos.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return lists.get(position);
+            return mUserInfos.get(position);
         }
 
         @Override
@@ -91,9 +100,9 @@ public class UserInfoFragement extends BaseFragment {
             else{
                 holder = (ViewHolder) convertView.getTag();
             }
-            UserInfo info = lists.get(position);
+            UserInfo info = mUserInfos.get(position);
             holder.labeTextView.setText(info.getLabel());
-            holder.xueYuanTextView.setText(info.getYuanXiaoName());
+            holder.xueYuanTextView.setText(info.getFenYuan());
             holder.majorTextView.setText(info.getMajor());
             holder.dateTextView.setText(info.getDate());
             return convertView;
