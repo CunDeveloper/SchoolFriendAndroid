@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.ByteResponseCallback;
 import com.nju.http.HttpManager;
-import com.nju.http.request.PostRequest1;
+import com.nju.http.request.PostRequest;
 import com.nju.model.UserInfo;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
@@ -50,7 +49,7 @@ public class XueXinAuthFragmet extends BaseFragment {
     private SchoolFriendDialog mDialog;
     private RelativeLayout mCaptchaLayout;
     private boolean isNeedCaptcha = false;
-    private PostRequest1 request = new PostRequest1();
+    private PostRequest request = new PostRequest();
     private  Handler handler = new MyHandler(this);
 
     public static XueXinAuthFragmet newInstance() {

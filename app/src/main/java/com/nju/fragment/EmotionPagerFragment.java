@@ -1,7 +1,5 @@
 package com.nju.fragment;
 
-import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,26 +9,24 @@ import android.widget.GridView;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionAdatper;
-import com.nju.adatper.EmotionAdatper1;
 import com.nju.util.Emotion;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EmotionPagerFragment extends BaseFragment {
 
     public static final String TAG = EmotionPagerFragment.class.getSimpleName();
-    private static final String ARG_PARAM = "param";
+    private static final String POSTION = "param";
     private static final String APG_PARAM1 = "param1";
     private static String mTag;
     private GridView mGridView;
-    private List<Drawable> mEmotions;
-    private OnFragmentInputEmotionListener mListener;
-    public static  List<String> emotions ;
+    private static  ArrayList<ArrayList<String>> mEmotions ;
+    private ArrayList<String> mSubEmotions;
+    private int mPostion;
     public static EmotionPagerFragment newInstance(int position,String tag) {
         EmotionPagerFragment fragment = new EmotionPagerFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PARAM, position);
+        args.putInt(POSTION, position);
         args.putString(APG_PARAM1,tag);
         fragment.setArguments(args);
         return fragment;
@@ -43,11 +39,12 @@ public class EmotionPagerFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments()!=null) {
             mTag = getArguments().getString(APG_PARAM1);
+            mPostion = getArguments().getInt(POSTION);
         }
-        mEmotions = new Emotion(getActivity()).getEmotions();
-        if (emotions == null){
-            emotions = Emotion.emotions();
+        if (mEmotions == null){
+            mEmotions = Emotion.emotions();
         }
+        mSubEmotions = mEmotions.get(mPostion);
     }
 
     @Override
@@ -63,9 +60,20 @@ public class EmotionPagerFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mTag.equals(PublishTextFragment.TAG)) {
-                    mListener.onTextFragmentInputEmotion(emotions.get(position));
-                }else {
-                    mListener.onFragmentInputEmotion(mEmotions.get(position));
+                    PublishTextFragment fragment = (PublishTextFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                } else if (mTag.equals(AlumniCircleFragment.TAG)) {
+                    AlumniCircleFragment fragment = (AlumniCircleFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                } else if (mTag.equals(PublishTextWithPicsFragment.TAG)) {
+                    PublishTextWithPicsFragment fragment = (PublishTextWithPicsFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
                 }
 
             }
@@ -74,30 +82,7 @@ public class EmotionPagerFragment extends BaseFragment {
     @Override
     public void onStart(){
         super.onStart();
-        mGridView.setAdapter(new EmotionAdatper1(emotions, getActivity()));
-    }
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInputEmotionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInputEmotionListener {
-        void onFragmentInputEmotion(Drawable drawable);
-        void onTextFragmentInputEmotion(String str);
+        mGridView.setAdapter(new EmotionAdatper(mSubEmotions, getActivity()));
     }
 
 }

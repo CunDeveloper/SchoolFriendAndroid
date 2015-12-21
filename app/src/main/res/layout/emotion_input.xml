@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/phone_item_height"
+    android:id="@+id/activity_school_friend_input_layout"
+    android:visibility="gone"
+    android:background="@drawable/input_dialog_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.nju.View.SchoolFriendEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/phone_apadding"
+        android:background="@android:color/transparent"
+        android:id="@+id/activity_school_friend_comment_edittext"
+        android:layout_alignBottom="@+id/fragment_alumni_circle_emotion"
+        android:layout_toStartOf="@+id/fragment_alumni_circle_emotion"
+        />
+
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="40dp"
+        android:gravity="top"
+        android:layout_marginRight="10dp"
+        android:textSize="36sp"
+        android:id="@+id/fragment_alumni_circle_emotion"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/smile"
+        android:layout_alignBottom="@+id/activity_school_friend_send_button"
+        android:layout_toStartOf="@+id/activity_school_friend_send_button"
+
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_below="@+id/activity_school_friend_send_button"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/activity_school_friend_send_button"
+        android:layout_height="2dp"/>
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_button_bg"
+        android:text="@string/send"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/activity_school_friend_send_button"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

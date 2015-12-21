@@ -11,7 +11,7 @@
         android:paddingLeft="@dimen/padding_left"
         android:gravity="center"
         android:horizontalSpacing="@dimen/phone_apadding"
-        android:verticalSpacing="5dp"
+        android:verticalSpacing="@dimen/phone_apadding"
         android:paddingRight="@dimen/padding_left"
         android:numColumns="8"
         />

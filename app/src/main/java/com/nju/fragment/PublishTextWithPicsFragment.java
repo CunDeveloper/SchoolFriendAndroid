@@ -1,6 +1,5 @@
 package com.nju.fragment;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import com.nju.adatper.EmotionPageAdater;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
-import com.nju.http.request.MultiRequest;
 import com.nju.model.BitmaWrapper;
 import com.nju.model.Image;
 import com.nju.util.Constant;
@@ -37,7 +35,6 @@ import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
-import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -59,12 +56,13 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     private ViewPager mViewPager;
     private int  rootHeight = 0;
     private int subHeight = 0;
-    private View mView1,mView2,mView3;
     private List<ImageView> mUploadImgs;
     private ArrayList<Image> mUploadImgPaths;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
     private AppBarLayout mAppBarLayout;
     private Button mFinishBn;
+    private ArrayList<View> mSlideCircleViews;
+    private int mSlidePostion = 0;
 
     public static PublishTextWithPicsFragment newInstance(ArrayList<Image> uploadImgPaths) {
         PublishTextWithPicsFragment fragment = new PublishTextWithPicsFragment();
@@ -97,9 +95,6 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mScrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
-        mView1 = view.findViewById(R.id.emotion_pager_view1);
-        mView2 = view.findViewById(R.id.emotion_pager_view2);
-        mView3 = view.findViewById(R.id.emotion_pager_view3);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
         mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(),TAG));
         initViewPagerListener();
@@ -109,6 +104,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         initLoadImage();
         openChooseLocation(view);
         openWhoScan(view);
+        initSlideCircleViews(view);
         return view;
     }
 
@@ -118,11 +114,21 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         getHostActivity().getToolBar().setTitle(getString(R.string.empty));
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
-
         mFinishBn = getHostActivity().getMenuBn();
         mFinishBn.setText(getString(R.string.finish));
         mFinishBn.setVisibility(View.VISIBLE);
         initFinishBnEvent();
+    }
+
+    private void initSlideCircleViews(View view) {
+        View mView;
+        mSlideCircleViews = new ArrayList<>();
+        mView = view.findViewById(R.id.emotion_pager_view1);
+        mSlideCircleViews.add(mView);
+        mView = view.findViewById(R.id.emotion_pager_view2);
+        mSlideCircleViews.add(mView);
+        mView = view.findViewById(R.id.emotion_pager_view3);
+        mSlideCircleViews.add(mView);
     }
 
     private void initViewPagerListener() {
@@ -134,7 +140,9 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                changeSlectColor(position);
+                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
+                mSlidePostion = position;
+                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
             }
 
             @Override
@@ -187,21 +195,6 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         });
     }
 
-    private void changeSlectColor(int mPagerPosition) {
-        if(0 == mPagerPosition) {
-            mView1.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.select_circle_label_bg));
-            mView2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
-            mView3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
-        }else if(1 == mPagerPosition) {
-            mView2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.select_circle_label_bg));
-            mView1.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
-            mView3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
-        }else if(2 == mPagerPosition) {
-            mView3.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.select_circle_label_bg));
-            mView1.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
-            mView2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.unselect_circle_label_bg));
-        }
-    }
 
     private void initOnGlobalListener() {
         mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -237,7 +230,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                     SoftInput.close(getActivity(), mEmotionView);
                     isEmotionOpen = false;
                     label = false;
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     mEmotionView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
@@ -296,15 +289,9 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         }
     }
 
-    public void inputEmotion(Drawable drawable) {
+    public void inputEmotion(String text) {
         int selectionCursor = mContentEditText.getSelectionStart();
-        mContentEditText.getText().insert(selectionCursor, ".");
-        selectionCursor = mContentEditText.getSelectionStart();
-        SpannableStringBuilder builder = new SpannableStringBuilder(mContentEditText.getText());
-        builder.setSpan(new ImageSpan(drawable
-        ), selectionCursor - ".".length(), selectionCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mContentEditText.setText(builder);
-        mContentEditText.setSelection(selectionCursor);
+        mContentEditText.getText().insert(selectionCursor, text);
         mContentEditText.invalidate();
     }
 

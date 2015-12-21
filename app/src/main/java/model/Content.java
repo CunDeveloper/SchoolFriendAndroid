@@ -1,9 +1,12 @@
 package model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Content {
+public class Content implements Parcelable {
 
 	private int id;
 	private int user_id;
@@ -14,6 +17,28 @@ public class Content {
 	private List<Praise> praiseList;
 	private List<Comment> commentList;
 
+    public Content(){}
+
+	protected Content(Parcel in) {
+		id = in.readInt();
+		user_id = in.readInt();
+		content = in.readString();
+		imageList = in.createStringArrayList();
+		is_contain_image = in.readInt();
+		praiceUserName = in.readString();
+	}
+
+	public static final Creator<Content> CREATOR = new Creator<Content>() {
+		@Override
+		public Content createFromParcel(Parcel in) {
+			return new Content(in);
+		}
+
+		@Override
+		public Content[] newArray(int size) {
+			return new Content[size];
+		}
+	};
 
 	public int getId() {
 		return id;
@@ -63,6 +88,20 @@ public class Content {
 	public void setPraiseList(List<Praise> praiseList) {
 		this.praiseList = praiseList;
 	}
-	 
-	
+
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeInt(user_id);
+		dest.writeString(content);
+		dest.writeStringList(imageList);
+		dest.writeInt(is_contain_image);
+		dest.writeString(praiceUserName);
+	}
 }

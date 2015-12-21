@@ -39,7 +39,7 @@ import com.nju.util.Divice;
 import java.util.ArrayList;
 
 
-public class MainActivity extends BaseActivity implements EmotionPagerFragment.OnFragmentInputEmotionListener {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName() ;
     private NavigationView mNavigationView;
@@ -229,23 +229,6 @@ public class MainActivity extends BaseActivity implements EmotionPagerFragment.O
         }
         ft.commit();
     }
-
-    @Override
-    public void onFragmentInputEmotion(Drawable drawable) {
-        PublishTextWithPicsFragment fragment = (PublishTextWithPicsFragment) mLocalBackstack.peek();
-        if (fragment != null){
-            fragment.inputEmotion(drawable);
-        }
-    }
-
-    @Override
-    public void onTextFragmentInputEmotion(String text) {
-        PublishTextFragment fragment = (PublishTextFragment) mLocalBackstack.peek();
-        if (fragment != null){
-            fragment.inputEmotion(text);
-        }
-    }
-
     private void initDataBase(){
         SchoolFriendDbHelper.newInstance(this);
     }

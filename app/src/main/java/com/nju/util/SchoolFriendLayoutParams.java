@@ -58,6 +58,11 @@ public class SchoolFriendLayoutParams {
         return params;
     }
 
+    public RelativeLayout.LayoutParams noSoftInputRelayoutParams(int subHeight){
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, subHeight);
+        return params;
+    }
+
     public FrameLayout.LayoutParams noSoftInputParamsFrame(int subHeight){
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, subHeight);
         return params;
@@ -84,6 +89,13 @@ public class SchoolFriendLayoutParams {
         int scrollWidth = subHeight - (int) Divice.convertDpToPixel(bottomViewHeight,mContext)
                 -statasBarHeight;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
+        return params;
+    }
+
+    public RelativeLayout.LayoutParams softInputRelLayoutParams(int subHeight,int bottomViewHeight,int statasBarHeight){
+        int scrollWidth = subHeight - (int) Divice.convertDpToPixel(bottomViewHeight,mContext)
+                -statasBarHeight;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
         return params;
     }
 

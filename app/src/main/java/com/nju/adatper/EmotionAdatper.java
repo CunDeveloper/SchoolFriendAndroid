@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.nju.activity.R;
 import com.nju.util.Divice;
 
@@ -18,9 +20,9 @@ import java.util.List;
  */
 public class EmotionAdatper extends BaseAdapter {
 
-    private List<Drawable> emotions;
+    private List<String> emotions;
     private Context mContext;
-    public EmotionAdatper(List<Drawable> emotions,Context context) {
+    public EmotionAdatper(List<String> emotions, Context context) {
         this.emotions = emotions;
         this.mContext = context;
     }
@@ -41,37 +43,20 @@ public class EmotionAdatper extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.publish_content_image_item,null);
-            int screenWidth = Divice.getDisplayWidth(mContext);
-            float paddingLeft;
-            int paddingWidth;
-            int width;
-            if (Divice.isPhone()) {
-                paddingLeft = mContext.getResources().getDimension(R.dimen.phone_apadding);
-                paddingWidth = (int) Divice.convertDpToPixel(8*paddingLeft,mContext);
-                width = (screenWidth-paddingWidth)/8;
-            }
-            else{
-                paddingLeft = mContext.getResources().getDimension(R.dimen.padding_right);
-                paddingWidth = (int) Divice.convertDpToPixel(6*paddingLeft,mContext);
-                width = (screenWidth-paddingWidth)/16;
-            }
-
-            AbsListView.LayoutParams parms = new AbsListView.LayoutParams(width,width);
-            viewHolder.imageView = (ImageView) convertView;
-            viewHolder.imageView.setLayoutParams(parms);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.emotion_adapter_item,null);
+            viewHolder.textView = (TextView) convertView;
             convertView.setTag(viewHolder);
         }
         else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.imageView.setBackground(emotions.get(position));
-        return convertView;
+        viewHolder.textView.setText(emotions.get(position));
+         return convertView;
     }
     private class ViewHolder {
-        public ImageView imageView;
+        public TextView textView;
     }
 }

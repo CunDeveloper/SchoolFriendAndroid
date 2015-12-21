@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nju.activity.R;
@@ -30,6 +31,7 @@ public class PersonCircleFragment extends BaseFragment {
     private String mUserName;
     private static final String USERNAME = "username";
     private ListView mListView;
+    private ArrayList<Content> mDecodeContents;
 
     public static PersonCircleFragment newInstance(String userName) {
         PersonCircleFragment fragment = new PersonCircleFragment();
@@ -58,28 +60,28 @@ public class PersonCircleFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            Log.e(TAG,responseBody);
+            Log.i(TAG,responseBody);
             ArrayList<Content> contents = SchoolFriendGson.newInstance().fromJsonToList(responseBody, Content.class);
-            ArrayList<Content> decodeContents = new ArrayList<>();
+            mDecodeContents = new ArrayList<>();
             for (Content content:contents) {
                 Content temp = content;
                 temp.setContent(StringBase64.decode(content.getContent()));
-                decodeContents.add(temp);
+                mDecodeContents.add(temp);
             }
-            Collections.sort(decodeContents, new Comparator<Content>() {
+            Collections.sort(mDecodeContents, new Comparator<Content>() {
                 @Override
                 public int compare(Content lhs, Content rhs) {
                     return rhs.getId()-lhs.getId();
                 }
             });
             if (contents.size()>0){
-                getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,decodeContents.get(0).getId()).commit();
+                getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,mDecodeContents.get(0).getId()).commit();
             }
             Message message = new Message();
             message.what = Constant.SAVE_CONTENT_MESG;
-            message.obj = decodeContents;
+            message.obj = mDecodeContents;
             //getHostActivity().getAppHandler().sendMessage(message);
-            mListView.setAdapter(new PersonCircleAdapter(getContext(), decodeContents));
+            mListView.setAdapter(new PersonCircleAdapter(getContext(), mDecodeContents));
         }
 
     };
@@ -91,23 +93,20 @@ public class PersonCircleFragment extends BaseFragment {
         paras.put(Constant.USER_ID,String.valueOf(51));
         paras.put(Constant.LABEL,Constant.QUERY_ALL);
         HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,paras,callback));
-//        new Thread(){
-//            @Override
-//            public void run(){
-//                Type listType = new TypeToken<ArrayList<Content>>(){}.getType();
-//                //GsonRequest<ArrayList<Content>> request = new GsonRequest<ArrayList<Content>>(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,listType,okRep);
-//                SchoolFriendRequest request = new SchoolFriendRequest(HttpMethod.POST(),Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,okRep);
-//                HashMap<String,String> paras = new HashMap<String,String>();
-//                paras.put(Constant.USER_ID,String.valueOf(51));
-//                paras.put(Constant.LABEL,Constant.QUERY_ALL);
-//                request.setParams(paras);
-//                HttpClient.getInstance(getContext()).addToRequestQueue(request);
-//            }
-//        }.start();
         View view = inflater.inflate(R.layout.fragment_person_circle, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mListView = (ListView) view.findViewById(R.id.fragment_person_circle_listview);
+        initListViewClickEvent();
         return view;
+    }
+
+    private void initListViewClickEvent() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getHostActivity().open(PersonCircleDetailFragment.newInstance(mDecodeContents.get(position)));
+            }
+        });
     }
 
     @Override

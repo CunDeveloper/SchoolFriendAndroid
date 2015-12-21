@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -15,8 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nju.activity.R;
+import com.nju.adatper.EmotionPageAdater;
 import com.nju.adatper.FriendContentAdapter;
 import com.nju.model.Comment;
 import com.nju.model.FriendWeibo;
@@ -26,6 +32,7 @@ import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.nju.adatper.UserCommentItemListAdapter.COMMENT_OK;
@@ -44,8 +51,16 @@ public class AlumniCircleFragment extends BaseFragment {
     private RelativeLayout mInputLayout;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
     private ImageView mCameraImageView;
-    private boolean label = false;
+    private boolean label = true;
     private int mPosition = 1;
+    private TextView mEmoijTextView;
+    private boolean isEmotionOpen = true;
+    private boolean label2 = false;
+    private ViewPager mViewPager;
+    private LinearLayout mEmoLineLayout;
+    private ArrayList<View> mSlideCircleViews;
+    private int mSlidePostion = 0;
+    private int subHeight;
 
     private Handler mHandler = new MyHandler(this);
     public static AlumniCircleFragment newInstance() {
@@ -80,14 +95,21 @@ public class AlumniCircleFragment extends BaseFragment {
         mInputLayout = (RelativeLayout)view.findViewById(R.id.activity_school_friend_input_layout);
         mCommentEditText = (EditText)view.findViewById(R.id.activity_school_friend_comment_edittext);
         mSendButton = (Button)view.findViewById(R.id.activity_school_friend_send_button);
+        mEmoijTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
+        mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
+        mEmoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
         weibos = WeiBoData.weiBos(getActivity());
         sumWeiBos = WeiBoData.weiBos(getActivity());
         mFriendContentAdapter = new FriendContentAdapter(weibos,getActivity(),mHandler,mListView,this);
         mListView.setAdapter(mFriendContentAdapter);
         mListView.setPadding(mListView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mListView.getPaddingRight(), mListView.getPaddingBottom());
+        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(), TAG));
         initOnGlobalListener();
         initSendListener();
+        initEmoijTextViewEvent();
+        initSlideCircleViews(view);
+        initViewPageScrollListener();
         return view;
     }
 
@@ -96,24 +118,12 @@ public class AlumniCircleFragment extends BaseFragment {
             @Override
             public void onGlobalLayout() {
                 int rootHeight = mMainLayout.getRootView().getHeight();
-                int subHeight = mMainLayout.getHeight();
-                if ((rootHeight - subHeight) < (rootHeight / 3)) {
-                    if (Divice.isPhone()) {
-                        mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
-                        mListView.setTranscriptMode(ListView.ITEM_VIEW_TYPE_IGNORE);
-                    } else {
-                        mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
-                    }
-                    mInputLayout.setVisibility(View.GONE);
-                    if (mInputLayout.getVisibility() == View.GONE && label) {
-                        label = false;
-                        for (int i = mPosition + 1; i < sumWeiBos.size(); i++) {
-                            weibos.add(sumWeiBos.get(i));
-                        }
-                        mFriendContentAdapter.notifyDataSetChanged();
-                        mListView.setTranscriptMode(ListView.ITEM_VIEW_TYPE_IGNORE);
-                    }
-                } else {
+                subHeight = mMainLayout.getHeight();
+                if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
+                    closeKeyboard(subHeight);
+                } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
+                    label = true;
+                } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
                     if (Divice.isPhone()) {
                         mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
                         mListView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 60));
@@ -121,13 +131,91 @@ public class AlumniCircleFragment extends BaseFragment {
                         mListView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 80));
                     }
                     mInputLayout.setVisibility(View.VISIBLE);
+                    mEmoLineLayout.setVisibility(View.VISIBLE);
                     mCommentEditText.requestFocus();
-                    if (mInputLayout.getVisibility() == View.VISIBLE) {
-                        label = true;
-                    }
+                    label2 = true;
                 }
             }
         });
+    }
+
+    private void closeKeyboard(int subHeight) {
+        if (Divice.isPhone()) {
+            mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
+            mListView.setTranscriptMode(ListView.ITEM_VIEW_TYPE_IGNORE);
+        } else {
+            mListView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
+        }
+        mInputLayout.setVisibility(View.GONE);
+        mEmoLineLayout.setVisibility(View.GONE);
+        if (mInputLayout.getVisibility() == View.GONE && label2) {
+            label = false;
+            for (int i = mPosition + 1; i < sumWeiBos.size(); i++) {
+                weibos.add(sumWeiBos.get(i));
+            }
+            mFriendContentAdapter.notifyDataSetChanged();
+            mListView.setTranscriptMode(ListView.ITEM_VIEW_TYPE_IGNORE);
+            label2 = false;
+        }
+    }
+
+    private void initViewPageScrollListener() {
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
+                mSlidePostion = position;
+                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void initSlideCircleViews(View view) {
+        View mView;
+        mSlideCircleViews = new ArrayList<>();
+        mView = view.findViewById(R.id.emotion_pager_view1);
+        mSlideCircleViews.add(mView);
+        mView = view.findViewById(R.id.emotion_pager_view2);
+        mSlideCircleViews.add(mView);
+        mView = view.findViewById(R.id.emotion_pager_view3);
+        mSlideCircleViews.add(mView);
+    }
+
+    private void initEmoijTextViewEvent() {
+         mEmoijTextView.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
+                     mEmoijTextView.setText(getString(R.string.keyboard));
+                     SoftInput.close(getActivity(), mEmoijTextView);
+                     isEmotionOpen = false;
+                     label = false;
+                     label2 = true;
+                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
+                     mEmoijTextView.setText(getString(R.string.smile));
+                     SoftInput.open(getActivity());
+                     isEmotionOpen = true;
+                     label = false;
+                 }
+                 return true;
+             }
+         });
+    }
+
+    public void inputEmotion(String text) {
+        int selectionCursor = mCommentEditText.getSelectionStart();
+        mCommentEditText.getText().insert(selectionCursor, text);
+        mCommentEditText.invalidate();
     }
 
     private void initSendListener(){
@@ -140,7 +228,11 @@ public class AlumniCircleFragment extends BaseFragment {
                 comment.setcUserName("ZhangXiaojun");
                 weibos.get(mPosition).getComments().add(comment);
                 mCommentEditText.setText("");
-                SoftInput.close(getActivity(), mSendButton);
+                if (mInputLayout.getVisibility() == View.VISIBLE) {
+                     closeKeyboard(subHeight);
+                }else {
+                    SoftInput.close(getActivity(), mSendButton);
+                }
             }
         });
     }

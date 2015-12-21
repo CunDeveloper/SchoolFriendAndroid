@@ -1,19 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/activity_school_friend_main"
+    android:background="@android:color/white"
+    android:id="@+id/fragment_person_circle_detail_main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ListView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
-        android:background="@android:color/white"
-        android:id="@+id/school_friend_listview"
-        android:transcriptMode="alwaysScroll"
-        />
+        android:id="@+id/fragment_person_circle_detail_scrollview"
+        android:layout_height="match_parent">
+    </ScrollView>
     <include layout="@layout/emotion_input"/>
     <include layout="@layout/emotion_comment"/>
 </LinearLayout>
-

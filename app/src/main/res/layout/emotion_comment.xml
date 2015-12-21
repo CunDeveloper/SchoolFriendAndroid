@@ -7,22 +7,6 @@
     android:clickable="false"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/gray_line_bg"
-        android:gravity="start|center_vertical"
-        android:layout_height="50dp">
-        <com.nju.View.SchoolFriendAweTextView
-            android:id="@+id/emotion_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="36sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/smile"
-            android:paddingStart="@dimen/phone_apadding"
-            />
-    </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -67,8 +51,5 @@
                 />
         </LinearLayout>
     </FrameLayout>
-
-
-
 
 </LinearLayout>
