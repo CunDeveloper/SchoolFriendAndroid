@@ -11,7 +11,6 @@
         <TextView
             android:id="@+id/fragment_person_circle_item_day_tv"
             android:layout_width="wrap_content"
-            android:text="09"
             android:gravity="top"
             android:layout_marginTop="-10dp"
             android:textStyle="bold"
@@ -25,7 +24,6 @@
             android:id="@+id/fragment_person_circle_item_month_tv"
             android:layout_width="wrap_content"
             android:layout_alignBottom="@+id/fragment_person_circle_item_day_tv"
-            android:text="6月"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:layout_toEndOf="@+id/fragment_person_circle_item_day_tv"

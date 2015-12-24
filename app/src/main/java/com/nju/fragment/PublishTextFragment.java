@@ -191,7 +191,7 @@ public class PublishTextFragment extends BaseFragment {
                 params.put(Constant.USER_ID,String.valueOf(51));
                 params.put(Constant.PUBLISH_TEXT, StringBase64.encode(content));
                 params.put(Constant.USER_LOCATION,location);
-                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, callback));
+                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, callback,TAG));
             }
         });
     }
@@ -205,7 +205,7 @@ public class PublishTextFragment extends BaseFragment {
                     SoftInput.close(getActivity(), mEmotionView);
                     isEmotionOpen = false;
                     label = false;
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN ) {
                     mEmotionView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;

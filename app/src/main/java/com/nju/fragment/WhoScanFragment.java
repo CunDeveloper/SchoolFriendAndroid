@@ -1,5 +1,6 @@
 package com.nju.fragment;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -107,12 +108,17 @@ public class WhoScanFragment extends BaseFragment {
                 String[] smallChildLabel = getResources().getStringArray(R.array.who_scan_partily_small_scan);
                 ArrayList<Entry> childList = new ArrayList<>();
                 Entry childEntry;
-                for (int j =0;j<bigChildLabel.length;j++){
+                SharedPreferences sharedPreferences = getHostActivity().getSharedPreferences();
+                int size = sharedPreferences.getInt(getString(R.string.size),0);
+                for (int j =1;j<=size;j++){
                     childEntry = new Entry();
-                    childEntry.setBigLabel(bigChildLabel[j]);
-                    childEntry.setSamllLabel(smallChildLabel[j]);
+                    childEntry.setBigLabel(sharedPreferences.getString(getString(R.string.school)+j,""));
+                    childEntry.setSamllLabel(sharedPreferences.getString(getString(R.string.xueyuan)+j,""));
                     childList.add(childEntry);
                 }
+                childEntry = new Entry();
+                childEntry.setBigLabel(getString(R.string.editor_label));
+                childList.add(childEntry);
                 entry.setChildItems(childList);
             }
             else {

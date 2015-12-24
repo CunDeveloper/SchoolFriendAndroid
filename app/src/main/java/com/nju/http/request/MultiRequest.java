@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Created by xiaojuzhang on 2015/12/17.
  */
-public class MultiRequest implements RequestRunnable {
+public class MultiRequest extends RequestRunnable {
     private static final String TAG = MultiRequest.class.getSimpleName();
     private final ResponseCallback mCallback;
     private final HashMap<String,String> mParams;

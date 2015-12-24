@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -78,6 +79,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         mSchoolFriendLayoutParams = new SchoolFriendLayoutParams(getContext());
         bottom_height =  (int) Divice.convertDpToPixel(INPUT_HEIGHT_PHONE,getContext())+Divice.getStatusBarHeight(getActivity());
         mInputLayout.setVisibility(View.VISIBLE);
+        initView(view);
         initSlideCircleViews(view);
         initOnGlobalListener();
         initEmoijTextViewEvent();
@@ -94,6 +96,20 @@ public class PersonCircleDetailFragment extends BaseFragment {
         mSlideCircleViews.add(mView);
         mView = view.findViewById(R.id.emotion_pager_view3);
         mSlideCircleViews.add(mView);
+    }
+
+    private void initView(View view) {
+        TextView contentTV = (TextView) view.findViewById(R.id.school_friend_item_content);
+        contentTV.setText(mContent.getContent());
+        ImageView imageView = (ImageView) view.findViewById(R.id.school_friend_item_headicon_img);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.head2));
+        TextView nameTV = (TextView) view.findViewById(R.id.school_friend_item_name_text);
+        nameTV.setText("张小军");
+        TextView labelTV = (TextView) view.findViewById(R.id.school_friend_item_label_text);
+        labelTV.setText("南京大学软件学院 2014");
+
+        TextView dateTV = (TextView) view.findViewById(R.id.school_friend_item_publish_date);
+        dateTV.setText(mContent.getDate());
     }
 
     private void initViewPageScrollListener() {

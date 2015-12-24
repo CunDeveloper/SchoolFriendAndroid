@@ -92,7 +92,7 @@ public class PersonCircleFragment extends BaseFragment {
         HashMap<String,String> paras = new HashMap<String,String>();
         paras.put(Constant.USER_ID,String.valueOf(51));
         paras.put(Constant.LABEL,Constant.QUERY_ALL);
-        HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,paras,callback));
+        HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,paras,callback,TAG));
         View view = inflater.inflate(R.layout.fragment_person_circle, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mListView = (ListView) view.findViewById(R.id.fragment_person_circle_listview);

@@ -1,14 +1,12 @@
 package com.nju.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,17 +24,10 @@ import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
-import com.nju.fragment.EmotionPagerFragment;
-import com.nju.fragment.PublishTextFragment;
-import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
-import com.nju.fragment.UserInfoFragement;
 import com.nju.fragment.XueXinAuthFragmet;
-import com.nju.model.UserInfo;
 import com.nju.util.Divice;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends BaseActivity {
@@ -74,7 +65,8 @@ public class MainActivity extends BaseActivity {
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
         initNavigationViewListener();
-        open(XueXinAuthFragmet.newInstance());
+        XueXinAuthFragmet fragment = XueXinAuthFragmet.newInstance();
+        open(fragment,true,fragment);
         initDataBase();
     }
 
@@ -177,7 +169,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void open(BaseFragment fragment, boolean clearBackStack) {
-        open(fragment, clearBackStack);
+        open(fragment, clearBackStack,null);
     }
 
 
@@ -224,7 +216,7 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         while (mLocalBackstack.size() > 1) {
             BaseFragment removeThis = mLocalBackstack.pop();
-            ft.remove(removeThis);
+            ft.remove(removeThis).commit();
             Log.d(TAG, "Removing " + removeThis.getTag() + " (" + removeThis.getClass().getSimpleName() + ")");
         }
         ft.commit();

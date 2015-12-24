@@ -1,5 +1,6 @@
 package com.nju.fragment;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -22,9 +23,11 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.ByteResponseCallback;
 import com.nju.http.HttpManager;
+import com.nju.http.SchoolFriendHttp;
 import com.nju.http.request.PostRequest;
 import com.nju.model.UserInfo;
 import com.nju.util.Constant;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
@@ -43,7 +46,6 @@ public class XueXinAuthFragmet extends BaseFragment {
     private EditText mUserNameEditText;
     private EditText mPassEditText;
     private EditText mCaptchaEditText;
-    private Button mButton;
     private TextView mTipTextView;
     private ImageView mCaptchaImg;
     private SchoolFriendDialog mDialog;
@@ -74,12 +76,11 @@ public class XueXinAuthFragmet extends BaseFragment {
         view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
         mUserNameEditText = (EditText) view.findViewById(R.id.etUsername);
         mPassEditText = (EditText) view.findViewById(R.id.etPassword);
-        mButton = (Button) view.findViewById(R.id.fragment_xue_xin_auth_bn);
         mCaptchaImg = (ImageView) view.findViewById(R.id.fragment_xue_xin_auth_image);
         mTipTextView = (TextView) view.findViewById(R.id.fragment_xue_xin_tip_textView);
         mCaptchaEditText = (EditText) view.findViewById(R.id.etCaptcha);
         mCaptchaLayout = (RelativeLayout) view.findViewById(R.id.fragment_xue_xin_captcha_layout);
-        authClick();
+        authClick(view);
         editTextChangeListener();
         return view;
     }
@@ -88,10 +89,7 @@ public class XueXinAuthFragmet extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getHostActivity().getToolBar().setTitle(getString(R.string.xue_xin_auth));
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getHostActivity().geLinearLayout().setVisibility(View.GONE);
-       // getHostActivity().getToolBar().setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_menu));
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);
@@ -122,10 +120,9 @@ public class XueXinAuthFragmet extends BaseFragment {
                     Map<String,Object> stringMap = gson.fromJsonToMap(result);
                     if (stringMap.containsKey(Constant.XUE_XIN_INFO)) {
                         String[] strs = result.split(":\\[");
-                        Log.e(TAG,stringMap.get(Constant.XUE_XIN_INFO).toString());
-                        Log.e(TAG,"["+strs[1]);
                         String temp = "["+strs[1];
                         ArrayList<UserInfo> userInfos = gson.fromJsonToList(temp.substring(0,temp.length()-1),UserInfo.class);
+                        saveUserInfo(userInfos);
                         getHostActivity().open(UserInfoFragement.newInstance(userInfos));
                     }
                 }
@@ -138,14 +135,35 @@ public class XueXinAuthFragmet extends BaseFragment {
         }
     };
 
-    private void authClick() {
-        mButton.setOnClickListener(new View.OnClickListener() {
+    private void saveUserInfo(ArrayList<UserInfo> userInfos) {
+        SharedPreferences.Editor editor= getHostActivity().getSharedPreferences().edit();
+        editor.putInt(getString(R.string.size),userInfos.size());
+        for (int i=1;i<=userInfos.size();i++) {
+            UserInfo info = userInfos.get(i-1);
+            editor.putString(getString(R.string.school)+i,info.getLabel()).apply();
+            editor.putString(getString(R.string.xueyuan)+i,info.getFenYuan()).apply();
+            editor.putString(getString(R.string.major)+i,info.getMajor()).apply();
+
+            editor.putInt(getString(R.string.start_date)+i, DateUtil.year(DateUtil.getCalendar(info.getDate()))).apply();
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SchoolFriendHttp.close();
+    }
+
+    private void authClick(View view ) {
+        Button button = (Button) view.findViewById(R.id.fragment_xue_xin_auth_bn);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String userName = mUserNameEditText.getText().toString();
                 final String pass = mPassEditText.getText().toString();
                 final String captcha = mCaptchaEditText.getText().toString();
-                final HashMap<String, String> params = new HashMap<String, String>();
+                final HashMap<String, String> params = new HashMap<>();
                 if (!isNeedCaptcha) {
                     if (validte(userName, pass)) {
                         params.put(Constant.XUE_XIN_USERNAME, userName);
@@ -162,7 +180,6 @@ public class XueXinAuthFragmet extends BaseFragment {
                         params.put(Constant.XUE_XIN_USERNAME, userName);
                         params.put(Constant.XUE_XIN_PASSWORD, pass);
                         params.put(Constant.XUE_XIN_CAPTCHA, captcha);
-                        Log.e(TAG, Constant.XUE_XIN_CAPTCHA + "==" + captcha);
                         params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
                         request.setmParams(params);
                         mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));

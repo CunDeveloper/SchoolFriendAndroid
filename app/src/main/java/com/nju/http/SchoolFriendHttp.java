@@ -24,6 +24,9 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by cun on 2015/12/5.
@@ -33,17 +36,21 @@ public class SchoolFriendHttp {
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");;
     private static final String TAG = SchoolFriendHttp.class.getSimpleName();
     private static SchoolFriendHttp mInstance;
-    private OkHttpClient mClient ;
+    private static OkHttpClient mClient ;
     private static final MediaType MEDIA_TYPE_MARKDOWN
             = MediaType.parse("text/x-markdown; charset=utf-8");
     private static final String FILE = "file";
+    private static BlockingDeque<Request> requestQueue;
 
     private SchoolFriendHttp() {
-        mClient = new OkHttpClient();
-        CookieManager cookieManager = new CookieManager();
-        CookieHandler.setDefault(cookieManager);
-        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        mClient.setCookieHandler(cookieManager);
+        if (mClient == null) {
+            mClient = new OkHttpClient();
+            requestQueue = new LinkedBlockingDeque<>();
+            CookieManager cookieManager = new CookieManager();
+            CookieHandler.setDefault(cookieManager);
+            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+            mClient.setCookieHandler(cookieManager);
+        }
     }
 
     public static SchoolFriendHttp getInstance () {
@@ -101,20 +108,21 @@ public class SchoolFriendHttp {
                 .url(url)
                 .post(formBuilder.build())
                 .build();
+        requestQueue.addFirst(request);
         mClient.newCall(request).enqueue(callback);
     }
 
-    public  void AsynPost1(final Request.Builder builder,final String url,final HashMap<String,String> params,final Callback callback) {
-        final FormEncodingBuilder formBuilder = new FormEncodingBuilder();
-        for (Map.Entry<String,String> entry:params.entrySet()) {
-            formBuilder.add(entry.getKey(),entry.getValue());
-        }
-        Request request = builder
-                .url(url)
-                .post(formBuilder.build())
-                .build();
-        mClient.newCall(request).enqueue(callback);
-    }
+//    public  void AsynPost1(final Request.Builder builder,final String url,final HashMap<String,String> params,final Callback callback) {
+//        final FormEncodingBuilder formBuilder = new FormEncodingBuilder();
+//        for (Map.Entry<String,String> entry:params.entrySet()) {
+//            formBuilder.add(entry.getKey(), entry.getValue());
+//        }
+//        Request request = builder
+//                .url(url)
+//                .post(formBuilder.build())
+//                .build();
+//        mClient.newCall(request).enqueue(callback);
+//    }
 
     /**
      * Use an HTTP POST to send a request body to a service
@@ -173,6 +181,7 @@ public class SchoolFriendHttp {
                 .url(url)
                 .post(multipartBuilder.build())
                 .build();
+        requestQueue.add(request);
         mClient.newCall(request).enqueue(callback);
     }
 
@@ -195,5 +204,14 @@ public class SchoolFriendHttp {
                 .post(multipartBuilder.build())
                 .build();
         mClient.newCall(request).enqueue(callback);
+    }
+
+    public static void close() {
+        if (requestQueue != null && !requestQueue.isEmpty()) {
+            Request request = requestQueue.removeFirst();
+            if (request != null) {
+                mClient.cancel(request.tag());
+            }
+        }
     }
 }

@@ -10,16 +10,12 @@ import java.util.HashMap;
 /**
  * Created by xiaojuzhang on 2015/12/17.
  */
-public class PostRequest implements RequestRunnable {
+public class PostRequest extends RequestRunnable {
     private static final String TAG = PostRequest.class.getSimpleName();
     private  Callback mCallback;
     private  HashMap<String,String> mParams;
     private  String mUrl;
-    private  Request.Builder mBuilder;
-
-    public PostRequest(){
-        mBuilder = new Request.Builder();
-    }
+    private String tag;
 
     public Callback getmCallback() {
         return mCallback;
@@ -45,18 +41,26 @@ public class PostRequest implements RequestRunnable {
         this.mUrl = mUrl;
     }
 
-    public PostRequest(String url, HashMap<String, String> params, Callback callback){
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public PostRequest() {
+
+    }
+
+    public PostRequest(final String url, final HashMap<String, String> params,final Callback callback,final String TAG){
         mCallback = callback;
         mParams = params;
         mUrl = url;
-        mBuilder = new Request.Builder().tag(TAG);
+        mBuilder.tag(TAG);
     }
     @Override
     public void run() {
-        SchoolFriendHttp.getInstance().AsynPost1(mBuilder,mUrl,mParams,mCallback);
-    }
-
-    public  String tag(){
-        return TAG;
+        SchoolFriendHttp.getInstance().AsynPost(mBuilder, mUrl, mParams, mCallback);
     }
 }

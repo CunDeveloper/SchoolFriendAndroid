@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by xiaojuzhang on 2015/12/17.
  */
-public class MultiImgRequest implements RequestRunnable {
+public class MultiImgRequest extends RequestRunnable {
     private static final String TAG = MultiImgRequest.class.getSimpleName();
     private final ResponseCallback mCallback;
     private final HashMap<String,String> mParams;
