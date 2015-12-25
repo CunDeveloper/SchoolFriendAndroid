@@ -51,8 +51,8 @@ public class PersonCircleAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContent).inflate(R.layout.fragment_person_circle_item ,null);
             holder.mContentTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_content_tv);
             holder.mImageView = (ImageView) convertView.findViewById(R.id.fragment_person_circle_item_image);
-            holder.mDayTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_day_tv);
-            holder.mMonthTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_month_tv);
+            holder.mDayTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_daytv);
+            holder.mMonthTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_monthtv);
             convertView.setTag(holder);
         }
         else {
@@ -60,11 +60,10 @@ public class PersonCircleAdapter extends BaseAdapter {
         }
         Content content = mList.get(position);
         holder.mContentTV.setText(content.getContent());
-        Calendar calendar = DateUtil.getCalendar(content.getDate());
-        //holder.mDayTV.setText(DateUtil.day(calendar));
-        Log.e(TAG,DateUtil.month(calendar)+"");
-        holder.mMonthTV.setText(DateUtil.month(calendar));
-        return convertView;
+
+        holder.mDayTV.setText(content.getDay());
+        holder.mMonthTV.setText(content.getMonth());
+       return convertView;
     }
 
     private static class ViewHolder {

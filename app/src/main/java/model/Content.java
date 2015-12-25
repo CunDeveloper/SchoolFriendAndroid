@@ -13,6 +13,8 @@ public class Content implements Parcelable {
 	private String content;
 	private List<String> imageList;
 	private String date;
+	private String day;
+	private String month;
 	private String location;
 	private int is_contain_image;
 	private String praiceUserName;/*要废掉*/
@@ -30,6 +32,8 @@ public class Content implements Parcelable {
 		praiceUserName = in.readString();
 		date = in.readString();
 		location = in.readString();
+		day = in.readString();
+		month = in.readString();
 	}
 
 	public static final Creator<Content> CREATOR = new Creator<Content>() {
@@ -109,6 +113,22 @@ public class Content implements Parcelable {
 		this.location = location;
 	}
 
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -124,5 +144,7 @@ public class Content implements Parcelable {
 		dest.writeString(praiceUserName);
 		dest.writeString(date);
 		dest.writeString(location);
+		dest.writeString(day);
+		dest.writeString(month);
 	}
 }

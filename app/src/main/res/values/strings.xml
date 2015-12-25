@@ -99,5 +99,6 @@
     <string name="xueyuan">xueyuan</string>
     <string name="size">size</string>
     <string name="editor_label">编辑标签</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
 
 </resources>

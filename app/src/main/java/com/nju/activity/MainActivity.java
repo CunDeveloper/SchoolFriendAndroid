@@ -1,6 +1,7 @@
 package com.nju.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -26,6 +27,7 @@ import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
+import com.nju.fragment.WebViewFragment;
 import com.nju.fragment.XueXinAuthFragmet;
 import com.nju.util.Divice;
 
@@ -94,6 +96,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.nav_heat_voice:
                         open(SeniorsVoicesFragment.newInstance());
+                        break;
+                    case R.id.nav_recrict:
+                        open(WebViewFragment.newInstance());
                         break;
 
                 }

@@ -15,11 +15,13 @@ import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequest;
 import com.nju.util.Constant;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -62,18 +64,35 @@ public class PersonCircleFragment extends BaseFragment {
         public void onSuccess(String responseBody) {
             Log.i(TAG,responseBody);
             ArrayList<Content> contents = SchoolFriendGson.newInstance().fromJsonToList(responseBody, Content.class);
-            mDecodeContents = new ArrayList<>();
-            for (Content content:contents) {
-                Content temp = content;
-                temp.setContent(StringBase64.decode(content.getContent()));
-                mDecodeContents.add(temp);
-            }
-            Collections.sort(mDecodeContents, new Comparator<Content>() {
+
+            Collections.sort(contents, new Comparator<Content>() {
                 @Override
                 public int compare(Content lhs, Content rhs) {
                     return rhs.getId()-lhs.getId();
                 }
             });
+
+            mDecodeContents = new ArrayList<>();
+            Calendar calendar;
+            int day=-1,month=-1;
+            for (Content content:contents) {
+                Content temp = content;
+                temp.setContent(StringBase64.decode(content.getContent()));
+                calendar = DateUtil.getCalendar(content.getDate());
+                int tempDay = DateUtil.day(calendar);
+                int tempMonth = DateUtil.month(calendar);
+                if (tempDay != day || tempMonth != month){
+                    temp.setDay(tempDay+"");
+                    temp.setMonth(tempMonth+"月");
+                    day = tempDay;
+                    month = tempMonth;
+                } else {
+                    temp.setDay("");
+                    temp.setMonth("");
+                }
+                mDecodeContents.add(temp);
+            }
+
             if (contents.size()>0){
                 getHostActivity().getSharedPreferences().edit().putInt(Constant.MAX_ID_SAVE_CONTENT,mDecodeContents.get(0).getId()).commit();
             }

@@ -12,5 +12,12 @@
         android:text="@string/smile"
         android:id="@+id/fragment_seniors_voice_tv"
         android:layout_height="wrap_content" />
+    <ProgressBar
+        android:layout_width="match_parent"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/fragment_web_view_progressBar"
+        android:max="10000"
+        android:progress="40"
+        android:layout_height="10dp" />
 
 </FrameLayout>
