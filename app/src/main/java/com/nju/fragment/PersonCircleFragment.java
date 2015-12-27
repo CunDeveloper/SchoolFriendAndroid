@@ -34,6 +34,7 @@ public class PersonCircleFragment extends BaseFragment {
     private static final String USERNAME = "username";
     private ListView mListView;
     private ArrayList<Content> mDecodeContents;
+    private ArrayList<Content> mContainPicContentList;
 
     public static PersonCircleFragment newInstance(String userName) {
         PersonCircleFragment fragment = new PersonCircleFragment();
@@ -62,7 +63,7 @@ public class PersonCircleFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            Log.i(TAG,responseBody);
+            Log.i(TAG, responseBody);
             ArrayList<Content> contents = SchoolFriendGson.newInstance().fromJsonToList(responseBody, Content.class);
 
             Collections.sort(contents, new Comparator<Content>() {
@@ -73,6 +74,7 @@ public class PersonCircleFragment extends BaseFragment {
             });
 
             mDecodeContents = new ArrayList<>();
+            mContainPicContentList = new ArrayList<>();
             Calendar calendar;
             int day=-1,month=-1;
             for (Content content:contents) {
@@ -89,6 +91,9 @@ public class PersonCircleFragment extends BaseFragment {
                 } else {
                     temp.setDay("");
                     temp.setMonth("");
+                }
+                if (temp.getIs_contain_image()>0) {
+                    mContainPicContentList.add(temp);
                 }
                 mDecodeContents.add(temp);
             }
@@ -123,7 +128,14 @@ public class PersonCircleFragment extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(PersonCircleDetailFragment.newInstance(mDecodeContents.get(position)));
+                Content content = mDecodeContents.get(position);
+                if (content.getIs_contain_image()>0) {
+                    getHostActivity().open(PersonCircleDetailPicFragment.newInstance(mContainPicContentList,position));
+                }
+                else {
+                    getHostActivity().open(PersonCircleDetailFragment.newInstance(content));
+                }
+
             }
         });
     }

@@ -20,6 +20,7 @@
             <ImageView
                 android:id="@+id/school_friend_item_headicon_img"
                 android:layout_width="@dimen/phone_head_length"
+                android:background="@drawable/head_icon_bg"
                 android:layout_height="@dimen/phone_head_length"
                 />
             <LinearLayout
@@ -46,7 +47,7 @@
                         android:layout_gravity="bottom"
                         />
                 </LinearLayout>
-                <TextView
+                <com.nju.View.SchoolFriendTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/phone_apadding"

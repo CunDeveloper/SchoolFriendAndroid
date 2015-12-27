@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:listSelector="@android:color/transparent"
         android:background="@android:color/white"
+        android:scrollbars="none"
         android:id="@+id/school_friend_listview"
         android:transcriptMode="alwaysScroll"
         />

@@ -1,6 +1,7 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +60,17 @@ public class PersonCircleAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Content content = mList.get(position);
+        if(content.getIs_contain_image()>0) {
+            holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent,android.R.color.white));
+            holder.mContentTV.setIncludeFontPadding(false);
+            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent,R.drawable.head2));
+        }
+        else{
+            holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent,R.color.light_gray));
+            holder.mContentTV.setIncludeFontPadding(true);
+            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent,R.drawable.empty));
+        }
         holder.mContentTV.setText(content.getContent());
-
         holder.mDayTV.setText(content.getDay());
         holder.mMonthTV.setText(content.getMonth());
        return convertView;

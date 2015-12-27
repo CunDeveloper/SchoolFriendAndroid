@@ -73,7 +73,8 @@ public class WebViewFragment extends BaseFragment {
                 Toast.makeText(getContext(), "Oh no!" + description, Toast.LENGTH_LONG).show();
             }
         });
-        mWebView.loadUrl("http://developer.android.com/");
+
+        mWebView.loadUrl("file:///android_asset/html/test.html");
         ProgressBarAnimation animation = new ProgressBarAnimation(progressBar,0,100);
         animation.setDuration(122222);
         progressBar.startAnimation(animation);

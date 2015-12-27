@@ -18,7 +18,7 @@
             android:duplicateParentState="true"
             android:background="@drawable/publish_content_edittext_bg"
             android:layout_height="wrap_content">
-            <EditText
+            <com.nju.View.SchoolFriendEditText
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/publish_content_layout_bg"

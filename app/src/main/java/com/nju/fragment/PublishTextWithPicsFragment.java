@@ -23,11 +23,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdater;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
+import com.nju.http.request.MultiRequest;
 import com.nju.model.BitmaWrapper;
 import com.nju.model.Image;
 import com.nju.util.Constant;
@@ -63,6 +65,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     private Button mFinishBn;
     private ArrayList<View> mSlideCircleViews;
     private int mSlidePostion = 0;
+    private SchoolFriendDialog mDialog;
 
     public static PublishTextWithPicsFragment newInstance(ArrayList<Image> uploadImgPaths) {
         PublishTextWithPicsFragment fragment = new PublishTextWithPicsFragment();
@@ -156,12 +159,13 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
         @Override
         public void onFail(Exception error) {
-
+            mDialog.dismiss();
         }
 
         @Override
         public void onSuccess(String responseBody) {
             Toast.makeText(getContext(),responseBody,Toast.LENGTH_LONG).show();
+            mDialog.dismiss();
         }
     };
 
@@ -169,6 +173,8 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),"正在上传...");
+                mDialog.show();
                 String content = mContentEditText.getText().toString();
                 final HashMap<String,String> params = new HashMap<String, String>();
                 params.put(Constant.USER_ID,String.valueOf(151));
@@ -189,7 +195,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmaWrapper> bitmaWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmaWrappers);
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,bitmaWrapperArrayList,callback));
+                HttpManager.getInstance().exeRequest(new MultiRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,mUploadImgPaths,callback));
 
             }
         });
