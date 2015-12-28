@@ -3,7 +3,7 @@ package com.nju.http;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.nju.model.BitmaWrapper;
+import com.nju.model.BitmapWrapper;
 import com.nju.model.Image;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -14,18 +14,16 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.net.MalformedURLException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
@@ -185,19 +183,21 @@ public class SchoolFriendHttp {
         mClient.newCall(request).enqueue(callback);
     }
 
-    public void postMultiImg(final Request.Builder builder,final String url,final HashMap<String,String> params,final ArrayList<BitmaWrapper> bitmaWrappers,ResponseCallback callback) {
+    public void postMultiImg(final Request.Builder builder,final String url,final HashMap<String,String> params,final ArrayList<BitmapWrapper> bitmapWrappers,ResponseCallback callback) {
         MultipartBuilder multipartBuilder = new MultipartBuilder();
         multipartBuilder.type(MultipartBuilder.FORM);
         for (Map.Entry<String,String> entry:params.entrySet()) {
             multipartBuilder.addFormDataPart(entry.getKey(),entry.getValue());
         }
 
-        for (BitmaWrapper bitmaWrapper:bitmaWrappers) {
-            Bitmap bitmap = bitmaWrapper.getBitmap();
-            final int size = bitmap.getRowBytes()*bitmap.getHeight();
-            ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-            bitmap.copyPixelsFromBuffer(byteBuffer);
-            multipartBuilder.addFormDataPart(FILE, bitmaWrapper.getFileName(), RequestBody.create(MediaType.parse(bitmaWrapper.getFileType()),byteBuffer.array()));
+
+        for (BitmapWrapper bitmapWrapper : bitmapWrappers) {
+            Bitmap bitmap = bitmapWrapper.getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] b = baos.toByteArray();
+
+            multipartBuilder.addFormDataPart(FILE, bitmapWrapper.getFileName(), RequestBody.create(MediaType.parse(bitmapWrapper.getFileType()),b));
         }
         Request request = builder
                 .url(url)

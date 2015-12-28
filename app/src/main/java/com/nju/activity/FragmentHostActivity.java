@@ -27,4 +27,5 @@ public interface FragmentHostActivity {
     ImageView getMenuDeleteView();
     LinearLayout geLinearLayout();
     BaseActivity.LocalStack<BaseFragment> getBackStack();
+    boolean isPhone();
 }

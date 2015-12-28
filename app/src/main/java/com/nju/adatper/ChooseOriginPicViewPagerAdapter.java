@@ -14,10 +14,10 @@ import java.util.ArrayList;
 /**
  * Created by xiaojuzhang on 2015/11/27.
  */
-public class ChoosedOriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ChooseOriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Image> mImgPaths;
-    public ChoosedOriginPicViewPagerAdapter(FragmentManager fm, ArrayList<Image> imgPaths) {
+    public ChooseOriginPicViewPagerAdapter(FragmentManager fm, ArrayList<Image> imgPaths) {
         super(fm);
         mImgPaths = imgPaths;
 

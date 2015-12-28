@@ -1,14 +1,10 @@
 package com.nju.fragment;
 
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,19 +22,18 @@ import android.widget.Toast;
 
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
-import com.nju.adatper.EmotionPageAdater;
+import com.nju.adatper.EmotionPageAdapter;
+import com.nju.adatper.NinePicsGridAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
-import com.nju.http.request.MultiRequest;
-import com.nju.model.BitmaWrapper;
-import com.nju.model.Image;
+import com.nju.model.BitmapWrapper;
+import com.nju.model.ImageWrapper;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,15 +55,16 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     private int  rootHeight = 0;
     private int subHeight = 0;
     private List<ImageView> mUploadImgs;
-    private ArrayList<Image> mUploadImgPaths;
+    private ArrayList<ImageWrapper> mUploadImgPaths;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
     private AppBarLayout mAppBarLayout;
     private Button mFinishBn;
     private ArrayList<View> mSlideCircleViews;
-    private int mSlidePostion = 0;
+    private int mSlidePosition = 0;
     private SchoolFriendDialog mDialog;
+    private GridView mGridView;
 
-    public static PublishTextWithPicsFragment newInstance(ArrayList<Image> uploadImgPaths) {
+    public static PublishTextWithPicsFragment newInstance(ArrayList<ImageWrapper> uploadImgPaths) {
         PublishTextWithPicsFragment fragment = new PublishTextWithPicsFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TAG, uploadImgPaths);
@@ -99,15 +96,16 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
-        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(),TAG));
+        mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         initViewPagerListener();
         initOnGlobalListener();
-        initFloaingBn();
-        initUpladImageView(view);
-        initLoadImage();
+        initFloatingBn();
+        //initUpladImageView(view);
+        //initLoadImage();
         openChooseLocation(view);
         openWhoScan(view);
         initSlideCircleViews(view);
+        initPicsGridView(view);
         return view;
     }
 
@@ -134,6 +132,13 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mSlideCircleViews.add(mView);
     }
 
+    private void initPicsGridView(View view) {
+        mGridView = (GridView) view.findViewById(R.id.fragment_publish_text_with_pics_gridview);
+        NinePicsGridAdapter adapter = new NinePicsGridAdapter(getContext(),mUploadImgPaths);
+        mGridView.setAdapter(adapter);
+    }
+
+
     private void initViewPagerListener() {
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -143,9 +148,9 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
-                mSlidePostion = position;
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
+                mSlidePosition = position;
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
             }
 
             @Override
@@ -173,29 +178,31 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),"正在上传...");
+                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
                 mDialog.show();
+                SoftInput.close(getContext(),mFinishBn);
                 String content = mContentEditText.getText().toString();
-                final HashMap<String,String> params = new HashMap<String, String>();
-                params.put(Constant.USER_ID,String.valueOf(151));
+                final HashMap<String,String> params = new HashMap<>();
+                int user_id = getHostActivity().getSharedPreferences().getInt(Constant.USER_ID, 1);
+                params.put(Constant.USER_ID,String.valueOf(user_id));
                 params.put(Constant.CONTENT, StringBase64.encode(content));
-                final ArrayList<BitmaWrapper> bitmaWrappers = new ArrayList<>();
-                BitmaWrapper bitmaWrapper;
+                final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
+                BitmapWrapper bitmapWrapper;
                 File sourceFile;
-                for (Image image :mUploadImgPaths) {
-                    final String path = image.getData();
-                    bitmaWrapper = new BitmaWrapper();
+                for (ImageWrapper image :mUploadImgPaths) {
+                    final String path = image.getPath();
+                    bitmapWrapper = new BitmapWrapper();
                     sourceFile = new File(path);
-                    bitmaWrapper.setPath(path);bitmaWrapper.setFileName(sourceFile.getName());
+                    bitmapWrapper.setPath(path);bitmapWrapper.setFileName(sourceFile.getName());
                     try {
-                        bitmaWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
-                        bitmaWrappers.add(bitmaWrapper);
+                        bitmapWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
+                        bitmapWrappers.add(bitmapWrapper);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                ArrayList<BitmaWrapper> bitmaWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmaWrappers);
-                HttpManager.getInstance().exeRequest(new MultiRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,mUploadImgPaths,callback));
+                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,bitmapWrapperArrayList,callback));
 
             }
         });
@@ -216,7 +223,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                 } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
-                    if(Divice.isPhone()) {
+                    if(getHostActivity().isPhone()) {
                         mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight,45,mAppBarLayout));
                     } else {
                         mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
@@ -227,7 +234,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         });
     }
 
-    private void initFloaingBn() {
+    private void initFloatingBn() {
         mEmotionView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -247,53 +254,53 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         });
     }
 
-    private void initUpladImageView(View view) {
-        mUploadImgs = new ArrayList<>();
-        ImageView imageView ;
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im1);
-        mUploadImgs.add(imageView);
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im2);
-        mUploadImgs.add(imageView);
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im3);
-        mUploadImgs.add(imageView);
+//    private void initUpladImageView(View view) {
+//        mUploadImgs = new ArrayList<>();
+//        ImageView imageView ;
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im1);
+//        mUploadImgs.add(imageView);
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im2);
+//        mUploadImgs.add(imageView);
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im3);
+//        mUploadImgs.add(imageView);
+//
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im4);
+//        mUploadImgs.add(imageView);
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im5);
+//        mUploadImgs.add(imageView);
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im6);
+//        mUploadImgs.add(imageView);
+//
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im7);
+//        mUploadImgs.add(imageView);
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im8);
+//        mUploadImgs.add(imageView);
+//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im9);
+//        mUploadImgs.add(imageView);
+//
+//    }
 
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im4);
-        mUploadImgs.add(imageView);
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im5);
-        mUploadImgs.add(imageView);
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im6);
-        mUploadImgs.add(imageView);
-
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im7);
-        mUploadImgs.add(imageView);
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im8);
-        mUploadImgs.add(imageView);
-        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im9);
-        mUploadImgs.add(imageView);
-
-    }
-
-    private void initLoadImage() {
-        int length = mUploadImgPaths.size();
-        int targetWidth;
-        if(Divice.isPhone()){
-            targetWidth = Divice.dividerScreen(getActivity(), 4);
-        } else {
-            targetWidth = Divice.dividerScreen(getActivity(), 5);
-        }
-        for (int i = 0; i < length;i++){
-            mUploadImgs.get(i).setLayoutParams(SchoolFriendLayoutParams.phoneImageMarginBottom(getContext()));
-            Picasso.with(getActivity()).load(new File(mUploadImgPaths.get(i).getData())).resize(targetWidth,targetWidth).centerCrop()
-                    .into(mUploadImgs.get(i));
-            final int finalI = i;
-            mUploadImgs.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getHostActivity().open(ChoosedImageViewFragment.newInstance(mUploadImgPaths,finalI));
-                 }
-            });
-        }
-    }
+//    private void initLoadImage() {
+//        int length = mUploadImgPaths.size();
+//        int targetWidth;
+//        if(getHostActivity().isPhone()){
+//            targetWidth = Divice.dividerScreen(getActivity(), 4);
+//        } else {
+//            targetWidth = Divice.dividerScreen(getActivity(), 5);
+//        }
+//        for (int i = 0; i < length;i++){
+//            mUploadImgs.get(i).setLayoutParams(SchoolFriendLayoutParams.phoneImageMarginBottom(getContext()));
+//            Picasso.with(getActivity()).load(new File(mUploadImgPaths.get(i).getData())).resize(targetWidth,targetWidth).centerCrop()
+//                    .into(mUploadImgs.get(i));
+//            final int finalI = i;
+//            mUploadImgs.get(i).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    getHostActivity().open(ChoosedImageViewFragment.newInstance(mUploadImgPaths,finalI));
+//                 }
+//            });
+//        }
+//    }
 
     public void inputEmotion(String text) {
         int selectionCursor = mContentEditText.getSelectionStart();

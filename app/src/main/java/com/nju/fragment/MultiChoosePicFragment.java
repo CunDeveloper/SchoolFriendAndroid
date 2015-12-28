@@ -6,12 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,35 +17,33 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nju.activity.R;
-import com.nju.adatper.MultiChoosedPicAdapter;
+import com.nju.adatper.MultiChoosePicAdapter;
 import com.nju.model.Image;
 import com.nju.service.ChoosedImageService;
+import com.nju.util.AsyncCompress;
 import com.nju.util.CapturePic;
-import com.nju.util.Constant;
 import com.nju.util.Divice;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class MultiChoosedPicFragment extends BaseFragment {
+public class MultiChoosePicFragment extends BaseFragment {
 
-    public static final String TAG = MultiChoosedPicFragment.class.getSimpleName();
+    public static final String TAG = MultiChoosePicFragment.class.getSimpleName();
     private ProgressBar mProgressBar;
     private GridView mGridView;
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private ArrayList<Image> mImgPaths ;
     private ArrayList<Image> chooseImgPaths = new ArrayList<>();
     private Button mFinishBn;
     private TextView mReviewTv;
     private final  MyHandler mHandler = new MyHandler(this);
-    public static MultiChoosedPicFragment newInstance() {
-        return new MultiChoosedPicFragment();
+    public static MultiChoosePicFragment newInstance() {
+        return new MultiChoosePicFragment();
     }
 
-    public MultiChoosedPicFragment() {
+    public MultiChoosePicFragment() {
     }
 
     @Override
@@ -67,7 +62,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
         mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
         mReviewTv = (TextView)view.findViewById(R.id.activity_choose_image_review_textView);
         initReviewText();
-        initGridItemClistener();
+        initGridItemClickListener();
         new loadImg().execute();
         return view;
     }
@@ -86,21 +81,22 @@ public class MultiChoosedPicFragment extends BaseFragment {
         initFinishBnEvent();
     }
 
-    private void initGridItemClistener() {
+    private void initGridItemClickListener() {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 if(position == 0) {
-                    new CapturePic(MultiChoosedPicFragment.this).dispatchTakePictureIntent();
+                    new CapturePic(MultiChoosePicFragment.this).dispatchTakePictureIntent();
                 }
             }
         });
     }
+    @SuppressWarnings("unchecked")
     private void initFinishBnEvent () {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishTextWithPicsFragment.newInstance(chooseImgPaths));
+                new AsyncCompress(MultiChoosePicFragment.this).execute(chooseImgPaths);
             }
         });
     }
@@ -109,15 +105,14 @@ public class MultiChoosedPicFragment extends BaseFragment {
         mReviewTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.container, CameraImageViewFragment.newInstance(chooseImgPaths,0,getString(R.string.choosedReview))).
-                        commit();
+                getHostActivity().open(CameraImageViewFragment.newInstance(chooseImgPaths,0,getString(R.string.choosedReview)));
+
             }
         });
     }
 
-    private  void finishReviewToggle(int choosedPicNumber,boolean label,Message msg) {
-        if (choosedPicNumber != 0) {
+    private  void finishReviewToggle(int choosePicNumber,boolean label,Message msg) {
+        if (choosePicNumber != 0) {
             if (label) {
                 mFinishBn.setEnabled(true);
                 mReviewTv.setEnabled(true);
@@ -146,7 +141,7 @@ public class MultiChoosedPicFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CapturePic.REQUEST_TAKE_PHOTO && resultCode == FragmentActivity.RESULT_OK){
-            CapturePic.galleryAddPic(MultiChoosedPicFragment.this);
+            CapturePic.galleryAddPic(MultiChoosePicFragment.this);
             Image image = new Image();
             image.setData(CapturePic.getImgPath());
             ArrayList<Image> images = new ArrayList<>();
@@ -166,32 +161,32 @@ public class MultiChoosedPicFragment extends BaseFragment {
             super.onPostExecute(list);
             mImgPaths = list;
             AppCompatActivity activity = (AppCompatActivity) getActivity();
-            mGridView.setAdapter(new MultiChoosedPicAdapter(activity,list,mHandler,MultiChoosedPicFragment.this));
+            mGridView.setAdapter(new MultiChoosePicAdapter(activity,list,mHandler,MultiChoosePicFragment.this));
             mProgressBar.setVisibility(View.GONE);
         }
     }
 
     private static class MyHandler extends  Handler {
-        private final WeakReference<MultiChoosedPicFragment> mChooedPicFragment;
+        private final WeakReference<MultiChoosePicFragment> mChoosePicFragment;
         private boolean label = true;
-        private MyHandler(MultiChoosedPicFragment chooedPicFragment) {
-            this.mChooedPicFragment = new WeakReference<>(chooedPicFragment);
+        private MyHandler(MultiChoosePicFragment choosePicFragment) {
+            this.mChoosePicFragment = new WeakReference<>(choosePicFragment);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            MultiChoosedPicFragment fragment = mChooedPicFragment.get();
+            MultiChoosePicFragment fragment = mChoosePicFragment.get();
             if (fragment != null) {
                 super.handleMessage(msg);
-                if (msg.what == MultiChoosedPicAdapter.CHOOSE_OK) {
-                    int choosedPicNumber = (int) msg.obj;
-                    fragment.finishReviewToggle(choosedPicNumber,label,msg);
+                if (msg.what == MultiChoosePicAdapter.CHOOSE_OK) {
+                    int choosePicNumber = (int) msg.obj;
+                    fragment.finishReviewToggle(choosePicNumber,label,msg);
                 }
-                if (msg.what == MultiChoosedPicAdapter.ADD_PIC_OK) {
-                    int postion = (int) msg.obj;
-                    fragment.chooseImgPaths.add(fragment.mImgPaths.get(postion));
+                if (msg.what == MultiChoosePicAdapter.ADD_PIC_OK) {
+                    int position = (int) msg.obj;
+                    fragment.chooseImgPaths.add(fragment.mImgPaths.get(position));
                 }
-                if (msg.what == MultiChoosedPicAdapter.REMOVE_PIC_OK) {
+                if (msg.what == MultiChoosePicAdapter.REMOVE_PIC_OK) {
                     int position = (int) msg.obj;
                     fragment.chooseImgPaths.remove(fragment.mImgPaths.get(position));
                 }

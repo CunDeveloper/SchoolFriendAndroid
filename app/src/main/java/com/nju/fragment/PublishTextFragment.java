@@ -17,8 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
-import com.nju.adatper.EmotionPageAdater;
+import com.nju.adatper.EmotionPageAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequest;
@@ -48,6 +49,7 @@ public class PublishTextFragment extends BaseFragment {
     private String mLocation;
     private int mSlidePostion = 0;
     private ArrayList<View> mSlideCircleViews;
+    private SchoolFriendDialog mDialog;
 
     public static PublishTextFragment newInstance() {
         return new PublishTextFragment();
@@ -76,7 +78,7 @@ public class PublishTextFragment extends BaseFragment {
         mScrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
         mEmotionView = (TextView) view.findViewById(R.id.emotion_icon);
         mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
-        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(), TAG));
+        mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         initViewPagerListener();
         initOnGlobalListener();
         initFloaingBn();
@@ -173,18 +175,21 @@ public class PublishTextFragment extends BaseFragment {
 
         @Override
         public void onFail(Exception error) {
-
+            mDialog.dismiss();
         }
 
         @Override
         public void onSuccess(String responseBody) {
-
+            mDialog.dismiss();
         }
     };
     private void initSendEvent() {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
+                mDialog.show();
+                SoftInput.close(getContext(),mSendButton);
                 final String content = mContentEditText.getText().toString();
                 final String location = mLocationTextView.getText().toString();
                 HashMap<String,String> params = new HashMap<>();
@@ -253,7 +258,7 @@ public class PublishTextFragment extends BaseFragment {
                 } else  if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen){
                     label =true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
-                    if (Divice.isPhone()) {
+                    if (getHostActivity().isPhone()) {
                         mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight,50,Divice.getStatusBarHeight(getActivity())));
                     } else {
                         mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));

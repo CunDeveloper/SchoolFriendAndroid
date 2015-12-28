@@ -10,10 +10,10 @@ import com.nju.fragment.EmotionPagerFragment;
 /**
  * Created by xiaojuzhang on 2015/11/18.
  */
-public class EmotionPageAdater extends FragmentStatePagerAdapter {
+public class EmotionPageAdapter extends FragmentStatePagerAdapter {
 
     private static String TAG;
-    public EmotionPageAdater(FragmentManager fm,String tag) {
+    public EmotionPageAdapter(FragmentManager fm, String tag) {
         super(fm);
         TAG = tag;
     }

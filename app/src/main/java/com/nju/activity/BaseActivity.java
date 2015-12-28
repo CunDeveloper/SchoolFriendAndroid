@@ -15,14 +15,14 @@ import java.util.Stack;
 public abstract class BaseActivity extends AppCompatActivity implements FragmentHostActivity {
 
     private static final String TAG = BaseFragment.class.getSimpleName();
-    protected LocalStack<BaseFragment> mLocalBackstack = new LocalStack<>();
+    protected LocalStack<BaseFragment> mLocalBackStack = new LocalStack<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
     @Override
     public LocalStack<BaseFragment> getBackStack() {
-        return mLocalBackstack;
+        return mLocalBackStack;
     }
 
     @Override

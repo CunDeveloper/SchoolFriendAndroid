@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by xiaojuzhang on 2015/11/25.
  */
-public class MultiChoosedPicAdapter extends BaseAdapter {
+public class MultiChoosePicAdapter extends BaseAdapter {
 
     public static final int CHOOSE_OK = 0;
     public static final int ADD_PIC_OK = 10;
@@ -36,13 +36,13 @@ public class MultiChoosedPicAdapter extends BaseAdapter {
     private static final int TYPE_CAPTURE = 0;
     private static final  int TYPE_IMAGE = 1;
     private static final int TYPE_MAX_COUNT = TYPE_IMAGE + 1;
-    private static final String TAG = MultiChoosedPicAdapter.class.getSimpleName();
+    private static final String TAG = MultiChoosePicAdapter.class.getSimpleName();
     private ArrayList<Image> mImages;
     private AppCompatActivity mContext;
-    private int choosedPicNumber = 0;
+    private int choosePicNumber = 0;
     private Handler mHandler;
     private BaseFragment mFragment;
-    public MultiChoosedPicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler,BaseFragment fragment){
+    public MultiChoosePicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler, BaseFragment fragment){
         mContext = context;
         mImages = imgs;
         mHandler = handler;
@@ -88,27 +88,26 @@ public class MultiChoosedPicAdapter extends BaseAdapter {
                     holder.imageView = (ImageView) convertView.findViewById(R.id.choose_image_item_imageView);
                     final ViewHolder finalHolder1 = holder;
                     holder.imageView.setOnClickListener(new View.OnClickListener() {
-                        Message message;
                         @Override
                         public void onClick(View v) {
-                           mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.choosedReview)));
+                           mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.allPicsReview)));
                          }
                     });
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.choose_image_item_checkBox);
                     holder.checkBox.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (choosedPicNumber < IMAGE_SUM) {
+                            if (choosePicNumber < IMAGE_SUM) {
                                 if(finalHolder1.checkBox.isChecked()){
                                     finalHolder1.imageView.setAlpha(0.5f);
                                     finalHolder1.checkBox.setChecked(true);
-                                    choosedPicNumber = choosedPicNumber+1;
+                                    choosePicNumber = choosePicNumber +1;
                                     mHandler.sendMessage(addImgMessage(position));
                                 }
                                 else {
                                     finalHolder1.imageView.setAlpha(1.0f);
                                     finalHolder1.checkBox.setChecked(false);
-                                    choosedPicNumber = choosedPicNumber-1;
+                                    choosePicNumber = choosePicNumber -1;
                                     mHandler.sendMessage(removeImgMessage(position));
                                 }
                                 mHandler.sendMessage(sendChoiceMessage());
@@ -117,7 +116,7 @@ public class MultiChoosedPicAdapter extends BaseAdapter {
                                 if(!finalHolder1.checkBox.isChecked()){
                                     finalHolder1.imageView.setAlpha(1.0f);
                                     finalHolder1.checkBox.setChecked(false);
-                                    choosedPicNumber = choosedPicNumber-1;
+                                    choosePicNumber = choosePicNumber -1;
                                     mHandler.sendMessage(sendChoiceMessage());
                                     mHandler.sendMessage(removeImgMessage(position));
                                 }
@@ -160,7 +159,7 @@ public class MultiChoosedPicAdapter extends BaseAdapter {
     private Message sendChoiceMessage() {
         Message message = new Message();
         message.what = CHOOSE_OK;
-        message.obj = choosedPicNumber;
+        message.obj = choosePicNumber;
         return  message;
     }
 

@@ -3,18 +3,12 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.nju.View.CustomViewPager;
 import com.nju.activity.R;
-import com.nju.adatper.ChoosedOriginPicViewPagerAdapter;
+import com.nju.adatper.ChooseOriginPicViewPagerAdapter;
 import com.nju.model.Image;
 
 import java.util.ArrayList;
@@ -54,7 +48,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
-        mViewPager.setAdapter(new ChoosedOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
+        mViewPager.setAdapter(new ChooseOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
         mViewPager.setCurrentItem(mPostion);
         initViewPagerSlideListener();
         return mViewPager;

@@ -3,8 +3,7 @@ package com.nju.http.request;
 import com.nju.http.RequestRunnable;
 import com.nju.http.ResponseCallback;
 import com.nju.http.SchoolFriendHttp;
-import com.nju.model.BitmaWrapper;
-import com.nju.model.Image;
+import com.nju.model.BitmapWrapper;
 import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
@@ -19,13 +18,13 @@ public class MultiImgRequest extends RequestRunnable {
     private final HashMap<String,String> mParams;
     private final String mUrl;
     private final Request.Builder mBuilder;
-    private final ArrayList<BitmaWrapper> mBitmapWrapers;
+    private final ArrayList<BitmapWrapper> mBitmapWrapers;
 
-    public MultiImgRequest(String url, HashMap<String, String> params, ArrayList<BitmaWrapper> bitmaWrappers, ResponseCallback callback){
+    public MultiImgRequest(String url, HashMap<String, String> params, ArrayList<BitmapWrapper> bitmapWrappers, ResponseCallback callback){
         mCallback = callback;
         mParams = params;
         mUrl = url;
-        mBitmapWrapers = bitmaWrappers;
+        mBitmapWrapers = bitmapWrappers;
         mBuilder = new Request.Builder().tag(TAG);
     }
     @Override

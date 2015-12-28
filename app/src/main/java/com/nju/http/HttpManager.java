@@ -1,16 +1,14 @@
 package com.nju.http;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.nju.http.request.CompressRequest;
-import com.nju.model.BitmaWrapper;
+import com.nju.model.BitmapWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -57,15 +55,15 @@ public class HttpManager {
 
     }
 
-    public ArrayList<BitmaWrapper> compressBitmap(Context context,ArrayList<BitmaWrapper> bitmaWrappers) {
-        ArrayList<BitmaWrapper> bitmaps = new ArrayList<>();
+    public ArrayList<BitmapWrapper> compressBitmap(Context context,ArrayList<BitmapWrapper> bitmapWrappers) {
+        ArrayList<BitmapWrapper> bitmaps = new ArrayList<>();
         ArrayList<CompressRequest> compressRequests = new ArrayList<>();
-        for (BitmaWrapper bitmaWrapper:bitmaWrappers) {
-            compressRequests.add(new CompressRequest(context,bitmaWrapper));
+        for (BitmapWrapper bitmapWrapper : bitmapWrappers) {
+            compressRequests.add(new CompressRequest(context, bitmapWrapper));
         }
         try {
-            List<Future<BitmaWrapper>> futures =mDownloadThreadPool.invokeAll(compressRequests);
-            for (Future<BitmaWrapper> future:futures){
+            List<Future<BitmapWrapper>> futures =mDownloadThreadPool.invokeAll(compressRequests);
+            for (Future<BitmapWrapper> future:futures){
                 bitmaps.add(future.get());
             }
         } catch (Exception e) {

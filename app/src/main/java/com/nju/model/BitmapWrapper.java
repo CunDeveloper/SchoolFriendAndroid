@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 /**
  * Created by xiaojuzhang on 2015/12/18.
  */
-public class BitmaWrapper {
+public class BitmapWrapper {
     private String path;
     private String fileName;
     private String fileType;

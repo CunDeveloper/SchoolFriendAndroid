@@ -15,7 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.adatper.EmotionPageAdater;
+import com.nju.adatper.EmotionPageAdapter;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
@@ -75,7 +75,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         mEmoijTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
         mEmoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
-        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(), TAG));
+        mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         mSchoolFriendLayoutParams = new SchoolFriendLayoutParams(getContext());
         bottom_height =  (int) Divice.convertDpToPixel(INPUT_HEIGHT_PHONE,getContext())+Divice.getStatusBarHeight(getActivity());
         mInputLayout.setVisibility(View.VISIBLE);
@@ -145,7 +145,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
                 } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
-                    if (Divice.isPhone()) {
+                    if (getHostActivity().isPhone()) {
                         mScrollView.setLayoutParams(mSchoolFriendLayoutParams.softInputParams(subHeight, INPUT_HEIGHT_PHONE, Divice.getStatusBarHeight(getActivity())));
                     } else {
                         mScrollView.setLayoutParams(mSchoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));

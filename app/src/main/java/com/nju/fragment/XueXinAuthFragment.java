@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,8 +37,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class XueXinAuthFragmet extends BaseFragment {
-    public static final String TAG = XueXinAuthFragmet.class.getSimpleName();
+public class XueXinAuthFragment extends BaseFragment {
+    public static final String TAG = XueXinAuthFragment.class.getSimpleName();
     private static final int ERROR_USER_PASS = 0;
     private static final int USERNAME_EMPTY = 1;
     private static final int PASSWORD_EMPTY = 2;
@@ -54,11 +53,11 @@ public class XueXinAuthFragmet extends BaseFragment {
     private PostRequest request = new PostRequest();
     private  Handler handler = new MyHandler(this);
 
-    public static XueXinAuthFragmet newInstance() {
-        return new XueXinAuthFragmet();
+    public static XueXinAuthFragment newInstance() {
+        return new XueXinAuthFragment();
     }
 
-    public XueXinAuthFragmet() {
+    public XueXinAuthFragment() {
         // Required empty public constructor
     }
 
@@ -255,15 +254,15 @@ public class XueXinAuthFragmet extends BaseFragment {
 
     private static class MyHandler extends  Handler {
 
-        private final WeakReference<XueXinAuthFragmet> mXueXinAuthFragment;
+        private final WeakReference<XueXinAuthFragment> mXueXinAuthFragment;
 
-        private MyHandler(XueXinAuthFragmet xueXinAuthFragmet) {
-            this.mXueXinAuthFragment = new WeakReference<>(xueXinAuthFragmet);
+        private MyHandler(XueXinAuthFragment xueXinAuthFragment) {
+            this.mXueXinAuthFragment = new WeakReference<>(xueXinAuthFragment);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            XueXinAuthFragmet fragment = mXueXinAuthFragment.get();
+            XueXinAuthFragment fragment = mXueXinAuthFragment.get();
             if (fragment != null) {
                 super.handleMessage(msg);
                 if(msg.what == ERROR_USER_PASS) {

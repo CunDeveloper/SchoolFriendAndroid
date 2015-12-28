@@ -115,7 +115,7 @@ public class FriendContentAdapter extends BaseAdapter {
             });
 
             SchoolFriendLayoutParams contentLayoutParams = new SchoolFriendLayoutParams(mContext);
-            if(!Divice.isPhone()){
+            if(!mFragment.getHostActivity().isPhone()){
                 holder.mParams = contentLayoutParams.imgParams();
             }else{
                 Resources resources = mContext.getResources();

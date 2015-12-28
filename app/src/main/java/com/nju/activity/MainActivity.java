@@ -1,7 +1,6 @@
 package com.nju.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -28,7 +27,7 @@ import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.WebViewFragment;
-import com.nju.fragment.XueXinAuthFragmet;
+import com.nju.fragment.XueXinAuthFragment;
 import com.nju.util.Divice;
 
 
@@ -42,6 +41,7 @@ public class MainActivity extends BaseActivity {
     private ImageView mMenuCameraView;
     private ImageView mMenuDeleteView;
     private LinearLayout mNoActionBarLinearLayout;
+    private static boolean isPhone;
     private static final String FINAL_TAG = "final_tag";
     int fragmentIndex = 0;
     @Override
@@ -61,13 +61,14 @@ public class MainActivity extends BaseActivity {
                     , mCoorDinatorLayout.getPaddingRight(), mCoorDinatorLayout.getBottom());
         }
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        isPhone = getResources().getBoolean(R.bool.large_layout);
         String username = getSharedPreferences(getString(R.string.shared_file_name), Context.MODE_PRIVATE).
                 getString(getString(R.string.username), getString(R.string.visitor));
         View headerView = mNavigationView.inflateHeaderView(R.layout.nav_header);
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
         initNavigationViewListener();
-        XueXinAuthFragmet fragment = XueXinAuthFragmet.newInstance();
+        XueXinAuthFragment fragment = XueXinAuthFragment.newInstance();
         open(fragment,true,fragment);
         initDataBase();
     }
@@ -109,13 +110,13 @@ public class MainActivity extends BaseActivity {
 
 
     private void initFinalValue() {
-        final int diviceWidth = Divice.getDisplayWidth(this);
-        final int diviceHeight = Divice.getDisplayHeight(this);
-        final int visiDiviceHeight = diviceHeight -(int)( Divice.convertDpToPixel(mToolBar.getHeight(),this)
+        final int deviceWidth = Divice.getDisplayWidth(this);
+        final int deviceHeight = Divice.getDisplayHeight(this);
+        final int visibleDeviceHeight = deviceHeight -(int)( Divice.convertDpToPixel(mToolBar.getHeight(),this)
                         +Divice.getStatusBarHeight(this));
-        getSharedPreferences().edit().putInt(getString(R.string.diviceWidth),diviceWidth).commit();
-        getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), diviceHeight);
-        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight),visiDiviceHeight);
+        getSharedPreferences().edit().putInt(getString(R.string.diviceWidth),deviceWidth).commit();
+        getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight);
+        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight),visibleDeviceHeight);
     }
 
     @Override
@@ -150,11 +151,11 @@ public class MainActivity extends BaseActivity {
             clearBackStack();
         }
         ft.replace(R.id.container, fragment);
-        mLocalBackstack.push(fragment);
+        mLocalBackStack.push(fragment);
         ft.commitAllowingStateLoss();
         fragmentIndex++;
         if (fragmentToRemove != null) {
-            mLocalBackstack.remove(fragmentToRemove);
+            mLocalBackStack.remove(fragmentToRemove);
         }
 
     }
@@ -204,23 +205,28 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public boolean isPhone() {
+        return isPhone;
+    }
+
+    @Override
     public void onBackPressed() {
-        if (mLocalBackstack.isEmpty() || (mLocalBackstack.size() == 1)) {
+        if (mLocalBackStack.isEmpty() || (mLocalBackStack.size() == 1)) {
             finish();
             return;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (mLocalBackstack.size() >=2) {
-            mLocalBackstack.pop();
+        if (mLocalBackStack.size() >=2) {
+            mLocalBackStack.pop();
         }
-        ft.replace(R.id.container,mLocalBackstack.peek());
+        ft.replace(R.id.container,mLocalBackStack.peek());
         ft.commit();
     }
 
     private void clearBackStack() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        while (mLocalBackstack.size() > 1) {
-            BaseFragment removeThis = mLocalBackstack.pop();
+        while (mLocalBackStack.size() > 1) {
+            BaseFragment removeThis = mLocalBackStack.pop();
             ft.remove(removeThis).commit();
             Log.d(TAG, "Removing " + removeThis.getTag() + " (" + removeThis.getClass().getSimpleName() + ")");
         }

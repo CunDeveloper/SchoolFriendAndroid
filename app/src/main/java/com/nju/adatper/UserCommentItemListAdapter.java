@@ -31,7 +31,7 @@ public class UserCommentItemListAdapter extends BaseAdapter {
     private Handler mHandler;
     private ListPopupWindow mPopupWindow;
     private ListView mListView;
-    private Dictionary<Integer, Integer> listViewItemHeights = new Hashtable<Integer, Integer>();
+    private Dictionary<Integer, Integer> listViewItemHeights = new Hashtable<>();
     public UserCommentItemListAdapter(Context context,int position,List<FriendWeibo> weibos,Handler handler,ListPopupWindow listPopupWindow,ListView listView) {
         mContext = context;
         mPosition = position;

@@ -3,10 +3,8 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,10 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nju.activity.R;
-import com.nju.adatper.EmotionPageAdater;
+import com.nju.adatper.EmotionPageAdapter;
 import com.nju.adatper.FriendContentAdapter;
 import com.nju.model.Comment;
 import com.nju.model.FriendWeibo;
@@ -104,7 +101,7 @@ public class AlumniCircleFragment extends BaseFragment {
         mFriendContentAdapter = new FriendContentAdapter(weibos,getActivity(),mHandler,mListView,this);
         mListView.setAdapter(mFriendContentAdapter);
         mListView.setPadding(mListView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mListView.getPaddingRight(), mListView.getPaddingBottom());
-        mViewPager.setAdapter(new EmotionPageAdater(getFragmentManager(), TAG));
+        mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         initOnGlobalListener();
         initSendListener();
         initEmoijTextViewEvent();
@@ -241,7 +238,7 @@ public class AlumniCircleFragment extends BaseFragment {
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MultiChoosedPicFragment.newInstance());
+                getHostActivity().open(MultiChoosePicFragment.newInstance());
             }
         });
         mCameraImageView.setOnLongClickListener(new View.OnLongClickListener() {
