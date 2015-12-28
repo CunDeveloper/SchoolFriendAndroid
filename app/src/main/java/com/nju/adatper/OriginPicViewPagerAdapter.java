@@ -14,21 +14,19 @@ import java.util.ArrayList;
  */
 public class OriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<Image> mImgs;
-    public OriginPicViewPagerAdapter(FragmentManager fm,ArrayList<Image> imgs) {
+    private ArrayList<Image> mImages;
+    public OriginPicViewPagerAdapter(FragmentManager fm,ArrayList<Image> images) {
         super(fm);
-        mImgs = imgs;
-
+        mImages = images;
     }
 
     @Override
     public Fragment getItem(int position) {
-        OriginPicsViewFragment fragment = OriginPicsViewFragment.newInstance(mImgs.get(position).getData());
-        return fragment;
+        return OriginPicsViewFragment.newInstance(mImages.get(position).getData());
     }
 
     @Override
     public int getCount() {
-        return mImgs.size();
+        return mImages.size();
     }
 }

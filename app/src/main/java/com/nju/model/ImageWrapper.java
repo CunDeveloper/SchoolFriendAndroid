@@ -8,7 +8,6 @@ import android.os.Parcelable;
  * Created by xiaojuzhang on 2015/12/28.
  */
 public class ImageWrapper implements Parcelable {
-
     private Bitmap bitmap;
     private String path;
 

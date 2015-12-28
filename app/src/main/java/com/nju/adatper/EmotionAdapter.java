@@ -1,39 +1,35 @@
 package com.nju.adatper;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.util.Divice;
 
 import java.util.List;
 
 /**
  * Created by xiaojuzhang on 2015/11/17.
  */
-public class EmotionAdatper extends BaseAdapter {
-
-    private List<String> emotions;
+public class EmotionAdapter extends BaseAdapter {
+    private List<String> mEmotions;
     private Context mContext;
-    public EmotionAdatper(List<String> emotions, Context context) {
-        this.emotions = emotions;
+
+    public EmotionAdapter(List<String> mEmotions, Context context) {
+        this.mEmotions = mEmotions;
         this.mContext = context;
     }
     @Override
     public int getCount() {
-        return emotions.size();
+        return mEmotions.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return emotions.get(position);
+        return mEmotions.get(position);
     }
 
     @Override
@@ -53,7 +49,7 @@ public class EmotionAdatper extends BaseAdapter {
         else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.textView.setText(emotions.get(position));
+        viewHolder.textView.setText(mEmotions.get(position));
          return convertView;
     }
     private class ViewHolder {

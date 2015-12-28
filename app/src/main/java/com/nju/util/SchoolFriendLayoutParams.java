@@ -107,8 +107,7 @@ public class SchoolFriendLayoutParams {
 
     public FrameLayout.LayoutParams softInputParamsFrame(int subHeight,int bottomViewHeight){
         int scrollWidth = subHeight - (int) Divice.convertDpToPixel(bottomViewHeight,mContext);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
-        return params;
+        return new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollWidth);
     }
 
     public LinearLayout.LayoutParams softInputParams1(int subHeight,int bottomViewHeight){

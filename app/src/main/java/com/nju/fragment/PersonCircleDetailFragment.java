@@ -34,12 +34,12 @@ public class PersonCircleDetailFragment extends BaseFragment {
     private boolean label = true;
     private ScrollView mScrollView;
     private SchoolFriendLayoutParams mSchoolFriendLayoutParams;
-    private TextView mEmoijTextView;
+    private TextView mEmotionTextView;
     private boolean isEmotionOpen = true;
     private LinearLayout mEmoLineLayout;
     private ViewPager mViewPager;
     private ArrayList<View> mSlideCircleViews;
-    private int mSlidePostion = 0;
+    private int mSlidePosition = 0;
     private static final int INPUT_HEIGHT_PHONE = 60;
     private  int bottom_height;
 
@@ -72,7 +72,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         mInputLayout = (RelativeLayout) view.findViewById(R.id.activity_school_friend_input_layout);
         mMainLayout = (LinearLayout) view.findViewById(R.id.fragment_person_circle_detail_main_layout);
         mScrollView = (ScrollView) view.findViewById(R.id.fragment_person_circle_detail_scrollview);
-        mEmoijTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
+        mEmotionTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
         mEmoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
         mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
@@ -82,7 +82,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         initView(view);
         initSlideCircleViews(view);
         initOnGlobalListener();
-        initEmoijTextViewEvent();
+        initEmotionTextViewEvent();
         initViewPageScrollListener();
         return view;
     }
@@ -121,9 +121,9 @@ public class PersonCircleDetailFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
-                mSlidePostion = position;
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
+                mSlidePosition = position;
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
             }
 
             @Override
@@ -156,17 +156,17 @@ public class PersonCircleDetailFragment extends BaseFragment {
         });
     }
 
-    private void initEmoijTextViewEvent() {
-        mEmoijTextView.setOnTouchListener(new View.OnTouchListener() {
+    private void initEmotionTextViewEvent() {
+        mEmotionTextView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                    mEmoijTextView.setText(getString(R.string.keyboard));
-                    SoftInput.close(getActivity(), mEmoijTextView);
+                    mEmotionTextView.setText(getString(R.string.keyboard));
+                    SoftInput.close(getActivity(), mEmotionTextView);
                     isEmotionOpen = false;
                     label = false;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    mEmoijTextView.setText(getString(R.string.smile));
+                    mEmotionTextView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
                     label = false;

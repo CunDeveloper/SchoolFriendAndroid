@@ -7,9 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 
-import com.nju.View.CustomImageVIew;
 import com.nju.View.SchoolFriendTextView;
 import com.nju.activity.R;
 
@@ -21,15 +19,15 @@ import model.Content;
 public class PersonCircleDetailPicFragment extends BaseFragment {
     private static final String TAG = PersonCircleDetailPicFragment.class.getSimpleName();
     private static final String CONTENT_PARAM = "content_param";
-    private static final String POSTION_PARAM = "position";
+    private static final String POSITION_PARAM = "position";
     private ArrayList<Content> mContents;
-    private int mPostion;
+    private int mPosition;
 
     public static PersonCircleDetailPicFragment newInstance(ArrayList<Content> contents,int position) {
         PersonCircleDetailPicFragment fragment = new PersonCircleDetailPicFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(CONTENT_PARAM,contents);
-        args.putInt(POSTION_PARAM,position);
+        args.putInt(POSITION_PARAM,position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +41,7 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mContents = getArguments().getParcelableArrayList(CONTENT_PARAM);
-            mPostion = getArguments().getInt(POSTION_PARAM);
+            mPosition = getArguments().getInt(POSITION_PARAM);
         }
     }
 

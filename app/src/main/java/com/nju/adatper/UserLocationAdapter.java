@@ -16,11 +16,11 @@ import java.util.List;
  */
 public class UserLocationAdapter extends BaseAdapter {
 
-    private List<LocationInfo> mInfolist;
+    private List<LocationInfo> mInfoList;
     private Context mContext;
 
     public UserLocationAdapter(List<LocationInfo> list,Context context) {
-        mInfolist = list;
+        mInfoList = list;
         mContext = context;
     }
     @Override
@@ -36,12 +36,12 @@ public class UserLocationAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return mInfolist.size();
+        return mInfoList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mInfolist.get(position);
+        return mInfoList.get(position);
     }
 
     @Override
@@ -64,9 +64,9 @@ public class UserLocationAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.nameView.setText(mInfolist.get(position).getLocatName());
-        holder.addressView.setText(mInfolist.get(position).getAddress());
-        holder.imageView.setImageDrawable(mInfolist.get(position).getSelectBg());
+        holder.nameView.setText(mInfoList.get(position).getLocationName());
+        holder.addressView.setText(mInfoList.get(position).getAddress());
+        holder.imageView.setImageDrawable(mInfoList.get(position).getSelectBg());
         return convertView;
     }
 

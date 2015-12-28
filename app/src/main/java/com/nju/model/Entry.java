@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Entry {
 
     private String bigLabel;
-    private String samllLabel;
+    private String smallLabel;
     private Drawable drawable;
     private ArrayList<Entry> childItems;
     public String getBigLabel() {
@@ -21,12 +21,12 @@ public class Entry {
         this.bigLabel = bigLabel;
     }
 
-    public String getSamllLabel() {
-        return samllLabel;
+    public String getSmallLabel() {
+        return smallLabel;
     }
 
-    public void setSamllLabel(String samllLabel) {
-        this.samllLabel = samllLabel;
+    public void setSmallLabel(String smallLabel) {
+        this.smallLabel = smallLabel;
     }
 
     public ArrayList<Entry> getChildItems() {

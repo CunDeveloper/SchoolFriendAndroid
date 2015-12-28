@@ -4,8 +4,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +36,7 @@ public class WhoScanFragment extends BaseFragment {
     public static final String TAG = WhoScanFragment.class.getSimpleName();
     private ExpandableListView mExpandableListView;
     private WhoScanListAdapter mAdapter;
-    private int choosedPosition;
+    private int mChoosePosition;
     private Button mFinishBn;
     public static WhoScanFragment newInstance( ) {
         WhoScanFragment fragment = new WhoScanFragment();
@@ -64,9 +62,9 @@ public class WhoScanFragment extends BaseFragment {
         mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                labelInfo.get(choosedPosition).setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
-                choosedPosition = groupPosition;
-                labelInfo.get(choosedPosition).setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
+                labelInfo.get(mChoosePosition).setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                mChoosePosition = groupPosition;
+                labelInfo.get(mChoosePosition).setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
                 return false;
             }
         });
@@ -95,9 +93,9 @@ public class WhoScanFragment extends BaseFragment {
         for (int i =0;i<bigLabel.length;i++) {
             entry = new Entry();
             entry.setBigLabel(bigLabel[i]);
-            entry.setSamllLabel(smallLabel[i]);
+            entry.setSmallLabel(smallLabel[i]);
             if(i == 0){
-                choosedPosition = 0;
+                mChoosePosition = 0;
                 entry.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
             }
             else{
@@ -113,7 +111,7 @@ public class WhoScanFragment extends BaseFragment {
                 for (int j =1;j<=size;j++){
                     childEntry = new Entry();
                     childEntry.setBigLabel(sharedPreferences.getString(getString(R.string.school)+j,""));
-                    childEntry.setSamllLabel(sharedPreferences.getString(getString(R.string.xueyuan)+j,""));
+                    childEntry.setSmallLabel(sharedPreferences.getString(getString(R.string.xueyuan) + j, ""));
                     childList.add(childEntry);
                 }
                 childEntry = new Entry();
@@ -135,7 +133,7 @@ public class WhoScanFragment extends BaseFragment {
         protected void onPostExecute(ArrayList<WhoScan> whoScans) {
             super.onPostExecute(whoScans);
             for (WhoScan whoScan:whoScans) {
-                Log.e(TAG,whoScan.getBigLabel()+"=="+whoScan.getChoosedLabel()+"=="+whoScan.getSmallLabel());
+                Log.e(TAG,whoScan.getBigLabel()+"=="+whoScan.getChooseLabel()+"=="+whoScan.getSmallLabel());
                 for (WhoScan.ChildItem childItem:whoScan.getChildItems()) {
                     Log.e(TAG,childItem.getChildBigLabel()+"=="+childItem.getChildSmallLabel());
                 }
@@ -192,7 +190,7 @@ public class WhoScanFragment extends BaseFragment {
                             break;
                         }
                         case "drwable":{
-                            whoScan.setChoosedLabel(node1.getTextContent());
+                            whoScan.setChooseLabel(node1.getTextContent());
                             break;
                         }
                         case "child":{

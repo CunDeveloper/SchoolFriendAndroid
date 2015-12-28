@@ -6,17 +6,16 @@ import android.graphics.drawable.Drawable;
  * Created by xiaojuzhang on 2015/11/19.
  */
 public class LocationInfo {
-
-    private String locatName;
+    private String locationName;
     private String address;
     private double distance;
     private Drawable selectBg;
-    public String getLocatName() {
-        return locatName;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setLocatName(String locatName) {
-        this.locatName = locatName;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     public String getAddress() {

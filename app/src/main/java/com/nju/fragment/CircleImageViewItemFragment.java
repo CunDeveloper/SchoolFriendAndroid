@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.nju.View.CustomImageVIew;
+import com.nju.View.CustomImageView;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 
@@ -21,7 +21,7 @@ public class CircleImageViewItemFragment extends Fragment {
 
     private static final String BITMAP = "bitmap";
     private Bitmap mBitmap;
-    private CustomImageVIew mCustomImageView;
+    private CustomImageView mCustomImageView;
     private static String[]  dialog_items ;
     public static CircleImageViewItemFragment newInstance(Bitmap bitmap) {
         CircleImageViewItemFragment fragment = new CircleImageViewItemFragment();
@@ -37,7 +37,7 @@ public class CircleImageViewItemFragment extends Fragment {
     SchoolFriendDialog.ListItemCallback callback = new SchoolFriendDialog.ListItemCallback() {
         @Override
         public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-            Toast.makeText(getContext(),"CANGCHANG",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"test",Toast.LENGTH_LONG).show();
         }
     };
 
@@ -57,7 +57,7 @@ public class CircleImageViewItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_circle_image_view_item, container, false);
-        mCustomImageView = (CustomImageVIew) view.findViewById(R.id.fragment_circle_image_view_item_iamge);
+        mCustomImageView = (CustomImageView) view.findViewById(R.id.fragment_circle_image_view_item_iamge);
         mCustomImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

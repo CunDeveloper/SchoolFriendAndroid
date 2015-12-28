@@ -22,7 +22,7 @@ import javax.mail.internet.MimeMessage;
  * Created by xiaojuzhang on 2015/12/3.
  */
 public class GMailSender extends Authenticator {
-    private String mailhost = "smtp.163.com";
+    private String mailHost = "smtp.163.com";
     private String user;
     private String password;
     private Session session;
@@ -37,7 +37,7 @@ public class GMailSender extends Authenticator {
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.host", mailhost);
+        props.setProperty("mail.host", mailHost);
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
         props.put("mail.smtp.socketFactory.port", "465");

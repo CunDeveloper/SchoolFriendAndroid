@@ -113,7 +113,7 @@ public class PersonCircleFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        HashMap<String,String> paras = new HashMap<String,String>();
+        HashMap<String,String> paras = new HashMap<>();
         paras.put(Constant.USER_ID,String.valueOf(51));
         paras.put(Constant.LABEL,Constant.QUERY_ALL);
         HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,paras,callback,TAG));
@@ -146,6 +146,4 @@ public class PersonCircleFragment extends BaseFragment {
         getHostActivity().hideAllMenuView();
         getHostActivity().getToolBar().setTitle(mUserName);
     }
-
-
 }

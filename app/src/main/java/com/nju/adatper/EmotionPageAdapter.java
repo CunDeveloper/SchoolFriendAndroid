@@ -11,8 +11,8 @@ import com.nju.fragment.EmotionPagerFragment;
  * Created by xiaojuzhang on 2015/11/18.
  */
 public class EmotionPageAdapter extends FragmentStatePagerAdapter {
-
     private static String TAG;
+
     public EmotionPageAdapter(FragmentManager fm, String tag) {
         super(fm);
         TAG = tag;
@@ -20,8 +20,7 @@ public class EmotionPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = EmotionPagerFragment.newInstance(position,TAG);
-        return fragment;
+        return EmotionPagerFragment.newInstance(position,TAG);
     }
 
     @Override

@@ -13,25 +13,25 @@ import com.nju.model.Image;
 
 import java.util.ArrayList;
 
-public class ChoosedImageViewFragment extends BaseFragment {
+public class ChooseImageViewFragment extends BaseFragment {
 
     private static  final String IMG_PATH = "img_path";
     private static final String POSITION = "position";
-    public static final String TAG = ChoosedImageViewFragment.class.getSimpleName();
+    public static final String TAG = ChooseImageViewFragment.class.getSimpleName();
     private ArrayList<Image> mImgPaths;
     private ViewPager mViewPager;
-    private int mPostion;
+    private int mPosition;
     private ActionBar mActionBar;
-    public static ChoosedImageViewFragment newInstance(ArrayList<Image> imgPaths,int postion) {
-        ChoosedImageViewFragment fragment = new ChoosedImageViewFragment();
+    public static ChooseImageViewFragment newInstance(ArrayList<Image> imgPaths,int position) {
+        ChooseImageViewFragment fragment = new ChooseImageViewFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(IMG_PATH,imgPaths);
-        args.putInt(POSITION,postion);
+        args.putInt(POSITION,position);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public ChoosedImageViewFragment() {
+    public ChooseImageViewFragment() {
 
     }
 
@@ -40,7 +40,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mImgPaths =getArguments().getParcelableArrayList(IMG_PATH);
-            mPostion = getArguments().getInt(POSITION);
+            mPosition = getArguments().getInt(POSITION);
         }
     }
 
@@ -49,7 +49,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
         mViewPager.setAdapter(new ChooseOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
-        mViewPager.setCurrentItem(mPostion);
+        mViewPager.setCurrentItem(mPosition);
         initViewPagerSlideListener();
         return mViewPager;
     }
@@ -57,7 +57,7 @@ public class ChoosedImageViewFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getHostActivity().getToolBar().setTitle((mPostion + 1) + "/" + mImgPaths.size());
+        getHostActivity().getToolBar().setTitle((mPosition + 1) + "/" + mImgPaths.size());
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
         getHostActivity().getMenuDeleteView().setVisibility(View.VISIBLE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);

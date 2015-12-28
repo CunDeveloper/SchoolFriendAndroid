@@ -19,14 +19,12 @@ public class SchoolFriendDialog extends MaterialDialog {
 
     public static SchoolFriendDialog showProgressDialog(final Context context,final String title,final String content) {
         Builder builder = new Builder(context).title(title).content(content).progress(true,0);
-        SchoolFriendDialog testDialog = new SchoolFriendDialog(builder);
-        return testDialog;
+        return new SchoolFriendDialog(builder);
     }
 
     public static SchoolFriendDialog showProgressDialogNoTitle(final Context context,final String content) {
         Builder builder = new Builder(context).content(content).contentColor(ContextCompat.getColor(context,android.R.color.black)).progress(true, 0);
-        SchoolFriendDialog testDialog = new SchoolFriendDialog(builder);
-        return testDialog;
+        return new SchoolFriendDialog(builder);
     }
 
     public static SchoolFriendDialog exitReminderDialog(final Activity context,String title) {
@@ -40,16 +38,14 @@ public class SchoolFriendDialog extends MaterialDialog {
                 context.finish();
             }
         });
-        SchoolFriendDialog testDialog = new SchoolFriendDialog(builder);
-        return testDialog;
+        return new SchoolFriendDialog(builder);
     }
 
     public static SchoolFriendDialog listDialog(final Context context,final String[] itmes,final ListItemCallback listCallback){
         Builder builder = new Builder(context)
                 .items(itmes)
                 .itemsCallback(listCallback);
-        SchoolFriendDialog dialog = new SchoolFriendDialog(builder);
-        return dialog;
+        return new SchoolFriendDialog(builder);
     }
 
     public static abstract class ListItemCallback implements ListCallback {

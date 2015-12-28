@@ -18,6 +18,7 @@ import java.util.List;
 public class UserCommentListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Comment> mList;
+
     public UserCommentListAdapter(Context context,List<Comment> list) {
         mContext = context;
         mList = list;
@@ -40,8 +41,8 @@ public class UserCommentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null ;
-        if (viewHolder == null) {
+        ViewHolder viewHolder;
+        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment_list,parent,false);
             viewHolder = new ViewHolder();
             viewHolder.mContentTV = (TextView) convertView.findViewById(R.id.user_comment_list_text);

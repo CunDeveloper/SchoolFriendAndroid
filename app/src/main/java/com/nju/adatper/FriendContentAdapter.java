@@ -3,7 +3,6 @@ package com.nju.adatper;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
@@ -24,7 +22,6 @@ import com.nju.model.FriendWeibo;
 import com.nju.model.User;
 import com.nju.util.CommentPopupWindow;
 
-import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 
 import java.util.ArrayList;
@@ -37,13 +34,13 @@ import java.util.List;
 public class FriendContentAdapter extends BaseAdapter {
 
     private static final String TAG = FriendContentAdapter.class.getSimpleName();
-    private List<FriendWeibo> mWeibolist;
+    private List<FriendWeibo> mWeiBelist;
     private Context mContext;
     private Handler mHandler;
     private ListView mListView;
     private BaseFragment mFragment;
     public FriendContentAdapter(List<FriendWeibo> list, Context context,Handler handler,ListView listView,BaseFragment fragment) {
-        mWeibolist = list;
+        mWeiBelist = list;
         mContext = context;
         mHandler = handler;
         mListView = listView;
@@ -62,12 +59,12 @@ public class FriendContentAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return mWeibolist.size();
+        return mWeiBelist.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mWeibolist.get(position);
+        return mWeiBelist.get(position);
     }
 
     @Override
@@ -86,7 +83,7 @@ public class FriendContentAdapter extends BaseAdapter {
             holder.headImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mFragment.getHostActivity().open(PersonCircleFragment.newInstance(mWeibolist.get(position).getUser().getName()));
+                    mFragment.getHostActivity().open(PersonCircleFragment.newInstance(mWeiBelist.get(position).getUser().getName()));
                 }
             });
             holder.mUserNameTextView = (TextView) convertView.findViewById(R.id.school_friend_item_name_text);
@@ -99,7 +96,7 @@ public class FriendContentAdapter extends BaseAdapter {
             holder.mPraiseUserTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mFragment.getHostActivity().open(PersonCircleFragment.newInstance(mWeibolist.get(position).getPraiseUserName()));
+                    mFragment.getHostActivity().open(PersonCircleFragment.newInstance(mWeiBelist.get(position).getPraiseUserName()));
                 }
             });
             holder.imageViewList = new ArrayList<>();
@@ -109,7 +106,7 @@ public class FriendContentAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext, imageView);
-                    listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext, position, mWeibolist, mHandler, listPopupWindow,mListView));
+                    listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext, position, mWeiBelist, mHandler, listPopupWindow,mListView));
                     listPopupWindow.show();
                 }
             });
@@ -162,7 +159,7 @@ public class FriendContentAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
-        FriendWeibo friendWeibo = mWeibolist.get(position);
+        FriendWeibo friendWeibo = mWeiBelist.get(position);
         holder.mContentTextView.setText(friendWeibo.getContent());
         holder.headImg.setImageDrawable(friendWeibo.getHeadIcon());
         User user = friendWeibo.getUser();

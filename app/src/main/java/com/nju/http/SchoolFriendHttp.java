@@ -88,7 +88,7 @@ public class SchoolFriendHttp {
      * @param url
      * @param callback
      */
-    public  void AsynGet(final String url,final ResponseCallback callback) {
+    public  void AsyncGet(final String url, final ResponseCallback callback) {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -96,7 +96,7 @@ public class SchoolFriendHttp {
         mClient.newCall(request).enqueue(callback);
     }
 
-    public  void AsynPost(final Request.Builder builder,final String url,final HashMap<String,String> params,final Callback callback) {
+    public  void AsyncPost(final Request.Builder builder, final String url, final HashMap<String, String> params, final Callback callback) {
         final FormEncodingBuilder formBuilder = new FormEncodingBuilder();
         for (Map.Entry<String,String> entry:params.entrySet()) {
             formBuilder.add(entry.getKey(),entry.getValue());
@@ -196,7 +196,6 @@ public class SchoolFriendHttp {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] b = baos.toByteArray();
-
             multipartBuilder.addFormDataPart(FILE, bitmapWrapper.getFileName(), RequestBody.create(MediaType.parse(bitmapWrapper.getFileType()),b));
         }
         Request request = builder

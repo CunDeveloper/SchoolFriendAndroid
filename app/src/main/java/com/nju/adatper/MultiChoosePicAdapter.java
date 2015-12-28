@@ -31,12 +31,12 @@ public class MultiChoosePicAdapter extends BaseAdapter {
     public static final int CHOOSE_OK = 0;
     public static final int ADD_PIC_OK = 10;
     public static final int REMOVE_PIC_OK = 11;
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int IMAGE_SUM = 9;
     private static final int TYPE_CAPTURE = 0;
     private static final  int TYPE_IMAGE = 1;
+    private static final float HALF_ALPHA = 0.5F;
+    private static final float ALPHA = 1.0F;
     private static final int TYPE_MAX_COUNT = TYPE_IMAGE + 1;
-    private static final String TAG = MultiChoosePicAdapter.class.getSimpleName();
     private ArrayList<Image> mImages;
     private AppCompatActivity mContext;
     private int choosePicNumber = 0;
@@ -78,7 +78,7 @@ public class MultiChoosePicAdapter extends BaseAdapter {
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder ;
         int type = getItemViewType(position);
         if (convertView == null) {
             holder = new ViewHolder();
@@ -99,13 +99,13 @@ public class MultiChoosePicAdapter extends BaseAdapter {
                         public void onClick(View v) {
                             if (choosePicNumber < IMAGE_SUM) {
                                 if(finalHolder1.checkBox.isChecked()){
-                                    finalHolder1.imageView.setAlpha(0.5f);
+                                    finalHolder1.imageView.setAlpha(HALF_ALPHA);
                                     finalHolder1.checkBox.setChecked(true);
                                     choosePicNumber = choosePicNumber +1;
                                     mHandler.sendMessage(addImgMessage(position));
                                 }
                                 else {
-                                    finalHolder1.imageView.setAlpha(1.0f);
+                                    finalHolder1.imageView.setAlpha(ALPHA);
                                     finalHolder1.checkBox.setChecked(false);
                                     choosePicNumber = choosePicNumber -1;
                                     mHandler.sendMessage(removeImgMessage(position));
@@ -114,7 +114,7 @@ public class MultiChoosePicAdapter extends BaseAdapter {
                             }
                             else{
                                 if(!finalHolder1.checkBox.isChecked()){
-                                    finalHolder1.imageView.setAlpha(1.0f);
+                                    finalHolder1.imageView.setAlpha(ALPHA);
                                     finalHolder1.checkBox.setChecked(false);
                                     choosePicNumber = choosePicNumber -1;
                                     mHandler.sendMessage(sendChoiceMessage());

@@ -3,7 +3,6 @@ package com.nju.http.request;
 import com.nju.http.RequestRunnable;
 import com.nju.http.SchoolFriendHttp;
 import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
 
 import java.util.HashMap;
 
@@ -17,28 +16,28 @@ public class PostRequest extends RequestRunnable {
     private  String mUrl;
     private String tag;
 
-    public Callback getmCallback() {
+    public Callback getCallback() {
         return mCallback;
     }
 
-    public void setmCallback(Callback mCallback) {
-        this.mCallback = mCallback;
+    public void setCallback(Callback callback) {
+        this.mCallback = callback;
     }
 
-    public HashMap<String, String> getmParams() {
+    public HashMap<String, String> getParams() {
         return mParams;
     }
 
-    public void setmParams(HashMap<String, String> mParams) {
-        this.mParams = mParams;
+    public void setParams(HashMap<String, String> params) {
+        this.mParams = params;
     }
 
-    public String getmUrl() {
+    public String getUrl() {
         return mUrl;
     }
 
-    public void setmUrl(String mUrl) {
-        this.mUrl = mUrl;
+    public void setUrl(String url) {
+        this.mUrl = url;
     }
 
     public String getTag() {
@@ -61,6 +60,6 @@ public class PostRequest extends RequestRunnable {
     }
     @Override
     public void run() {
-        SchoolFriendHttp.getInstance().AsynPost(mBuilder, mUrl, mParams, mCallback);
+        SchoolFriendHttp.getInstance().AsyncPost(mBuilder, mUrl, mParams, mCallback);
     }
 }

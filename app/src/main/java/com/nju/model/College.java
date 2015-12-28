@@ -5,16 +5,16 @@ package com.nju.model;
  */
 public class College {
 
-    private int coid;
+    private int coId;
     private String name;
     private int provinceID;
 
-    public int getCoid() {
-        return coid;
+    public int getCoId() {
+        return coId;
     }
 
-    public void setCoid(int coid) {
-        this.coid = coid;
+    public void setCoId(int coId) {
+        this.coId = coId;
     }
 
     public String getName() {

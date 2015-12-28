@@ -45,14 +45,14 @@ public class UserInfoAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_user_info_item,null);
             holder.labelTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_label_text);
             holder.majorTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_major_text);
-            holder.xueyuanTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_xueyuan_text);
+            holder.xueYuanTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_xueyuan_text);
             holder.dateTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_date_text);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.labelTV.setText(mUserInfos.get(position).getLabel());
-        holder.xueyuanTV.setText(mUserInfos.get(position).getFenYuan());
+        holder.xueYuanTV.setText(mUserInfos.get(position).getFenYuan());
         holder.majorTV.setText(mUserInfos.get(position).getMajor());
         holder.dateTV.setText(mUserInfos.get(position).getDate());
         return convertView;
@@ -61,7 +61,7 @@ public class UserInfoAdapter extends BaseAdapter {
     private class ViewHolder {
         private TextView labelTV;
         private TextView majorTV;
-        private TextView xueyuanTV;
+        private TextView xueYuanTV;
         private TextView dateTV;
     }
 }

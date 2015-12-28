@@ -51,22 +51,8 @@ public class SeniorsVoicesFragment extends BaseFragment {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.fragment_web_view_progressBar);
         progressBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
 
-        int unicode = 0x1F600;
-//        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AppleColorEmoji.ttf");
-//        textView.setTypeface(font);
-        String str = getEmijoByUnicode(unicode);
-        for (char curr : str.toCharArray()){
-            //print out the character or do whatever you wanna have
-            int code = curr;
-            Log.e(TAG,String.format("%x",code));
-        }
 
         return view;
     }
-
-    public String getEmijoByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
-
 
 }

@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  */
 public final class CollegeEntry implements BaseColumns {
     public static final String TABLE_NAME = "college";
-    public static final String COLUMN_NAME_CO_ID = "coid";
+    public static final String COLUMN_NAME_CO_ID = "coId";
     public static final String COLUMN_NAME_NAME = "name";
     public static final String COLUMN_NAME_PROVINCE_ID = "provinceID";
 }

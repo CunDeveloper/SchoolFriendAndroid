@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
 
     tools:context="com.nju.fragment.CircleImageViewItemFragment">
-    <com.nju.View.CustomImageVIew
+    <com.nju.View.CustomImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"

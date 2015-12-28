@@ -18,21 +18,21 @@ import com.nju.util.Divice;
 import java.util.ArrayList;
 
 
-public class UserInfoFragement extends BaseFragment {
+public class UserInfoFragment extends BaseFragment {
 
-    public static final String TAG = UserInfoFragement.class.getSimpleName() ;
+    public static final String TAG = UserInfoFragment.class.getSimpleName() ;
     private static final String USER_INFO = "user_info";
     private ArrayList<UserInfo> mUserInfos = null;
     private ListView mListView;
-    public static UserInfoFragement newInstance(ArrayList<UserInfo> userInfos ) {
-        UserInfoFragement fragment = new UserInfoFragement();
+    public static UserInfoFragment newInstance(ArrayList<UserInfo> userInfos ) {
+        UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(USER_INFO,userInfos);
         fragment.setArguments(args );
         return fragment;
     }
 
-    public UserInfoFragement() {
+    public UserInfoFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +62,7 @@ public class UserInfoFragement extends BaseFragment {
         TextView nameTV,sexTV;
         nameTV = (TextView) view.findViewById(R.id.fragment_user_info_listview_name_tv);
         sexTV = (TextView) view.findViewById(R.id.fragment_user_info_listview_sex_tv);
-        for (UserInfo userInfo:mUserInfos){
+        for(UserInfo userInfo:mUserInfos){
             nameTV.setText(userInfo.getName());
             sexTV.setText(userInfo.getSex());
             break;

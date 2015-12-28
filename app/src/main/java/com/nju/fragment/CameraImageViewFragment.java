@@ -1,8 +1,5 @@
 package com.nju.fragment;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,14 +14,10 @@ import android.widget.RelativeLayout;
 import com.nju.activity.R;
 import com.nju.adatper.OriginPicViewPagerAdapter;
 import com.nju.model.Image;
-import com.nju.model.ImageWrapper;
 import com.nju.util.AsyncCompress;
 import com.nju.util.Divice;
 import com.nju.util.ToastUtil;
-import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -196,7 +189,7 @@ public class CameraImageViewFragment extends BaseFragment {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                dependLableSlide(position);
+                dependLabelSlide(position);
             }
 
             @Override
@@ -212,7 +205,7 @@ public class CameraImageViewFragment extends BaseFragment {
 
     }
 
-    private void dependLableSlide(int position) {
+    private void dependLabelSlide(int position) {
        if (mLabel.equals(getString(R.string.choosedReview))) {
            getHostActivity().getToolBar().setTitle((position + 1) + "" + SLASH + mImages.size());
            if (mChooseIndex.contains(position)) {

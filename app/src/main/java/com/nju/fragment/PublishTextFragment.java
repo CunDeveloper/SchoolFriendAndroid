@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +29,11 @@ import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +52,7 @@ public class PublishTextFragment extends BaseFragment {
     private boolean label = true;
     private ViewPager mViewPager;
     private String mLocation;
-    private int mSlidePostion = 0;
+    private int mSlidePosition = 0;
     private ArrayList<View> mSlideCircleViews;
     private SchoolFriendDialog mDialog;
 
@@ -81,7 +86,7 @@ public class PublishTextFragment extends BaseFragment {
         mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         initViewPagerListener();
         initOnGlobalListener();
-        initFloaingBn();
+        initFloatingBn();
         initWhoScanEvent(view);
         initSlideCircleViews(view);
         return view;
@@ -159,9 +164,9 @@ public class PublishTextFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
-                mSlidePostion = position;
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
+                mSlidePosition = position;
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
             }
 
             @Override
@@ -170,7 +175,20 @@ public class PublishTextFragment extends BaseFragment {
             }
         });
     }
+    Callback call = new Callback() {
+        @Override
+        public void onFailure(Request request, IOException e) {
+            e.printStackTrace();
+           // Log.e(TAG,e.getMessage());
+            mDialog.dismiss();
+        }
 
+        @Override
+        public void onResponse(Response response) throws IOException {
+            Log.e(TAG,response.body().string());
+            mDialog.dismiss();
+        }
+    };
     ResponseCallback callback = new ResponseCallback() {
 
         @Override
@@ -196,12 +214,12 @@ public class PublishTextFragment extends BaseFragment {
                 params.put(Constant.USER_ID,String.valueOf(51));
                 params.put(Constant.PUBLISH_TEXT, StringBase64.encode(content));
                 params.put(Constant.USER_LOCATION,location);
-                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, callback,TAG));
+                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, call,TAG));
             }
         });
     }
 
-    private void initFloaingBn() {
+    private void initFloatingBn() {
         mEmotionView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -227,7 +245,6 @@ public class PublishTextFragment extends BaseFragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count >= 1) {

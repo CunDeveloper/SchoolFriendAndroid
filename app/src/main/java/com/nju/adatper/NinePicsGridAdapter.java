@@ -22,15 +22,11 @@ import java.util.ArrayList;
  */
 public class NinePicsGridAdapter extends BaseAdapter {
     private ArrayList<ImageWrapper> mUploadImages;
-    private int mWidth;
     private Context mContext;
-
 
     public NinePicsGridAdapter(Context context, ArrayList<ImageWrapper> uploadImages) {
         mUploadImages = uploadImages;
         mContext = context;
-        mWidth = Divice.getDisplayWidth(mContext)/3;
-
     }
     @Override
     public int getCount() {

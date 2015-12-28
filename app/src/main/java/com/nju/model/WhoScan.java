@@ -1,7 +1,5 @@
 package com.nju.model;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.ArrayList;
 
 /**
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 public class WhoScan {
     private String bigLabel;
     private String smallLabel;
-    private String choosedLabel;
+    private String chooseLabel;
     private ArrayList<ChildItem> childItems;
 
     public String getBigLabel() {
@@ -29,12 +27,12 @@ public class WhoScan {
         this.smallLabel = smallLabel;
     }
 
-    public String getChoosedLabel() {
-        return choosedLabel;
+    public String getChooseLabel() {
+        return chooseLabel;
     }
 
-    public void setChoosedLabel(String choosedLabel) {
-        this.choosedLabel = choosedLabel;
+    public void setChooseLabel(String chooseLabel) {
+        this.chooseLabel = chooseLabel;
     }
 
     public ArrayList<ChildItem> getChildItems() {

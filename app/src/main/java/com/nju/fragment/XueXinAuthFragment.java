@@ -122,7 +122,7 @@ public class XueXinAuthFragment extends BaseFragment {
                         String temp = "["+strs[1];
                         ArrayList<UserInfo> userInfos = gson.fromJsonToList(temp.substring(0,temp.length()-1),UserInfo.class);
                         saveUserInfo(userInfos);
-                        getHostActivity().open(UserInfoFragement.newInstance(userInfos));
+                        getHostActivity().open(UserInfoFragment.newInstance(userInfos));
                     }
                 }
             } catch (UnsupportedEncodingException e) {
@@ -164,15 +164,15 @@ public class XueXinAuthFragment extends BaseFragment {
                 final String captcha = mCaptchaEditText.getText().toString();
                 final HashMap<String, String> params = new HashMap<>();
                 if (!isNeedCaptcha) {
-                    if (validte(userName, pass)) {
+                    if (validate(userName, pass)) {
                         params.put(Constant.XUE_XIN_USERNAME, userName);
                         params.put(Constant.XUE_XIN_PASSWORD, pass);
                         params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
                         mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
                         mDialog.show();
-                        request.setmUrl(Constant.XUE_AUTH);
-                        request.setmParams(params);
-                        request.setmCallback(callbacks);
+                        request.setUrl(Constant.XUE_AUTH);
+                        request.setParams(params);
+                        request.setCallback(callbacks);
                         HttpManager.getInstance().exeRequest(request);
                 }
                 } else {
@@ -180,7 +180,7 @@ public class XueXinAuthFragment extends BaseFragment {
                         params.put(Constant.XUE_XIN_PASSWORD, pass);
                         params.put(Constant.XUE_XIN_CAPTCHA, captcha);
                         params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
-                        request.setmParams(params);
+                        request.setParams(params);
                         mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
                         mDialog.show();
                         HttpManager.getInstance().exeRequest(request);
@@ -232,7 +232,7 @@ public class XueXinAuthFragment extends BaseFragment {
     }
 
 
-    private boolean  validte(String name,String pass) {
+    private boolean validate(String name, String pass) {
         if (name ==null || name.equals("")) {
             Message message = new Message();
             message.obj = getString(R.string.auth_username_empty_tip);

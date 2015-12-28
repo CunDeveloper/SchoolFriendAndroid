@@ -77,5 +77,4 @@ public class HttpManager {
         mThreadService.execute(requestRunnable);
     }
 
-
 }

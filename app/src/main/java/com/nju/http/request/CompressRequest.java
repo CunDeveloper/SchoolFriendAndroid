@@ -20,7 +20,7 @@ public class CompressRequest implements Callable<BitmapWrapper> {
     private static int mHeight = 0;
     private static final int DEFAULT_WIDTH = 720;
     private static final int DEFAULT_HEIGHT = 1000;
-    private final BitmapWrapper mBitmapWraper;
+    private final BitmapWrapper mBitmapWrapper;
     private final Context mContext;
 
     public CompressRequest(Context context,BitmapWrapper bitmapWrapper) {
@@ -29,14 +29,14 @@ public class CompressRequest implements Callable<BitmapWrapper> {
             mWidth = sharedPreferences.getInt(context.getString(R.string.diviceWidth),DEFAULT_WIDTH);
             mHeight = sharedPreferences.getInt(context.getString(R.string.visiDiviceHeight),DEFAULT_HEIGHT);
         }
-        mBitmapWraper = bitmapWrapper;
+        mBitmapWrapper = bitmapWrapper;
         mContext = context;
     }
 
     @Override
     public BitmapWrapper call() throws Exception {
-        final Bitmap bitmap = Picasso.with(mContext).load(new File(mBitmapWraper.getPath())).resize(mWidth,mHeight).get();
-        mBitmapWraper.setBitmap(bitmap);
-        return mBitmapWraper;
+        final Bitmap bitmap = Picasso.with(mContext).load(new File(mBitmapWrapper.getPath())).resize(mWidth, mHeight).get();
+        mBitmapWrapper.setBitmap(bitmap);
+        return mBitmapWrapper;
     }
 }

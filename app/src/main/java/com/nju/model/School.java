@@ -5,16 +5,16 @@ package com.nju.model;
  */
 public class School {
 
-    private int scid;
+    private int scId;
     private String name;
     private int collegeID;
 
-    public int getScid() {
-        return scid;
+    public int getScId() {
+        return scId;
     }
 
-    public void setScid(int scid) {
-        this.scid = scid;
+    public void setScId(int scId) {
+        this.scId = scId;
     }
 
     public String getName() {

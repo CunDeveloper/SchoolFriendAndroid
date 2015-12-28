@@ -6,7 +6,7 @@ package com.nju.model;
 public class Province {
 
     private int pid;
-    private String pname;
+    private String name;
     private int provinceID;
 
     public int getPid() {
@@ -17,12 +17,12 @@ public class Province {
         this.pid = pid;
     }
 
-    public String getPname() {
-        return pname;
+    public String getName() {
+        return name;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getProvinceID() {

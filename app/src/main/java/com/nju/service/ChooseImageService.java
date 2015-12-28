@@ -12,10 +12,10 @@ import java.util.ArrayList;
 /**
  * Created by xiaojuzhang on 2015/12/3.
  */
-public class ChoosedImageService {
+public class ChooseImageService {
 
     public static ArrayList<Image> queryImages(Context context){
-        ArrayList<Image> imgs = new ArrayList<>();
+        ArrayList<Image> images = new ArrayList<>();
         String[] projection = new String[]{
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
                 MediaStore.Images.Media.WIDTH,
@@ -37,9 +37,9 @@ public class ChoosedImageService {
             image.setHeight(cursor.getInt(heightColumn));
             image.setWidth(cursor.getInt(widthColumn));
             image.setData(cursor.getString(dataColumn));
-            imgs.add(image);
+            images.add(image);
         }
-        return imgs;
+        return images;
     }
 
     public static ArrayList<Image> queryImagesByPath(Context context,String path){

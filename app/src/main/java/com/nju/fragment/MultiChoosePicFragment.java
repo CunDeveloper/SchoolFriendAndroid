@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.adatper.MultiChoosePicAdapter;
 import com.nju.model.Image;
-import com.nju.service.ChoosedImageService;
+import com.nju.service.ChooseImageService;
 import com.nju.util.AsyncCompress;
 import com.nju.util.CapturePic;
 import com.nju.util.Divice;
@@ -154,7 +154,7 @@ public class MultiChoosePicFragment extends BaseFragment {
 
         @Override
         protected ArrayList<Image> doInBackground(Void... params) {
-            return ChoosedImageService.queryImages(getActivity());
+            return ChooseImageService.queryImages(getActivity());
         }
         @Override
         protected void onPostExecute(ArrayList<Image> list) {

@@ -21,11 +21,11 @@ import java.util.ArrayList;
  * Created by xiaojuzhang on 2015/12/2.
  */
 public class WhoScanListAdapter implements ExpandableListAdapter {
-
-    private ArrayList<Entry> mGropItems;
+    private ArrayList<Entry> mGroupItems;
     private Context mContext;
+
     public WhoScanListAdapter(Context context,ArrayList<Entry> gropItems){
-        this.mGropItems = gropItems;
+        this.mGroupItems = gropItems;
         this.mContext = context;
     }
 
@@ -41,22 +41,22 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return mGropItems.size();
+        return mGroupItems.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mGropItems.get(groupPosition).getChildItems().size();
+        return mGroupItems.get(groupPosition).getChildItems().size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return mGropItems.get(groupPosition);
+        return mGroupItems.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return mGropItems.get(groupPosition).getChildItems().get(childPosition);
+        return mGroupItems.get(groupPosition).getChildItems().get(childPosition);
     }
 
 
@@ -77,42 +77,42 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        ViewHodler hodler;
+        ViewHolder holder;
         if (convertView == null) {
-            hodler = new ViewHodler();
+            holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.who_scan_group,parent,false);
-            hodler.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_big_label);
-            hodler.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_label);
-            hodler.imageView = (ImageView) convertView.findViewById(R.id.who_scan_group_img);
-            convertView.setTag(hodler);
+            holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_big_label);
+            holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_label);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.who_scan_group_img);
+            convertView.setTag(holder);
         } else
         {
-            hodler = (ViewHodler) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
-        hodler.bigTextView.setText(mGropItems.get(groupPosition).getBigLabel());
-        hodler.smallTextView.setText(mGropItems.get(groupPosition).getSamllLabel());
-        hodler.imageView.setImageDrawable(mGropItems.get(groupPosition).getDrawable());
+        holder.bigTextView.setText(mGroupItems.get(groupPosition).getBigLabel());
+        holder.smallTextView.setText(mGroupItems.get(groupPosition).getSmallLabel());
+        holder.imageView.setImageDrawable(mGroupItems.get(groupPosition).getDrawable());
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ViewHodler hodler ;
+        ViewHolder holder ;
         if (convertView == null) {
-            hodler = new ViewHodler();
+            holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.who_scan_group_child,parent,false);
-            hodler.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_child_big_label);
-            hodler.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_child_label);
-            hodler.checkBox = (CheckBox) convertView.findViewById(R.id.who_scan_group_child_check);
-            convertView.setTag(hodler);
+            holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_child_big_label);
+            holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_child_label);
+            holder.checkBox = (CheckBox) convertView.findViewById(R.id.who_scan_group_child_check);
+            convertView.setTag(holder);
         }
         else {
-            hodler = (ViewHodler) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         if (isLastChild){
-            hodler.bigTextView.setTextColor(mContext.getResources().getColor(R.color.light_blue));
-            hodler.bigTextView.setText(mContext.getString(R.string.edit_label));
-            hodler.checkBox.setVisibility(View.GONE);
+            holder.bigTextView.setTextColor(mContext.getResources().getColor(R.color.light_blue));
+            holder.bigTextView.setText(mContext.getString(R.string.edit_label));
+            holder.checkBox.setVisibility(View.GONE);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -120,8 +120,8 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
                 }
             });
         }
-        hodler.bigTextView.setText(mGropItems.get(groupPosition).getChildItems().get(childPosition).getBigLabel());
-        hodler.smallTextView.setText(mGropItems.get(groupPosition).getChildItems().get(childPosition).getSamllLabel());
+        holder.bigTextView.setText(mGroupItems.get(groupPosition).getChildItems().get(childPosition).getBigLabel());
+        holder.smallTextView.setText(mGroupItems.get(groupPosition).getChildItems().get(childPosition).getSmallLabel());
         return convertView;
     }
 
@@ -160,7 +160,7 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
         return 0;
     }
 
-    private class ViewHodler {
+    private class ViewHolder {
         public TextView bigTextView;
         public TextView smallTextView;
         public ImageView imageView;

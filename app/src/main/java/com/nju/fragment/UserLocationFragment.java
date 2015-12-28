@@ -3,10 +3,7 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +37,11 @@ public class UserLocationFragment extends BaseFragment {
     private static final int OK = 0 ;
     private TencentLocationManager mLocationManager;
     private TencentLocationListener listener;
-    private List<LocationInfo> mLoncationInfolist ;
+    private List<LocationInfo> mLocationInfoList;
     private ProgressBar mProgressBar;
     private ListView mListView;
     private UserLocationAdapter mLocationAdapter;
-    private int choosedPosition = -1;
+    private int choosePosition = -1;
     private Handler mHandler = new MyHandler(this);
     public static UserLocationFragment newInstance() {
         return new UserLocationFragment();
@@ -95,30 +92,30 @@ public class UserLocationFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 headImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
-                if(choosedPosition != -1) {
-                    mLoncationInfolist.get(choosedPosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
-                    choosedPosition = -1;
+                if(choosePosition != -1) {
+                    mLocationInfoList.get(choosePosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                    choosePosition = -1;
                     mLocationAdapter.notifyDataSetChanged();
                 }
             }
         });
 
         mListView.addHeaderView(headerView);
-        mLoncationInfolist = new ArrayList<>();
+        mLocationInfoList = new ArrayList<>();
         LocationInfo info = new LocationInfo();
-        mLoncationInfolist.add(info);
-        mLocationAdapter = new UserLocationAdapter(mLoncationInfolist,getActivity());
+        mLocationInfoList.add(info);
+        mLocationAdapter = new UserLocationAdapter(mLocationInfoList,getActivity());
         mListView.setAdapter(mLocationAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mLoncationInfolist.get(position - 1).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
-                if (choosedPosition == -1){
+                mLocationInfoList.get(position - 1).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
+                if (choosePosition == -1){
                     headImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                 } else{
-                    mLoncationInfolist.get(choosedPosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                    mLocationInfoList.get(choosePosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
                 }
-                choosedPosition = position-1;
+                choosePosition = position-1;
                 mLocationAdapter.notifyDataSetChanged();
                 TextView locationText = (TextView) view.findViewById(R.id.user_location_item_name);
                 BaseActivity.LocalStack stack = getHostActivity().getBackStack();
@@ -145,14 +142,14 @@ public class UserLocationFragment extends BaseFragment {
         public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
             LocationInfo info;
             info = new LocationInfo();
-            info.setLocatName(tencentLocation.getProvince());
+            info.setLocationName(tencentLocation.getProvince());
             info.setAddress("");
             info.setDistance(1.0);
             List<LocationInfo> locationLists = new ArrayList<>(40);
             locationLists.add(info);
             for(TencentPoi poi:tencentLocation.getPoiList()){
                 info = new LocationInfo();
-                info.setLocatName(poi.getName());
+                info.setLocationName(poi.getName());
                 info.setAddress(poi.getAddress());
                 info.setDistance(poi.getDistance());
                 info.setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
@@ -190,7 +187,7 @@ public class UserLocationFragment extends BaseFragment {
         private MyHandler(UserLocationFragment userLocationFragment) {
             this.mUserLocationFragment = new WeakReference<>(userLocationFragment);
         }
-
+        @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
             UserLocationFragment fragment = mUserLocationFragment.get();
@@ -198,11 +195,11 @@ public class UserLocationFragment extends BaseFragment {
                 super.handleMessage(msg);
                 if(msg.what == OK) {
                     fragment.mLocationManager.removeUpdates(fragment.listener);
-                    List<LocationInfo> temlists = (List<LocationInfo>) msg.obj;
-                    if(temlists!=null && temlists.size()>0) {
-                        fragment.mLoncationInfolist.remove(0);
-                        fragment.mLoncationInfolist.addAll(temlists);
-                        Collections.sort(fragment.mLoncationInfolist, new LocatCompator());
+                    List<LocationInfo> tempLists = (List<LocationInfo>) msg.obj;
+                    if(tempLists!=null && tempLists.size()>0) {
+                        fragment.mLocationInfoList.remove(0);
+                        fragment.mLocationInfoList.addAll(tempLists);
+                        Collections.sort(fragment.mLocationInfoList, new LocatCompator());
                         fragment.mLocationAdapter.notifyDataSetChanged();
                     }
                     fragment.mProgressBar.setVisibility(View.GONE);

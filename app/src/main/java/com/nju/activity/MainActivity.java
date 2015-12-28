@@ -55,10 +55,10 @@ public class MainActivity extends BaseActivity {
         mMenuDeleteView = (ImageView) findViewById(R.id.main_viewpager_menu_delete_img);
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
         mNoActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
-        CoordinatorLayout mCoorDinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
+        CoordinatorLayout mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
         if (Build.VERSION.SDK_INT>19) {
-            mCoorDinatorLayout.setPadding(mCoorDinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)
-                    , mCoorDinatorLayout.getPaddingRight(), mCoorDinatorLayout.getBottom());
+            mCoordinatorLayout.setPadding(mCoordinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)
+                    , mCoordinatorLayout.getPaddingRight(), mCoordinatorLayout.getBottom());
         }
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         isPhone = getResources().getBoolean(R.bool.large_layout);
@@ -101,7 +101,6 @@ public class MainActivity extends BaseActivity {
                     case R.id.nav_recrict:
                         open(WebViewFragment.newInstance());
                         break;
-
                 }
                 return false;
             }
@@ -157,7 +156,6 @@ public class MainActivity extends BaseActivity {
         if (fragmentToRemove != null) {
             mLocalBackStack.remove(fragmentToRemove);
         }
-
     }
 
     @Override

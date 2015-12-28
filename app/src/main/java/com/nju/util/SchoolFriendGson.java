@@ -44,8 +44,8 @@ public class SchoolFriendGson{
 	}
 	
 	public <K,V> Map<K,V> fromJsonToMap(String json) {
-		Type datasetMapType = new TypeToken<Map<K,V>>() {}.getType();
-		return gson.fromJson(json, datasetMapType);
+		Type dataSetMapType = new TypeToken<Map<K,V>>() {}.getType();
+		return gson.fromJson(json, dataSetMapType);
 	}
 	 
 }

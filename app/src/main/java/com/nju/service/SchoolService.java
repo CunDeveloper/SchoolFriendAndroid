@@ -28,7 +28,7 @@ public class SchoolService {
                 +SchoolEntry.COLUMN_NAME_NAME+" ,"+SchoolEntry.COLUMN_NAME_COLLEGE_ID+")"+"values(?,?,?)";
         SQLiteStatement stmt = db.compileStatement(sql);
         for (School school:schools) {
-            stmt.bindLong(1,school.getScid());
+            stmt.bindLong(1,school.getScId());
             stmt.bindString(2, school.getName());
             stmt.bindLong(3, school.getCollegeID());
             stmt.execute();
@@ -59,7 +59,7 @@ public class SchoolService {
         School school = null;
         while (cursor.moveToNext()) {
             school = new School();
-            school.setScid(cursor.getInt(id));
+            school.setScId(cursor.getInt(id));
             school.setName(cursor.getString(nameIndex));
             school.setCollegeID(cursor.getInt(provinceIndex));
             schools.add(school);

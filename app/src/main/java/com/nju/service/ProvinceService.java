@@ -28,7 +28,7 @@ public class ProvinceService {
         SQLiteStatement stmt = db.compileStatement(sql);
         for (Province province:provinces) {
             stmt.bindLong(1,province.getPid());
-            stmt.bindString(2, province.getPname());
+            stmt.bindString(2, province.getName());
             stmt.bindLong(3, province.getProvinceID());
             stmt.execute();
         }
@@ -59,7 +59,7 @@ public class ProvinceService {
         while (cursor.moveToNext()) {
             province = new Province();
             province.setPid(cursor.getInt(id));
-            province.setPname(cursor.getString(nameIndex));
+            province.setName(cursor.getString(nameIndex));
             province.setProvinceID(cursor.getInt(provinceIndex));
             provinces.add(province);
         }

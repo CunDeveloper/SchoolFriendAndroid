@@ -50,13 +50,13 @@ public class AlumniCircleFragment extends BaseFragment {
     private ImageView mCameraImageView;
     private boolean label = true;
     private int mPosition = 1;
-    private TextView mEmoijTextView;
+    private TextView mEmotionTextView;
     private boolean isEmotionOpen = true;
     private boolean label2 = false;
     private ViewPager mViewPager;
     private LinearLayout mEmoLineLayout;
     private ArrayList<View> mSlideCircleViews;
-    private int mSlidePostion = 0;
+    private int mSlidePosition = 0;
     private int subHeight;
 
     private Handler mHandler = new MyHandler(this);
@@ -92,7 +92,7 @@ public class AlumniCircleFragment extends BaseFragment {
         mInputLayout = (RelativeLayout)view.findViewById(R.id.activity_school_friend_input_layout);
         mCommentEditText = (EditText)view.findViewById(R.id.activity_school_friend_comment_edittext);
         mSendButton = (Button)view.findViewById(R.id.activity_school_friend_send_button);
-        mEmoijTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
+        mEmotionTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
         mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
         mEmoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
@@ -104,7 +104,7 @@ public class AlumniCircleFragment extends BaseFragment {
         mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         initOnGlobalListener();
         initSendListener();
-        initEmoijTextViewEvent();
+        initEmotionTextViewEvent();
         initSlideCircleViews(view);
         initViewPageScrollListener();
         return view;
@@ -165,9 +165,9 @@ public class AlumniCircleFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
-                mSlidePostion = position;
-                mSlideCircleViews.get(mSlidePostion).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.unselect_circle_label_bg));
+                mSlidePosition = position;
+                mSlideCircleViews.get(mSlidePosition).setBackground(ContextCompat.getDrawable(getContext(), R.drawable.select_circle_label_bg));
             }
 
             @Override
@@ -188,18 +188,18 @@ public class AlumniCircleFragment extends BaseFragment {
         mSlideCircleViews.add(mView);
     }
 
-    private void initEmoijTextViewEvent() {
-         mEmoijTextView.setOnTouchListener(new View.OnTouchListener() {
+    private void initEmotionTextViewEvent() {
+         mEmotionTextView.setOnTouchListener(new View.OnTouchListener() {
              @Override
              public boolean onTouch(View v, MotionEvent event) {
                  if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                     mEmoijTextView.setText(getString(R.string.keyboard));
-                     SoftInput.close(getActivity(), mEmoijTextView);
+                     mEmotionTextView.setText(getString(R.string.keyboard));
+                     SoftInput.close(getActivity(), mEmotionTextView);
                      isEmotionOpen = false;
                      label = false;
                      label2 = true;
-                 } else if (event.getAction() == MotionEvent.ACTION_DOWN && !isEmotionOpen) {
-                     mEmoijTextView.setText(getString(R.string.smile));
+                 } else if (event.getAction() == MotionEvent.ACTION_DOWN ) {
+                     mEmotionTextView.setText(getString(R.string.smile));
                      SoftInput.open(getActivity());
                      isEmotionOpen = true;
                      label = false;

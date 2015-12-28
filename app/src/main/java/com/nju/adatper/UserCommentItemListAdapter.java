@@ -21,10 +21,9 @@ import java.util.List;
  * Created by xiaojuzhang on 2015/11/20.
  */
 public class UserCommentItemListAdapter extends BaseAdapter {
-
     private static String TAG = UserCommentItemListAdapter.class.getSimpleName();
-    public static int PRAISE_OK = 0;
-    public static int COMMENT_OK = 1;
+    public static final int PRAISE_OK = 0;
+    public static final int COMMENT_OK = 1;
     private Context mContext;
     private int mPosition;
     private List<FriendWeibo> mWeibos;
