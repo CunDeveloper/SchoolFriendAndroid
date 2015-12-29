@@ -38,19 +38,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PublishTextFragment extends BaseFragment {
-
     public static final String TAG = PublishTextFragment.class.getSimpleName();
     private Button mSendButton;
     private EditText mContentEditText;
     private TextView mLocationTextView;
-    private LinearLayout mMainLayout;
-    private LinearLayout mEmoLineLayout;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
-    private ScrollView mScrollView;
-    private TextView mEmotionView;
     private boolean isEmotionOpen = true;
     private boolean label = true;
-    private ViewPager mViewPager;
     private String mLocation;
     private int mSlidePosition = 0;
     private ArrayList<View> mSlideCircleViews;
@@ -77,16 +71,10 @@ public class PublishTextFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mContentEditText = (EditText) view.findViewById(R.id.publish_content_editText);
         mLocationTextView = (TextView) view.findViewById(R.id.publish_userloaction_text);
-        mMainLayout = (LinearLayout) view.findViewById(R.id.publish_text_main_layout);
-        mEmoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
-        mScrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
-        mEmotionView = (TextView) view.findViewById(R.id.emotion_icon);
-        mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
-        mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
-        initViewPagerListener();
-        initOnGlobalListener();
-        initFloatingBn();
+        initViewPager(view);
+        initOnGlobalListener(view);
+        initFloatingBn(view);
         initWhoScanEvent(view);
         initSlideCircleViews(view);
         return view;
@@ -155,8 +143,10 @@ public class PublishTextFragment extends BaseFragment {
         });
     }
 
-    private void initViewPagerListener() {
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private void initViewPager(View view) {
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
+        viewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -219,17 +209,18 @@ public class PublishTextFragment extends BaseFragment {
         });
     }
 
-    private void initFloatingBn() {
-        mEmotionView.setOnTouchListener(new View.OnTouchListener() {
+    private void initFloatingBn(View view) {
+        final TextView  emotionView = (TextView) view.findViewById(R.id.emotion_icon);
+        emotionView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                    mEmotionView.setText(getString(R.string.keyboard));
-                    SoftInput.close(getActivity(), mEmotionView);
+                    emotionView.setText(getString(R.string.keyboard));
+                    SoftInput.close(getActivity(), emotionView);
                     isEmotionOpen = false;
                     label = false;
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-                    mEmotionView.setText(getString(R.string.smile));
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    emotionView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
                     label = false;
@@ -263,24 +254,27 @@ public class PublishTextFragment extends BaseFragment {
         });
     }
 
-    private void initOnGlobalListener() {
-        mMainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+    private void initOnGlobalListener(View view) {
+        final LinearLayout mainLayout = (LinearLayout) view.findViewById(R.id.publish_text_main_layout);
+        final ScrollView  scrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
+        final LinearLayout  emoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
+        mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int rootHeight = mMainLayout.getRootView().getHeight();
-                int subHeight = mMainLayout.getHeight();
+                int rootHeight = mainLayout.getRootView().getHeight();
+                int subHeight = mainLayout.getHeight();
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
-                    mEmoLineLayout.setVisibility(View.GONE);
-                    mScrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
+                    emoLineLayout.setVisibility(View.GONE);
+                    scrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
                 } else  if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen){
                     label =true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
                     if (getHostActivity().isPhone()) {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight,50,Divice.getStatusBarHeight(getActivity())));
+                        scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 50, Divice.getStatusBarHeight(getActivity())));
                     } else {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
+                        scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
                     }
-                    mEmoLineLayout.setVisibility(View.VISIBLE);
+                    emoLineLayout.setVisibility(View.VISIBLE);
                 }
             }
         });

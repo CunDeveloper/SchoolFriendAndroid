@@ -30,12 +30,11 @@
                 android:gravity="top"
                 android:minLines="5"
                 android:id="@+id/publish_wei_bo_content_editText" />
-            <!--<include layout="@layout/multi_choosed_image"/>-->
             <com.nju.View.SchoolFriendGridView
                 android:id="@+id/fragment_publish_text_with_pics_gridview"
-                android:numColumns="3"
-                android:layout_marginStart="@dimen/phone_apadding"
-                android:layout_marginEnd="@dimen/phone_apadding"
+                android:numColumns="4"
+                android:paddingStart="@dimen/phone_apadding"
+                android:paddingEnd="@dimen/phone_apadding"
                 android:horizontalSpacing="@dimen/phone_apadding"
                 android:verticalSpacing="@dimen/phone_apadding"
                 android:background="@android:color/white"
@@ -117,9 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray"/>
-
         </LinearLayout>
-
     </ScrollView>
    <include layout="@layout/emotion"/>
 

@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -42,27 +43,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PublishTextWithPicsFragment extends BaseFragment {
-
     public static final String TAG = PublishTextWithPicsFragment.class.getSimpleName() ;
-    private LinearLayout emoLineLayout = null;
-    private LinearLayout mainLayout;
-    private TextView mEmotionView;
     private boolean label = true;
-    private ScrollView mScrollView;
     private boolean isEmotionOpen = true;
     private EditText mContentEditText;
-    private ViewPager mViewPager;
     private int  rootHeight = 0;
     private int subHeight = 0;
-    private List<ImageView> mUploadImgs;
     private ArrayList<ImageWrapper> mUploadImgPaths;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
-    private AppBarLayout mAppBarLayout;
     private Button mFinishBn;
     private ArrayList<View> mSlideCircleViews;
     private int mSlidePosition = 0;
     private SchoolFriendDialog mDialog;
-    private GridView mGridView;
 
     public static PublishTextWithPicsFragment newInstance(ArrayList<ImageWrapper> uploadImgPaths) {
         PublishTextWithPicsFragment fragment = new PublishTextWithPicsFragment();
@@ -88,20 +80,11 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
         view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
-        mAppBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
-        emoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
-        mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
-        mEmotionView = (TextView)view.findViewById(R.id.emotion_icon);
-        mScrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
         mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
-        mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
-        mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
-        initViewPagerListener();
-        initOnGlobalListener();
-        initFloatingBn();
-        //initUpladImageView(view);
-        //initLoadImage();
+        initViewPager(view);
+        initOnGlobalListener(view);
+        initFloatingBn(view);
         openChooseLocation(view);
         openWhoScan(view);
         initSlideCircleViews(view);
@@ -133,17 +116,24 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     }
 
     private void initPicsGridView(View view) {
-        mGridView = (GridView) view.findViewById(R.id.fragment_publish_text_with_pics_gridview);
+        GridView gridView = (GridView) view.findViewById(R.id.fragment_publish_text_with_pics_gridview);
         NinePicsGridAdapter adapter = new NinePicsGridAdapter(getContext(),mUploadImgPaths);
-        mGridView.setAdapter(adapter);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getHostActivity().open(ChooseImageViewFragment.newInstance(mUploadImgPaths,position));
+            }
+        });
     }
 
 
-    private void initViewPagerListener() {
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private void initViewPager(View view) {
+        ViewPager viewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
+        viewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -158,6 +148,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
             }
         });
+
     }
 
     ResponseCallback callback = new ResponseCallback() {
@@ -209,24 +200,28 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     }
 
 
-    private void initOnGlobalListener() {
+    private void initOnGlobalListener(View view) {
+        final LinearLayout mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
+        final LinearLayout emoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
+        final ScrollView  scrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
+        final AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
         mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 Rect r = new Rect();
-                mScrollView.getWindowVisibleDisplayFrame(r);
+                scrollView.getWindowVisibleDisplayFrame(r);
                 rootHeight = mainLayout.getRootView().getHeight();
                 subHeight = r.bottom - r.top;
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
                     emoLineLayout.setVisibility(View.GONE);
-                    mScrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
+                    scrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
                 } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
                     if(getHostActivity().isPhone()) {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight,45,mAppBarLayout));
+                        scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 45, appBarLayout));
                     } else {
-                        mScrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
+                        scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
                     }
                     emoLineLayout.setVisibility(View.VISIBLE);
                 }
@@ -234,17 +229,18 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         });
     }
 
-    private void initFloatingBn() {
-        mEmotionView.setOnTouchListener(new View.OnTouchListener() {
+    private void initFloatingBn(View view) {
+        final TextView emotionView = (TextView)view.findViewById(R.id.emotion_icon);
+        emotionView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                    mEmotionView.setText(getString(R.string.keyboard));
-                    SoftInput.close(getActivity(), mEmotionView);
+                    emotionView.setText(getString(R.string.keyboard));
+                    SoftInput.close(getActivity(), emotionView);
                     isEmotionOpen = false;
                     label = false;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    mEmotionView.setText(getString(R.string.smile));
+                    emotionView.setText(getString(R.string.smile));
                     SoftInput.open(getActivity());
                     isEmotionOpen = true;
                     label = false;
@@ -253,54 +249,6 @@ public class PublishTextWithPicsFragment extends BaseFragment {
             }
         });
     }
-
-//    private void initUpladImageView(View view) {
-//        mUploadImgs = new ArrayList<>();
-//        ImageView imageView ;
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im1);
-//        mUploadImgs.add(imageView);
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im2);
-//        mUploadImgs.add(imageView);
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im3);
-//        mUploadImgs.add(imageView);
-//
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im4);
-//        mUploadImgs.add(imageView);
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im5);
-//        mUploadImgs.add(imageView);
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im6);
-//        mUploadImgs.add(imageView);
-//
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im7);
-//        mUploadImgs.add(imageView);
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im8);
-//        mUploadImgs.add(imageView);
-//        imageView = (ImageView)view.findViewById(R.id.activity_publish_weibo_image_im9);
-//        mUploadImgs.add(imageView);
-//
-//    }
-
-//    private void initLoadImage() {
-//        int length = mUploadImgPaths.size();
-//        int targetWidth;
-//        if(getHostActivity().isPhone()){
-//            targetWidth = Divice.dividerScreen(getActivity(), 4);
-//        } else {
-//            targetWidth = Divice.dividerScreen(getActivity(), 5);
-//        }
-//        for (int i = 0; i < length;i++){
-//            mUploadImgs.get(i).setLayoutParams(SchoolFriendLayoutParams.phoneImageMarginBottom(getContext()));
-//            Picasso.with(getActivity()).load(new File(mUploadImgPaths.get(i).getData())).resize(targetWidth,targetWidth).centerCrop()
-//                    .into(mUploadImgs.get(i));
-//            final int finalI = i;
-//            mUploadImgs.get(i).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                 }
-//            });
-//        }
-//    }
 
     public void inputEmotion(String text) {
         int selectionCursor = mContentEditText.getSelectionStart();

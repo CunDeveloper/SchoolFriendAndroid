@@ -3,6 +3,7 @@ package com.nju.util;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
+import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.model.Image;
@@ -18,11 +19,17 @@ import java.util.ArrayList;
  */
 public class AsyncCompress extends AsyncTask<ArrayList<Image>,Void,ArrayList<ImageWrapper>> {
     private BaseFragment mFragment;
-    private int  mWidth;
+    private static int  mWidth =0;
+    private static final int ROW_NUMBERS = 4;
+    private static final int SPACE_NUMBERS = ROW_NUMBERS+1;
 
     public AsyncCompress(BaseFragment fragment) {
         mFragment = fragment;
-        mWidth = Divice.getDisplayWidth(mFragment.getContext())/3;
+        if (mWidth ==0) {
+            float space= mFragment.getResources().getDimension(R.dimen.phone_apadding);
+            int spacePX = (int) Divice.convertDpToPixel(space,mFragment.getContext());
+            mWidth = (Divice.getDisplayWidth(mFragment.getContext())-SPACE_NUMBERS*spacePX)/ROW_NUMBERS;
+        }
     }
 
     @Override

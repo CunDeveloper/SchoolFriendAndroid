@@ -8,6 +8,7 @@ import android.view.View;
 import com.nju.fragment.ChoosedOriginPicViewPageItemFragment;
 import com.nju.fragment.OriginPicsViewFragment;
 import com.nju.model.Image;
+import com.nju.model.ImageWrapper;
 
 import java.util.ArrayList;
 
@@ -16,8 +17,8 @@ import java.util.ArrayList;
  */
 public class ChooseOriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<Image> mImgPaths;
-    public ChooseOriginPicViewPagerAdapter(FragmentManager fm, ArrayList<Image> imgPaths) {
+    private ArrayList<ImageWrapper> mImgPaths;
+    public ChooseOriginPicViewPagerAdapter(FragmentManager fm, ArrayList<ImageWrapper> imgPaths) {
         super(fm);
         mImgPaths = imgPaths;
 
@@ -25,9 +26,7 @@ public class ChooseOriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = ChoosedOriginPicViewPageItemFragment.newInstance(mImgPaths.get(position).getData());
-
-        return fragment;
+        return ChoosedOriginPicViewPageItemFragment.newInstance(mImgPaths.get(position).getPath());
     }
 
     @Override

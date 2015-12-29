@@ -30,8 +30,13 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class MultiChoosePicFragment extends BaseFragment {
-
     public static final String TAG = MultiChoosePicFragment.class.getSimpleName();
+    private static final float OPAQUE = 1.0F;
+    private static final float TRANSLUCENT = 0.5F;
+    private static final String LEFT_BRACKETS ="(";
+    private static final String RIGHT_BRACKETS = ")";
+    private static final String SLASH = "/";
+    private static final int MAX_NUMBER_OF_PICS = 9;
     private ProgressBar mProgressBar;
     private GridView mGridView;
     private ArrayList<Image> mImgPaths ;
@@ -39,6 +44,7 @@ public class MultiChoosePicFragment extends BaseFragment {
     private Button mFinishBn;
     private TextView mReviewTv;
     private final  MyHandler mHandler = new MyHandler(this);
+
     public static MultiChoosePicFragment newInstance() {
         return new MultiChoosePicFragment();
     }
@@ -76,7 +82,7 @@ public class MultiChoosePicFragment extends BaseFragment {
         mFinishBn = getHostActivity().getMenuBn();
         mFinishBn.setEnabled(false);
         mFinishBn.setText(getString(R.string.finish));
-        mFinishBn.setAlpha(0.5F);
+        mFinishBn.setAlpha(TRANSLUCENT);
         mFinishBn.setVisibility(View.VISIBLE);
         initFinishBnEvent();
     }
@@ -116,17 +122,17 @@ public class MultiChoosePicFragment extends BaseFragment {
             if (label) {
                 mFinishBn.setEnabled(true);
                 mReviewTv.setEnabled(true);
-                mFinishBn.setAlpha(1.0F);
-                mReviewTv.setAlpha(1.0F);
+                mFinishBn.setAlpha(OPAQUE);
+                mReviewTv.setAlpha(OPAQUE);
             }
-            mFinishBn.setText(getResources().getString(R.string.finish)+"("+msg.obj+"/9)");
-            mReviewTv.setText(getResources().getString(R.string.review)+"("+msg.obj+")");
+            mFinishBn.setText(getResources().getString(R.string.finish)+LEFT_BRACKETS+msg.obj+SLASH+MAX_NUMBER_OF_PICS+RIGHT_BRACKETS);
+            mReviewTv.setText(getResources().getString(R.string.review)+LEFT_BRACKETS+msg.obj+RIGHT_BRACKETS);
             mFinishBn.invalidate();
             mReviewTv.invalidate();
         }
         else{
-            mFinishBn.setAlpha(0.5f);
-            mReviewTv.setAlpha(0.5f);
+            mFinishBn.setAlpha(TRANSLUCENT);
+            mReviewTv.setAlpha(TRANSLUCENT);
             mFinishBn.setText(getResources().getString(R.string.finish));
             mReviewTv.setText(getResources().getString(R.string.review));
             mReviewTv.setEnabled(true);

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.nju.activity.R;
 import com.nju.adatper.ChooseOriginPicViewPagerAdapter;
 import com.nju.model.Image;
+import com.nju.model.ImageWrapper;
 
 import java.util.ArrayList;
 
@@ -18,11 +19,12 @@ public class ChooseImageViewFragment extends BaseFragment {
     private static  final String IMG_PATH = "img_path";
     private static final String POSITION = "position";
     public static final String TAG = ChooseImageViewFragment.class.getSimpleName();
-    private ArrayList<Image> mImgPaths;
+    private static final String SLASH = "/";
+    private ArrayList<ImageWrapper> mImgPaths;
     private ViewPager mViewPager;
     private int mPosition;
-    private ActionBar mActionBar;
-    public static ChooseImageViewFragment newInstance(ArrayList<Image> imgPaths,int position) {
+
+    public static ChooseImageViewFragment newInstance(ArrayList<ImageWrapper> imgPaths,int position) {
         ChooseImageViewFragment fragment = new ChooseImageViewFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(IMG_PATH,imgPaths);
@@ -57,7 +59,7 @@ public class ChooseImageViewFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getHostActivity().getToolBar().setTitle((mPosition + 1) + "/" + mImgPaths.size());
+        getHostActivity().getToolBar().setTitle((mPosition + 1) + SLASH + mImgPaths.size());
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
         getHostActivity().getMenuDeleteView().setVisibility(View.VISIBLE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);
@@ -67,7 +69,7 @@ public class ChooseImageViewFragment extends BaseFragment {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                getHostActivity().getToolBar().setTitle((position + 1) + "" + "/" + mImgPaths.size());
+                getHostActivity().getToolBar().setTitle((position + 1) + "" + SLASH + mImgPaths.size());
             }
 
             @Override
