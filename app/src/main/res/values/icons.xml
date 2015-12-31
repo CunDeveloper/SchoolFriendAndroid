@@ -4,4 +4,8 @@
     <string name="keyboard">&#xf11c;</string>
     <string name="comment_icon">&#xf086;</string>
     <string name="praise_icon">&#xf164;</string>
+    <string name="plus_square_icon">&#xf196;</string>
+    <string name="close_icon">&#xf00d;</string>
+    <string name="trash_icon">&#xf014;</string>
+
 </resources>

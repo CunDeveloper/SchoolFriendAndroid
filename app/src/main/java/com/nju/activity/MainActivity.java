@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity {
     private Toolbar mToolBar;
     private Button mMenuBn;
     private ImageView mMenuCameraView;
-    private ImageView mMenuDeleteView;
+    private TextView mMenuDeleteView;
     private LinearLayout mNoActionBarLinearLayout;
     private static boolean isPhone;
     private static final String FINAL_TAG = "final_tag";
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(mToolBar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mMenuBn = (Button) findViewById(R.id.main_viewpager_menu_bn);
-        mMenuDeleteView = (ImageView) findViewById(R.id.main_viewpager_menu_delete_img);
+        mMenuDeleteView = (TextView) findViewById(R.id.main_viewpager_menu_delete_img);
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
         mNoActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
         CoordinatorLayout mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public ImageView getMenuDeleteView() {
+    public TextView getMenuDeleteView() {
         return mMenuDeleteView;
     }
 

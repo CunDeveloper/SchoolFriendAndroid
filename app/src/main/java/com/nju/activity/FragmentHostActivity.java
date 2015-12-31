@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nju.fragment.BaseFragment;
 
@@ -24,7 +25,7 @@ public interface FragmentHostActivity {
     Toolbar getToolBar();
     Button getMenuBn();
     ImageView getMenuCameraView();
-    ImageView getMenuDeleteView();
+    TextView getMenuDeleteView();
     LinearLayout geLinearLayout();
     BaseActivity.LocalStack<BaseFragment> getBackStack();
     boolean isPhone();

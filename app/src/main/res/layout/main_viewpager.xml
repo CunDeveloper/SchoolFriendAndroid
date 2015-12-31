@@ -41,14 +41,17 @@
                     android:id="@+id/main_viewpager_menu_bn"
                     android:textColor="?attr/colorPrimary"
                     />
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    android:textSize="32sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
                     android:paddingLeft="@dimen/button_padding"
                     android:paddingRight="@dimen/button_padding"
-                    android:src="@mipmap/ic_menu_delete"
                     android:visibility="gone"
+                    android:text="@string/trash_icon"
                     android:id="@+id/main_viewpager_menu_delete_img"
                     />
                 <LinearLayout

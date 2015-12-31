@@ -6,7 +6,12 @@ import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.ChooseOriginPicViewPagerAdapter;
 import com.nju.model.Image;
@@ -21,8 +26,9 @@ public class ChooseImageViewFragment extends BaseFragment {
     public static final String TAG = ChooseImageViewFragment.class.getSimpleName();
     private static final String SLASH = "/";
     private ArrayList<ImageWrapper> mImgPaths;
-    private ViewPager mViewPager;
     private int mPosition;
+    private ChooseOriginPicViewPagerAdapter mPagerAdapter;
+    private int mDelPosition = 0;
 
     public static ChooseImageViewFragment newInstance(ArrayList<ImageWrapper> imgPaths,int position) {
         ChooseImageViewFragment fragment = new ChooseImageViewFragment();
@@ -49,11 +55,12 @@ public class ChooseImageViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
-        mViewPager.setAdapter(new ChooseOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths));
-        mViewPager.setCurrentItem(mPosition);
-        initViewPagerSlideListener();
-        return mViewPager;
+        ViewPager viewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
+        mPagerAdapter = new ChooseOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths);
+        viewPager.setAdapter(mPagerAdapter);
+        viewPager.setCurrentItem(mPosition);
+        initViewPagerSlideListener(viewPager);
+        return viewPager;
     }
 
     @Override
@@ -61,15 +68,43 @@ public class ChooseImageViewFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         getHostActivity().getToolBar().setTitle((mPosition + 1) + SLASH + mImgPaths.size());
         getHostActivity().getMenuCameraView().setVisibility(View.GONE);
-        getHostActivity().getMenuDeleteView().setVisibility(View.VISIBLE);
+        TextView deleteView = getHostActivity().getMenuDeleteView();
+        deleteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayDialog();
+            }
+        });
+        deleteView.setVisibility(View.VISIBLE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);
     }
 
-    private void initViewPagerSlideListener (){
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private  void displayDialog() {
+        SchoolFriendDialog dialog = SchoolFriendDialog.remindDialog(getContext(),getString(R.string.reminder),getString(R.string.are_you_sure_delete_this_pic));
+
+        dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                mImgPaths.remove(mDelPosition);
+                mPagerAdapter.notifyDataSetChanged();
+
+            }
+        });
+        dialog.getBuilder().onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void initViewPagerSlideListener (ViewPager viewPager){
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 getHostActivity().getToolBar().setTitle((position + 1) + "" + SLASH + mImgPaths.size());
+                mDelPosition = position;
             }
 
             @Override

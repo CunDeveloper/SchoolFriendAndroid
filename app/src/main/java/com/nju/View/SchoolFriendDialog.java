@@ -8,6 +8,7 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.activity.R;
+import com.squareup.okhttp.Request;
 
 /**
  * Created by xiaojuzhang on 2015/11/26.
@@ -23,7 +24,7 @@ public class SchoolFriendDialog extends MaterialDialog {
     }
 
     public static SchoolFriendDialog showProgressDialogNoTitle(final Context context,final String content) {
-        Builder builder = new Builder(context).content(content).contentColor(ContextCompat.getColor(context,android.R.color.black)).progress(true, 0);
+        Builder builder = new Builder(context).content(content).contentColor(ContextCompat.getColor(context, android.R.color.black)).progress(true, 0);
         return new SchoolFriendDialog(builder);
     }
 
@@ -38,6 +39,13 @@ public class SchoolFriendDialog extends MaterialDialog {
                 context.finish();
             }
         });
+        return new SchoolFriendDialog(builder);
+    }
+
+    public static SchoolFriendDialog remindDialog(final Context context,final String title,final String content) {
+        Builder builder = new Builder(context).title(title).content(content);
+        builder.positiveText(context.getString(R.string.sure));
+        builder.negativeText(context.getString(R.string.cancle));
         return new SchoolFriendDialog(builder);
     }
 
