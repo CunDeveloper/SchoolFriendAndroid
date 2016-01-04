@@ -1,6 +1,7 @@
 package com.nju.http;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.nju.http.request.CompressRequest;
@@ -9,6 +10,7 @@ import com.nju.model.BitmapWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -46,11 +48,11 @@ public class HttpManager {
         return sInstance;
     }
 
-    public void addDownLoadQueue(RequestRunnable requestRunnable) {
-        mDownloadWorkQueue.add(requestRunnable);
-        RequestRunnable runnable = (RequestRunnable) mDownloadWorkQueue.poll();
-        if (runnable != null) {
-            mDownloadThreadPool.execute(runnable);
+    public void addDownLoadQueue(Runnable runnable) {
+        mDownloadWorkQueue.add(runnable);
+        Runnable reqRunnable = mDownloadWorkQueue.poll();
+        if (reqRunnable != null) {
+            mDownloadThreadPool.execute(reqRunnable);
         }
 
     }

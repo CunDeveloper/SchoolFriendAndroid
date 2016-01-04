@@ -17,6 +17,7 @@ import com.squareup.okhttp.Response;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -81,6 +82,15 @@ public class SchoolFriendHttp {
         return response.body().string();
     }
 
+    public InputStream SynGetStream (final String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = mClient.newCall(request).execute();
+        return response.body().byteStream();
+    }
+
     /**
      * The callback is made after the response headers are ready.
      * Reading the response body may still block.
@@ -110,17 +120,7 @@ public class SchoolFriendHttp {
         mClient.newCall(request).enqueue(callback);
     }
 
-//    public  void AsynPost1(final Request.Builder builder,final String url,final HashMap<String,String> params,final Callback callback) {
-//        final FormEncodingBuilder formBuilder = new FormEncodingBuilder();
-//        for (Map.Entry<String,String> entry:params.entrySet()) {
-//            formBuilder.add(entry.getKey(), entry.getValue());
-//        }
-//        Request request = builder
-//                .url(url)
-//                .post(formBuilder.build())
-//                .build();
-//        mClient.newCall(request).enqueue(callback);
-//    }
+
 
     /**
      * Use an HTTP POST to send a request body to a service
