@@ -35,13 +35,16 @@ public class PersonCircleFragment extends BaseFragment {
     private ListView mListView;
     private ArrayList<Content> mDecodeContents;
     private ArrayList<Content> mContainPicContentList;
+    private static PersonCircleFragment mFragment;
 
     public static PersonCircleFragment newInstance(String userName) {
-        PersonCircleFragment fragment = new PersonCircleFragment();
+        if(mFragment == null) {
+            mFragment = new PersonCircleFragment();
+        }
         Bundle bundle = new Bundle();
         bundle.putString(USERNAME,userName);
-        fragment.setArguments(bundle);
-        return fragment;
+        mFragment.setArguments(bundle);
+        return mFragment;
     }
 
     public PersonCircleFragment() {
@@ -53,6 +56,10 @@ public class PersonCircleFragment extends BaseFragment {
         if (getArguments() != null){
             mUserName = getArguments().getString(USERNAME);
         }
+        HashMap<String,String> paras = new HashMap<>();
+        paras.put(Constant.USER_ID,String.valueOf(51));
+        paras.put(Constant.LABEL,Constant.QUERY_ALL);
+        HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PERSON_CIRCLE_URL, paras, callback, TAG));
     }
 
     ResponseCallback callback = new ResponseCallback() {
@@ -113,10 +120,6 @@ public class PersonCircleFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        HashMap<String,String> paras = new HashMap<>();
-        paras.put(Constant.USER_ID,String.valueOf(51));
-        paras.put(Constant.LABEL,Constant.QUERY_ALL);
-        HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL+Constant.PERSON_CIRCLE_URL,paras,callback,TAG));
         View view = inflater.inflate(R.layout.fragment_person_circle, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mListView = (ListView) view.findViewById(R.id.fragment_person_circle_listview);

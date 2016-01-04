@@ -11,7 +11,7 @@ public class Entry {
 
     private String bigLabel;
     private String smallLabel;
-    private Drawable drawable;
+    private String drawable;
     private ArrayList<Entry> childItems;
     public String getBigLabel() {
         return bigLabel;
@@ -37,11 +37,11 @@ public class Entry {
         this.childItems = childItems;
     }
 
-    public Drawable getDrawable() {
+    public String getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(Drawable drawable) {
+    public void setDrawable(String drawable) {
         this.drawable = drawable;
     }
 }

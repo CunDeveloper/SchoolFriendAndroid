@@ -9,7 +9,7 @@ public class LocationInfo {
     private String locationName;
     private String address;
     private double distance;
-    private Drawable selectBg;
+    private String iconName;
     public String getLocationName() {
         return locationName;
     }
@@ -34,12 +34,11 @@ public class LocationInfo {
         this.distance = distance;
     }
 
-    public Drawable getSelectBg() {
-        return selectBg;
+    public String getIconName() {
+        return iconName;
     }
 
-    public void setSelectBg(Drawable selectBg) {
-        this.selectBg = selectBg;
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
-
 }

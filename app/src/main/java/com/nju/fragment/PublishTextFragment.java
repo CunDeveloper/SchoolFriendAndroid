@@ -195,7 +195,7 @@ public class PublishTextFragment extends BaseFragment {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
+                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
                 mDialog.show();
                 SoftInput.close(getContext(),mSendButton);
                 final String content = mContentEditText.getText().toString();

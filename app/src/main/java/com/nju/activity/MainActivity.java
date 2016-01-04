@@ -20,10 +20,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
+import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.WebViewFragment;
@@ -115,7 +117,7 @@ public class MainActivity extends BaseActivity {
                         +Divice.getStatusBarHeight(this));
         getSharedPreferences().edit().putInt(getString(R.string.diviceWidth),deviceWidth).commit();
         getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight);
-        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight),visibleDeviceHeight);
+        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight), visibleDeviceHeight);
     }
 
     @Override
@@ -160,7 +162,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void open(BaseFragment fragment, Fragment fragmentToRemove) {
-        open(fragment,false,fragmentToRemove);
+        open(fragment, false, fragmentToRemove);
     }
 
     @Override
@@ -215,11 +217,18 @@ public class MainActivity extends BaseActivity {
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (mLocalBackStack.size() >=2) {
-            mLocalBackStack.pop();
+            BaseFragment fragment = mLocalBackStack.pop();
+            if (fragment.getClass().getSimpleName() .equals(PublishTextWithPicsFragment.TAG)) {
+                SchoolFriendDialog dialog = SchoolFriendDialog.exitReminderDialog(this,getString(R.string.are_you_sure_exit_this_eidt));
+                dialog.show();
+            }
+            else {
+                ft.replace(R.id.container,mLocalBackStack.peek());
+                ft.commit();
+            }
+            }
         }
-        ft.replace(R.id.container,mLocalBackStack.peek());
-        ft.commit();
-    }
+
 
     private void clearBackStack() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

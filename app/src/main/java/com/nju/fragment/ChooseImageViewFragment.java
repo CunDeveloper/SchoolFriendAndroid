@@ -27,6 +27,7 @@ public class ChooseImageViewFragment extends BaseFragment {
     private static final String SLASH = "/";
     private ArrayList<ImageWrapper> mImgPaths;
     private int mPosition;
+    private ViewPager mViewPager;
     private ChooseOriginPicViewPagerAdapter mPagerAdapter;
     private int mDelPosition = 0;
 
@@ -55,12 +56,12 @@ public class ChooseImageViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewPager viewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
+        mViewPager = (ViewPager) inflater.inflate(R.layout.fragment_choosed_image_view, container, false);
         mPagerAdapter = new ChooseOriginPicViewPagerAdapter(getFragmentManager(), mImgPaths);
-        viewPager.setAdapter(mPagerAdapter);
-        viewPager.setCurrentItem(mPosition);
-        initViewPagerSlideListener(viewPager);
-        return viewPager;
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setCurrentItem(mPosition);
+        initViewPagerSlideListener(mViewPager);
+        return mViewPager;
     }
 
     @Override
@@ -86,7 +87,7 @@ public class ChooseImageViewFragment extends BaseFragment {
             @Override
             public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                 mImgPaths.remove(mDelPosition);
-                mPagerAdapter.notifyDataSetChanged();
+                mViewPager.setAdapter(mPagerAdapter);
 
             }
         });

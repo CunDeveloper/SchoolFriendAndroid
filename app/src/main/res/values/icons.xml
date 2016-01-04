@@ -7,5 +7,6 @@
     <string name="plus_square_icon">&#xf196;</string>
     <string name="close_icon">&#xf00d;</string>
     <string name="trash_icon">&#xf014;</string>
+    <string name="fa_check_icon">&#xf00c;</string>
 
 </resources>

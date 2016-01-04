@@ -57,22 +57,22 @@ public class UserLocationAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.nameView = (TextView) convertView.findViewById(R.id.user_location_item_name);
             holder.addressView = (TextView) convertView.findViewById(R.id.user_location_item_address);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.user_location_item_image);
+            holder.checkView = (TextView) convertView.findViewById(R.id.user_location_item_image);
             convertView.setTag(holder);
         }
         else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-        holder.nameView.setText(mInfoList.get(position).getLocationName());
-        holder.addressView.setText(mInfoList.get(position).getAddress());
-        holder.imageView.setImageDrawable(mInfoList.get(position).getSelectBg());
+        LocationInfo info = mInfoList.get(position);
+        holder.nameView.setText(info.getLocationName());
+        holder.addressView.setText(info.getAddress());
+        holder.checkView.setText(info.getIconName());
         return convertView;
     }
 
     private class ViewHolder {
         public TextView nameView;
         public TextView addressView;
-        public ImageView imageView;
+        public TextView checkView;
     }
 }

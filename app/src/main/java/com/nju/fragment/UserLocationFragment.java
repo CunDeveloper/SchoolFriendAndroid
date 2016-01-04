@@ -87,13 +87,13 @@ public class UserLocationFragment extends BaseFragment {
     private void initListContent(View view) {
         mListView = (ListView)view.findViewById(R.id.user_location_listView);
         View headerView = getActivity().getLayoutInflater().inflate(R.layout.user_location_header, mListView, false);
-        final ImageView headImageView = (ImageView) headerView.findViewById(R.id.user_location_header_checkBox);
+        final TextView headImageView = (TextView) headerView.findViewById(R.id.user_location_header_checkBox);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                headImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
+                headImageView.setText(getString(R.string.fa_check_icon));
                 if(choosePosition != -1) {
-                    mLocationInfoList.get(choosePosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                    mLocationInfoList.get(choosePosition).setIconName("");
                     choosePosition = -1;
                     mLocationAdapter.notifyDataSetChanged();
                 }
@@ -109,11 +109,11 @@ public class UserLocationFragment extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mLocationInfoList.get(position - 1).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.btn_check_buttonless_on));
+                mLocationInfoList.get(position - 1).setIconName(getString(R.string.fa_check_icon));
                 if (choosePosition == -1){
-                    headImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                    headImageView.setText("");
                 } else{
-                    mLocationInfoList.get(choosePosition).setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                    mLocationInfoList.get(choosePosition).setIconName("");
                 }
                 choosePosition = position-1;
                 mLocationAdapter.notifyDataSetChanged();
@@ -152,7 +152,7 @@ public class UserLocationFragment extends BaseFragment {
                 info.setLocationName(poi.getName());
                 info.setAddress(poi.getAddress());
                 info.setDistance(poi.getDistance());
-                info.setSelectBg(ContextCompat.getDrawable(getActivity(), R.drawable.publish_content_edittext_bg));
+                info.setIconName("");
                 locationLists.add(info);
             }
             Message message = new Message();

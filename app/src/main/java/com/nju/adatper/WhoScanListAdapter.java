@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +82,7 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.who_scan_group,parent,false);
             holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_big_label);
             holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_label);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.who_scan_group_img);
+            holder.imageView = (TextView) convertView.findViewById(R.id.who_scan_group_img);
             convertView.setTag(holder);
         } else
         {
@@ -91,7 +90,7 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
         }
         holder.bigTextView.setText(mGroupItems.get(groupPosition).getBigLabel());
         holder.smallTextView.setText(mGroupItems.get(groupPosition).getSmallLabel());
-        holder.imageView.setImageDrawable(mGroupItems.get(groupPosition).getDrawable());
+        holder.imageView.setText(mGroupItems.get(groupPosition).getDrawable());
         return convertView;
     }
 
@@ -163,7 +162,7 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
     private class ViewHolder {
         public TextView bigTextView;
         public TextView smallTextView;
-        public ImageView imageView;
+        public TextView imageView;
         public CheckBox checkBox;
     }
 }

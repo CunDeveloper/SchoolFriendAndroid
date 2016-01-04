@@ -16,11 +16,15 @@
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true" />
 
-    <ImageView
+    <com.nju.View.SchoolFriendAweTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_location_header_checkBox"
-        android:src="@drawable/btn_check_buttonless_on"
+        android:textSize="26sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/fa_check_icon"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        />
+
 </RelativeLayout>

@@ -106,5 +106,6 @@
     <string name="reminder">提示</string>
     <string name="are_you_sure_delete_this_pic">要删除这张照片吗</string>
     <string name="sure">确定</string>
+    <string name="are_you_sure_exit_this_eidt">确定要退出此次编辑</string>
 
 </resources>

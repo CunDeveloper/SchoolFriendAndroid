@@ -169,6 +169,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SoftInput.close(getContext(),mFinishBn);
                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
                 mDialog.show();
                 SoftInput.close(getContext(),mFinishBn);
