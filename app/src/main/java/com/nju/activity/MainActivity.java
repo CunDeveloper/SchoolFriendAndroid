@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity {
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
         initNavigationViewListener();
+
         XueXinAuthFragment fragment = XueXinAuthFragment.newInstance();
         open(fragment,true,fragment);
         initDataBase();
