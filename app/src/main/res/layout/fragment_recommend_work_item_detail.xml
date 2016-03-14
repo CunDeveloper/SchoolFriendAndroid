@@ -1,0 +1,80 @@
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/phone_apadding"
+        android:paddingStart="@dimen/phone_apadding"
+        android:paddingEnd="@dimen/phone_apadding"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/light_blue"
+        android:id="@+id/recommend_work_item_detail_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/phone_apadding"
+        android:paddingEnd="@dimen/phone_apadding"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/padding_left"
+        android:id="@+id/recommend_work_item_detail_detail"
+        android:layout_below="@+id/recommend_work_item_detail_title"
+        android:layout_alignStart="@+id/recommend_work_item_detail_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/gray_line_bg"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_height="60dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/yingping"
+            android:id="@+id/re_work_item_yinpin_tv" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/zixun"
+            android:id="@+id/textView17" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/collect"
+            android:id="@+id/textView18" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_blue"
+        android:paddingStart="@dimen/phone_apadding"
+        android:paddingEnd="@dimen/phone_apadding"
+        android:id="@+id/fragment_recommend_work_item_detail_email"
+        android:layout_below="@+id/recommend_work_item_detail_detail"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

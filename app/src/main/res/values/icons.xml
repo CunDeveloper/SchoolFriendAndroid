@@ -8,5 +8,6 @@
     <string name="close_icon">&#xf00d;</string>
     <string name="trash_icon">&#xf014;</string>
     <string name="fa_check_icon">&#xf00c;</string>
+    <string name="comment_icon_r">&#xf27b;</string>
 
 </resources>

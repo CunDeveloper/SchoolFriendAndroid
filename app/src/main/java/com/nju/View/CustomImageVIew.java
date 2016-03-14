@@ -15,7 +15,7 @@ import android.widget.ImageView;
 /**
  * Created by xiaojuzhang on 2015/11/27.
  */
-public class CustomImageView extends ImageView
+public class CustomImageVIew extends ImageView
 {
     Matrix matrix = new Matrix();
 
@@ -39,7 +39,7 @@ public class CustomImageView extends ImageView
     ScaleGestureDetector mScaleDetector;
     Context context;
 
-    public CustomImageView(Context context, AttributeSet attr)
+    public CustomImageVIew(Context context, AttributeSet attr)
     {
         super(context, attr);
         super.setClickable(true);

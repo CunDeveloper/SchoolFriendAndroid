@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nju.View.CustomImageView;
+import com.nju.View.CustomImageVIew;
 import com.nju.activity.R;
 import com.nju.util.Divice;
 import com.squareup.picasso.Picasso;
@@ -25,7 +25,7 @@ public class OriginPicsViewFragment extends BaseFragment {
     public static final String TAG = OriginPicsViewFragment.class.getSimpleName();
     private static final String IMG_PATH = "img_path";
     private String mImgPath;
-    private CustomImageView mImageView;
+    private CustomImageVIew mImageView;
     private boolean label = true;
     private static final String LABEL ="label";
     private SharedPreferences mPreferences;
@@ -57,7 +57,7 @@ public class OriginPicsViewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_origin_pics_view, container, false);
-        mImageView = (CustomImageView) view.findViewById(R.id.fragment_origin_pics_view_imageView);
+        mImageView = (CustomImageVIew) view.findViewById(R.id.fragment_origin_pics_view_imageView);
         new LoadLocalImg().execute(mImgPath);
         imageViewClickEvent();
         mPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);

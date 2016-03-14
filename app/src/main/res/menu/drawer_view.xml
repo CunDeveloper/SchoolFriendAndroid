@@ -22,19 +22,20 @@
             android:icon="@drawable/ic_forum"
             android:title="@string/alumn_dynamic" />
         <item
-            android:id="@+id/nav_tucao"
-            android:icon="@drawable/ic_event"
-            android:title="@string/my_tucao" />
-
-        <item
             android:id="@+id/nav_heat_voice"
             android:icon="@drawable/ic_headset"
             android:title="@string/xuezhang_heat_voice" />
+        <item
+            android:id="@+id/nav_tucao"
+            android:icon="@drawable/ic_event"
+            android:title="@string/my_question" />
+
+
 
         <item
             android:id="@+id/nav_recrict"
             android:icon="@drawable/ic_dashboard"
-            android:title="@string/recrict" />
+            android:title="@string/work_recrict" />
 
     </group>
 

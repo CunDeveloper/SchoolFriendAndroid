@@ -54,6 +54,7 @@
                     android:text="@string/trash_icon"
                     android:id="@+id/main_viewpager_menu_delete_img"
                     />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -70,7 +71,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
-                        android:text="@string/food"
+                        android:text="@string/work"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -79,7 +80,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
-                        android:text="@string/teacher"
+                        android:text="@string/learing"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -88,7 +89,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
-                        android:text="@string/student"
+                        android:text="@string/find_job"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -97,7 +98,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
-                        android:text="@string/she_tuan"
+                        android:text="@string/shixi"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -110,6 +111,45 @@
                         />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:id="@+id/main_viewpager_no_action_recommend_work_layout"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/shixi"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/xiaozhao"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:text="@string/shezhao"
+                        />
+                </LinearLayout>
+
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

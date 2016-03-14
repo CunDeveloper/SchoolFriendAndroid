@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +28,8 @@ public interface FragmentHostActivity {
     ImageView getMenuCameraView();
     TextView getMenuDeleteView();
     LinearLayout geLinearLayout();
+    View getRecommendLayout();
+    void display(int i);
     BaseActivity.LocalStack<BaseFragment> getBackStack();
     boolean isPhone();
 }

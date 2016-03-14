@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nju.View.CustomImageView;
+import com.nju.View.CustomImageVIew;
 import com.nju.activity.R;
 import com.nju.util.Divice;
 import com.squareup.picasso.Picasso;
@@ -23,7 +23,7 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
     public static final String TAG = ChoosedOriginPicViewPageItemFragment.class.getSimpleName();
     private static final String PARAM = "param";
     private String mImgPath;
-    private CustomImageView mImgView;
+    private CustomImageVIew mImgView;
     private static final String LABEL = "label";
     private static SharedPreferences mPreference;
     public static ChoosedOriginPicViewPageItemFragment newInstance(String imgPath) {
@@ -53,7 +53,7 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_choosed_origin_pic_view_page_item, container, false);
-        mImgView = (CustomImageView) view.findViewById(R.id.fragment_choosed_origin_pic_view_page_item_imageView);
+        mImgView = (CustomImageVIew) view.findViewById(R.id.fragment_choosed_origin_pic_view_page_item_imageView);
         new LoadLocalImg().execute(mImgPath);
         initImageViewClickEvent();
         return view;

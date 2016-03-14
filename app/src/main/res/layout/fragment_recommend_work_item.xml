@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.nju.fragment.RecommendWorkItem">
+
+    <ListView
+        android:id="@+id/fragment_recommend_work_item_listview"
+        android:paddingTop="@dimen/phone_apadding"
+        android:paddingStart="@dimen/phone_apadding"
+        android:paddingEnd="@dimen/phone_apadding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</FrameLayout>

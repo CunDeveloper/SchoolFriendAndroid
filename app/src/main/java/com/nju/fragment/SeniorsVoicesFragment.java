@@ -50,8 +50,6 @@ public class SeniorsVoicesFragment extends BaseFragment {
         TextView textView = (TextView) view.findViewById(R.id.fragment_seniors_voice_tv);
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.fragment_web_view_progressBar);
         progressBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
-
-
         return view;
     }
 

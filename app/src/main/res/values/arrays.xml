@@ -14,4 +14,20 @@
         <item>收藏</item>
         <item>举报</item>
     </string-array>
+
+    <string-array name="voiceType">
+
+        <item>@string/work</item>
+        <item>@string/learing</item>
+        <item>@string/shixi</item>
+        <item>@string/find_job</item>
+        <item>@string/more</item>
+    </string-array>
+
+    <string-array name="recommdWorkType">
+
+        <item>@string/shixi</item>
+        <item>@string/xiaozhao</item>
+        <item>@string/shezhao</item>
+    </string-array>
 </resources>

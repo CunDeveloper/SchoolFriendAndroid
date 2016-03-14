@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:layout_height="160dp"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView10"
+        android:id="@+id/re_list_item_title"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:textColor="@color/light_blue"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         />
@@ -18,32 +19,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView11"
-        android:layout_below="@+id/textView10"
+        android:textColor="@android:color/black"
+        android:id="@+id/re_list_item_name"
+        android:layout_below="@+id/re_list_item_title"
         android:layout_alignParentStart="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/textView12"
-        android:layout_alignBottom="@+id/textView11"
-        android:layout_toEndOf="@+id/textView11" />
+
+        android:id="@+id/re_list_item_label"
+        android:layout_alignBottom="@+id/re_list_item_name"
+        android:layout_toEndOf="@+id/re_list_item_name" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/textView13"
-        android:layout_alignBottom="@+id/textView14"
+
+        android:id="@+id/re_list_item_date"
+        android:layout_alignBottom="@+id/fragment_re_list_item_count"
         android:layout_alignParentStart="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView14"
-        android:layout_below="@+id/textView12"
+        android:id="@+id/fragment_re_list_item_count"
+        android:text="2"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/re_list_item_label"
         android:layout_alignParentEnd="true" />
+
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/comment_icon_r"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:id="@+id/textView15"
+        android:layout_alignBottom="@+id/fragment_re_list_item_count"
+        android:layout_alignEnd="@+id/fragment_re_list_item_count" />
+
+
 </RelativeLayout>

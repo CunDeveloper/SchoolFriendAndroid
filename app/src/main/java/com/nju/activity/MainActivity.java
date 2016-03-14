@@ -26,11 +26,14 @@ import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
+import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.WebViewFragment;
 import com.nju.fragment.XueXinAuthFragment;
 import com.nju.util.Divice;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends BaseActivity {
@@ -42,9 +45,10 @@ public class MainActivity extends BaseActivity {
     private Button mMenuBn;
     private ImageView mMenuCameraView;
     private TextView mMenuDeleteView;
-    private LinearLayout mNoActionBarLinearLayout;
+    private LinearLayout mNoActionBarLinearLayout,mNoActionBarRecommendWorkLinearLayout;
     private static boolean isPhone;
     private static final String FINAL_TAG = "final_tag";
+    private ArrayList<View> actionBarViews = new ArrayList<>() ;
     int fragmentIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,9 @@ public class MainActivity extends BaseActivity {
         mMenuDeleteView = (TextView) findViewById(R.id.main_viewpager_menu_delete_img);
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
         mNoActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
+        mNoActionBarRecommendWorkLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_recommend_work_layout);
+        actionBarViews.add(mMenuBn);actionBarViews.add(mMenuDeleteView);actionBarViews.add(mMenuCameraView);
+        actionBarViews.add(mNoActionBarLinearLayout);actionBarViews.add(mNoActionBarRecommendWorkLinearLayout);
         CoordinatorLayout mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
         if (Build.VERSION.SDK_INT>19) {
             mCoordinatorLayout.setPadding(mCoordinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)
@@ -102,7 +109,7 @@ public class MainActivity extends BaseActivity {
                         open(SeniorsVoicesFragment.newInstance());
                         break;
                     case R.id.nav_recrict:
-                        open(WebViewFragment.newInstance());
+                        open(RecommendWorkFragment.newInstance());
                         break;
                 }
                 return false;
@@ -203,6 +210,22 @@ public class MainActivity extends BaseActivity {
     @Override
     public LinearLayout geLinearLayout() {
         return mNoActionBarLinearLayout;
+    }
+
+    @Override
+    public LinearLayout getRecommendLayout() {
+        return (LinearLayout)findViewById(R.id.main_viewpager_no_action_recommend_work_layout);
+    }
+
+    @Override
+    public void display(int target) {
+        for (int i=0;i<actionBarViews.size();i++){
+            if(target == i){
+                actionBarViews.get(i).setVisibility(View.VISIBLE);
+            }else {
+                actionBarViews.get(i).setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override

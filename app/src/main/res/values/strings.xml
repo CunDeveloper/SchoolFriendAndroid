@@ -107,5 +107,17 @@
     <string name="are_you_sure_delete_this_pic">要删除这张照片吗</string>
     <string name="sure">确定</string>
     <string name="are_you_sure_exit_this_eidt">确定要退出此次编辑</string>
+    <string name="recommend_work">推荐工作</string>
+    <string name="work">工作</string>
+    <string name="learing">学习</string>
+    <string name="find_job">求职</string>
+    <string name="shixi">实习</string>
+    <string name="my_question">我要提问</string>
+    <string name="work_recrict">推荐工作</string>
+    <string name="xiaozhao">校招</string>
+    <string name="shezhao">社招</string>
+    <string name="yingping">应聘</string>
+    <string name="zixun">咨询</string>
+    <string name="collect">收藏</string>
 
 </resources>

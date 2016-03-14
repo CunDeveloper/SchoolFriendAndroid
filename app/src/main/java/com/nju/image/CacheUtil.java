@@ -56,7 +56,7 @@ public class CacheUtil {
     }
 
     private static File getDiskCacheDir(Context context,String uniqueName) {
-        final String cachePath =
+        return  null;
     }
 
 }
