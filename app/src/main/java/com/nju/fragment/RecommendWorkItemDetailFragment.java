@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.RecommendWork;
 import com.nju.util.Divice;
+import com.nju.util.SoftInput;
 import com.nju.util.ToastUtil;
 
 
@@ -20,6 +24,9 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
 
     private static final String PARAM_KEY = "key";
     private static RecommendWork mRecommendWork;
+    private EditText mAckET;
+    private LinearLayout mBottomLayout;
+    private RelativeLayout hideReLayout;
 
     public static RecommendWorkItemDetailFragment newInstance(RecommendWork recommendWork) {
         RecommendWorkItemDetailFragment fragment = new RecommendWorkItemDetailFragment();
@@ -66,7 +73,13 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         detailTv.setText(mRecommendWork.getContent());
         TextView emailTv = (TextView) view.findViewById(R.id.fragment_recommend_work_item_detail_email);
         emailTv.setText(mRecommendWork.getEmail());
+       // mAckET = (EditText) view.findViewById(R.id.re_work_item_detail_comment_et);
+        mBottomLayout = (LinearLayout) view.findViewById(R.id.re_work_item_detail_layout);
+        hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_layout);
         findJobClick(view);
+        askJob(view);
+        collectJob(view);
+        hideSoft(view);
         return view;
     }
 
@@ -83,6 +96,42 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
                 intent.setData(Uri.parse("mailto:default@recipient.com")); // or just "mailto:" for blank
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void askJob(View view ){
+        TextView textView = (TextView) view.findViewById(R.id.re_work_item_ask_tv);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // mAckET.setVisibility(View.VISIBLE);
+                //mAckET.setFocusable(true);
+                hideReLayout.setVisibility(View.VISIBLE);
+                SoftInput.open(getContext());
+               // mBottomLayout.setVisibility(View.GONE);
+
+            }
+        });
+    }
+
+    private void hideSoft(View view){
+        final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.re_work_item_detail_gray_layout);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SoftInput.close(getContext(),linearLayout);
+                hideReLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void collectJob(View view){
+        TextView tv = (TextView) view .findViewById(R.id.re_work_item_collect);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
