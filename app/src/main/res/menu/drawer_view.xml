@@ -21,16 +21,16 @@
             android:id="@+id/nav_alumni_circle"
             android:icon="@drawable/ic_forum"
             android:title="@string/alumn_dynamic" />
-        <item
-            android:id="@+id/nav_heat_voice"
-            android:icon="@drawable/ic_headset"
-            android:title="@string/xuezhang_heat_voice" />
+
         <item
             android:id="@+id/nav_tucao"
             android:icon="@drawable/ic_event"
             android:title="@string/my_question" />
 
-
+        <item
+            android:id="@+id/nav_heat_voice"
+            android:icon="@drawable/ic_headset"
+            android:title="@string/xuezhang_heat_voice" />
 
         <item
             android:id="@+id/nav_recrict"

@@ -132,8 +132,9 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (mEmotionLineLayout.getVisibility()==View.GONE){
-                    mEmotionLineLayout.setVisibility(View.VISIBLE);
+
                     SoftInput.close(getContext(), mEmotionTv);
+                    mEmotionLineLayout.setVisibility(View.VISIBLE);
 
                 }else {
                     SoftInput.open(getContext());
