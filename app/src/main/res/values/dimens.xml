@@ -16,4 +16,5 @@
     <dimen name="phone_head_length">40dp</dimen>
     <dimen name="phone_apadding">10dp</dimen>
     <dimen name="phone_item_height">60dp</dimen>
+    <dimen name="bottom_choose_height">60dp</dimen>
 </resources>

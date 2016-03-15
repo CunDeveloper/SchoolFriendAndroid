@@ -14,6 +14,7 @@
         android:id="@+id/school_friend_listview"
         android:transcriptMode="alwaysScroll"
         />
+
     <include layout="@layout/emotion_input"/>
     <include layout="@layout/emotion_comment"/>
 </LinearLayout>

@@ -75,7 +75,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         emailTv.setText(mRecommendWork.getEmail());
        // mAckET = (EditText) view.findViewById(R.id.re_work_item_detail_comment_et);
         mBottomLayout = (LinearLayout) view.findViewById(R.id.re_work_item_detail_layout);
-        hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_layout);
+        hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
         findJobClick(view);
         askJob(view);
         collectJob(view);
@@ -107,21 +107,45 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             public void onClick(View v) {
                // mAckET.setVisibility(View.VISIBLE);
                 //mAckET.setFocusable(true);
+                mBottomLayout.setVisibility(View.GONE);
                 hideReLayout.setVisibility(View.VISIBLE);
                 SoftInput.open(getContext());
-               // mBottomLayout.setVisibility(View.GONE);
+               //
 
             }
         });
     }
 
     private void hideSoft(View view){
-        final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.re_work_item_detail_gray_layout);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        View mView = view.findViewById(R.id.re_work_item_detail_hide_layout);
+        final TextView mEmotionTv = (TextView) view.findViewById(R.id.comment_emotion);
+        final LinearLayout mEmotionLineLayout = (LinearLayout) view.findViewById(R.id.comment_input_emotion_main);
+        mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SoftInput.close(getContext(),linearLayout);
+                SoftInput.close(getContext(),hideReLayout);
                 hideReLayout.setVisibility(View.GONE);
+                mBottomLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        mEmotionTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mEmotionLineLayout.getVisibility()==View.GONE){
+                    mEmotionLineLayout.setVisibility(View.VISIBLE);
+                    SoftInput.close(getContext(), mEmotionTv);
+
+                }else {
+                    SoftInput.open(getContext());
+                    mEmotionLineLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mEmotionLineLayout.setVisibility(View.GONE);
+                        }
+                    },400);
+
+                }
+
             }
         });
     }

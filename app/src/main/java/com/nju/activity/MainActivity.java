@@ -31,9 +31,14 @@ import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
 import com.nju.fragment.WebViewFragment;
 import com.nju.fragment.XueXinAuthFragment;
+import com.nju.test.TestData;
 import com.nju.util.Divice;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class MainActivity extends BaseActivity {
@@ -86,10 +91,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        if (getSharedPreferences().getBoolean(FINAL_TAG,false)) {
-            initFinalValue();
-            getSharedPreferences().edit().putBoolean(FINAL_TAG,true).commit();
-        }
+        initFinalValue();
+//        if (getSharedPreferences().getBoolean(FINAL_TAG,false)) {
+//
+//            getSharedPreferences().edit().putBoolean(FINAL_TAG,true).commit();
+//        }
     }
 
     private void initNavigationViewListener () {
@@ -123,9 +129,14 @@ public class MainActivity extends BaseActivity {
         final int deviceHeight = Divice.getDisplayHeight(this);
         final int visibleDeviceHeight = deviceHeight -(int)( Divice.convertDpToPixel(mToolBar.getHeight(),this)
                         +Divice.getStatusBarHeight(this));
-        getSharedPreferences().edit().putInt(getString(R.string.diviceWidth),deviceWidth).commit();
-        getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight);
-        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight), visibleDeviceHeight);
+        getSharedPreferences().edit().putInt(getString(R.string.diviceWidth), deviceWidth).commit();
+        getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight).commit();
+        getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight), visibleDeviceHeight).commit();
+        //for only test
+        Set<String> levels = new HashSet<>();levels.add("本科");levels.add("所有");levels.add("硕士");
+        getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
+        getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
+
     }
 
     @Override

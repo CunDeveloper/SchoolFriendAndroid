@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:id="@+id/college_choose_dialog_relayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/college_choose_dialog_view"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:layout_above="@+id/college_choose_dialog_choose_main"
+        />
+
+    <RelativeLayout
+        android:id="@+id/college_choose_dialog_choose_main"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="250dp">
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/college_choose_dialog_listview"
+            android:visibility="gone"
+            android:divider="@null"
+            android:paddingStart="@dimen/padding_left"
+            android:background="@drawable/gray_line_deep_bg"
+            android:layout_above="@+id/college_choose_dialog_choose_layout"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/college_choose_dialog_choose_layout"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/gray_line_bg"
+            android:layout_height="@dimen/bottom_choose_height"/>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -119,5 +119,9 @@
     <string name="yingping">应聘</string>
     <string name="zixun">咨询</string>
     <string name="collect">收藏</string>
+    <string name="level">level</string>
+    <string name="all">所有</string>
+    <string name="undergraduate">本科</string>
+    <string name="undergraduateCollege">本科学院</string>
 
 </resources>

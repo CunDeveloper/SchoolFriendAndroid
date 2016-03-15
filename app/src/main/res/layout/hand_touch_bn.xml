@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.FloatingActionButton
+    android:id="@+id/college_choose_dialog_actionBn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end|bottom"
+    android:padding="0dp"
+    android:alpha="0.5"
+    app:backgroundTint="#EEEEEE"
+    android:src="@drawable/gray_big_circle"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"/>
