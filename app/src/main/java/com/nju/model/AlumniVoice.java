@@ -1,9 +1,13 @@
 package com.nju.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by cun on 2016/3/15.
  */
-public class AlumniVoice {
+public class AlumniVoice implements Parcelable {
+
     private int id;
     private String title;
     private String content;
@@ -13,6 +17,33 @@ public class AlumniVoice {
     private String date;
     private AuthorInfo authorInfo;
     private String simpleDesc;
+
+    public AlumniVoice(){
+
+    }
+    protected AlumniVoice(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        content = in.readString();
+        imgPaths = in.readString();
+        praiseCount = in.readInt();
+        commentCount = in.readInt();
+        date = in.readString();
+        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
+        simpleDesc = in.readString();
+    }
+
+    public static final Creator<AlumniVoice> CREATOR = new Creator<AlumniVoice>() {
+        @Override
+        public AlumniVoice createFromParcel(Parcel in) {
+            return new AlumniVoice(in);
+        }
+
+        @Override
+        public AlumniVoice[] newArray(int size) {
+            return new AlumniVoice[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -84,5 +115,23 @@ public class AlumniVoice {
 
     public void setSimpleDesc(String simpleDesc) {
         this.simpleDesc = simpleDesc;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(content);
+        dest.writeString(imgPaths);
+        dest.writeInt(praiseCount);
+        dest.writeInt(commentCount);
+        dest.writeString(date);
+        dest.writeParcelable(authorInfo, flags);
+        dest.writeString(simpleDesc);
     }
 }

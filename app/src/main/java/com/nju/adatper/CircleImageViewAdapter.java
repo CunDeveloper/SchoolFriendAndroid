@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.CircleImageViewItemFragment;
 
 import java.util.ArrayList;

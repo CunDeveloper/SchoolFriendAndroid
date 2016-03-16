@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.RecommendWork;
+import com.nju.util.CommentUtil;
 import com.nju.util.Divice;
 import com.nju.util.SoftInput;
-import com.nju.util.ToastUtil;
 
 
 public class RecommendWorkItemDetailFragment extends BaseFragment {
@@ -79,7 +79,8 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         findJobClick(view);
         askJob(view);
         collectJob(view);
-        hideSoft(view);
+        CommentUtil.hideSoft(getContext(), view);
+        CommentUtil.initViewPager(this, view);
         return view;
     }
 
@@ -100,15 +101,15 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         });
     }
 
-    private void askJob(View view ){
+    private void askJob(final View view ){
         TextView textView = (TextView) view.findViewById(R.id.re_work_item_ask_tv);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // mAckET.setVisibility(View.VISIBLE);
                 //mAckET.setFocusable(true);
-                mBottomLayout.setVisibility(View.GONE);
-                hideReLayout.setVisibility(View.VISIBLE);
+                //mBottomLayout.setVisibility(View.GONE);
+                CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
                 SoftInput.open(getContext());
                //
 
@@ -143,7 +144,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
                         public void run() {
                             mEmotionLineLayout.setVisibility(View.GONE);
                         }
-                    },400);
+                    }, 400);
 
                 }
 

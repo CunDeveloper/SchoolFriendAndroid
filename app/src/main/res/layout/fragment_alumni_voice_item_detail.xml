@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true"
+                android:id="@+id/scrollView"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/phone_apadding"
+                   >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/phone_apadding"
+                        android:id="@+id/alumni_vo_imageView"
+                        android:src="@drawable/cheese_1"
+                        android:layout_marginEnd="@dimen/phone_apadding"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/black"
+                        android:text="1"
+                        android:id="@+id/alumni_vo_name"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/alumni_vo_imageView" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/alumni_vo_label"
+                        android:text="1"
+                        android:layout_alignBottom="@+id/alumni_vo_name"
+                        android:layout_toEndOf="@+id/alumni_vo_name" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/light_blue"
+                        android:layout_marginTop="@dimen/phone_apadding"
+                        android:id="@+id/alumni_vo_title"
+                        android:text="1"
+                        android:layout_below="@+id/alumni_vo_label"
+                        android:layout_toEndOf="@+id/alumni_vo_imageView" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/alumni_vo_date"
+                        android:text="1"
+                        android:layout_marginBottom="150dp"
+                        android:layout_below="@+id/alumni_vo_desc"
+                        android:layout_alignStart="@+id/alumni_vo_desc" />
+                    <TextView
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_toEndOf="@+id/alumni_vo_imageView"
+                        android:layout_below="@+id/alumni_vo_title"
+                        android:id="@+id/alumni_vo_desc" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+
+                        android:layout_marginBottom="@dimen/phone_apadding"
+                        android:id="@+id/linearLayout2"
+                        android:layout_below="@+id/alumni_vo_desc"
+                        android:layout_alignStart="@+id/alumni_vo_date" />
+
+                </RelativeLayout>
+            </ScrollView>
+            <include layout="@layout/tool_bar"/>
+        </RelativeLayout>
+    </FrameLayout>
+    <include layout="@layout/comment_input"/>
+</RelativeLayout>

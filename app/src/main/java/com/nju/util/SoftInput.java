@@ -26,4 +26,8 @@ public class SoftInput {
         init(context);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    public static boolean openSoft(View view){
+        return imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+    }
 }

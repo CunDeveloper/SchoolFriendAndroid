@@ -1,10 +1,6 @@
 package com.nju.util;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-
-import com.nju.activity.R;
 
 import java.util.ArrayList;
 import java.util.List;

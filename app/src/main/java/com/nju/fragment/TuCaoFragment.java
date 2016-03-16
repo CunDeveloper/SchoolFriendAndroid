@@ -3,6 +3,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,8 +49,7 @@ public class TuCaoFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tu_cao, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_alumni_voice_viewpage);
-        viewPager.setAdapter(new AlumniVoiceViewPage(getFragmentManager(), getResources().getStringArray(R.array.voiceType)));
+        addAdapterChangeEvent(view);
         mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         openChooseDialog(view);
         hideChooseDialog(view);
@@ -57,11 +57,35 @@ public class TuCaoFragment extends BaseFragment {
         return view;
     }
 
+    private void addAdapterChangeEvent(View view){
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_alumni_voice_viewpage);
+        viewPager.setAdapter(new AlumniVoiceViewPage(getFragmentManager(), getResources().getStringArray(R.array.voiceType)));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
         getHostActivity().geLinearLayout().setVisibility(View.VISIBLE);
     }
 
@@ -102,7 +126,7 @@ public class TuCaoFragment extends BaseFragment {
             textView.setLayoutParams(param);
             textView.setText(level);
             if (textView.getText().toString().equals(getString(R.string.undergraduate))){
-                textView.setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_green_dark));
+                textView.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
                 listView.setAdapter(new CollageAdapter(getContext(), colleges));
                 listView.setVisibility(View.VISIBLE);
             }
@@ -128,7 +152,7 @@ public class TuCaoFragment extends BaseFragment {
     private void changeLevelTVColor(TextView view){
         for (TextView textView:mChooseLevelViews){
             if (view.getText().toString().equals(textView.getText().toString())){
-                view.setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_green_dark));
+                view.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
             }else{
                  textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
             }

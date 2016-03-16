@@ -3,12 +3,8 @@ package com.nju.adatper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
 
 import com.nju.fragment.AlumniVoiceItemFragment;
-
-import java.util.ArrayList;
 
 /**
  * Created by xiaojuzhang on 2016/3/14.

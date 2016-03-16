@@ -1,7 +1,6 @@
 package com.nju.test;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by xiaojuzhang on 2016/3/15.

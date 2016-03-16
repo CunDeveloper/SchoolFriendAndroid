@@ -2,7 +2,6 @@ package com.nju.http;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;

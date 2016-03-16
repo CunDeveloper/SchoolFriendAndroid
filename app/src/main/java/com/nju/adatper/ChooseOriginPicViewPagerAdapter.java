@@ -6,8 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 
 import com.nju.fragment.ChoosedOriginPicViewPageItemFragment;
-import com.nju.fragment.OriginPicsViewFragment;
-import com.nju.model.Image;
 import com.nju.model.ImageWrapper;
 
 import java.util.ArrayList;

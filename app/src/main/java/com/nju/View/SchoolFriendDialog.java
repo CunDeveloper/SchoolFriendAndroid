@@ -3,12 +3,10 @@ package com.nju.View;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.activity.R;
-import com.squareup.okhttp.Request;
 
 /**
  * Created by xiaojuzhang on 2015/11/26.

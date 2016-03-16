@@ -70,7 +70,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+
+                        android:textColor="@color/primayDark"
                         android:text="@string/work"
                         />
                     <TextView

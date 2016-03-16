@@ -9,5 +9,8 @@
     <string name="trash_icon">&#xf014;</string>
     <string name="fa_check_icon">&#xf00c;</string>
     <string name="comment_icon_r">&#xf27b;</string>
-
+    <string name="write_comment_icon">&#xf044;</string>
+    <string name="hand_praise_icon">&#xf087;</string>
+    <string name="share_icon">&#xf1d9;</string>
+    <string name="collect_icon">&#xf006;</string>
 </resources>

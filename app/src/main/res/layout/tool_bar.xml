@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@drawable/gray_line_bg"
+    android:layout_height="@dimen/bottom_choose_height"
+    android:layout_alignParentBottom="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:id="@+id/comment"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/write_comment_icon"
+        />
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:id="@+id/praise"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/hand_praise_icon"
+        />
+
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:id="@+id/collect"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/collect_icon"
+        />
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:id="@+id/share"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/share_icon"
+        />
+
+</LinearLayout>

@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-
-import java.util.Set;
 
 /**
  * Created by xiaojuzhang on 2016/3/15.

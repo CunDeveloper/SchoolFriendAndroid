@@ -1,13 +1,12 @@
 package com.nju.adatper;
 
- ;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
- import android.support.v4.app.FragmentManager;
- import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
+import com.nju.fragment.RecommendWorkItem;
 
- import com.nju.fragment.RecommendWorkItem;
+;
 
 /**
  * Created by xiaojuzhang on 2016/3/14.

@@ -1,6 +1,5 @@
 package com.nju.image;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;

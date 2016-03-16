@@ -1,13 +1,10 @@
 package com.nju.util;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 
-import com.nju.activity.BaseActivity;
 import com.nju.fragment.BaseFragment;
 
 import java.io.File;
@@ -15,8 +12,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import model.Content;
 
 /**
  * Created by xiaojuzhang on 2015/12/16.

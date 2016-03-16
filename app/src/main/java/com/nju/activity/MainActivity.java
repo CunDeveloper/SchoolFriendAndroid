@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -29,16 +28,13 @@ import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
 import com.nju.fragment.TuCaoFragment;
-import com.nju.fragment.WebViewFragment;
 import com.nju.fragment.XueXinAuthFragment;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 
 public class MainActivity extends BaseActivity {

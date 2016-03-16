@@ -10,7 +10,6 @@ import com.nju.db.SchoolEntry;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.model.School;
 
-
 import java.util.ArrayList;
 
 /**

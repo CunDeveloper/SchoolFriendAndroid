@@ -2,7 +2,6 @@ package com.nju.adatper;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.util.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import model.Content;
 

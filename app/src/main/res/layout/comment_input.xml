@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/phone_apadding"
                 android:background="@android:color/transparent"
-                android:id="@+id/activity_school_friend_comment_edittext"
+                android:id="@+id/comment_edittext"
                 android:layout_alignBottom="@+id/comment_emotion"
                 android:layout_toStartOf="@+id/comment_emotion"
                 />
@@ -76,7 +76,14 @@
             android:background="@android:color/white"
             android:orientation="vertical"
             android:visibility="gone"
-            android:layout_height="255dp"/>
+            android:layout_height="255dp">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

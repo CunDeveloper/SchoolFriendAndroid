@@ -2,19 +2,16 @@ package com.nju.fragment;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.ChooseOriginPicViewPagerAdapter;
-import com.nju.model.Image;
 import com.nju.model.ImageWrapper;
 
 import java.util.ArrayList;

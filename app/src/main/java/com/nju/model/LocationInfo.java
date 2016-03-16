@@ -1,7 +1,5 @@
 package com.nju.model;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by xiaojuzhang on 2015/11/19.
  */

@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.nju.util.Constant;
 
-import model.Content;
-
 /**
  * Created by xiaojuzhang on 2015/12/1.
  */

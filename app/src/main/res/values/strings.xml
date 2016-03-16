@@ -123,5 +123,7 @@
     <string name="all">所有</string>
     <string name="undergraduate">本科</string>
     <string name="undergraduateCollege">本科学院</string>
+    <string name="collect_ok">收藏成功</string>
+    <string name="praise_ok">点赞成功</string>
 
 </resources>

@@ -13,11 +13,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.nju.activity.R;
-import com.nju.fragment.BaseFragment;
-
-import model.Content;
-
 /**
  * Created by xiaojuzhang on 2015/11/16.
  */

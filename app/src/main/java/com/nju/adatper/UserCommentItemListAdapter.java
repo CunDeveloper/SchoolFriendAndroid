@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.FriendWeibo;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;

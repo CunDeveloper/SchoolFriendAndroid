@@ -21,7 +21,6 @@ import com.nju.fragment.PersonCircleFragment;
 import com.nju.model.FriendWeibo;
 import com.nju.model.User;
 import com.nju.util.CommentPopupWindow;
-
 import com.nju.util.SchoolFriendLayoutParams;
 
 import java.util.ArrayList;

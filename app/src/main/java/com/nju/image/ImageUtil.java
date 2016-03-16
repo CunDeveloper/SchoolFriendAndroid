@@ -4,8 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.nju.http.SchoolFriendHttp;
-
 import java.io.IOException;
 import java.io.InputStream;
 
