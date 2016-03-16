@@ -40,7 +40,7 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.xiaojuzhang.test1.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -49,6 +49,11 @@
         <activity
             android:name=".WebViewActivity"
             android:label="@string/title_activity_web_view" >
+        </activity>
+        <activity
+            android:theme="@style/activityTheme"
+            android:name=".RecommendWorkActivity"
+            android:label="@string/title_activity_recommend_work" >
         </activity>
     </application>
 

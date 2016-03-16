@@ -25,7 +25,7 @@
         <item
             android:id="@+id/nav_tucao"
             android:icon="@drawable/ic_event"
-            android:title="@string/my_question" />
+            android:title="@string/major_ask" />
 
         <item
             android:id="@+id/nav_heat_voice"

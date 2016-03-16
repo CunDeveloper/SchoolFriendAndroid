@@ -4,4 +4,7 @@
         <item name="colorPrimaryDark">@color/black80</item>
         <item name="colorAccent">#00897B</item>
     </style>
+    <style name="activityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
 </resources>

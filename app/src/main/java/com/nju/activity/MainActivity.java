@@ -1,6 +1,7 @@
 package com.nju.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,6 +25,7 @@ import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
+import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SeniorsVoicesFragment;
@@ -105,12 +107,14 @@ public class MainActivity extends BaseActivity {
                         open(AlumniCircleFragment.newInstance());
                         break;
                     case R.id.nav_tucao:
-                        open(TuCaoFragment.newInstance());
+                        open(MajorAskFragment.newInstance());
                         break;
                     case R.id.nav_heat_voice:
-                        open(SeniorsVoicesFragment.newInstance());
+                        open(TuCaoFragment.newInstance());
                         break;
                     case R.id.nav_recrict:
+//                        Intent intent = new Intent(MainActivity.this,RecommendWorkActivity.class);
+//                        startActivity(intent);
                         open(RecommendWorkFragment.newInstance());
                         break;
                 }

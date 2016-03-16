@@ -16,40 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:background="@android:color/transparent"
-            android:orientation="horizontal"
-            >
-            <View
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="bottom"
-                android:id="@+id/emotion_pager_view1"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/select_circle_label_bg"
-                />
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="bottom"
-                android:id="@+id/emotion_pager_view2"
-                android:background="@drawable/unselect_circle_label_bg"
-                android:layout_marginStart="16dp"
-                />
-            <View
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="bottom"
-                android:id="@+id/emotion_pager_view3"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/unselect_circle_label_bg"
-                />
-        </LinearLayout>
+        <include layout="@layout/slide_circle"/>
     </FrameLayout>
 
 </LinearLayout>

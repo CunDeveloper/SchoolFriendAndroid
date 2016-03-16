@@ -23,10 +23,12 @@ import com.nju.util.SoftInput;
 public class RecommendWorkItemDetailFragment extends BaseFragment {
 
     private static final String PARAM_KEY = "key";
+    public static final String TAG = RecommendWorkItemDetailFragment.class.getSimpleName() ;
     private static RecommendWork mRecommendWork;
     private EditText mAckET;
     private LinearLayout mBottomLayout;
     private RelativeLayout hideReLayout;
+    private EditText mContentEditText ;
 
     public static RecommendWorkItemDetailFragment newInstance(RecommendWork recommendWork) {
         RecommendWorkItemDetailFragment fragment = new RecommendWorkItemDetailFragment();
@@ -60,7 +62,6 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         getHostActivity().display(5);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,14 +77,21 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
        // mAckET = (EditText) view.findViewById(R.id.re_work_item_detail_comment_et);
         mBottomLayout = (LinearLayout) view.findViewById(R.id.re_work_item_detail_layout);
         hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
+        mContentEditText = CommentUtil.getCommentEdit(view);
         findJobClick(view);
         askJob(view);
         collectJob(view);
         CommentUtil.hideSoft(getContext(), view);
         CommentUtil.initViewPager(this, view);
+        CommentUtil.addViewPageEvent(getContext(),view);
         return view;
     }
 
+    public void inputEmotion(String text) {
+        int selectionCursor = mContentEditText.getSelectionStart();
+        mContentEditText.getText().insert(selectionCursor, text);
+        mContentEditText.invalidate();
+    }
 
     private void findJobClick(View view){
         TextView textView = (TextView) view.findViewById(R.id.re_work_item_yinpin_tv);
@@ -106,48 +114,8 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // mAckET.setVisibility(View.VISIBLE);
-                //mAckET.setFocusable(true);
-                //mBottomLayout.setVisibility(View.GONE);
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
                 SoftInput.open(getContext());
-               //
-
-            }
-        });
-    }
-
-    private void hideSoft(View view){
-        View mView = view.findViewById(R.id.re_work_item_detail_hide_layout);
-        final TextView mEmotionTv = (TextView) view.findViewById(R.id.comment_emotion);
-        final LinearLayout mEmotionLineLayout = (LinearLayout) view.findViewById(R.id.comment_input_emotion_main);
-        mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SoftInput.close(getContext(),hideReLayout);
-                hideReLayout.setVisibility(View.GONE);
-                mBottomLayout.setVisibility(View.VISIBLE);
-            }
-        });
-        mEmotionTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mEmotionLineLayout.getVisibility()==View.GONE){
-
-                    SoftInput.close(getContext(), mEmotionTv);
-                    mEmotionLineLayout.setVisibility(View.VISIBLE);
-
-                }else {
-                    SoftInput.open(getContext());
-                    mEmotionLineLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mEmotionLineLayout.setVisibility(View.GONE);
-                        }
-                    }, 400);
-
-                }
-
             }
         });
     }
@@ -161,6 +129,5 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             }
         });
     }
-
 
 }

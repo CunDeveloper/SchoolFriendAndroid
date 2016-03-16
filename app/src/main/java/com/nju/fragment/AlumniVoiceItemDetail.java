@@ -81,6 +81,7 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         initToolBar(view);
         CommentUtil.hideSoft(getContext(), view);
         CommentUtil.initViewPager(this, view);
+        CommentUtil.addViewPageEvent(getContext(),view);
         mContentEditText = CommentUtil.getCommentEdit(view);
         return view;
     }

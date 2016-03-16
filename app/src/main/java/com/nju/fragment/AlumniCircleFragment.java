@@ -78,6 +78,7 @@ public class AlumniCircleFragment extends BaseFragment {
         getHostActivity().getToolBar().setTitle(getString(R.string.alumn_circle));
         mCameraImageView = getHostActivity().getMenuCameraView();
         mCameraImageView.setVisibility(View.VISIBLE);
+        getHostActivity().display(2);
         getHostActivity().getMenuDeleteView().setVisibility(View.GONE);
         getHostActivity().getMenuBn().setVisibility(View.GONE);
         initChooseImage();
@@ -275,5 +276,4 @@ public class AlumniCircleFragment extends BaseFragment {
             }
         }
     }
-
 }

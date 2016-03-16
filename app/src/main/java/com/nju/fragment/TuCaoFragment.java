@@ -84,7 +84,8 @@ public class TuCaoFragment extends BaseFragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            getHostActivity().display(3);
         }
         getHostActivity().geLinearLayout().setVisibility(View.VISIBLE);
     }

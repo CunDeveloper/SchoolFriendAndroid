@@ -125,5 +125,8 @@
     <string name="undergraduateCollege">本科学院</string>
     <string name="collect_ok">收藏成功</string>
     <string name="praise_ok">点赞成功</string>
+    <string name="title_activity_recommend_work">RecommendWorkActivity</string>
+    <string name="major_ask">专业咨询</string>
+    <string name="own_major_ask">本专业问题</string>
 
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:layout_width="match_parent"
-    android:visibility="gone"
     android:id="@+id/re_work_item_detail_hide_main_layout"
     android:layout_height="match_parent"
+    android:visibility="gone"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <View
         android:id="@+id/re_work_item_detail_hide_layout"
@@ -33,7 +33,6 @@
                 android:layout_alignBottom="@+id/comment_emotion"
                 android:layout_toStartOf="@+id/comment_emotion"
                 />
-
             <com.nju.View.SchoolFriendAweTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +46,6 @@
                 android:text="@string/smile"
                 android:layout_alignBottom="@+id/activity_school_friend_send_button"
                 android:layout_toStartOf="@+id/activity_school_friend_send_button"
-
                 />
             <View
                 android:layout_width="match_parent"
@@ -70,7 +68,7 @@
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:id="@+id/comment_input_emotion_main"
             android:background="@android:color/white"
@@ -83,9 +81,8 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 />
-        </LinearLayout>
-
+            <include layout="@layout/slide_circle"/>
+        </FrameLayout>
     </LinearLayout>
-
 
 </RelativeLayout>
