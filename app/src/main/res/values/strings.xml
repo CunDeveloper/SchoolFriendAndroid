@@ -132,5 +132,19 @@
     <string name="person_center">个人中心</string>
     <string name="my_circle">我的圈</string>
     <string name="setting">设置</string>
+    <string name="my_dynamic">我的动态</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="my_heart">我的心声</string>
+    <string name="my_ask">我的咨询</string>
+    <string name="publsh_ask">发布咨询</string>
+    <string name="publish_recommend">发布推荐工作</string>
+    <string name="my_recommend">我的推荐</string>
+    <string name="function_desc">功能介绍</string>
+    <string name="sys_notice">系统通知</string>
+    <string name="help_fellback">帮助与反馈</string>
+    <string name="jubao_tousu">举报与投诉</string>
+    <string name="check_new_version">检查新版本</string>
+    <string name="clean_storage">清理存储空间</string>
+    <string name="exit_alumni">退出校友圈</string>
 
 </resources>

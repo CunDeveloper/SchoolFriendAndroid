@@ -1,9 +1,314 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/light_gray"
+
     android:layout_height="match_parent" tools:context="com.nju.fragment.MyCircleFragment">
-    <ListView
-        android:id="@+id/listView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginStart="@dimen/phone_apadding"
+                android:layout_marginTop="@dimen/phone_apadding"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/alumn_dynamic"
+                android:id="@+id/textView24" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:layout_marginBottom="-1dp"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/person_icon"
+                    android:id="@+id/textView28"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_blue_light"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_dynamic"
+                    android:id="@+id/textView29"
+                    android:textColor="@android:color/black"
+                    android:layout_alignTop="@+id/textView28"
+                    android:layout_toEndOf="@+id/textView28" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/collect_icon1"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_blue_light"
+                    android:id="@+id/textView30"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_collect"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/textView31"
+                    android:layout_alignBottom="@+id/textView30"
+                    android:layout_toEndOf="@+id/textView30" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/phone_apadding"
+                android:layout_marginStart="@dimen/phone_apadding"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/xuezhang_heat_voice"
+                android:id="@+id/textView25" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:layout_marginBottom="-1dp"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/person_icon"
+                    android:id="@+id/tv30"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_heart"
+                    android:textColor="@android:color/black"
+                    android:layout_alignTop="@+id/tv30"
+                    android:layout_toEndOf="@+id/tv30" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/collect_icon1"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:id="@+id/tv0"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_collect"
+                    android:textColor="@android:color/black"
+                    android:layout_alignBottom="@+id/tv0"
+                    android:layout_toEndOf="@+id/tv0" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/phone_apadding"
+                android:layout_marginStart="@dimen/phone_apadding"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/major_ask"
+                android:id="@+id/textView26" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:layout_marginBottom="-1dp"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/person_icon"
+                    android:id="@+id/tv2"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_red_light"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_ask"
+                    android:textColor="@android:color/black"
+                    android:layout_alignTop="@+id/tv2"
+                    android:layout_toEndOf="@+id/tv2" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_marginBottom="-1dp"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/collect_icon1"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_red_light"
+                    android:id="@+id/tv3"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_collect"
+                    android:textColor="@android:color/black"
+                    android:layout_alignBottom="@+id/tv3"
+                    android:layout_toEndOf="@+id/tv3" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/publish_icon"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_red_light"
+                    android:id="@+id/tv4"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/publsh_ask"
+                    android:textColor="@android:color/black"
+                    android:layout_alignBottom="@+id/tv4"
+                    android:layout_toEndOf="@+id/tv4" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/phone_apadding"
+                android:layout_marginStart="@dimen/phone_apadding"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/work_recrict"
+                android:id="@+id/textView27" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:layout_marginBottom="-1dp"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/person_icon"
+                    android:id="@+id/tv6"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_ask"
+                    android:textColor="@android:color/black"
+                    android:layout_alignTop="@+id/tv6"
+                    android:layout_toEndOf="@+id/tv6" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginBottom="-1dp"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:background="@drawable/gray_line_bg"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/collect_icon1"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:id="@+id/tv8"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/my_recommend"
+                    android:textColor="@android:color/black"
+                    android:layout_alignBottom="@+id/tv8"
+                    android:layout_toEndOf="@+id/tv8" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/gray_line_bg"
+                android:paddingLeft="@dimen/phone_apadding"
+                android:layout_marginBottom="@dimen/phone_item_height"
+                android:layout_height="@dimen/phone_item_height">
+                <com.nju.View.SchoolFriendAweTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/publish_icon"
+                    android:layout_marginEnd="@dimen/padding_left"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:id="@+id/tv7"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/publish_recommend"
+                    android:textColor="@android:color/black"
+                    android:layout_alignBottom="@+id/tv7"
+                    android:layout_toEndOf="@+id/tv7" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

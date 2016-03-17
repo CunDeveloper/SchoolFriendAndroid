@@ -16,4 +16,6 @@
     <string name="add_pic_icon">&#xf196;</string>
     <string name="person_icon">&#xf007;</string>
     <string name="setting_icon">&#xf013;</string>
+    <string name="collect_icon1">&#xf1b2;</string>
+    <string name="publish_icon">&#xf14b;</string>
 </resources>

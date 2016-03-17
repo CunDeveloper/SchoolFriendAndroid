@@ -23,7 +23,6 @@ public class SettingFragment extends BaseFragment {
     public static SettingFragment newInstance( ) {
         SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,10 +57,7 @@ public class SettingFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
-        TextView textView = (TextView) view.findViewById(R.id.text);
-        String result = CryptUtil.getEncryptiedData("HELLO WORLD");
-        textView.setText(result);
-        ToastUtil.ShowText(getContext(),CryptUtil.dataDecryption(result)+"==");
+
         return view;
     }
 
