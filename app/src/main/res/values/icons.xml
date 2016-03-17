@@ -13,4 +13,7 @@
     <string name="hand_praise_icon">&#xf087;</string>
     <string name="share_icon">&#xf1d9;</string>
     <string name="collect_icon">&#xf006;</string>
+    <string name="add_pic_icon">&#xf196;</string>
+    <string name="person_icon">&#xf007;</string>
+    <string name="setting_icon">&#xf013;</string>
 </resources>

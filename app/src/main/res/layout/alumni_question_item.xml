@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/title_tv"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:textColor="@color/light_blue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:text="@string/asked_by"
+        android:id="@+id/re_list_item_name"
+        android:layout_below="@+id/title_tv"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/name_tv"
+        android:textColor="@color/light_blue"
+        android:layout_alignBottom="@+id/re_list_item_name"
+        android:layout_toEndOf="@+id/re_list_item_name" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/date_tv"
+        android:layout_alignBottom="@+id/count_tv"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/count_tv"
+        android:text="2"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/name_tv"
+        android:layout_alignParentEnd="true" />
+
+    <com.nju.View.SchoolFriendAweTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/comment_icon_r"
+        android:layout_marginEnd="5dp"
+        android:id="@+id/textView15"
+        android:layout_alignTop="@+id/count_tv"
+        android:layout_toStartOf="@+id/count_tv" />
+
+
+</RelativeLayout>

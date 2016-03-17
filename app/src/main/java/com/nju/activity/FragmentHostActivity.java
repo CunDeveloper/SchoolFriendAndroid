@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.nju.fragment.BaseFragment;
 
+import java.util.ArrayList;
+
 /**
  * Created by xiaojuzhang on 2015/12/8.
  */
@@ -31,4 +33,7 @@ public interface FragmentHostActivity {
     void display(int i);
     BaseActivity.LocalStack<BaseFragment> getBackStack();
     boolean isPhone();
+
+    ArrayList<TextView> getRecommendLabelViews();
+    ArrayList<TextView> getVoicesLabelViews();
 }

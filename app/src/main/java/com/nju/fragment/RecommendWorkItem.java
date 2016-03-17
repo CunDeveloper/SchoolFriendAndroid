@@ -1,6 +1,7 @@
 package com.nju.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.model.AuthorInfo;
 import com.nju.model.RecommendWork;
+import com.nju.test.TestData;
 
 import java.util.ArrayList;
 
@@ -19,27 +21,7 @@ public class RecommendWorkItem extends BaseFragment {
 
     private static final String PARAM_TYPE = "type";
     private static String mType ;
-    private static ArrayList<RecommendWork> tests = new ArrayList<>();
-    static {
-        RecommendWork recommendWork = new RecommendWork();
-        recommendWork.setTitle("百度质量部-百度云测试开发工程师");
-        recommendWork.setContent("（Android/iOS、server方向）。参与百度云服务器、客户端的质量保证以及质量工具、平台开发 \n" +
-                "要求： \n" +
-                "（1）计算机相关专业本科以上、实习时间长者优先（至少6个月） \n" +
-                "（2）熟悉基本数据结构和算法设计，精通C/C++、Java、PHP, shell中至少一门编程语言 \n" +
-                "（3） 熟悉Android/IOS自动化测试工具的使用和编写，如junit、instrumentation、robotium、monkey、monkeyrunner等 、熟悉java、object-C相关经验者优先 \n" +
-                "\n" +
-                "请将简历投递至: ");
-        recommendWork.setEmail("wen_twinkle@126.com");
-        recommendWork.setCommentCount(2);
-        recommendWork.setType(0);
-        recommendWork.setDate("2016-03-10");
-        AuthorInfo authorInfo = new AuthorInfo();
-        authorInfo.setAuthorId(1);authorInfo.setAuthorName("张小军");
-        authorInfo.setLabel("南京大学软件学院2014");
-        recommendWork.setAuthor(authorInfo);
-        tests.add(recommendWork);
-    }
+    private  ArrayList<RecommendWork>  recommendWorks;
 
     public static RecommendWorkItem newInstance(String type) {
         RecommendWorkItem fragment = new RecommendWorkItem();
@@ -67,17 +49,34 @@ public class RecommendWorkItem extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_recommend_work_item, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.fragment_recommend_work_item_listview);
-        listView.setAdapter(new RecommendWorkItemAdapter(getContext(), tests));
-        addListViewClickEvent(listView);
+        initListView(view);
+        setUpOnRefreshListener(view);
         return view;
     }
 
-    private void addListViewClickEvent(ListView listView){
+    private void setUpOnRefreshListener(View view){
+        final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateRecommendWork();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void updateRecommendWork() {
+
+    }
+
+    private void  initListView (View view){
+        recommendWorks = TestData.getRecommendWorks();
+        ListView listView = (ListView) view.findViewById(R.id.fragment_recommend_work_item_listview);
+        listView.setAdapter(new RecommendWorkItemAdapter(getContext(), recommendWorks));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(tests.get(0)));
+                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(recommendWorks.get(0)));
             }
         });
     }

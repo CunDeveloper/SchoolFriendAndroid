@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -23,19 +24,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TuCaoFragment extends BaseFragment {
+public class AlumniVoiceFragment extends BaseFragment {
 
-    private static final String TAG = TuCaoFragment.class.getSimpleName();
+    private static final String TAG = AlumniVoiceFragment.class.getSimpleName();
     private RelativeLayout mCollegeMainLayout;
     private LinearLayout mChooseLayout;
     private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
 
 
-    public static TuCaoFragment newInstance() {
-        return  new TuCaoFragment();
+    public static AlumniVoiceFragment newInstance() {
+        return  new AlumniVoiceFragment();
     }
 
-    public TuCaoFragment() {
+    public AlumniVoiceFragment() {
 
     }
 
@@ -68,7 +69,7 @@ public class TuCaoFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-
+                changeLabelColor(position);
             }
 
             @Override
@@ -76,6 +77,17 @@ public class TuCaoFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void changeLabelColor(int position){
+        ArrayList<TextView> textViews = getHostActivity().getVoicesLabelViews();
+        for (int i = 0;i < textViews.size();i++){
+            if (i == position){
+                textViews.get(i).setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_red_dark));
+            }else {
+                textViews.get(i).setTextColor(ContextCompat.getColor(getContext(),android.R.color.white));
+            }
+        }
     }
 
     @Override
@@ -113,6 +125,12 @@ public class TuCaoFragment extends BaseFragment {
     private void addLevelChooseItem(View view){
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         final ListView listView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCollegeMainLayout.setVisibility(View.GONE);
+            }
+        });
         Set<String> levels = getHostActivity().getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
         Set<String> collegeSet = getHostActivity().getSharedPreferences()
                 .getStringSet(getString(R.string.undergraduateCollege),new HashSet<String>());

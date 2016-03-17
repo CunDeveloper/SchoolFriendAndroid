@@ -39,14 +39,16 @@
 
     </group>
 
-    <item android:title="@string/others_school">
+    <item android:title="@string/person_center">
         <menu>
             <item
+                android:id="@+id/my_circle"
                 android:icon="@drawable/ic_dashboard"
-                android:title="@string/do_task" />
+                android:title="@string/my_circle" />
             <item
+                android:id="@+id/setting"
                 android:icon="@drawable/ic_forum"
-                android:title="@string/hot_dynamic" />
+                android:title="@string/setting" />
         </menu>
     </item>
 

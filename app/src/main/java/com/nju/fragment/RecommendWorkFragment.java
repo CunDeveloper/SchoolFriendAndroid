@@ -64,17 +64,48 @@ public class RecommendWorkFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recommend_work, container, false);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_recommed_work_viewpage);
-        viewPager.setAdapter(new RecommendWorkAdapter(getFragmentManager(), getResources().getStringArray(R.array.recommdWorkType)));
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         mFloatBn =  (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
+        setUpViewPager(view);
         openChooseDialog(view);
         hideChooseDialog(view);
         addLevelChooseItem(view);
         return view;
     }
 
+
+    private void setUpViewPager(View view){
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_recommed_work_viewpage);
+        viewPager.setAdapter(new RecommendWorkAdapter(getFragmentManager(), getResources().getStringArray(R.array.recommdWorkType)));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                changeLabelColor(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void changeLabelColor(int position){
+        ArrayList<TextView> textViews = getHostActivity().getRecommendLabelViews();
+        for (int i = 0;i < textViews.size();i++){
+            if (i == position){
+                textViews.get(i).setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_red_dark));
+            }else {
+                textViews.get(i).setTextColor(ContextCompat.getColor(getContext(),android.R.color.white));
+            }
+        }
+    }
 
     private void openChooseDialog(View view){
 
@@ -114,7 +145,7 @@ public class RecommendWorkFragment extends BaseFragment {
             textView.setLayoutParams(param);
             textView.setText(level);
             if (textView.getText().toString().equals(getString(R.string.undergraduate))){
-                textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_green_dark));
+                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 
             }
             input.addView(textView);
@@ -139,7 +170,7 @@ public class RecommendWorkFragment extends BaseFragment {
     private void changeLevelTVColor(TextView view){
         for (TextView textView:mChooseLevelViews){
             if (view.getText().toString().equals(textView.getText().toString())){
-                view.setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_green_dark));
+                view.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
             }else{
                 textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
             }

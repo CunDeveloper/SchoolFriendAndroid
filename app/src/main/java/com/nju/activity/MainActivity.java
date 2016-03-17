@@ -1,7 +1,6 @@
 package com.nju.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -26,10 +25,11 @@ import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.MajorAskFragment;
+import com.nju.fragment.MyCircleFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.RecommendWorkFragment;
-import com.nju.fragment.SeniorsVoicesFragment;
-import com.nju.fragment.TuCaoFragment;
+import com.nju.fragment.SettingFragment;
+import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.XueXinAuthFragment;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
@@ -110,12 +110,16 @@ public class MainActivity extends BaseActivity {
                         open(MajorAskFragment.newInstance());
                         break;
                     case R.id.nav_heat_voice:
-                        open(TuCaoFragment.newInstance());
+                        open(AlumniVoiceFragment.newInstance());
                         break;
                     case R.id.nav_recrict:
-//                        Intent intent = new Intent(MainActivity.this,RecommendWorkActivity.class);
-//                        startActivity(intent);
                         open(RecommendWorkFragment.newInstance());
+                        break;
+                    case R.id.my_circle:
+                        open(MyCircleFragment.newInstance());
+                        break;
+                    case R.id.setting:
+                        open(SettingFragment.newInstance());
                         break;
                 }
                 return false;
@@ -242,6 +246,26 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean isPhone() {
         return isPhone;
+    }
+
+    @Override
+    public ArrayList<TextView> getRecommendLabelViews() {
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add((TextView) findViewById(R.id.rec_label1));
+        textViews.add((TextView) findViewById(R.id.rec_label2));
+        textViews.add((TextView) findViewById(R.id.rec_label3));
+        return textViews;
+    }
+
+    @Override
+    public ArrayList<TextView> getVoicesLabelViews() {
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add((TextView) findViewById(R.id.voice_label1));
+        textViews.add((TextView) findViewById(R.id.voice_label2));
+        textViews.add((TextView) findViewById(R.id.voice_label3));
+        textViews.add((TextView) findViewById(R.id.voice_label4));
+        textViews.add((TextView) findViewById(R.id.voice_label5));
+        return textViews;
     }
 
     @Override

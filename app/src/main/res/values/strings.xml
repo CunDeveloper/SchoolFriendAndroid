@@ -128,5 +128,9 @@
     <string name="title_activity_recommend_work">RecommendWorkActivity</string>
     <string name="major_ask">专业咨询</string>
     <string name="own_major_ask">本专业问题</string>
+    <string name="asked_by">asked by</string>
+    <string name="person_center">个人中心</string>
+    <string name="my_circle">我的圈</string>
+    <string name="setting">设置</string>
 
 </resources>
