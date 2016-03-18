@@ -12,5 +12,6 @@
     <color name="primayDark">#00796B</color>
     <color name="test">#16777261</color>
     <color name="light_gray">#eee</color>
+    <color name="lighter_blue">#E3F2FD</color>
 
 </resources>

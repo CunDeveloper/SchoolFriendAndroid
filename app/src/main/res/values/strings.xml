@@ -18,6 +18,7 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="time_idea">这一刻的想法...</string>
+    <string name="publish_recommend_work">输入招聘信息...</string>
     <string name="location">所在位置</string>
     <string name="wh0_scan">谁可以看</string>
     <string name="anyone_scan">公开</string>
@@ -146,5 +147,8 @@
     <string name="check_new_version">检查新版本</string>
     <string name="clean_storage">清理存储空间</string>
     <string name="exit_alumni">退出校友圈</string>
+    <string name="jian_li_to_email">请输入简历投递邮箱</string>
+    <string name="publish">发布</string>
+    <string name="zhaoping_title">输入招聘标题</string>
 
 </resources>

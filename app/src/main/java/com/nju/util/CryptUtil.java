@@ -110,10 +110,10 @@ public class CryptUtil {
 	
 	
 	
-	private static String decryption(String encryptiedData, byte[] secretKey) {
+	private static String decryption(String encryptedData, byte[] secretKey) {
 		String data = null;
 		try{
-			byte[] encryptedVal = android.util.Base64.decode(encryptiedData, android.util.Base64.DEFAULT);
+			byte[] encryptedVal = android.util.Base64.decode(encryptedData, android.util.Base64.DEFAULT);
 			SecretKeySpec key = new SecretKeySpec(secretKey,AES);
 			Cipher cipher = Cipher.getInstance(AES_ECB_NO_PADDING);
 			cipher.init(Cipher.DECRYPT_MODE, key);
@@ -134,7 +134,7 @@ public class CryptUtil {
 	}
 	
 	private static String encryption(String data, byte[] secretKey) {
-		String encryptiedData = null;
+		String encryptedData = null;
 		data = paddingWithNull(data);
 		try{
 			SecretKeySpec key = new SecretKeySpec(secretKey, AES);
@@ -143,7 +143,7 @@ public class CryptUtil {
 			byte[] cipherText = new byte[cipher.getOutputSize(data.length())];
 			int ctLength = cipher.update(data.getBytes(UTF8), 0, data.length(), cipherText, 0);
 			ctLength += cipher.doFinal(cipherText, ctLength);
-			encryptiedData = Base64.encodeToString(cipherText,Base64.DEFAULT);
+			encryptedData = Base64.encodeToString(cipherText,Base64.DEFAULT);
 		}catch(Exception e){
 			Log.e(TAG,"_message=\"Error happened when encrypt field\n exception={}\"", e);
 			try {
@@ -152,7 +152,7 @@ public class CryptUtil {
 				e1.printStackTrace();
 			}
 		}
-		return encryptiedData;
+		return encryptedData;
 	}
 	
 	private static String paddingWithNull(String data) {

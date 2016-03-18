@@ -22,8 +22,9 @@
                 android:id="@+id/textView24" />
 
             <RelativeLayout
+                android:id="@+id/my_dynamic"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:layout_marginBottom="-1dp"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
@@ -50,11 +51,11 @@
                     android:layout_toEndOf="@+id/textView28" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/dynamic_collect"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
-
                 <com.nju.View.SchoolFriendAweTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,8 +87,9 @@
                 android:text="@string/xuezhang_heat_voice"
                 android:id="@+id/textView25" />
             <RelativeLayout
+                android:id="@+id/my_voice"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:layout_marginBottom="-1dp"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
@@ -112,8 +114,9 @@
                     android:layout_toEndOf="@+id/tv30" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/voice_collect"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
                 <com.nju.View.SchoolFriendAweTextView
@@ -147,8 +150,9 @@
                 android:text="@string/major_ask"
                 android:id="@+id/textView26" />
             <RelativeLayout
+                android:id="@+id/my_ask"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:layout_marginBottom="-1dp"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
@@ -172,8 +176,9 @@
                     android:layout_toEndOf="@+id/tv2" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/ask_collect"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_marginBottom="-1dp"
                 android:layout_height="@dimen/phone_item_height">
@@ -198,8 +203,9 @@
                     android:layout_toEndOf="@+id/tv3" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/publish_ask"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
                 <com.nju.View.SchoolFriendAweTextView
@@ -232,8 +238,9 @@
                 android:text="@string/work_recrict"
                 android:id="@+id/textView27" />
             <RelativeLayout
+                android:id="@+id/my_recommend"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:layout_marginBottom="-1dp"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_height="@dimen/phone_item_height">
@@ -251,16 +258,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/my_ask"
+                    android:text="@string/my_recommend"
                     android:textColor="@android:color/black"
                     android:layout_alignTop="@+id/tv6"
                     android:layout_toEndOf="@+id/tv6" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/recommend_collect"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="-1dp"
                 android:paddingLeft="@dimen/phone_apadding"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:layout_height="@dimen/phone_item_height">
                 <com.nju.View.SchoolFriendAweTextView
                     android:layout_width="wrap_content"
@@ -277,14 +285,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/my_recommend"
+                    android:text="@string/my_collect"
                     android:textColor="@android:color/black"
                     android:layout_alignBottom="@+id/tv8"
                     android:layout_toEndOf="@+id/tv8" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/recommend_publish"
                 android:layout_width="match_parent"
-                android:background="@drawable/gray_line_bg"
+                android:background="@drawable/item_toggle_bg"
                 android:paddingLeft="@dimen/phone_apadding"
                 android:layout_marginBottom="@dimen/phone_item_height"
                 android:layout_height="@dimen/phone_item_height">

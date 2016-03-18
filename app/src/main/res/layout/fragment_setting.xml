@@ -8,88 +8,68 @@
         android:layout_height="match_parent">
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/padding_left"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:paddingLeft="@dimen/padding_left"
-        android:background="@android:color/white"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/function_desc"
-        android:id="@+id/textView32" />
-        <View
             android:layout_width="match_parent"
-            android:paddingTop="1dp"
-            android:layout_marginStart="@dimen/phone_apadding"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:background="@android:color/darker_gray"
-            android:layout_height="1dp"/>
+            android:layout_marginTop="@dimen/padding_left"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="@dimen/padding_left"
+            android:background="@drawable/item_toggle_bg"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/function_desc"
+            android:id="@+id/function_desc" />
+
 
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/padding_left"
-            android:background="@android:color/white"
+            android:id="@+id/sys_notice"
+            android:background="@drawable/item_toggle_bg"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/sys_notice"
              />
-        <View
-            android:layout_width="match_parent"
-            android:paddingTop="1dp"
-            android:layout_marginStart="@dimen/phone_apadding"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:background="@android:color/darker_gray"
-            android:layout_height="1dp"/>
+
 
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/padding_left"
-            android:background="@android:color/white"
+            android:id="@+id/help_fellback"
+            android:background="@drawable/item_toggle_bg"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/help_fellback"
             />
-        <View
-            android:layout_width="match_parent"
-            android:paddingTop="1dp"
-            android:layout_marginStart="@dimen/phone_apadding"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:background="@android:color/darker_gray"
-            android:layout_height="1dp"/>
+
 
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/padding_left"
-            android:background="@android:color/white"
+            android:id="@+id/jubao_tousu"
+            android:background="@drawable/item_toggle_bg"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/jubao_tousu"
             />
-        <View
-            android:layout_width="match_parent"
-            android:paddingTop="1dp"
-            android:layout_marginStart="@dimen/phone_apadding"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:background="@android:color/darker_gray"
-            android:layout_height="1dp"/>
+
 
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/padding_left"
-            android:background="@android:color/white"
+            android:id="@+id/check_new_version"
+            android:background="@drawable/item_toggle_bg"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -102,7 +82,8 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/padding_left"
-            android:background="@android:color/white"
+            android:id="@+id/clean_storage"
+            android:background="@drawable/item_toggle_bg"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -115,7 +96,8 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/padding_left"
-            android:background="@android:color/white"
+            android:id="@+id/exit_alumni"
+            android:background="@drawable/item_toggle_bg"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"

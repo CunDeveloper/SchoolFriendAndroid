@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/emotion_layout"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+     >
+    <View
+        android:id="@+id/emotion_transparent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+         />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:background="@drawable/gray_line_bg"
+            android:gravity="start|center_vertical"
+            android:layout_height="@dimen/phone_item_height">
+            <com.nju.View.SchoolFriendAweTextView
+                android:id="@+id/emotion_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/smile"
+                android:paddingStart="@dimen/phone_apadding"
+                />
+
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:id="@+id/comment_input_emotion_main"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_height="255dp">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                />
+            <include layout="@layout/slide_circle"/>
+        </FrameLayout>
+    </LinearLayout>
+</RelativeLayout>
