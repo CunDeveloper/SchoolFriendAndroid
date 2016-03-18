@@ -69,11 +69,12 @@ public class CommentUtil {
     }
 
     public static EditText getCommentEdit(final View view){
+        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
         EditText editText =(EditText) view.findViewById(R.id.comment_edittext);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mEmotionLineLayout.setVisibility(View.GONE);
             }
         });
         return editText;

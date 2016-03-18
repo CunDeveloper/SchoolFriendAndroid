@@ -150,5 +150,13 @@
     <string name="jian_li_to_email">请输入简历投递邮箱</string>
     <string name="publish">发布</string>
     <string name="zhaoping_title">输入招聘标题</string>
+    <string name="ask_title">请输入咨询标题</string>
+    <string name="ask_desc">请输入咨询描述</string>
+    <string name="content">content</string>
+    <string name="title">title</string>
+    <string name="publish_voice">发布心声</string>
+    <string name="publish_dynamic">发布动态</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_content">请输入内容</string>
 
 </resources>

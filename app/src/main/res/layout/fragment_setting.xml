@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/padding_left"
@@ -19,8 +18,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/function_desc"
             android:id="@+id/function_desc" />
-
-
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
@@ -33,8 +30,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/sys_notice"
              />
-
-
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
@@ -47,8 +42,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/help_fellback"
             />
-
-
         <TextView
             android:layout_width="match_parent"
             android:paddingTop="15dp"
@@ -103,7 +96,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/exit_alumni"
             />
-
     </LinearLayout>
 
 </FrameLayout>

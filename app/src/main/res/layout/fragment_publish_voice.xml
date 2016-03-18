@@ -34,8 +34,8 @@
                         android:background="@android:color/white"
                         android:inputType="textEmailAddress"
                         android:ems="10"
-                        android:hint="@string/zhaoping_title"
-                         />
+                        android:hint="@string/please_input_title"
+                        />
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:paddingTop="5dp"
                     android:paddingStart="@dimen/phone_apadding"
                     android:paddingEnd="@dimen/phone_apadding"
-                    android:hint="@string/publish_recommend_work"
+                    android:hint="@string/please_input_content"
                     android:gravity="top"
                     android:minLines="5"
                     android:id="@+id/content_editText" />
@@ -78,53 +78,43 @@
                     android:layout_height="1dp"
                     android:layout_marginBottom="@dimen/phone_apadding"
                     android:background="@color/gray"/>
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:background="@android:color/white"
-                    android:layout_height="@dimen/phone_item_height">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/phone_apadding"
-                        android:background="@android:color/white"
-                        android:inputType="textEmailAddress"
-                        android:ems="10"
-                        android:hint="@string/jian_li_to_email"
-                        android:id="@+id/editText2" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="-10dp"
+                    android:background="@color/gray"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/phone_apadding"
+                    android:layout_height="@dimen/phone_item_height"
                     android:background="@android:color/white"
-                    android:paddingStart="@dimen/phone_apadding"
+                    android:id="@+id/fragment_publish_text_with_pics_relativeLayout">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/wh0_scan"
+                        android:textColor="@android:color/black"
+                        android:id="@+id/textView2"
+                        android:layout_centerVertical="true"
+                        android:paddingStart="@dimen/phone_apadding"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/school_scan"
+                        android:id="@+id/textView4"
+                        android:paddingRight="@dimen/padding_left"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+                <View
                     android:layout_width="match_parent"
-                    android:gravity="center"
-
-                    android:layout_height="@dimen/phone_item_height">
-
-                    <CheckBox
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:layout_height="wrap_content"
-                        android:text="@string/shixi"
-                        android:id="@+id/checkBox2" />
-
-                    <CheckBox
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="@string/xiaozhao"
-                        android:id="@+id/checkBox3" />
-
-                    <CheckBox
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="@string/shezhao"
-                        android:id="@+id/checkBox4" />
-                </LinearLayout>
-
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/phone_apadding"
+                    android:background="@color/gray"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

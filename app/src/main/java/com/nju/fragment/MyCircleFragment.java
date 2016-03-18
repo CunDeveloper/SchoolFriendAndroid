@@ -70,6 +70,14 @@ public class MyCircleFragment extends BaseFragment {
                 getHostActivity().open(DynamicCollectFragment.newInstance(getString(R.string.my_collect)));
             }
         });
+        RelativeLayout mDynamicPublishLay = (RelativeLayout) view.findViewById(R.id.dynamic_publish);
+        mDynamicPublishLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(PublishDynamicFragment.newInstance(getString(R.string.publish_dynamic)));
+            }
+        });
+
         RelativeLayout mVoiceLay = (RelativeLayout) view.findViewById(R.id.my_voice);
         mVoiceLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +90,14 @@ public class MyCircleFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 getHostActivity().open(VoiceCollectFragment.newInstance(getString(R.string.my_collect)));
+            }
+        });
+
+        RelativeLayout mVoicePublishLay = (RelativeLayout) view.findViewById(R.id.voice_publish);
+        mVoicePublishLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(PublishVoiceFragment.newInstance(getString(R.string.publish_voice)));
             }
         });
 

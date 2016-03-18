@@ -1,10 +1,86 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/white"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.nju.fragment.AskPublishFragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:paddingTop="@dimen/phone_apadding"
+    android:id="@+id/publish_wei_bo_main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:id="@+id/publish_wei_bo_scroll_layout"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:id="@+id/publish_wei_bo_layout"
+                android:duplicateParentState="true"
+                android:background="@drawable/publish_content_edittext_bg"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@android:color/white"
+                    android:paddingTop="@dimen/phone_apadding"
+                    android:layout_height="@dimen/phone_item_height">
+                    <com.nju.View.SchoolFriendEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/title"
+                        android:paddingStart="@dimen/phone_apadding"
+                        android:background="@android:color/white"
+                        android:inputType="textEmailAddress"
+                        android:ems="10"
+                        android:hint="@string/ask_title"
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"/>
+                <com.nju.View.SchoolFriendEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/phone_apadding"
+                    android:background="@drawable/publish_content_layout_bg"
+                    android:inputType="textMultiLine"
+                    android:paddingTop="5dp"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:hint="@string/ask_desc"
+                    android:gravity="top"
+                    android:minLines="5"
+                    android:id="@+id/content_editText" />
+                <com.nju.View.SchoolFriendAweTextView
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_pic_icon"
+                    android:textColor="@android:color/darker_gray"
+                    android:fontFamily="sans-serif-thin"
+                    android:background="@android:color/white"
+                    android:textSize="60sp"
+                    android:layout_height="wrap_content" />
+                <com.nju.View.SchoolFriendGridView
+                    android:id="@+id/fragment_publish_text_with_pics_gridview"
+                    android:numColumns="4"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:horizontalSpacing="@dimen/phone_apadding"
+                    android:verticalSpacing="@dimen/phone_apadding"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/phone_apadding"
+                    android:background="@color/gray"/>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+    <include layout="@layout/emotion_layout"/>
+</RelativeLayout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>

@@ -87,6 +87,25 @@ public class EmotionPagerFragment extends BaseFragment {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
                 }
+                else if (mTag.equals(RecommendPublishFragment.TAG)) {
+                    RecommendPublishFragment fragment = (RecommendPublishFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                }
+                else if (mTag.equals(AskPublishFragment.TAG)) {
+                    AskPublishFragment fragment = (AskPublishFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                }
+
+                else if (mTag.equals(PublishVoiceFragment.TAG)) {
+                    PublishVoiceFragment fragment = (PublishVoiceFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                }
 
             }
         });

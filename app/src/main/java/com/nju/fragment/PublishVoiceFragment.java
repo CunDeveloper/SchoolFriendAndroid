@@ -1,39 +1,35 @@
 package com.nju.fragment;
 
+import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.adatper.EmotionPageAdapter;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
-import com.nju.util.SoftInput;
 
-public class RecommendPublishFragment extends BaseFragment {
-
-    public static final String TAG = RecommendPublishFragment.class.getSimpleName();
+public class PublishVoiceFragment extends BaseFragment {
+    public static final String TAG = PublishVoiceFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
-    private static String mTitle;
+    private String mTitle;
     private EditText mTitleET;
     private EditText mContentET;
-    public static RecommendPublishFragment newInstance(String title) {
-        RecommendPublishFragment fragment = new RecommendPublishFragment();
+    public static PublishVoiceFragment newInstance(String title) {
+        PublishVoiceFragment fragment = new PublishVoiceFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_TITLE,title);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public RecommendPublishFragment() {
+    public PublishVoiceFragment() {
         // Required empty public constructor
     }
 
@@ -49,8 +45,8 @@ public class RecommendPublishFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_recommend_publish, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
+        View view =  inflater.inflate(R.layout.fragment_publish_voice, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         mContentET = (EditText) view.findViewById(R.id.content_editText);
@@ -85,7 +81,5 @@ public class RecommendPublishFragment extends BaseFragment {
         getHostActivity().display(0);
         getHostActivity().getMenuBn().setText(getString(R.string.publish));
     }
-
-
 
 }
