@@ -3,6 +3,7 @@ package com.nju.test;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniVoice;
 import com.nju.model.AuthorInfo;
+import com.nju.model.DynamicCollect;
 import com.nju.model.RecommendWork;
 
 import java.util.ArrayList;
@@ -104,5 +105,35 @@ public class TestData {
         recommendWork.setAuthor(authorInfo);
         recommendWorks.add(recommendWork);
         return recommendWorks;
+    }
+
+    public static ArrayList<DynamicCollect> getDynamicCollects(){
+        ArrayList<DynamicCollect> dynamicCollects = new ArrayList<>();
+        DynamicCollect dynamicCollect = new DynamicCollect();
+        dynamicCollect.setContent("你咋不上天啦！");
+        dynamicCollect.setDate("今天");
+        AuthorInfo authorInfo = new AuthorInfo();
+        authorInfo.setAuthorName("刘玲");
+        authorInfo.setLabel("南京大学商学院2013");
+        dynamicCollect.setAuthorInfo(authorInfo);
+        dynamicCollects.add(dynamicCollect);
+
+        dynamicCollect = new DynamicCollect();
+        dynamicCollect.setContent("奋战在毕业设计第一线！");
+        dynamicCollect.setDate("2016-2-23");
+        authorInfo = new AuthorInfo();
+        authorInfo.setAuthorName("刘倩倩");
+        authorInfo.setLabel("南京大学软件学院2014");
+        dynamicCollect.setAuthorInfo(authorInfo);
+        dynamicCollects.add(dynamicCollect);
+
+        dynamicCollect = new DynamicCollect();
+        dynamicCollect.setDate("2016-1-23");
+        authorInfo = new AuthorInfo();
+        authorInfo.setAuthorName("张小小");
+        authorInfo.setLabel("南京大学软件学院2014");
+        dynamicCollect.setAuthorInfo(authorInfo);
+        dynamicCollects.add(dynamicCollect);
+        return dynamicCollects;
     }
 }
