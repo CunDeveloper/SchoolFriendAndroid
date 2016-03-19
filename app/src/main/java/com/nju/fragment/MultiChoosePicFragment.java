@@ -30,6 +30,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class MultiChoosePicFragment extends BaseFragment {
+    private static final String PARAM_LABEL = "paramLabel";
+    private String mLabel;
     public static final String TAG = MultiChoosePicFragment.class.getSimpleName();
     private static final float OPAQUE = 1.0F;
     private static final float TRANSLUCENT = 0.5F;
@@ -45,8 +47,12 @@ public class MultiChoosePicFragment extends BaseFragment {
     private TextView mReviewTv;
     private final  MyHandler mHandler = new MyHandler(this);
 
-    public static MultiChoosePicFragment newInstance() {
-        return new MultiChoosePicFragment();
+    public static MultiChoosePicFragment newInstance(String label) {
+        MultiChoosePicFragment choosePicFragment = new MultiChoosePicFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(PARAM_LABEL,label);
+        choosePicFragment.setArguments(bundle);
+        return choosePicFragment;
     }
 
     public MultiChoosePicFragment() {
@@ -55,6 +61,9 @@ public class MultiChoosePicFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments()!=null){
+            mLabel = getArguments().getString(PARAM_LABEL);
+        }
     }
 
     @Override
@@ -102,7 +111,7 @@ public class MultiChoosePicFragment extends BaseFragment {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncCompress(MultiChoosePicFragment.this).execute(chooseImgPaths);
+                new AsyncCompress(MultiChoosePicFragment.this,mLabel).execute(chooseImgPaths);
             }
         });
     }

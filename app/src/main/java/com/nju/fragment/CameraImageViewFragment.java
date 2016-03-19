@@ -132,11 +132,11 @@ public class CameraImageViewFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if (mLabel.equals(getString(R.string.capture_image))) {
-                    new AsyncCompress(CameraImageViewFragment.this).execute(mImages);
+                    new AsyncCompress(CameraImageViewFragment.this,PublishTextWithPicsFragment.TAG).execute(mImages);
                 } else if (mLabel.equals(getString(R.string.choosedReview))) {
-                    new AsyncCompress(CameraImageViewFragment.this).execute(mChoosePic);
+                    new AsyncCompress(CameraImageViewFragment.this,PublishTextWithPicsFragment.TAG).execute(mChoosePic);
                 } else if (mLabel.equals(getString(R.string.allPicsReview))) {
-                    new AsyncCompress(CameraImageViewFragment.this).execute(mChoosePicInAll);
+                    new AsyncCompress(CameraImageViewFragment.this,PublishTextWithPicsFragment.TAG).execute(mChoosePicInAll);
                 }
             }
         });

@@ -74,7 +74,7 @@ public class MyCircleFragment extends BaseFragment {
         mDynamicPublishLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishDynamicFragment.newInstance(getString(R.string.publish_dynamic)));
+                getHostActivity().open(PublishDynamicFragment.newInstance(getString(R.string.publish_dynamic),null));
             }
         });
 
@@ -97,7 +97,7 @@ public class MyCircleFragment extends BaseFragment {
         mVoicePublishLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishVoiceFragment.newInstance(getString(R.string.publish_voice)));
+                getHostActivity().open(PublishVoiceFragment.newInstance(getString(R.string.publish_voice),null));
             }
         });
 
@@ -119,7 +119,7 @@ public class MyCircleFragment extends BaseFragment {
         mAskPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(AskPublishFragment.newInstance(getString(R.string.publsh_ask)));
+                getHostActivity().open(AskPublishFragment.newInstance(getString(R.string.publsh_ask),null));
             }
         });
         RelativeLayout mRecommendLay = (RelativeLayout) view.findViewById(R.id.my_recommend);
@@ -141,7 +141,7 @@ public class MyCircleFragment extends BaseFragment {
         mRecommendPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(RecommendPublishFragment.newInstance(getString(R.string.publish_recommend)));
+                getHostActivity().open(RecommendPublishFragment.newInstance(getString(R.string.publish_recommend),null));
             }
         });
 

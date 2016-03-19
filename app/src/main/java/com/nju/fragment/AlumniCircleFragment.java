@@ -239,7 +239,7 @@ public class AlumniCircleFragment extends BaseFragment {
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MultiChoosePicFragment.newInstance());
+                getHostActivity().open(MultiChoosePicFragment.newInstance(PublishTextWithPicsFragment.TAG));
             }
         });
         mCameraImageView.setOnLongClickListener(new View.OnLongClickListener() {

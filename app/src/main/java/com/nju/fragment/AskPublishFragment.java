@@ -9,20 +9,26 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.nju.activity.R;
+import com.nju.model.ImageWrapper;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
+
+import java.util.ArrayList;
 
 public class AskPublishFragment extends BaseFragment {
 
     public static final String TAG = AskPublishFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
+    private static final String PARAM_UPLOAD_IMAGES = "paramUploadImage";
+    private ArrayList<ImageWrapper> mUploadImgPaths;
     private static String mTitle;
     private EditText mContentET;
     private EditText mTitleET;
-    public static AskPublishFragment newInstance(String title) {
+    public static AskPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         AskPublishFragment fragment = new AskPublishFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_TITLE,title);
+        args.putParcelableArrayList(PARAM_UPLOAD_IMAGES, uploadImgPaths);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,6 +42,7 @@ public class AskPublishFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
+            mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
         }
     }
 
@@ -47,6 +54,10 @@ public class AskPublishFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
+        if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
+            view.findViewById(R.id.add_pic).setVisibility(View.GONE);
+            InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
+        }
         mContentET = (EditText) view.findViewById(R.id.content_editText);
         mTitleET = (EditText) view.findViewById(R.id.title);
         return view;

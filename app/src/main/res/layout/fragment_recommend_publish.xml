@@ -11,7 +11,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
+            android:layout_marginBottom="50dp"
             android:id="@+id/publish_wei_bo_scroll_layout"
             >
             <LinearLayout
@@ -55,6 +55,7 @@
                     android:minLines="5"
                     android:id="@+id/content_editText" />
                 <com.nju.View.SchoolFriendAweTextView
+                    android:id="@+id/add_pic"
                     android:paddingStart="@dimen/phone_apadding"
                     android:layout_width="match_parent"
                     android:text="@string/add_pic_icon"
@@ -64,12 +65,13 @@
                     android:textSize="60sp"
                     android:layout_height="wrap_content" />
                 <com.nju.View.SchoolFriendGridView
-                    android:id="@+id/fragment_publish_text_with_pics_gridview"
+                    android:id="@+id/pics_gridview"
                     android:numColumns="4"
                     android:paddingStart="@dimen/phone_apadding"
                     android:paddingEnd="@dimen/phone_apadding"
                     android:horizontalSpacing="@dimen/phone_apadding"
                     android:verticalSpacing="@dimen/phone_apadding"
+                    android:paddingBottom="@dimen/phone_apadding"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
