@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="15"
+        android:textStyle="bold"
+        android:textSize="34sp"
+        android:id="@+id/day_tv"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/phone_apadding"
+        android:layout_marginTop="@dimen/phone_apadding" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="3月"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:id="@+id/month_tv"
+        android:layout_alignBaseline="@+id/day_tv"
+        android:layout_alignBottom="@+id/day_tv"
+        android:layout_toEndOf="@+id/day_tv" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:layout_marginTop="5dp"
+        android:id="@+id/title_tv"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/day_tv"
+        android:layout_toEndOf="@+id/month_tv" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/phone_apadding"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:layout_marginEnd="@dimen/phone_apadding"
+        android:textColor="@android:color/black"
+        android:background="@color/light_gray"
+        android:id="@+id/content_tv"
+        android:lines="2"
+        android:ellipsize="end"
+        android:layout_below="@+id/title_tv"
+        android:layout_alignStart="@+id/title_tv" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:layout_alignStart="@+id/content_tv"
+        android:layout_below="@+id/content_tv"/>
+</RelativeLayout>

@@ -73,12 +73,11 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:gravity="left|center"
-            android:ellipsize="end"
             android:lines="2"
+            android:ellipsize="end"
             android:background="@color/light_gray"
             android:id="@+id/content_tv"
-            android:layout_below="@+id/content_tv"
-            android:layout_centerHorizontal="true" />
+             />
     </LinearLayout>
 
 
