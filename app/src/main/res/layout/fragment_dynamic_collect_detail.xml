@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layout_marginTop="@dimen/padding_left"
+    android:layout_marginBottom="@dimen/phone_apadding"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/head_icon"
+        android:background="@drawable/circle_bg"
+        android:src="@drawable/cheese_1"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/phone_apadding"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/phone_apadding" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textColor="@android:color/black"
+        android:id="@+id/name_tv"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/head_icon" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/label_tv"
+        android:layout_below="@+id/name_tv"
+        android:layout_toEndOf="@+id/head_icon" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/head_icon"
+        android:layout_alignStart="@+id/head_icon"
+
+        android:paddingEnd="@dimen/phone_apadding"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:layout_marginTop="@dimen/phone_apadding"
+        android:layout_height="wrap_content"
+        android:id="@+id/frameLayout">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:textColor="@android:color/black"
+            android:id="@+id/content_tv"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginEnd="50dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:id="@+id/collect_img"
+            android:layout_height="wrap_content"
+            android:maxHeight="150dp" />
+
+
+    </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/date_tv"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignStart="@+id/frameLayout" />
+</RelativeLayout>

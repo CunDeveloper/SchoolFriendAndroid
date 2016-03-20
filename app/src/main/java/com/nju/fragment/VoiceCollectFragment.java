@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.DynamicCollectAdapter;
 import com.nju.adatper.VoiceCollectAdapter;
@@ -24,10 +25,8 @@ import java.util.ArrayList;
 
 
 public class VoiceCollectFragment extends BaseFragment {
-
     private static final String PARAM_TITLE = "paramTitle";
     private static String mTitle;
-
     public static VoiceCollectFragment newInstance(String title) {
         VoiceCollectFragment fragment = new VoiceCollectFragment();
         Bundle args = new Bundle();
@@ -59,15 +58,23 @@ public class VoiceCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<AlumniVoice> alumniVoices = TestData.getVoicesData();
+        final ArrayList<AlumniVoice> alumniVoices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new VoiceCollectAdapter(getContext(),alumniVoices));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getHostActivity().open(AlumniVoiceItemDetail.newInstance(alumniVoices.get(position), "校友心声"));
             }
         });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem), null).show();
+                return true;
+            }
+        });
+
     }
 
     @Override

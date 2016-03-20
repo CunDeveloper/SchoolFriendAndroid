@@ -25,9 +25,14 @@
     </string-array>
 
     <string-array name="recommdWorkType">
-
         <item>@string/shixi</item>
         <item>@string/xiaozhao</item>
         <item>@string/shezhao</item>
     </string-array>
+    <string-array name="collectItem">
+        <item>@string/forward</item>
+        <item>@string/delete</item>
+        <item>@string/more</item>
+    </string-array>
+    <string name="forward">转发</string>
 </resources>

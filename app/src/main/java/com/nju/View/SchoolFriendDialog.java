@@ -49,7 +49,7 @@ public class SchoolFriendDialog extends MaterialDialog {
 
     public static SchoolFriendDialog listDialog(final Context context,final String[] itmes,final ListItemCallback listCallback){
         Builder builder = new Builder(context)
-                .items(itmes)
+                .items(itmes).contentColor(ContextCompat.getColor(context,android.R.color.black))
                 .itemsCallback(listCallback);
         return new SchoolFriendDialog(builder);
     }

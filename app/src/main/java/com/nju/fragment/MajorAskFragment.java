@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.nju.activity.R;
@@ -64,6 +65,7 @@ public class MajorAskFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_major_ask, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initListView(view);
+        initCameraView();
         setUpOnRefreshListener(view);
         return view;
     }
@@ -80,6 +82,17 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     private void updateMajorAsk() {
+
+    }
+
+    private void initCameraView(){
+        ImageView  mCameraImageView = getHostActivity().getMenuCameraView();
+        mCameraImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(MultiChoosePicFragment.newInstance(AskPublishFragment.TAG));
+            }
+        });
 
     }
 

@@ -69,6 +69,4 @@ public class MajorAskDetailFragment extends BaseFragment {
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(mAlumniQuestion.getDate());
     }
-
-
 }

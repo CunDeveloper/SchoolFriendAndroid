@@ -139,13 +139,7 @@ public class AlumniVoiceItemDetail extends BaseFragment {
             }
         });
 
-//        final TextView emotionTV = (TextView) view.findViewById(R.id.comment_emotion);
-//        emotionTV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SoftInput.close(getContext(),emotionTV);
-//            }
-//        });
+
         TextView shareTV = (TextView) view.findViewById(R.id.share);
         shareTV.setOnClickListener(new View.OnClickListener() {
             @Override

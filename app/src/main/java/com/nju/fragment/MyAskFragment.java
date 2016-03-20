@@ -1,9 +1,6 @@
 package com.nju.fragment;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -14,9 +11,7 @@ import android.widget.ListView;
 
 import com.nju.activity.R;
 import com.nju.adatper.PersonAskAdapter;
-import com.nju.adatper.PersonVoiceAdapter;
 import com.nju.model.AlumniQuestion;
-import com.nju.model.AlumniVoice;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
 
@@ -63,7 +58,7 @@ public class MyAskFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(MajorAskDetailFragment.newInstance(alumniQuestions.get(position)));
+                getHostActivity().open(PersonAskDetailFragment.newInstance(alumniQuestions.get(position)));
             }
         });
     }
@@ -79,5 +74,4 @@ public class MyAskFragment extends BaseFragment {
         }
         getHostActivity().display(5);
     }
-
 }

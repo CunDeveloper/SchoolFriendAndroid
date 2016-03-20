@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.AskCollectAdapter;
 import com.nju.adatper.VoiceCollectAdapter;
@@ -55,13 +56,20 @@ public class AskCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<AlumniQuestion> alumniQuestions = TestData.getQlumniQuestions();
+        final ArrayList<AlumniQuestion> alumniQuestions = TestData.getQlumniQuestions();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new AskCollectAdapter(getContext(), alumniQuestions));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getHostActivity().open(MajorAskDetailFragment.newInstance(alumniQuestions.get(position)));
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem), null).show();
+                return true;
             }
         });
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.DynamicCollectAdapter;
 import com.nju.model.DynamicCollect;
@@ -53,13 +54,20 @@ public class DynamicCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<DynamicCollect> dynamicCollects = TestData.getDynamicCollects();
+        final ArrayList<DynamicCollect> dynamicCollects = TestData.getDynamicCollects();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new DynamicCollectAdapter(getContext(),dynamicCollects));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getHostActivity().open(DynamicCollectDetailFragment.newInstance(dynamicCollects.get(position)));
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listDialog(getContext(),getResources().getStringArray(R.array.collectItem),null).show();
+                return true;
             }
         });
     }

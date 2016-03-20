@@ -1,15 +1,42 @@
 package com.nju.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by cun on 2016/3/19.
  */
-public class DynamicCollect {
+public class DynamicCollect implements Parcelable {
 
     private int id;
     private String content;
     private String imgPath;
     private AuthorInfo authorInfo;
     private String date;
+
+    public DynamicCollect(){
+
+    }
+
+    protected DynamicCollect(Parcel in) {
+        id = in.readInt();
+        content = in.readString();
+        imgPath = in.readString();
+        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
+        date = in.readString();
+    }
+
+    public static final Creator<DynamicCollect> CREATOR = new Creator<DynamicCollect>() {
+        @Override
+        public DynamicCollect createFromParcel(Parcel in) {
+            return new DynamicCollect(in);
+        }
+
+        @Override
+        public DynamicCollect[] newArray(int size) {
+            return new DynamicCollect[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -49,5 +76,19 @@ public class DynamicCollect {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(content);
+        dest.writeString(imgPath);
+        dest.writeParcelable(authorInfo, flags);
+        dest.writeString(date);
     }
 }

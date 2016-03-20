@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkCollectAdapter;
 import com.nju.adatper.VoiceCollectAdapter;
@@ -54,13 +55,21 @@ public class RecommendCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<RecommendWork>  recommendWorks = TestData.getRecommendWorks();
+        final ArrayList<RecommendWork>  recommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new RecommendWorkCollectAdapter(getContext(),recommendWorks));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+            }
+        });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem), null).show();
+                return true;
             }
         });
     }
