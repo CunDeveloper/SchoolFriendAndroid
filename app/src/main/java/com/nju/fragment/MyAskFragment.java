@@ -57,13 +57,13 @@ public class MyAskFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<AlumniQuestion> alumniQuestions = TestData.getQlumniQuestions();
+        final ArrayList<AlumniQuestion> alumniQuestions = TestData.getQlumniQuestions();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new PersonAskAdapter(getContext(),alumniQuestions));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getHostActivity().open(MajorAskDetailFragment.newInstance(alumniQuestions.get(position)));
             }
         });
     }

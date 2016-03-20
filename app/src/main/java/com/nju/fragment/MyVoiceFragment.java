@@ -54,13 +54,13 @@ public class MyVoiceFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<AlumniVoice> alumniVoices = TestData.getVoicesData();
+        final ArrayList<AlumniVoice> alumniVoices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new PersonVoiceAdapter(getContext(),alumniVoices));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getHostActivity().open(AlumniVoiceItemDetail.newInstance(alumniVoices.get(position),"学习"));
             }
         });
     }

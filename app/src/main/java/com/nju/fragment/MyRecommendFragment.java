@@ -54,13 +54,13 @@ public class MyRecommendFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        ArrayList<RecommendWork> recommendWorks = TestData.getRecommendWorks();
+        final ArrayList<RecommendWork> recommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(new PersonRecommendAdapter(getContext(), recommendWorks));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
             }
         });
     }

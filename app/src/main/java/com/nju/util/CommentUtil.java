@@ -40,7 +40,6 @@ public class CommentUtil {
             @Override
             public void onClick(View v) {
                 if (mEmotionLineLayout.getVisibility() == View.GONE) {
-
                     SoftInput.close(context, mEmotionTv);
                     mEmotionLineLayout.postDelayed(new Runnable() {
                         @Override
@@ -48,13 +47,10 @@ public class CommentUtil {
                             mEmotionLineLayout.setVisibility(View.VISIBLE);
                         }
                     }, 200);
-
-
                 } else {
                     SoftInput.open(context);
                     mEmotionLineLayout.setVisibility(View.GONE);
                 }
-
             }
         });
     }
@@ -74,6 +70,12 @@ public class CommentUtil {
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mEmotionLineLayout.setVisibility(View.GONE);
+            }
+        });
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
                 mEmotionLineLayout.setVisibility(View.GONE);
             }
         });
@@ -97,7 +99,6 @@ public class CommentUtil {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 finalMSlideCircleViews.get(mSlidePosition[0]).setBackground(ContextCompat.getDrawable(context, R.drawable.unselect_circle_label_bg));

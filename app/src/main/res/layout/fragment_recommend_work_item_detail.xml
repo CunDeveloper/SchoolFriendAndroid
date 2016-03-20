@@ -46,9 +46,10 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/light_blue"
+                        android:layout_marginTop="@dimen/phone_apadding"
                         android:paddingStart="@dimen/phone_apadding"
                         android:paddingEnd="@dimen/phone_apadding"
-                        android:id="@+id/fragment_recommend_work_item_detail_email"
+                        android:id="@+id/email_tv"
                         />
             </LinearLayout>
         </ScrollView>
@@ -66,7 +67,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@android:color/black"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="-1dp"
+                android:background="@drawable/item_toggle_bg"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/yingping"
                 android:id="@+id/re_work_item_yinpin_tv" />
@@ -75,7 +78,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@android:color/black"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="-1dp"
+                android:background="@drawable/item_toggle_bg"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/zixun"
                 android:id="@+id/re_work_item_ask_tv" />
@@ -84,10 +89,11 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@android:color/black"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/item_toggle_bg"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/collect"
-                android:id="@+id/re_work_item_collect" />
+                android:id="@+id/collect_tv" />
         </LinearLayout>
     </RelativeLayout>
     </FrameLayout>
