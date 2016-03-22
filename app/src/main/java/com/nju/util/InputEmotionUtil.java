@@ -29,15 +29,16 @@ import java.util.ArrayList;
 public class InputEmotionUtil {
 
      private static String label;
+     private static RelativeLayout mEmoLayout;
      public static void initView(final BaseFragment fragment,View view, final String TAG){
-        final RelativeLayout emoLayout = (RelativeLayout) view.findViewById(R.id.emotion_layout);
+        mEmoLayout = (RelativeLayout) view.findViewById(R.id.emotion_layout);
         final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
         final TextView emotionIconTV = (TextView) view.findViewById(R.id.emotion_icon);
         EditText contentEditText = (EditText) view.findViewById(R.id.content_editText);
         contentEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                emoLayout.setVisibility(View.VISIBLE);
+                mEmoLayout.setVisibility(View.VISIBLE);
                 emotionIconTV.setText(fragment.getString(R.string.smile));
                 label = fragment.getString(R.string.content);
             }
@@ -45,7 +46,7 @@ public class InputEmotionUtil {
         contentEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emoLayout.setVisibility(View.VISIBLE);
+                mEmoLayout.setVisibility(View.VISIBLE);
                 emotionIconTV.setText(fragment.getString(R.string.smile));
                 label = fragment.getString(R.string.content);
             }
@@ -56,7 +57,7 @@ public class InputEmotionUtil {
              titleEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                  @Override
                  public void onFocusChange(View v, boolean hasFocus) {
-                     emoLayout.setVisibility(View.VISIBLE);
+                     mEmoLayout.setVisibility(View.VISIBLE);
                      emotionIconTV.setText(fragment.getString(R.string.smile));
                      label = fragment.getString(R.string.title);
                  }
@@ -65,7 +66,7 @@ public class InputEmotionUtil {
                  @Override
                  public void onClick(View v) {
                      emotionIconTV.setText(fragment.getString(R.string.smile));
-                     emoLayout.setVisibility(View.VISIBLE);
+                     mEmoLayout.setVisibility(View.VISIBLE);
                      label = fragment.getString(R.string.title);
                  }
              });
@@ -76,7 +77,7 @@ public class InputEmotionUtil {
             @Override
             public void onClick(View v) {
                 SoftInput.close(fragment.getContext(),transView);
-                emoLayout.setVisibility(View.GONE);
+                mEmoLayout.setVisibility(View.GONE);
                 frameLayout.setVisibility(View.GONE);
             }
         });
@@ -153,6 +154,10 @@ public class InputEmotionUtil {
 
             }
         });
+    }
+
+    public static RelativeLayout getEmoLayout(){
+        return mEmoLayout;
     }
 
     public static String getLabel(){

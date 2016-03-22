@@ -42,7 +42,7 @@ public class MyCircleFragment extends BaseFragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.my_circle);
         }
-        getHostActivity().display(5);
+        getHostActivity().display(6);
     }
 
     @Override

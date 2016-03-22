@@ -62,27 +62,24 @@
                     android:background="@drawable/publish_content_layout_bg"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/location"
+
                     android:textColor="@android:color/black"
                     android:paddingStart="@dimen/phone_apadding"
                     android:paddingBottom="@dimen/phone_apadding"
-                    android:id="@+id/publish_wei_bo_userloaction_text"
+                    android:id="@+id/location_tv"
                     />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginBottom="@dimen/phone_apadding"
                     android:background="@color/gray"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="-10dp"
-                    android:background="@color/gray"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/phone_apadding"
                     android:layout_height="@dimen/phone_item_height"
-                    android:background="@android:color/white"
-                    android:id="@+id/fragment_publish_text_with_pics_relativeLayout">
+                    android:background="@drawable/item_toggle_bg"
+                    android:id="@+id/who_can_relativeLayout">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -93,22 +90,16 @@
                         android:layout_centerVertical="true"
                         android:paddingStart="@dimen/phone_apadding"
                         />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="@string/school_scan"
-                        android:id="@+id/textView4"
+                        android:id="@+id/whoScanTV"
                         android:paddingRight="@dimen/padding_left"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true" />
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="@dimen/phone_apadding"
-                    android:background="@color/gray"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

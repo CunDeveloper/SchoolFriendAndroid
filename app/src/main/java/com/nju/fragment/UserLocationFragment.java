@@ -118,10 +118,9 @@ public class UserLocationFragment extends BaseFragment {
                 TextView locationText = (TextView) view.findViewById(R.id.user_location_item_name);
                 BaseActivity.LocalStack stack = getHostActivity().getBackStack();
                 stack.pop();
-                PublishTextFragment fragment = (PublishTextFragment) stack.peek();
+                PublishDynamicFragment fragment = (PublishDynamicFragment) stack.peek();
                 fragment.setLocation(locationText.getText().toString());
                 getHostActivity().open(fragment);
-
             }
         });
     }

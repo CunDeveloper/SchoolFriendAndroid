@@ -3,9 +3,12 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.nju.activity.R;
@@ -51,16 +54,61 @@ public class AskPublishFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ask_publish, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
         }
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view){
+        final int[] contentWordCount = {0};
+        final int[] titleWordCount = {0};
         mContentET = (EditText) view.findViewById(R.id.content_editText);
         mTitleET = (EditText) view.findViewById(R.id.title);
-        return view;
+        mContentET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                contentWordCount[0] = count;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mTitleET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                titleWordCount[0] = count;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        Button sendBn = getHostActivity().getMenuBn();
+        if (contentWordCount[0]>=1&&titleWordCount[0]>=1){
+            sendBn.setAlpha(1);sendBn.setEnabled(true);
+        }else {
+            sendBn.setAlpha(0.7f);sendBn.setEnabled(false);
+        }
     }
 
     public void inputEmotion(String text) {
@@ -88,7 +136,16 @@ public class AskPublishFragment extends BaseFragment {
             actionBar.setTitle(mTitle);
         }
         getHostActivity().display(0);
-        getHostActivity().getMenuBn().setText(getString(R.string.publish));
+        Button sendBn = getHostActivity().getMenuBn();
+        sendBn.setText(getString(R.string.publish));
+        sendBn.setAlpha(0.7f);
+        sendBn.setEnabled(false);
+        sendBn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
      }
 
 }
