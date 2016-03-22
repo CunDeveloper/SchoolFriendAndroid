@@ -22,12 +22,15 @@ import android.widget.TextView;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
+import com.nju.fragment.AlumniVoiceItemDetail;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.MyCircleFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.RecommendWorkFragment;
+import com.nju.fragment.RecommendWorkItem;
+import com.nju.fragment.RecommendWorkItemDetailFragment;
 import com.nju.fragment.SettingFragment;
 import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.XueXinAuthFragment;
@@ -67,6 +70,7 @@ public class MainActivity extends BaseActivity {
         mNoActionBarRecommendWorkLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_recommend_work_layout);
         actionBarViews.add(mMenuBn);actionBarViews.add(mMenuDeleteView);actionBarViews.add(mMenuCameraView);
         actionBarViews.add(mNoActionBarLinearLayout);actionBarViews.add(mNoActionBarRecommendWorkLinearLayout);
+        actionBarViews.add(findViewById(R.id.main_viewpager_menu_more));
         CoordinatorLayout mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
         if (Build.VERSION.SDK_INT>19) {
             mCoordinatorLayout.setPadding(mCoordinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)

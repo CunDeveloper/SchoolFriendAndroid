@@ -12,10 +12,14 @@ import android.widget.ListView;
 import com.nju.activity.R;
 import com.nju.adatper.PersonRecommendAdapter;
 import com.nju.adatper.PersonVoiceAdapter;
+import com.nju.http.HttpManager;
+import com.nju.http.ResponseCallback;
+import com.nju.http.request.PostRequestJson;
 import com.nju.model.AlumniVoice;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
+import com.squareup.okhttp.Call;
 
 import java.util.ArrayList;
 
@@ -24,6 +28,20 @@ public class MyRecommendFragment extends BaseFragment {
 
     private static final String PARAM_TITLE = "paramTitle";
     private static String mTitle;
+    private Call mCall;
+    private PostRequestJson mRequestJson;
+    private ResponseCallback callback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+
+        }
+    };
+
     public static MyRecommendFragment newInstance(String title) {
         MyRecommendFragment fragment = new MyRecommendFragment();
         Bundle args = new Bundle();
@@ -50,6 +68,8 @@ public class MyRecommendFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.person_refresh_listview, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         initListView(view);
+        mRequestJson = new PostRequestJson("","",callback);
+        HttpManager.getInstance().exeRequest(mRequestJson);
         return view;
     }
 
@@ -77,6 +97,13 @@ public class MyRecommendFragment extends BaseFragment {
         getHostActivity().display(5);
     }
 
-
+    @Override
+    public void onStop(){
+        super.onStop();
+        mCall = mRequestJson.getCall();
+        if (mCall != null){
+            mCall.cancel();
+        }
+    }
 
 }

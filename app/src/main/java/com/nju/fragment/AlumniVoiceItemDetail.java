@@ -31,17 +31,14 @@ public class AlumniVoiceItemDetail extends BaseFragment {
 
     public static final String TAG = AlumniVoiceItemDetail.class.getSimpleName();
     private static final String PARAM_VOICE= "voiceKey";
-    private static final String PARAM_TITLE = "title";
     private AlumniVoice mVoice;
-    private String mTitle;
     private EditText mContentEditText ;
 
 
-    public static AlumniVoiceItemDetail newInstance(AlumniVoice voice,String title) {
+    public static AlumniVoiceItemDetail newInstance(AlumniVoice voice) {
         AlumniVoiceItemDetail fragment = new AlumniVoiceItemDetail();
         Bundle args = new Bundle();
         args.putParcelable(PARAM_VOICE,voice);
-        args.putString(PARAM_TITLE,title);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,7 +52,6 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mVoice = getArguments().getParcelable(PARAM_VOICE);
-            mTitle = getArguments().getString(PARAM_TITLE);
         }
     }
 
@@ -66,9 +62,8 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mTitle);
         }
-        getHostActivity().display(5);
+        getHostActivity().display(6);
     }
 
     @Override

@@ -59,23 +59,23 @@ public class VoiceCollectFragment extends BaseFragment {
 
     private void initListView(View view){
         final ArrayList<AlumniVoice> alumniVoices = TestData.getVoicesData();
-        ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new VoiceCollectAdapter(getContext(),alumniVoices));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetail.newInstance(alumniVoices.get(position), "校友心声"));
-            }
-        });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem), null).show();
-                return true;
-            }
-        });
+    ListView listView = (ListView) view.findViewById(R.id.listView);
+    listView.setAdapter(new VoiceCollectAdapter(getContext(),alumniVoices));
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            getHostActivity().open(AlumniVoiceItemDetail.newInstance(alumniVoices.get(position)));
+        }
+    });
+    listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem), null).show();
+            return true;
+        }
+    });
 
-    }
+}
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

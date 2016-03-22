@@ -26,4 +26,8 @@ public class AlumniVoiceViewPage extends FragmentStatePagerAdapter {
     public int getCount() {
         return mTypes.length;
     }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
 }

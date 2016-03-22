@@ -44,9 +44,8 @@ public class MajorAskDetailFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.own_major_ask);
         }
-        getHostActivity().display(5);
+        getHostActivity().display(6);
     }
 
     @Override

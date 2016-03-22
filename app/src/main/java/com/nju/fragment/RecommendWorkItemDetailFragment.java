@@ -57,9 +57,8 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.shixi);
         }
-        getHostActivity().display(5);
+        getHostActivity().display(6);
     }
 
     @Override

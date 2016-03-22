@@ -3,6 +3,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,10 +16,23 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
+import com.nju.adatper.AlumniVoiceItemAdapter;
 import com.nju.adatper.AlumniVoiceViewPage;
 import com.nju.adatper.CollageAdapter;
+import com.nju.adatper.RecommendWorkItemAdapter;
+import com.nju.http.HttpManager;
+import com.nju.http.ResponseCallback;
+import com.nju.http.request.PostRequestJson;
+import com.nju.model.AlumniVoice;
+import com.nju.test.TestData;
+import com.nju.util.CloseRequestUtil;
 import com.nju.util.Divice;
+import com.nju.util.FragmentUtil;
+import com.nju.util.ToastUtil;
+import com.squareup.okhttp.Call;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +44,27 @@ public class AlumniVoiceFragment extends BaseFragment {
     private RelativeLayout mCollegeMainLayout;
     private LinearLayout mChooseLayout;
     private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
+    private PostRequestJson mRequestJson;
+    private SwipeRefreshLayout mRefreshLayout;
+    private ArrayList<AlumniVoice> voices;
+    private ResponseCallback callback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceFragment.this)){
+                ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
+                mRefreshLayout.setRefreshing(false);
+                error.printStackTrace();
+            }
+        }
 
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceFragment.this)){
+                Log.i(TAG, responseBody);
+                mRefreshLayout.setRefreshing(false);
+            }
+        }
+    };
 
     public static AlumniVoiceFragment newInstance() {
         return  new AlumniVoiceFragment();
@@ -50,58 +84,98 @@ public class AlumniVoiceFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tu_cao, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
-        addAdapterChangeEvent(view);
         mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
+        setListView(view);
         openChooseDialog(view);
         hideChooseDialog(view);
         addLevelChooseItem(view);
+        setUpOnRefreshListener(view);
         return view;
     }
 
-    private void addAdapterChangeEvent(View view){
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_alumni_voice_viewpage);
-        viewPager.setAdapter(new AlumniVoiceViewPage(getFragmentManager(), getResources().getStringArray(R.array.voiceType)));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private void  setListView(View view){
+        voices = TestData.getVoicesData();
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        listView.setAdapter(new AlumniVoiceItemAdapter(getContext(), voices));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getHostActivity().open(AlumniVoiceItemDetail.newInstance(voices.get(position)));
             }
+        });
+        final int[] position = {0};
+        TextView textView = (TextView) getActivity().findViewById(R.id.main_viewpager_menu_more);
+        MaterialDialog.ListCallbackSingleChoice listCallback= new MaterialDialog.ListCallbackSingleChoice(){
 
             @Override
-            public void onPageSelected(int position) {
-                changeLabelColor(position);
+            public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                position[0] = i;
+                mRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefreshLayout.setRefreshing(true);
+                        updateVoices();
+                    }
+                });
+                setTitle(charSequence.toString());
+                return true;
             }
+        };
+        final SchoolFriendDialog dialog  = SchoolFriendDialog.singleChoiceListDialog(getContext(), getString(R.string.chooseType), getResources().getStringArray(R.array.voiceType), listCallback);
 
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onClick(View v) {
+                dialog.setSelectedIndex(position[0]);
+                dialog.show();
             }
         });
     }
 
-    private void changeLabelColor(int position){
-        ArrayList<TextView> textViews = getHostActivity().getVoicesLabelViews();
-        for (int i = 0;i < textViews.size();i++){
-            if (i == position){
-                textViews.get(i).setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_red_dark));
-            }else {
-                textViews.get(i).setTextColor(ContextCompat.getColor(getContext(),android.R.color.white));
-            }
-        }
+    private void updateVoices(){
+        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf","",callback);
+        HttpManager.getInstance().exeRequest(mRequestJson);
     }
+
+    private void setUpOnRefreshListener(View view){
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+                updateVoices();
+            }
+        });
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateVoices();
+            }
+        });
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        CloseRequestUtil.close(mRequestJson);
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            getHostActivity().display(3);
-        }
-        getHostActivity().geLinearLayout().setVisibility(View.VISIBLE);
+        setTitle(getString(R.string.tuijian));
+        getHostActivity().display(5);
     }
 
+    private void setTitle(String title){
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar!=null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(title);
+        }
+    }
     private void openChooseDialog(View view){
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         floatBn.setOnClickListener(new View.OnClickListener() {

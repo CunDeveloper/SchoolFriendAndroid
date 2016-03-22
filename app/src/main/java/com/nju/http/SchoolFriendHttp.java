@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.nju.model.BitmapWrapper;
 import com.nju.model.Image;
+import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
@@ -39,6 +40,8 @@ public class SchoolFriendHttp {
     private static final MediaType MEDIA_TYPE_MARKDOWN
             = MediaType.parse("text/x-markdown; charset=utf-8");
     private static final String FILE = "file";
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
     private static BlockingDeque<Request> requestQueue;
 
     private SchoolFriendHttp() {
@@ -120,6 +123,18 @@ public class SchoolFriendHttp {
         mClient.newCall(request).enqueue(callback);
     }
 
+    public Call AsyncPostJson( final String url, final String json, final Callback callback) {
+        RequestBody body = RequestBody.create(JSON,json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        requestQueue.addFirst(request);
+        Call call= mClient.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
 
 
     /**
@@ -162,7 +177,7 @@ public class SchoolFriendHttp {
 
     public void postMultiFile(final Request.Builder builder,final String url,final HashMap<String,String> params,final ArrayList<Image> fileNames,ResponseCallback callback) {
         MultipartBuilder multipartBuilder = new MultipartBuilder();
-        multipartBuilder.type(MultipartBuilder.FORM);
+        multipartBuilder.type(MultipartBuilder.MIXED);
         for (Map.Entry<String,String> entry:params.entrySet()) {
             multipartBuilder.addFormDataPart(entry.getKey(),entry.getValue());
         }
@@ -189,7 +204,6 @@ public class SchoolFriendHttp {
         for (Map.Entry<String,String> entry:params.entrySet()) {
             multipartBuilder.addFormDataPart(entry.getKey(),entry.getValue());
         }
-
 
         for (BitmapWrapper bitmapWrapper : bitmapWrappers) {
             Bitmap bitmap = bitmapWrapper.getBitmap();

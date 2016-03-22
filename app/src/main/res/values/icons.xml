@@ -18,5 +18,6 @@
     <string name="setting_icon">&#xf013;</string>
     <string name="collect_icon1">&#xf1b2;</string>
     <string name="publish_icon">&#xf14b;</string>
+    <string name="ellipsis_icon">&#xf141;</string>
 
 </resources>

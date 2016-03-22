@@ -162,5 +162,8 @@
     <string name="replay">回复</string>
     <string name="close">关闭</string>
     <string name="collect_with">收藏与</string>
+    <string name="fail_info_tip">更新失败，请稍后再试</string>
+    <string name="chooseType">选择类型</string>
+    <string name="tuijian">推荐</string>
 
 </resources>

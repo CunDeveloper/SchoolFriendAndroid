@@ -2,6 +2,7 @@ package com.nju.adatper;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.nju.View.RoundedTransformation;
 import com.nju.activity.R;
 import com.nju.model.DynamicCollect;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -57,6 +60,10 @@ public class DynamicCollectAdapter extends BaseAdapter {
         }
         DynamicCollect dynamicCollect = mDynamicCollects.get(position);
         holder = (ViewHolder) convertView.getTag();
+        Picasso.with(mContext).load(R.drawable.cheese_3)
+                .transform(new RoundedTransformation(R.dimen.small_circle,4))
+                .resizeDimen(R.dimen.small_circle,R.dimen.small_circle).centerCrop()
+                .into(holder.headImg);
         holder.nameTV.setText(dynamicCollect.getAuthorInfo().getAuthorName());
         holder.labelTV.setText(dynamicCollect.getAuthorInfo().getLabel());
         if (dynamicCollect.getContent()!=null){

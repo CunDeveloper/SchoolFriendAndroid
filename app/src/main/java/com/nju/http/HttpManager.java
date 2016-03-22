@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.nju.http.request.CompressRequest;
 import com.nju.model.BitmapWrapper;
+import com.squareup.okhttp.Call;
 
 import java.util.ArrayList;
 import java.util.List;
