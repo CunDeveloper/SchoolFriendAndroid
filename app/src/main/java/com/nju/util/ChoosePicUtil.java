@@ -28,13 +28,19 @@ public class ChoosePicUtil {
                     fragment.getHostActivity().open(dynamicFragment);
                     break;
                 } else if (baseFragment instanceof RecommendPublishFragment){
-                    fragment.getHostActivity().open(baseFragment);
+                    RecommendPublishFragment recommendPublishFragment = (RecommendPublishFragment) baseFragment;
+                    recommendPublishFragment.setImages(imageWrappers);
+                    fragment.getHostActivity().open(recommendPublishFragment);
                     break;
                 } else if (baseFragment instanceof AskPublishFragment){
-                    fragment.getHostActivity().open(baseFragment);
+                    AskPublishFragment askPublishFragment = (AskPublishFragment) baseFragment;
+                    askPublishFragment.setImages(imageWrappers);
+                    fragment.getHostActivity().open(askPublishFragment);
                     break;
                 } else if (baseFragment instanceof PublishVoiceFragment){
-                    fragment.getHostActivity().open(baseFragment);
+                    PublishVoiceFragment publishVoiceFragment = (PublishVoiceFragment) baseFragment;
+                    publishVoiceFragment.setImages(imageWrappers);
+                    fragment.getHostActivity().open(publishVoiceFragment);
                     break;
                 }
             }

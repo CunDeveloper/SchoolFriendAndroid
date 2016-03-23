@@ -45,7 +45,9 @@ public class AskPublishFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
-            mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
+            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
+                mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
+            }
         }
     }
 
@@ -124,6 +126,10 @@ public class AskPublishFragment extends BaseFragment {
                 mTitleET.invalidate();
             }
         }
+    }
+
+    public  void setImages(ArrayList<ImageWrapper> images){
+        mUploadImgPaths = images;
     }
 
     @Override

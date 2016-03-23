@@ -59,7 +59,9 @@ public class PublishVoiceFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
-            mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
+            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
+                mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
+            }
         }
     }
 
@@ -98,6 +100,10 @@ public class PublishVoiceFragment extends BaseFragment {
 
     public void setWhoScan(String text){
         mWhoScan = text;
+    }
+
+    public  void setImages(ArrayList<ImageWrapper> images){
+        mUploadImgPaths = images;
     }
 
     private void initView(View view){
@@ -195,5 +201,4 @@ public class PublishVoiceFragment extends BaseFragment {
             }
         });
     }
-
 }

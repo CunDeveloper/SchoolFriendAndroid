@@ -86,13 +86,13 @@
                     android:layout_height="@dimen/phone_item_height">
                     <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:paddingStart="@dimen/phone_apadding"
                         android:background="@android:color/white"
                         android:inputType="textEmailAddress"
                         android:ems="10"
                         android:hint="@string/jian_li_to_email"
-                        android:id="@+id/editText2" />
+                        android:id="@+id/email_tv" />
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"
@@ -101,32 +101,27 @@
                     android:paddingStart="@dimen/phone_apadding"
                     android:layout_width="match_parent"
                     android:gravity="center"
-
                     android:layout_height="@dimen/phone_item_height">
-
                     <CheckBox
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:checked="true"
                         android:layout_height="wrap_content"
                         android:text="@string/shixi"
-                        android:id="@+id/checkBox2" />
-
+                        android:id="@+id/shixi_checkBox" />
                     <CheckBox
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="@string/xiaozhao"
-                        android:id="@+id/checkBox3" />
-
+                        android:id="@+id/xiaozhao_checkBox" />
                     <CheckBox
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="@string/shezhao"
-                        android:id="@+id/checkBox4" />
+                        android:id="@+id/shezhao_checkBox" />
                 </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
