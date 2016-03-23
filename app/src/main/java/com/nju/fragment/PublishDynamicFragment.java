@@ -25,6 +25,7 @@ import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
+import com.nju.util.ToastUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,8 @@ public class PublishDynamicFragment extends BaseFragment {
     private TextView mLocationTV;
     private TextView whoScanTV;
     private SchoolFriendDialog mDialog;
+    private String mLocation = null;
+    private String mWhoScan = null;
 
     public static PublishDynamicFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         PublishDynamicFragment fragment = new PublishDynamicFragment();
@@ -60,7 +63,10 @@ public class PublishDynamicFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
-            mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
+            ToastUtil.showShortText(getContext(),"size=");
+            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
+                mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
+            }
         }
     }
 
@@ -73,18 +79,22 @@ public class PublishDynamicFragment extends BaseFragment {
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         initView(view);
+
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
         }else {
             mUploadImgPaths = new ArrayList<>();
         }
+
         return view;
     }
 
     private void initView(View view){
-
         mLocationTV = (TextView) view.findViewById(R.id.location_tv);
+        if (mLocation != null){
+            mLocationTV.setText(mLocation);mLocationTV.invalidate();
+        }
         mLocationTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +109,9 @@ public class PublishDynamicFragment extends BaseFragment {
             }
         });
         whoScanTV = (TextView) view.findViewById(R.id.whoScanTV);
+        if (mWhoScan != null){
+            whoScanTV.setText(mWhoScan);
+        }
         mContentET = (EditText) view.findViewById(R.id.content_editText);
         mContentET.addTextChangedListener(new TextWatcher() {
             @Override
@@ -126,7 +139,15 @@ public class PublishDynamicFragment extends BaseFragment {
     }
 
     public void setLocation(String text){
-        mLocationTV.setText(text);
+        mLocation = text;
+    }
+
+    public void setWhoScan(String text){
+        mWhoScan = text;
+    }
+
+    public  void setImages(ArrayList<ImageWrapper> images){
+        mUploadImgPaths = images;
     }
 
     public void inputEmotion(String text) {
@@ -154,6 +175,7 @@ public class PublishDynamicFragment extends BaseFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
@@ -173,16 +195,17 @@ public class PublishDynamicFragment extends BaseFragment {
                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
                 String content = mContentET.getText().toString();
-                final HashMap<String,String> params = new HashMap<>();
+                final HashMap<String, String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;
-                for (ImageWrapper image :mUploadImgPaths) {
+                for (ImageWrapper image : mUploadImgPaths) {
                     final String path = image.getPath();
                     bitmapWrapper = new BitmapWrapper();
                     sourceFile = new File(path);
-                    bitmapWrapper.setPath(path);bitmapWrapper.setFileName(sourceFile.getName());
+                    bitmapWrapper.setPath(path);
+                    bitmapWrapper.setFileName(sourceFile.getName());
                     try {
                         bitmapWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
                         bitmapWrappers.add(bitmapWrapper);
@@ -190,9 +213,11 @@ public class PublishDynamicFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
-                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,bitmapWrapperArrayList,callback));
+                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL, params, bitmapWrapperArrayList, callback));
             }
         });
     }
+
+
 }

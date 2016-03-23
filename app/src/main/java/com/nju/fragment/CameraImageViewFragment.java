@@ -15,6 +15,7 @@ import com.nju.activity.R;
 import com.nju.adatper.OriginPicViewPagerAdapter;
 import com.nju.model.Image;
 import com.nju.util.AsyncCompress;
+import com.nju.util.ChoosePicUtil;
 import com.nju.util.Divice;
 import com.nju.util.ToastUtil;
 
@@ -28,6 +29,7 @@ public class CameraImageViewFragment extends BaseFragment {
     private static final String TAG = CameraImageViewFragment.class.getSimpleName();
     private static final String POSITION = "position";
     private static final String LABEL ="label";
+    private static final String SUB_LABEL = "subLabel";
     private static final String LEFT_BRACKET = "(";
     private static final String RIGHT_BRACKET = ")";
     private static final String SLASH = "/";
@@ -41,6 +43,7 @@ public class CameraImageViewFragment extends BaseFragment {
     private Button mFinishButton;
     private CheckBox mCheckBox;
     private String mLabel;//
+    private String mSubLabel;
     private RelativeLayout mBottomLayout;
     private static final int ADD_PIC = 203;
     private static final int SUB_PIC = 204;
@@ -49,12 +52,14 @@ public class CameraImageViewFragment extends BaseFragment {
     private final HashSet<Integer> mChooseIndex = new HashSet<>();
     private final HashSet<Integer> mChooseIndexInAll = new HashSet<>();
     private final Handler mHandler = new MyHandler(this);
-    public static CameraImageViewFragment newInstance(ArrayList<Image> imgPaths,int position,String label) {
+
+    public static CameraImageViewFragment newInstance(ArrayList<Image> imgPaths,int position,String label,String subLabel) {
         CameraImageViewFragment fragment = new CameraImageViewFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TAG,imgPaths);
-        args.putInt(POSITION,position);
-        args.putString(LABEL,label);
+        args.putInt(POSITION, position);
+        args.putString(LABEL, label);
+        args.putString(SUB_LABEL,subLabel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,6 +74,7 @@ public class CameraImageViewFragment extends BaseFragment {
             mImages = getArguments().getParcelableArrayList(TAG);
             mPosition = getArguments().getInt(POSITION);
             mLabel = getArguments().getString(LABEL);
+            mSubLabel = getArguments().getString(SUB_LABEL);
         }
     }
 
@@ -132,11 +138,11 @@ public class CameraImageViewFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if (mLabel.equals(getString(R.string.capture_image))) {
-                    new AsyncCompress(CameraImageViewFragment.this,PublishTextWithPicsFragment.TAG).execute(mImages);
+                    new AsyncCompress(CameraImageViewFragment.this,mSubLabel).execute(mImages);
                 } else if (mLabel.equals(getString(R.string.choosedReview))) {
-                    new AsyncCompress(CameraImageViewFragment.this,PublishTextWithPicsFragment.TAG).execute(mChoosePic);
+                    new AsyncCompress(CameraImageViewFragment.this,mSubLabel).execute(mChoosePic);
                 } else if (mLabel.equals(getString(R.string.allPicsReview))) {
-                    new AsyncCompress(CameraImageViewFragment.this,PublishTextWithPicsFragment.TAG).execute(mChoosePicInAll);
+                    new AsyncCompress(CameraImageViewFragment.this,mSubLabel).execute(mChoosePicInAll);
                 }
             }
         });

@@ -26,13 +26,17 @@
             android:id="@+id/who_scan_group_item_small_child_label"
             />
     </LinearLayout>
-    <CheckBox
+    <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingRight="@dimen/phone_apadding"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:id="@+id/who_scan_group_child_check"
-        />
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/phone_apadding"
+            android:id="@+id/who_scan_group_child_check"
+            />
+    </RadioGroup>
 
 </RelativeLayout>

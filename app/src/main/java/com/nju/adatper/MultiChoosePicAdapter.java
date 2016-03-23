@@ -42,11 +42,13 @@ public class MultiChoosePicAdapter extends BaseAdapter {
     private int choosePicNumber = 0;
     private Handler mHandler;
     private BaseFragment mFragment;
-    public MultiChoosePicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler, BaseFragment fragment){
+    private String mLabel;
+    public MultiChoosePicAdapter(AppCompatActivity context, ArrayList<Image> imgs, Handler handler, BaseFragment fragment,String label){
         mContext = context;
         mImages = imgs;
         mHandler = handler;
         mFragment = fragment;
+        mLabel = label;
     }
 
     @Override
@@ -90,7 +92,7 @@ public class MultiChoosePicAdapter extends BaseAdapter {
                     holder.imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.allPicsReview)));
+                           mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.allPicsReview),mLabel));
                          }
                     });
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.choose_image_item_checkBox);

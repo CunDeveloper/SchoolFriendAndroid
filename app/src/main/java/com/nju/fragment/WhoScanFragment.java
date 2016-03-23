@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.WhoScanListAdapter;
 import com.nju.model.Entry;
@@ -61,12 +63,27 @@ public class WhoScanFragment extends BaseFragment {
                 labelInfo.get(mChoosePosition).setDrawable("");
                 mChoosePosition = groupPosition;
                 labelInfo.get(mChoosePosition).setDrawable(getString(R.string.fa_check_icon));
+                if (groupPosition <2){
+                    BaseActivity.LocalStack stack = getHostActivity().getBackStack();
+                    stack.pop();
+                    BaseFragment fragment = (BaseFragment) stack.peek();
+                    if (fragment.getClass().getSimpleName().equals(PublishDynamicFragment.TAG)){
+                        PublishDynamicFragment dynamicFragment = (PublishDynamicFragment) fragment;
+                        TextView bigText = (TextView) v.findViewById(R.id.who_scan_group_item_small_label);
+                        dynamicFragment.setWhoScan(bigText.getText().toString());
+                        getHostActivity().open(dynamicFragment);
+                    } else if (fragment instanceof PublishVoiceFragment){
+                        PublishVoiceFragment voiceFragment = (PublishVoiceFragment) fragment;
+                        TextView bigText = (TextView) v.findViewById(R.id.who_scan_group_item_small_label);
+                        voiceFragment.setWhoScan(bigText.getText().toString());
+                        getHostActivity().open(voiceFragment);
+                    }
+                }
                 return false;
             }
         });
-        WhoScanListAdapter mAdapter = new WhoScanListAdapter(getContext(), labelInfo);
+        WhoScanListAdapter mAdapter = new WhoScanListAdapter(this, labelInfo);
         mExpandableListView.setAdapter(mAdapter);
-        new LoadData().execute("who_scan.xml");
         return view;
     }
 
@@ -102,17 +119,12 @@ public class WhoScanFragment extends BaseFragment {
             if (i == 2){
                 ArrayList<Entry> childList = new ArrayList<>();
                 Entry childEntry;
-                SharedPreferences sharedPreferences = getHostActivity().getSharedPreferences();
-                int size = sharedPreferences.getInt(getString(R.string.size),0);
-                for (int j =1;j<=size;j++){
+                String[] onlySee = getResources().getStringArray(R.array.only_people_see);
+                for (int j =0;j<onlySee.length;j++){
                     childEntry = new Entry();
-                    childEntry.setBigLabel(sharedPreferences.getString(getString(R.string.school)+j,""));
-                    childEntry.setSmallLabel(sharedPreferences.getString(getString(R.string.xueyuan) + j, ""));
+                    childEntry.setBigLabel(onlySee[j]);
                     childList.add(childEntry);
                 }
-                childEntry = new Entry();
-                childEntry.setBigLabel(getString(R.string.editor_label));
-                childList.add(childEntry);
                 entry.setChildItems(childList);
             }
             else {

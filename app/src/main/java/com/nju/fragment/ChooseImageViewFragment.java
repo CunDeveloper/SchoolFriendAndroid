@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.ChooseOriginPicViewPagerAdapter;
 import com.nju.model.ImageWrapper;
@@ -84,8 +85,17 @@ public class ChooseImageViewFragment extends BaseFragment {
             @Override
             public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                 mImgPaths.remove(mDelPosition);
-                mViewPager.setAdapter(mPagerAdapter);
+                if (mImgPaths.size()>0){
+                    mViewPager.setAdapter(mPagerAdapter);
+                } else {
+                    BaseActivity.LocalStack<BaseFragment> stack = getHostActivity().getBackStack();
+                    if (stack.size()>1){
+                        stack.pop();
+                        BaseFragment fragment = stack.peek();
+                        getHostActivity().open(fragment);
+                    }
 
+                }
             }
         });
         dialog.getBuilder().onNegative(new MaterialDialog.SingleButtonCallback() {

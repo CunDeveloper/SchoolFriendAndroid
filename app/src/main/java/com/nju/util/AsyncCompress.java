@@ -60,20 +60,6 @@ public class AsyncCompress extends AsyncTask<ArrayList<Image>,Void,ArrayList<Ima
     @Override
     protected void onPostExecute(ArrayList<ImageWrapper> imageWrappers) {
         super.onPostExecute(imageWrappers);
-        if (mLabel.equals(PublishTextWithPicsFragment.TAG)){
-            mFragment.getHostActivity().open(PublishTextWithPicsFragment.newInstance(imageWrappers));
-        }else if (mLabel.equals(RecommendPublishFragment.TAG)){
-            mFragment.getHostActivity().open(RecommendPublishFragment.newInstance(mFragment.getString(R.string.publish_recommend),imageWrappers));
-        }
-        else if (mLabel.equals(PublishVoiceFragment.TAG)){
-            mFragment.getHostActivity().open(PublishVoiceFragment.newInstance(mFragment.getString(R.string.publish_voice),imageWrappers));
-        }
-        else if (mLabel.equals(AskPublishFragment.TAG)){
-            mFragment.getHostActivity().open(AskPublishFragment.newInstance(mFragment.getString(R.string.publsh_ask),imageWrappers));
-        }
-        else if (mLabel.equals(PublishDynamicFragment.TAG)){
-            mFragment.getHostActivity().open(PublishDynamicFragment.newInstance(mFragment.getString(R.string.publish_dynamic),imageWrappers));
-        }
-
+        ChoosePicUtil.openFragment(mFragment,mLabel,imageWrappers);
     }
 }

@@ -120,7 +120,7 @@ public class MultiChoosePicFragment extends BaseFragment {
         mReviewTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(CameraImageViewFragment.newInstance(chooseImgPaths,0,getString(R.string.choosedReview)));
+                getHostActivity().open(CameraImageViewFragment.newInstance(chooseImgPaths,0,getString(R.string.choosedReview),mLabel));
 
             }
         });
@@ -161,7 +161,7 @@ public class MultiChoosePicFragment extends BaseFragment {
             image.setData(CapturePic.getImgPath());
             ArrayList<Image> images = new ArrayList<>();
             images.add(image);
-            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,getString(R.string.capture_image)));
+            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,getString(R.string.capture_image),mLabel));
         }
     }
 
@@ -176,7 +176,7 @@ public class MultiChoosePicFragment extends BaseFragment {
             super.onPostExecute(list);
             mImgPaths = list;
             AppCompatActivity activity = (AppCompatActivity) getActivity();
-            mGridView.setAdapter(new MultiChoosePicAdapter(activity,list,mHandler,MultiChoosePicFragment.this));
+            mGridView.setAdapter(new MultiChoosePicAdapter(activity,list,mHandler,MultiChoosePicFragment.this,mLabel));
             mProgressBar.setVisibility(View.GONE);
         }
     }

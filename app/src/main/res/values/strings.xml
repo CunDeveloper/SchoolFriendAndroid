@@ -61,14 +61,18 @@
         <item>公开</item>
         <item>私密</item>
         <item>部分可见</item>
-        <item>不给谁看</item>
     </string-array>
 
     <string-array name="who_san_small_group">
         <item>所有校友可见</item>
         <item>仅自己可见</item>
         <item>选中的校友可见</item>
-        <item>选中的校友不可见</item>
+    </string-array>
+    <string-array name="only_people_see">
+        <item>同届同一学院可见</item>
+        <item>本学院其他届可见</item>
+        <item>其他届其他学院可见</item>
+        <item>本届其他学院可见</item>
     </string-array>
     <string name="title_activity_base">BaseActivity</string>
     <string name="praise">点赞</string>

@@ -6,11 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListAdapter;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
+import com.nju.fragment.PublishDynamicFragment;
+import com.nju.fragment.PublishVoiceFragment;
 import com.nju.model.Entry;
 
 import java.util.ArrayList;
@@ -21,9 +27,9 @@ import java.util.ArrayList;
  */
 public class WhoScanListAdapter implements ExpandableListAdapter {
     private ArrayList<Entry> mGroupItems;
-    private Context mContext;
+    private BaseFragment mContext;
 
-    public WhoScanListAdapter(Context context,ArrayList<Entry> gropItems){
+    public WhoScanListAdapter(BaseFragment context,ArrayList<Entry> gropItems){
         this.mGroupItems = gropItems;
         this.mContext = context;
     }
@@ -79,7 +85,7 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.who_scan_group,parent,false);
+            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.who_scan_group,parent,false);
             holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_big_label);
             holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_label);
             holder.imageView = (TextView) convertView.findViewById(R.id.who_scan_group_img);
@@ -96,32 +102,55 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ViewHolder holder ;
+        final ViewHolder holder ;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.who_scan_group_child,parent,false);
+            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.who_scan_group_child,parent,false);
             holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_child_big_label);
             holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_child_label);
-            holder.checkBox = (CheckBox) convertView.findViewById(R.id.who_scan_group_child_check);
+            holder.radioButton = (RadioButton) convertView.findViewById(R.id.who_scan_group_child_check);
             convertView.setTag(holder);
         }
         else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (isLastChild){
-            holder.bigTextView.setTextColor(mContext.getResources().getColor(R.color.light_blue));
-            holder.bigTextView.setText(mContext.getString(R.string.edit_label));
-            holder.checkBox.setVisibility(View.GONE);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext,"Hello",Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+
+
+        holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                openFragment(holder.bigTextView);
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFragment(holder.bigTextView);
+            }
+        });
         holder.bigTextView.setText(mGroupItems.get(groupPosition).getChildItems().get(childPosition).getBigLabel());
         holder.smallTextView.setText(mGroupItems.get(groupPosition).getChildItems().get(childPosition).getSmallLabel());
         return convertView;
+    }
+
+    private  void openFragment(TextView bigText){
+        BaseActivity.LocalStack stack = mContext.getHostActivity().getBackStack();
+        stack.pop();
+        if (!stack.isEmpty()){
+            BaseFragment fragment = (BaseFragment) stack.peek();
+            if (fragment instanceof PublishDynamicFragment){
+                PublishDynamicFragment dynamicFragment = (PublishDynamicFragment) fragment;
+                dynamicFragment.setWhoScan(bigText.getText().toString());
+                mContext.getHostActivity().open(dynamicFragment);
+            } else if (fragment instanceof PublishVoiceFragment){
+                PublishVoiceFragment voiceFragment = (PublishVoiceFragment) fragment;
+                voiceFragment.setWhoScan(bigText.getText().toString());
+                mContext.getHostActivity().open(voiceFragment);
+            }
+        }
+
+
     }
 
     @Override
@@ -163,6 +192,6 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
         public TextView bigTextView;
         public TextView smallTextView;
         public TextView imageView;
-        public CheckBox checkBox;
+        public RadioButton radioButton;
     }
 }

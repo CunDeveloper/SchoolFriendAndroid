@@ -61,7 +61,7 @@ public class CommentUtil {
 
     public static void initViewPager(Fragment fragment,View view){
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new EmotionPageAdapter(fragment.getFragmentManager(), fragment.getClass().getSimpleName()));
+        viewPager.setAdapter(new EmotionPageAdapter(fragment.getChildFragmentManager(), fragment.getClass().getSimpleName()));
     }
 
     public static EditText getCommentEdit(final View view){

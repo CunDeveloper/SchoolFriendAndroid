@@ -39,8 +39,8 @@ public class PublishVoiceFragment extends BaseFragment {
     private String mTitle;
     private EditText mTitleET;
     private EditText mContentET;
-    private TextView mWhoScanTV;
     private SchoolFriendDialog mDialog;
+    private String mWhoScan;
     public static PublishVoiceFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         PublishVoiceFragment fragment = new PublishVoiceFragment();
         Bundle args = new Bundle();
@@ -96,6 +96,10 @@ public class PublishVoiceFragment extends BaseFragment {
         }
     }
 
+    public void setWhoScan(String text){
+        mWhoScan = text;
+    }
+
     private void initView(View view){
         mContentET = (EditText) view.findViewById(R.id.content_editText);
         mContentET.addTextChangedListener(new TextWatcher() {
@@ -129,7 +133,10 @@ public class PublishVoiceFragment extends BaseFragment {
                 getHostActivity().open(WhoScanFragment.newInstance());
             }
         });
-        mWhoScanTV  = (TextView) view.findViewById(R.id.whoScanTV);
+        TextView mWhoScanTV = (TextView) view.findViewById(R.id.whoScanTV);
+        if (mWhoScan != null){
+            mWhoScanTV.setText(mWhoScan);
+        }
     }
 
     ResponseCallback callback = new ResponseCallback() {
