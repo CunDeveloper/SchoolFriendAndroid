@@ -56,7 +56,7 @@ public class MajorAskAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         AlumniQuestion alumniQuestion = mQuestions.get(position);
         holder.problemTV.setText(alumniQuestion.getProblem());
-        holder.nameTV.setText(alumniQuestion.getAuthorInfo().getAuthorName());
+        holder.nameTV.setText(alumniQuestion.getAuthor().getAuthorName());
         holder.dateTV.setText(alumniQuestion.getDate());
         holder.replayCountTV.setText(alumniQuestion.getReplayCount()+"");
         return convertView;

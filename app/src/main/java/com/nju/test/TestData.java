@@ -56,7 +56,7 @@ public class TestData {
         alumniQuestion.setReplayCount(9);
         AuthorInfo authorInfo = new AuthorInfo();
         authorInfo.setAuthorName("Jimmy");
-        alumniQuestion.setAuthorInfo(authorInfo);
+        alumniQuestion.setAuthor(authorInfo);
         alumniQuestions.add(alumniQuestion);
         return alumniQuestions;
     }
@@ -76,7 +76,6 @@ public class TestData {
                 "5.学校邀请就业比较成功的大学生定期回校进行就业交流沟通.多让部分有社会经验和工作经验的人士回校讲课,演讲,或者成为授课教师。(特别是营销类,管理类)。 " +
                 "\n6.学校尽量建立企业的HR、管理层来校...");
         voice.setDate("2015-03-20");
-        voice.setSimpleDesc("1.树立自己就业的信心。大学生数目的增多，只能说明自己...");
         AuthorInfo authorInfo = new AuthorInfo();
         authorInfo.setAuthorName("张秦");authorInfo.setLabel("南京大学 软件学院");
         voice.setAuthorInfo(authorInfo);

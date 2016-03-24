@@ -7,25 +7,28 @@ import android.os.Parcelable;
  * Created by xiaojuzhang on 2016/3/17.
  */
 public class AlumniQuestion implements Parcelable {
-
     private int id;
+    private String date;
     private String problem;
     private String description;
     private String imgPaths;
-    private AuthorInfo authorInfo;
-    private String date;
+    private AuthorInfo author;
     private int replayCount;
+    private boolean isSolved;
+    private int whoScan;
 
     public AlumniQuestion(){}
 
+
     protected AlumniQuestion(Parcel in) {
         id = in.readInt();
+        date = in.readString();
         problem = in.readString();
         description = in.readString();
         imgPaths = in.readString();
-        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
-        date = in.readString();
+        author = in.readParcelable(AuthorInfo.class.getClassLoader());
         replayCount = in.readInt();
+        whoScan = in.readInt();
     }
 
     public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
@@ -40,12 +43,37 @@ public class AlumniQuestion implements Parcelable {
         }
     };
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeString(problem);
+        dest.writeString(description);
+        dest.writeString(imgPaths);
+        dest.writeParcelable(author, flags);
+        dest.writeInt(replayCount);
+        dest.writeInt(whoScan);
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getProblem() {
@@ -72,20 +100,12 @@ public class AlumniQuestion implements Parcelable {
         this.imgPaths = imgPaths;
     }
 
-    public AuthorInfo getAuthorInfo() {
-        return authorInfo;
+    public AuthorInfo getAuthor() {
+        return author;
     }
 
-    public void setAuthorInfo(AuthorInfo authorInfo) {
-        this.authorInfo = authorInfo;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setAuthor(AuthorInfo author) {
+        this.author = author;
     }
 
     public int getReplayCount() {
@@ -96,19 +116,23 @@ public class AlumniQuestion implements Parcelable {
         this.replayCount = replayCount;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public boolean isSolved() {
+        return isSolved;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(problem);
-        dest.writeString(description);
-        dest.writeString(imgPaths);
-        dest.writeParcelable(authorInfo, flags);
-        dest.writeString(date);
-        dest.writeInt(replayCount);
+    public void setIsSolved(boolean isSolved) {
+        this.isSolved = isSolved;
+    }
+
+    public int getWhoScan() {
+        return whoScan;
+    }
+
+    public void setWhoScan(int whoScan) {
+        this.whoScan = whoScan;
+    }
+
+    public static Creator<AlumniQuestion> getCREATOR() {
+        return CREATOR;
     }
 }

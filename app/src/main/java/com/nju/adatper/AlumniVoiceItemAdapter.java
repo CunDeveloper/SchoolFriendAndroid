@@ -64,7 +64,7 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         holder.dateTV.setText(voice.getDate());
         holder.labelTV.setText(voice.getAuthorInfo().getLabel());
         holder.nameTV.setText(voice.getAuthorInfo().getAuthorName());
-        holder.simpleDescTV.setText(voice.getSimpleDesc());
+        holder.simpleDescTV.setText(voice.getContent());
         return convertView;
     }
 

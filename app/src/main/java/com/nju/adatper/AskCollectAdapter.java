@@ -58,8 +58,8 @@ public class AskCollectAdapter extends BaseAdapter {
         }
         AlumniQuestion alumniQuestion = mAlumniQuestions.get(position);
         holder = (ViewHolder) convertView.getTag();
-        holder.nameTV.setText(alumniQuestion.getAuthorInfo().getAuthorName());
-        holder.labelTV.setText(alumniQuestion.getAuthorInfo().getLabel());
+        holder.nameTV.setText(alumniQuestion.getAuthor().getAuthorName());
+        holder.labelTV.setText(alumniQuestion.getAuthor().getLabel());
         holder.dateTV.setText(alumniQuestion.getDate());
         holder.titleTV.setText(alumniQuestion.getProblem());
         holder.contentTV.setText(alumniQuestion.getDescription());

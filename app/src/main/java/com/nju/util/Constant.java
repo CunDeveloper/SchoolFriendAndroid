@@ -45,5 +45,11 @@ public class Constant {
     public static final int MAX_SAVE_NUMBER = 250;//本地缓存的用户发表的最大纪录数
     public static final String MAX_ID_SAVE_CONTENT ="max_id_save_content";//用于纪录缓存在本地的content的最大id;
 
+    public static final String EXCEPTION = "exception";
+    public static final String  INFO = "info";
+    public static final String CODE = "code";
+    public static final String MSG = "msg";
 
+
+    public static final int OK = 200;
 }

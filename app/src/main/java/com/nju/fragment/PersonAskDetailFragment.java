@@ -65,7 +65,7 @@ public class PersonAskDetailFragment extends BaseFragment {
         TextView descTV = (TextView) view.findViewById(R.id.description_tv);
         descTV.setText(mAlumniQuestion.getDescription());
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
-        nameTV.setText(mAlumniQuestion.getAuthorInfo().getAuthorName());
+        nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(mAlumniQuestion.getDate());
     }

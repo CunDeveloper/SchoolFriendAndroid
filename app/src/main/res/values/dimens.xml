@@ -18,4 +18,5 @@
     <dimen name="phone_item_height">60dp</dimen>
     <dimen name="bottom_choose_height">60dp</dimen>
     <dimen name="small_circle">50dp</dimen>
+    <dimen name="bottom_margin">120dp</dimen>
 </resources>

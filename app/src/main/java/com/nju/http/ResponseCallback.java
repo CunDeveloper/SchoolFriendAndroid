@@ -2,6 +2,7 @@ package com.nju.http;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -16,6 +17,7 @@ public abstract class ResponseCallback implements Callback {
 
     abstract public void onFail(final Exception error);
     abstract public void onSuccess(final String responseBody);
+    private static final String TAG = ResponseCallback.class.getSimpleName();
 
     @Override
     public void onFailure(final Request request, final IOException e) {
@@ -23,8 +25,8 @@ public abstract class ResponseCallback implements Callback {
             @Override
             public void run() {
                 e.printStackTrace();
+                Log.e(TAG, e.getMessage());
                 if (e.getMessage().contains("Canceled") || e.getMessage().contains("Socket closed")) {
-                   // ToastUtil.show(R.string.canceled);
                 } else {
                     onFail(e);
                 }
@@ -34,8 +36,12 @@ public abstract class ResponseCallback implements Callback {
 
     @Override
     public void onResponse(final Response response) throws IOException {
-        if (!response.isSuccessful() || response.body() == null) {
-            onFailure(response.request(), new IOException("Failed"));
+        if (!response.isSuccessful()) {
+            if (response.body() != null){
+                onFailure(response.request(), new IOException(response.body().string()));
+            } else {
+                onFailure(response.request(),new IOException("unknown error"));
+            }
             return;
         }
         final String result = response.body().string();

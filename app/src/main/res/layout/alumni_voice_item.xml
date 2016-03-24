@@ -50,6 +50,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/alumni_vo_date"
         android:text="1"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/phone_apadding"
         android:layout_below="@+id/alumni_vo_simple_desc"
         android:layout_alignStart="@+id/alumni_vo_simple_desc" />
     <com.nju.View.SchoolFriendAweTextView
@@ -88,6 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_toEndOf="@+id/alumni_vo_imageView"
         android:layout_below="@+id/alumni_vo_title"
@@ -106,8 +110,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/praise_icon"
-        android:layout_marginBottom="@dimen/phone_apadding"
         android:id="@+id/textView23"
-        android:layout_below="@+id/alumni_vo_simple_desc"
+        android:layout_alignBottom="@+id/alumni_vo_praise_number"
         android:layout_toStartOf="@+id/alumni_vo_praise_number" />
 </RelativeLayout>

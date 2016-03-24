@@ -16,7 +16,6 @@ public class AlumniVoice implements Parcelable {
     private int commentCount;
     private String date;
     private AuthorInfo authorInfo;
-    private String simpleDesc;
 
     public AlumniVoice(){
 
@@ -30,7 +29,6 @@ public class AlumniVoice implements Parcelable {
         commentCount = in.readInt();
         date = in.readString();
         authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
-        simpleDesc = in.readString();
     }
 
     public static final Creator<AlumniVoice> CREATOR = new Creator<AlumniVoice>() {
@@ -109,13 +107,7 @@ public class AlumniVoice implements Parcelable {
         this.authorInfo = authorInfo;
     }
 
-    public String getSimpleDesc() {
-        return simpleDesc;
-    }
 
-    public void setSimpleDesc(String simpleDesc) {
-        this.simpleDesc = simpleDesc;
-    }
 
     @Override
     public int describeContents() {
@@ -132,6 +124,5 @@ public class AlumniVoice implements Parcelable {
         dest.writeInt(commentCount);
         dest.writeString(date);
         dest.writeParcelable(authorInfo, flags);
-        dest.writeString(simpleDesc);
     }
 }
