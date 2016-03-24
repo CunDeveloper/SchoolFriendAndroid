@@ -15,7 +15,7 @@ public class AlumniVoice implements Parcelable {
     private int praiseCount;
     private int commentCount;
     private String date;
-    private AuthorInfo authorInfo;
+    private AuthorInfo author;
 
     public AlumniVoice(){
 
@@ -28,7 +28,7 @@ public class AlumniVoice implements Parcelable {
         praiseCount = in.readInt();
         commentCount = in.readInt();
         date = in.readString();
-        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
+        author= in.readParcelable(AuthorInfo.class.getClassLoader());
     }
 
     public static final Creator<AlumniVoice> CREATOR = new Creator<AlumniVoice>() {
@@ -100,14 +100,12 @@ public class AlumniVoice implements Parcelable {
     }
 
     public AuthorInfo getAuthorInfo() {
-        return authorInfo;
+        return author;
     }
 
     public void setAuthorInfo(AuthorInfo authorInfo) {
-        this.authorInfo = authorInfo;
+        this.author = authorInfo;
     }
-
-
 
     @Override
     public int describeContents() {
@@ -123,6 +121,6 @@ public class AlumniVoice implements Parcelable {
         dest.writeInt(praiseCount);
         dest.writeInt(commentCount);
         dest.writeString(date);
-        dest.writeParcelable(authorInfo, flags);
+        dest.writeParcelable(author, flags);
     }
 }

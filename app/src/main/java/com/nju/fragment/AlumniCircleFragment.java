@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdapter;
 import com.nju.adatper.FriendContentAdapter;
@@ -27,11 +26,9 @@ import com.nju.test.WeiBoData;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.nju.adatper.UserCommentItemListAdapter.COMMENT_OK;
 import static com.nju.adatper.UserCommentItemListAdapter.PRAISE_OK;
 

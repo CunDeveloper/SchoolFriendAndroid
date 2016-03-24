@@ -18,22 +18,17 @@ import com.nju.adatper.PersonAskAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
-import com.nju.http.request.QueryLimit;
-import com.nju.http.request.RequestBodyJson;
+import com.nju.http.response.ParseResponse;
+import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniQuestion;
-import com.nju.model.MajorAsk;
 import com.nju.test.TestData;
-import com.nju.test.TestToken;
 import com.nju.util.CloseRequestUtil;
-import com.nju.util.CryptUtil;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
-import com.nju.util.ParseResponse;
 import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
-import com.squareup.okhttp.Call;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -161,13 +156,7 @@ public class MyAskFragment extends BaseFragment {
     }
 
     private void updateAsk(){
-        RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken())));
-        QueryLimit limit = new QueryLimit();
-        limit.setOffset(0);limit.setTotal(20);
-        bodyJson.setBody(limit);
-        String json = gson.toJson(bodyJson);
-        Log.e(TAG,json);
+        final String json = QueryJson.queryLimitToString();
         String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW_OWN+"?level=所有";
         mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG,url);

@@ -27,14 +27,22 @@ import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
+import com.nju.http.response.ParseResponse;
+import com.nju.http.response.QueryJson;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
+import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,10 +53,11 @@ public class RecommendWorkFragment extends BaseFragment {
     private RelativeLayout mCollegeMainLayout;
     private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
     private FloatingActionButton mFloatBn;
-    private  ArrayList<RecommendWork>  recommendWorks;
-
+    private  ArrayList<RecommendWork>  mRecommendWorks;
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
+    private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
+
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -56,6 +65,8 @@ public class RecommendWorkFragment extends BaseFragment {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
+                Log.e(TAG, error.getMessage());
+                //mFootView.setVisibility(View.GONE);
             }
         }
 
@@ -63,15 +74,53 @@ public class RecommendWorkFragment extends BaseFragment {
         public void onSuccess(String responseBody) {
             if (FragmentUtil.isAttachedToActivity(RecommendWorkFragment.this)){
                 Log.i(TAG, responseBody);
-                mRefreshLayout.setRefreshing(false);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    Object object = parseResponse.getInfo(responseBody,RecommendWork.class);
+                    if (object != null){
+                        ArrayList majorAsks = (ArrayList) object;
+                        if (majorAsks.size()>0){
+                            for (Object obj :majorAsks){
+                                RecommendWork   recommendWork = (RecommendWork) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
+                                mRecommendWorks.add(recommendWork);
+                            }
+                            Collections.sort(mRecommendWorks, new Comparator<RecommendWork>() {
+                                @Override
+                                public int compare(RecommendWork lhs, RecommendWork rhs) {
+                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
+                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
+                                    if (lhsTime > rhsTime) {
+                                        return -1;
+                                    } else if (lhsTime < rhsTime) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }
+                            });
+                            int length = mRecommendWorks.size();
+                            if (length>10){
+                                for (int i = length-1;i>10;i--){
+                                    mRecommendWorks.remove(mRecommendWorks.get(i));
+                                }
+                            }
+                            mRecommendWorkItemAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    mRefreshLayout.setRefreshing(false);
+                    //mFootView.setVisibility(View.GONE);
+                }
             }
         }
     };
 
-    public static RecommendWorkFragment newInstance( ) {
-        RecommendWorkFragment fragment = new RecommendWorkFragment();
 
-        return fragment;
+    public static RecommendWorkFragment newInstance( ) {
+
+        return new RecommendWorkFragment();
     }
 
     public RecommendWorkFragment() {
@@ -135,18 +184,22 @@ public class RecommendWorkFragment extends BaseFragment {
     }
 
     private void updateRecommendWork() {
-        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf","",callback);
+        final String json = QueryJson.queryLimitToString();
+        String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level=所有";
+        mRequestJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG,url);
         HttpManager.getInstance().exeRequest(mRequestJson);
     }
 
     private void  setListView(View view){
-        recommendWorks = TestData.getRecommendWorks();
+        mRecommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new RecommendWorkItemAdapter(getContext(), recommendWorks));
+        mRecommendWorkItemAdapter = new RecommendWorkItemAdapter(getContext(), mRecommendWorks);
+        listView.setAdapter(mRecommendWorkItemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
             }
         });
         final int[] position = {0};

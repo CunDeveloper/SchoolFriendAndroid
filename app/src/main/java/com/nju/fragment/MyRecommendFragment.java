@@ -1,44 +1,106 @@
 package com.nju.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.nju.activity.R;
 import com.nju.adatper.PersonRecommendAdapter;
-import com.nju.adatper.PersonVoiceAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
-import com.nju.model.AlumniVoice;
+import com.nju.http.response.ParseResponse;
+import com.nju.http.response.QueryJson;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
+import com.nju.util.CloseRequestUtil;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
-import com.squareup.okhttp.Call;
-
+import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
+import com.nju.util.SchoolFriendGson;
+import com.nju.util.ToastUtil;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class MyRecommendFragment extends BaseFragment {
-
+    private static final String TAG = MyRecommendFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
     private static String mTitle;
-    private Call mCall;
     private PostRequestJson mRequestJson;
+    private SwipeRefreshLayout mRefreshLayout;
+    private final static SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private ArrayList<RecommendWork> mRecommendWorks;
+    private PersonRecommendAdapter mPersonRecommendAdapter;
+    private RelativeLayout mFootView;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-
+            if (FragmentUtil.isAttachedToActivity(MyRecommendFragment.this)){
+                ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
+                mRefreshLayout.setRefreshing(false);
+                error.printStackTrace();
+                Log.e(TAG, error.getMessage());
+                mFootView.setVisibility(View.GONE);
+            }
         }
 
         @Override
         public void onSuccess(String responseBody) {
-
+            if (FragmentUtil.isAttachedToActivity(MyRecommendFragment.this)){
+                Log.i(TAG, responseBody);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    Object object = parseResponse.getInfo(responseBody,RecommendWork.class);
+                    if (object != null){
+                        ArrayList majorAsks = (ArrayList) object;
+                        if (majorAsks.size()>0){
+                            for (Object obj :majorAsks){
+                                RecommendWork   recommendWork = (RecommendWork) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
+                                mRecommendWorks.add(recommendWork);
+                            }
+                            Collections.sort(mRecommendWorks, new Comparator<RecommendWork>() {
+                                @Override
+                                public int compare(RecommendWork lhs, RecommendWork rhs) {
+                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
+                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
+                                    if (lhsTime > rhsTime) {
+                                        return -1;
+                                    } else if (lhsTime < rhsTime) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }
+                            });
+                            int length = mRecommendWorks.size();
+                            if (length>10){
+                                for (int i = length-1;i>10;i--){
+                                    mRecommendWorks.remove(mRecommendWorks.get(i));
+                                }
+                            }
+                            mPersonRecommendAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    mRefreshLayout.setRefreshing(false);
+                    mFootView.setVisibility(View.GONE);
+                }
+            }
         }
     };
 
@@ -66,23 +128,67 @@ public class MyRecommendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.person_refresh_listview, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initListView(view);
-        mRequestJson = new PostRequestJson("","",callback);
-        HttpManager.getInstance().exeRequest(mRequestJson);
+        setUpOnRefreshListener(view);
         return view;
     }
 
     private void initListView(View view){
-        final ArrayList<RecommendWork> recommendWorks = TestData.getRecommendWorks();
+        mRecommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new PersonRecommendAdapter(getContext(), recommendWorks));
+        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
+        mFootView.setVisibility(View.GONE);
+        listView.addFooterView(mFootView);
+        mPersonRecommendAdapter = new PersonRecommendAdapter(getContext(), mRecommendWorks);
+        listView.setAdapter(mPersonRecommendAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+                getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
             }
         });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == (mPersonRecommendAdapter.getCount())) {
+                    mFootView.setVisibility(View.VISIBLE);
+                    updateRecommendWork();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+    }
+
+    private void setUpOnRefreshListener(View view){
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+                updateRecommendWork();
+            }
+        });
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateRecommendWork();
+            }
+        });
+    }
+
+    private void updateRecommendWork(){
+        final String json = QueryJson.queryLimitToString();
+        String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level=所有";
+        mRequestJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG,url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+
     }
 
     @Override
@@ -94,16 +200,13 @@ public class MyRecommendFragment extends BaseFragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
-        getHostActivity().display(5);
+        getHostActivity().display(6);
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        mCall = mRequestJson.getCall();
-        if (mCall != null){
-            mCall.cancel();
-        }
+        CloseRequestUtil.close(mRequestJson);
     }
 
 }

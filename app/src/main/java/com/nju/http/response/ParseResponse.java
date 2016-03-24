@@ -1,6 +1,9 @@
-package com.nju.util;
+package com.nju.http.response;
 
-import com.nju.model.AlumniVoice;
+import android.util.Log;
+
+import com.nju.util.Constant;
+import com.nju.util.SchoolFriendGson;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -12,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by xiaojuzhang on 2016/3/24.
  */
-public class ParseResponse   {
+public class ParseResponse {
 
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private ObjectNode getRoot(final String json) throws IOException {
@@ -37,13 +40,16 @@ public class ParseResponse   {
         int code = code(root);
         if (code == Constant.OK){
             JsonNode jInfoNode = root.get(Constant.INFO);
+            Log.e("tag",jInfoNode.toString());
             if (jInfoNode.isArray()){
                 ArrayNode infoNode = (ArrayNode) jInfoNode;
-                return gson.fromJsonToList(infoNode.toString(),aClass);
+                return gson.fromJsonToList(jInfoNode.toString(),aClass);
             } else if (jInfoNode.isObject()){
                 return jInfoNode.asText();
             }
         }
         return null;
     }
+
+
 }

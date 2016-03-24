@@ -1,6 +1,5 @@
 package com.nju.fragment;
 
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -169,8 +168,6 @@ public class WhoScanFragment extends BaseFragment {
             }
         }
 
-
-
         private ArrayList<WhoScan> praiseDom(Document document) {
             NodeList groupList = document.getElementsByTagName("group");
             Log.e(TAG,groupList.getLength()+"===");
@@ -216,13 +213,11 @@ public class WhoScanFragment extends BaseFragment {
                             childItems.add(childItem);
                             break;
                         }
-
                        }
                     whoScan.setChildItems(childItems);
 
                     }
                 whoScans.add(whoScan);
-
                }
             return whoScans;
          }

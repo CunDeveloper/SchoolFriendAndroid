@@ -45,20 +45,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/fragment_re_list_item_count"
         android:text="2"
+
         android:textColor="@android:color/black"
-        android:layout_below="@+id/re_list_item_label"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/re_list_item_name"
+        android:layout_toStartOf="@+id/textView15" />
 
     <com.nju.View.SchoolFriendAweTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/comment_icon_r"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="@dimen/phone_apadding"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/comment_icon"
         android:id="@+id/textView15"
-        android:layout_alignBottom="@+id/fragment_re_list_item_count"
-        android:layout_alignEnd="@+id/fragment_re_list_item_count" />
+        android:layout_alignTop="@+id/re_list_item_date"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
