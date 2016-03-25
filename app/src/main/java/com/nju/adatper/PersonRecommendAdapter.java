@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.model.AlumniVoice;
 import com.nju.model.RecommendWork;
+import com.nju.util.Constant;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
 
@@ -54,8 +56,16 @@ public class PersonRecommendAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         RecommendWork recommendWork = mRecommendWorks.get(position);
-        holder.titleTV.setText(recommendWork.getTitle());
-        holder.contentTV.setText(recommendWork.getContent());
+        try{
+            holder.titleTV.setText(StringBase64.decode(recommendWork.getTitle()));
+        }catch (IllegalArgumentException e){
+            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+        try{
+            holder.contentTV.setText(StringBase64.decode(recommendWork.getContent()));
+        }catch (IllegalArgumentException e){
+            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         return convertView;
     }
 

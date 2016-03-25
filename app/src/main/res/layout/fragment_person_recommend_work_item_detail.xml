@@ -20,7 +20,7 @@
                     android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
-                    <TextView
+                    <com.nju.View.SchoolFriendTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/phone_apadding"
@@ -31,7 +31,7 @@
                         android:id="@+id/recommend_work_item_detail_title"
                         />
 
-                    <TextView
+                    <com.nju.View.SchoolFriendTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/phone_apadding"

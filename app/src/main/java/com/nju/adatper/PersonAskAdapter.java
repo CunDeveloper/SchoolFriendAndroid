@@ -63,16 +63,12 @@ public class PersonAskAdapter extends BaseAdapter {
             e.printStackTrace();
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-
-        holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
-
-//        try{
-//            holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
-//        }catch (IllegalArgumentException e){
-//            e.printStackTrace();
-//            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
-//        }
-
+        try{
+            holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         return convertView;
     }
 

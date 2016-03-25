@@ -23,6 +23,7 @@ import com.nju.model.ImageWrapper;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
@@ -194,18 +195,21 @@ public class PublishDynamicFragment extends BaseFragment {
                 InputEmotionUtil.getEmoLayout().setVisibility(View.GONE);
                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
-                String content = mContentET.getText().toString();
-                final HashMap<String, String> params = new HashMap<>();
+                final String content = mContentET.getText().toString();
+                final String whoScan = 1+"";
+                final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
+                params.put(Constant.WHO_SCAN,whoScan);
+                params.put(Constant.LOCATION,mLocation);
+                params.put(Constant.AUTHORIZATION, PublishDynamicFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;
-                for (ImageWrapper image : mUploadImgPaths) {
+                for (ImageWrapper image :mUploadImgPaths) {
                     final String path = image.getPath();
                     bitmapWrapper = new BitmapWrapper();
                     sourceFile = new File(path);
-                    bitmapWrapper.setPath(path);
-                    bitmapWrapper.setFileName(sourceFile.getName());
+                    bitmapWrapper.setPath(path);bitmapWrapper.setFileName(sourceFile.getName());
                     try {
                         bitmapWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
                         bitmapWrappers.add(bitmapWrapper);
@@ -213,8 +217,9 @@ public class PublishDynamicFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
-                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL, params, bitmapWrapperArrayList, callback));
+                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level=所有";
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
         });
     }

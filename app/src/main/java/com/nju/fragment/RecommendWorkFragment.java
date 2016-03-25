@@ -119,7 +119,6 @@ public class RecommendWorkFragment extends BaseFragment {
 
 
     public static RecommendWorkFragment newInstance( ) {
-
         return new RecommendWorkFragment();
     }
 
@@ -231,8 +230,6 @@ public class RecommendWorkFragment extends BaseFragment {
         });
     }
 
-
-
     @Override
     public void onStop(){
         super.onStop();
@@ -281,15 +278,12 @@ public class RecommendWorkFragment extends BaseFragment {
 
             }
             input.addView(textView);
-
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TextView mTV = (TextView) v;
-                    if (mTV.getText().toString().equals(getString(R.string.all))) {
-                        mFloatBn.setVisibility(View.VISIBLE);
-                    }
                     changeLevelTVColor(mTV);
+                    mFloatBn.setVisibility(View.VISIBLE);
                     mCollegeMainLayout.setVisibility(View.GONE);
                 }
             });
@@ -306,7 +300,4 @@ public class RecommendWorkFragment extends BaseFragment {
             }
         }
     }
-
-
-
 }

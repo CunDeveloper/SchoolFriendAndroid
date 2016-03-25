@@ -31,13 +31,7 @@ public class SchoolFriendDialog extends MaterialDialog {
         Builder builder = new Builder(context).title(title);
         builder.positiveText(context.getString(R.string.cancle))
         .negativeText(context.getString(R.string.exit));
-        builder.onNegative(new SingleButtonCallback() {
 
-            @Override
-            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                context.finish();
-            }
-        });
         return new SchoolFriendDialog(builder);
     }
 

@@ -12,6 +12,7 @@ import com.nju.activity.R;
 import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
 
@@ -59,7 +60,11 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         RecommendWork recommendWork = mRecommendWorks.get(position);
-        holder.titleTx.setText(recommendWork.getTitle());
+        try {
+            holder.titleTx.setText(StringBase64.decode(recommendWork.getTitle()));
+        }catch (IllegalArgumentException e){
+            holder.titleTx.setText(Constant.UNKNOWN_CHARACTER);
+        }
         holder.usernameTx.setText(recommendWork.getAuthor().getAuthorName());
         holder.labelTx.setText(recommendWork.getAuthor().getLabel());
         holder.countTx.setText(recommendWork.getCommentCount()+"");

@@ -1,6 +1,7 @@
 package com.nju.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -19,15 +20,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.AlumniVoiceFragment;
+import com.nju.fragment.AskPublishFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.MyCircleFragment;
+import com.nju.fragment.PublishDynamicFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
+import com.nju.fragment.PublishVoiceFragment;
+import com.nju.fragment.RecommendPublishFragment;
 import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SettingFragment;
 import com.nju.fragment.XueXinAuthFragment;
@@ -290,11 +297,19 @@ public class MainActivity extends BaseActivity {
             finish();
             return;
         }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (mLocalBackStack.size() >=2) {
             BaseFragment fragment = mLocalBackStack.pop();
-            if (fragment.getClass().getSimpleName() .equals(PublishTextWithPicsFragment.TAG)) {
+            if (fragment instanceof PublishDynamicFragment || fragment instanceof AskPublishFragment
+                    || fragment instanceof PublishVoiceFragment || fragment instanceof RecommendPublishFragment) {
                 SchoolFriendDialog dialog = SchoolFriendDialog.exitReminderDialog(this,getString(R.string.are_you_sure_exit_this_eidt));
+                dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        ft.replace(R.id.container,mLocalBackStack.peek());
+                        ft.commit();
+                    }
+                });
                 dialog.show();
             }
             else {

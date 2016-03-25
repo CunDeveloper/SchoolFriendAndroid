@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.model.RecommendWork;
 import com.nju.util.CommentUtil;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.SoftInput;
+import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
 
 
@@ -77,9 +79,17 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
 
     private void initView(View view){
         TextView titleTv = (TextView) view.findViewById(R.id.recommend_work_item_detail_title);
-        titleTv.setText(mRecommendWork.getTitle());
+        try{
+            titleTv.setText(StringBase64.decode(mRecommendWork.getTitle()));
+        }catch (IllegalArgumentException e){
+            titleTv.setText(Constant.UNKNOWN_CHARACTER);
+        }
         TextView detailTv = (TextView) view.findViewById(R.id.recommend_work_item_detail_detail);
-        detailTv.setText(mRecommendWork.getContent());
+        try{
+            detailTv.setText(StringBase64.decode(mRecommendWork.getContent()));
+        }catch (IllegalArgumentException e){
+            detailTv.setText(Constant.UNKNOWN_CHARACTER);
+        }
         TextView emailTV = (TextView) view.findViewById(R.id.email_tv);
         emailTV.setText(mRecommendWork.getEmail());
     }

@@ -65,4 +65,6 @@ public class Constant {
     public static final String DESCRIPTION = "description";
     public static final String UNKNOWN_CHARACTER = "???";
     public static final String UTF_8 = "UTF-8";
+    public static final String TYPE = "type" ;
+    public static final String LOCATION = "location" ;
 }
