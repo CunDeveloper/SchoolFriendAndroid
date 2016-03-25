@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.nju.model.ImageWrapper;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
 
@@ -148,11 +150,13 @@ public class PublishVoiceFragment extends BaseFragment {
     ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
+            Log.e(TAG,error.getLocalizedMessage());
             mDialog.dismiss();
         }
 
         @Override
         public void onSuccess(String responseBody) {
+            Log.i(TAG,responseBody);
             mDialog.dismiss();
         }
     };
@@ -178,9 +182,16 @@ public class PublishVoiceFragment extends BaseFragment {
                 InputEmotionUtil.getEmoLayout().setVisibility(View.GONE);
                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
-                String content = mContentET.getText().toString();
+                final String content = mContentET.getText().toString();
+                final String title = mTitleET.getText().toString();
+                final String whoScan = 1+"";
+                final String voiceType = 1+"";
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
+                params.put(Constant.TITLE,StringBase64.encode(title));
+                params.put(Constant.WHO_SCAN,whoScan);
+                params.put(Constant.VOICE_TYPE,voiceType);
+                params.put(Constant.AUTHORIZATION,PublishVoiceFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;
@@ -197,7 +208,8 @@ public class PublishVoiceFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,bitmapWrapperArrayList,callback));
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH + PathConstant.ALUMNS_VOICE_SUB_PATH_SAVE+"?level=所有";
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
         });
     }

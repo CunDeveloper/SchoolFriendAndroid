@@ -30,7 +30,7 @@
         android:layout_alignBottom="@+id/day_tv"
         android:layout_toEndOf="@+id/day_tv" />
 
-    <TextView
+    <com.nju.View.SchoolFriendTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -42,7 +42,7 @@
         android:layout_alignTop="@+id/day_tv"
         android:layout_toEndOf="@+id/month_tv" />
 
-    <TextView
+    <com.nju.View.SchoolFriendTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/phone_apadding"

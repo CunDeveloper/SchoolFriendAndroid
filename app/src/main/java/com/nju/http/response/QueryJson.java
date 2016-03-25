@@ -2,6 +2,7 @@ package com.nju.http.response;
 
 import android.util.Log;
 
+import com.nju.fragment.BaseFragment;
 import com.nju.http.request.QueryLimit;
 import com.nju.http.request.RequestBodyJson;
 import com.nju.test.TestToken;
@@ -13,9 +14,9 @@ import com.nju.util.SchoolFriendGson;
  */
 public class QueryJson {
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
-    public static String queryLimitToString(){
+    public static String queryLimitToString(final BaseFragment fragment){
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken())));
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimit limit = new QueryLimit();
         limit.setOffset(0);limit.setTotal(20);
         bodyJson.setBody(limit);

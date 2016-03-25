@@ -22,20 +22,22 @@ import android.widget.TextView;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
-import com.nju.fragment.AlumniVoiceItemDetail;
+import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.MyCircleFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.RecommendWorkFragment;
-import com.nju.fragment.RecommendWorkItem;
-import com.nju.fragment.RecommendWorkItemDetailFragment;
 import com.nju.fragment.SettingFragment;
-import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.XueXinAuthFragment;
 import com.nju.test.TestData;
+import com.nju.test.TestToken;
+import com.nju.util.Constant;
+import com.nju.util.CryptUtil;
 import com.nju.util.Divice;
+import com.nju.util.SchoolFriendGson;
+import com.splunk.mint.Mint;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,9 +58,16 @@ public class MainActivity extends BaseActivity {
     private static final String FINAL_TAG = "final_tag";
     private ArrayList<View> actionBarViews = new ArrayList<>() ;
     int fragmentIndex = 0;
+    private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private static String token = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Mint.setApplicationEnvironment(Mint.appEnvironmentStaging);
+
+        Mint.initAndStartSession(MainActivity.this, "378226b0");
+
         setContentView(R.layout.activity_main);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
@@ -84,9 +93,8 @@ public class MainActivity extends BaseActivity {
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
         initNavigationViewListener();
-
         XueXinAuthFragment fragment = XueXinAuthFragment.newInstance();
-        open(fragment,true,fragment);
+        open(fragment, true, fragment);
         initDataBase();
     }
 
@@ -94,10 +102,6 @@ public class MainActivity extends BaseActivity {
     public void onStart() {
         super.onStart();
         initFinalValue();
-//        if (getSharedPreferences().getBoolean(FINAL_TAG,false)) {
-//
-//            getSharedPreferences().edit().putBoolean(FINAL_TAG,true).commit();
-//        }
     }
 
     private void initNavigationViewListener () {
@@ -144,7 +148,7 @@ public class MainActivity extends BaseActivity {
         Set<String> levels = new HashSet<>();levels.add("本科");levels.add("所有");levels.add("硕士");
         getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
-
+        getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken()))).commit();
     }
 
     @Override
@@ -202,7 +206,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void open(BaseFragment fragment, boolean clearBackStack) {
-        open(fragment, clearBackStack,null);
+        open(fragment, clearBackStack, null);
     }
 
 
@@ -270,6 +274,14 @@ public class MainActivity extends BaseActivity {
         textViews.add((TextView) findViewById(R.id.voice_label4));
         textViews.add((TextView) findViewById(R.id.voice_label5));
         return textViews;
+    }
+
+    @Override
+    public String token() {
+        if (token == null) {
+            token = getSharedPreferences().getString(Constant.AUTHORIZATION,"");
+        }
+        return token;
     }
 
     @Override

@@ -184,7 +184,7 @@ public class RecommendWorkFragment extends BaseFragment {
     }
 
     private void updateRecommendWork() {
-        final String json = QueryJson.queryLimitToString();
+        final String json = QueryJson.queryLimitToString(this);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level=所有";
         mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG,url);

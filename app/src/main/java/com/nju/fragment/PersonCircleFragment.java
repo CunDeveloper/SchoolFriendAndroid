@@ -20,6 +20,7 @@ import com.nju.util.Divice;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.StringBase64;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -86,7 +87,13 @@ public class PersonCircleFragment extends BaseFragment {
             int day=-1,month=-1;
             for (Content content:contents) {
                 Content temp = content;
-                temp.setContent(StringBase64.decode(content.getContent()));
+                try {
+                    temp.setContent(StringBase64.decode(content.getContent()));
+                }catch (IllegalArgumentException e){
+                    //Mint.initAndStartSession(MyActivity.this, "ba2df536");
+                    temp.setContent(Constant.UNKNOWN_CHARACTER);
+                }
+
                 calendar = DateUtil.getCalendar(content.getDate());
                 int tempDay = DateUtil.day(calendar);
                 int tempMonth = DateUtil.month(calendar);

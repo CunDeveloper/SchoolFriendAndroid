@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniVoice;
+import com.nju.util.Constant;
+import com.nju.util.StringBase64;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -53,8 +56,18 @@ public class PersonVoiceAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         AlumniVoice alumniVoice = mAlumniVoices.get(position);
-        holder.titleTV.setText(alumniVoice.getTitle());
-        holder.contentTV.setText(alumniVoice.getContent());
+        try {
+            holder.titleTV.setText(StringBase64.decode(alumniVoice.getTitle()));
+        }catch(IllegalArgumentException e){
+            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+
+        try {
+            holder.contentTV.setText(StringBase64.decode(alumniVoice.getContent()));
+        }catch(IllegalArgumentException e){
+            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+
         return convertView;
     }
 

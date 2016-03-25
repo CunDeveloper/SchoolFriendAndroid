@@ -156,7 +156,7 @@ public class MyAskFragment extends BaseFragment {
     }
 
     private void updateAsk(){
-        final String json = QueryJson.queryLimitToString();
+        final String json = QueryJson.queryLimitToString(this);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW_OWN+"?level=所有";
         mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG,url);

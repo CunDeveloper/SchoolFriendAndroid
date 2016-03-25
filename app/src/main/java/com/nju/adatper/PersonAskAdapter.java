@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniVoice;
+import com.nju.util.Constant;
+import com.nju.util.StringBase64;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -54,8 +57,22 @@ public class PersonAskAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         AlumniQuestion alumniQuestion = mAlumniQuestions.get(position);
-        holder.titleTV.setText(alumniQuestion.getProblem());
-        holder.contentTV.setText(alumniQuestion.getDescription());
+        try{
+            holder.titleTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+
+        holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
+
+//        try{
+//            holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
+//        }catch (IllegalArgumentException e){
+//            e.printStackTrace();
+//            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
+//        }
+
         return convertView;
     }
 

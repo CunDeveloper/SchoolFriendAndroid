@@ -52,4 +52,17 @@ public class Constant {
 
 
     public static final int OK = 200;
+    public static final long TODAY_TIME = 86400000;
+    public static final long YESTERDAY_TIME = 172800000;
+    public static final String YESTERDAY = "昨天";
+    public static final String TODAY = "今天";
+    public static final String  TITLE = "title";
+    public static final String WHO_SCAN = "whoScan";
+    public static final String VOICE_TYPE = "voiceType";
+    public static final String AUTHORIZATION = "authorization";
+    public static final String FILE = "file";
+    public static final String PROBLEM = "problem";
+    public static final String DESCRIPTION = "description";
+    public static final String UNKNOWN_CHARACTER = "???";
+    public static final String UTF_8 = "UTF-8";
 }

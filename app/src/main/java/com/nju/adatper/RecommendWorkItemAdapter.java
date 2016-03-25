@@ -1,6 +1,7 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.RecommendWork;
+import com.nju.util.Constant;
+import com.nju.util.DateUtil;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ import java.util.ArrayList;
  */
 public class RecommendWorkItemAdapter extends BaseAdapter {
 
+    private static final String TAG = RecommendWorkItemAdapter.class.getSimpleName() ;
     private Context mContext;
     private ArrayList<RecommendWork> mRecommendWorks;
 
@@ -59,7 +63,17 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         holder.usernameTx.setText(recommendWork.getAuthor().getAuthorName());
         holder.labelTx.setText(recommendWork.getAuthor().getLabel());
         holder.countTx.setText(recommendWork.getCommentCount()+"");
-        holder.dateTx.setText(recommendWork.getDate());
+        final long time = DateUtil.getTime(recommendWork.getDate());
+        Log.e(TAG,time+"");
+        if (time <= Constant.TODAY_TIME) {
+            holder.dateTx.setText(Constant.TODAY);
+        }
+        else if (time >Constant.TODAY_TIME && time <= Constant.YESTERDAY_TIME){
+            holder.dateTx.setText(Constant.YESTERDAY);
+        }else{
+            holder.dateTx.setText(recommendWork.getDate().split(" ")[0]);
+        }
+
         return convertView;
     }
 

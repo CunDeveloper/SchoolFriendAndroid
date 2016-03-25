@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniQuestion;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.StringBase64;
+
+import java.io.UnsupportedEncodingException;
 
 
 public class PersonAskDetailFragment extends BaseFragment {
@@ -61,9 +65,17 @@ public class PersonAskDetailFragment extends BaseFragment {
 
     private void initView(View view){
         TextView problemTV = (TextView) view.findViewById(R.id.problem_tv);
-        problemTV.setText(mAlumniQuestion.getProblem());
+        try {
+            problemTV.setText(StringBase64.decode(mAlumniQuestion.getProblem()));
+        }catch (IllegalArgumentException e){
+            problemTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         TextView descTV = (TextView) view.findViewById(R.id.description_tv);
-        descTV.setText(mAlumniQuestion.getDescription());
+        try {
+            descTV.setText(StringBase64.decode(mAlumniQuestion.getDescription()));
+        }catch (IllegalArgumentException e){
+            descTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
         nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);

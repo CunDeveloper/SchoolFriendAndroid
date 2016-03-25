@@ -138,7 +138,7 @@ public class MyVoiceFragment extends BaseFragment {
     }
 
     private void updateMyVoices(){
-        final String json = QueryJson.queryLimitToString();
+        final String json = QueryJson.queryLimitToString(this);
         Log.e(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_OWN_VOICE+"?level=所有";
         mRequestJson = new PostRequestJson(url,json,callback);
