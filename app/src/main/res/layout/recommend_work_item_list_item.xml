@@ -43,7 +43,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/fragment_re_list_item_count"
         android:text="2"
-        android:textColor="@android:color/black"
         android:layout_below="@+id/re_list_item_name"
         android:layout_toStartOf="@+id/textView15" />
 
