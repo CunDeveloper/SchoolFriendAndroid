@@ -15,42 +15,129 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:id="@+id/mScrollView"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="vertical"
+                    android:paddingBottom="350dp"
                     android:layout_height="wrap_content">
-                    <com.nju.View.SchoolFriendTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/phone_apadding"
-                        android:paddingStart="@dimen/phone_apadding"
-                        android:paddingEnd="@dimen/phone_apadding"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/light_blue"
-                        android:id="@+id/recommend_work_item_detail_title"
-                        />
+                <com.nju.View.SchoolFriendTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/phone_apadding"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:text="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/light_blue"
+                    android:id="@+id/title_tv"
+                    />
 
-                    <com.nju.View.SchoolFriendTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/phone_apadding"
-                        android:paddingEnd="@dimen/phone_apadding"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@android:color/black"
-                        android:layout_marginTop="@dimen/padding_left"
-                        android:id="@+id/recommend_work_item_detail_detail"
-                        />
+                <com.nju.View.SchoolFriendTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:text="2"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="@dimen/phone_apadding"
+                    android:id="@+id/description_tv"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/phone_apadding"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/light_blue"
-                        android:layout_marginTop="@dimen/phone_apadding"
+                        android:text="1637269790@qq.com"
+                        android:id="@+id/email_tv"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/textView33" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/jian_li_post_to"
+                        android:id="@+id/textView33"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="2010"
+                        android:layout_marginTop="@dimen/padding_left"
                         android:paddingStart="@dimen/phone_apadding"
                         android:paddingEnd="@dimen/phone_apadding"
-                        android:id="@+id/email_tv"
+                        android:id="@+id/date_tv"
                         />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/phone_apadding"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="1"
+                        android:id="@+id/comment_number_tv"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/comment_str"
+                        android:id="@+id/textView42"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toStartOf="@+id/comment_number_tv" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_left"
+                    android:paddingStart="@dimen/phone_apadding"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Medium Text"
+                        android:paddingEnd="@dimen/phone_apadding"
+                        android:textColor="@color/light_blue"
+                        android:id="@+id/name_tv"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Small Text"
+                        android:id="@+id/label_tv"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toEndOf="@+id/name_tv" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/padding_left"
+                    android:background="@color/light_gray"
+                    />
+                <include layout="@layout/new_comment"/>
                 </LinearLayout>
             </ScrollView>
             <include layout="@layout/person_item_tool_bar"/>

@@ -6,14 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.event.MessageEventId;
 import com.nju.model.ContentComment;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.StringBase64;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -53,10 +55,11 @@ public class CommentAdapter  extends BaseAdapter {
             holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
+            holder.commentIconTV = (TextView) convertView.findViewById(R.id.comment_icon_tv);
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        ContentComment contentComment = mComments.get(position);
+        final ContentComment contentComment = mComments.get(position);
         holder.nameTV.setText(contentComment.getCommentAuthor().getAuthorName());
         holder.labelTV.setText(contentComment.getCommentAuthor().getLabel());
         try{
@@ -64,12 +67,18 @@ public class CommentAdapter  extends BaseAdapter {
         }catch (IllegalArgumentException e){
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+        holder.commentIconTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new MessageEventId(contentComment.getId()));
+            }
+        });
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(contentComment.getDate()));
         return convertView;
     }
 
     private class ViewHolder{
-        private TextView nameTV,labelTV,contentTV,dateTV,commentTV;
+        private TextView nameTV,labelTV,contentTV,dateTV,commentTV,commentIconTV;
         private ImageView headImg;
     }
 }

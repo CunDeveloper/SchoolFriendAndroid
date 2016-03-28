@@ -40,14 +40,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/re_list_item_date"
-        android:layout_alignBottom="@+id/fragment_re_list_item_count"
+        android:layout_alignBottom="@+id/comment_number_tv"
         android:layout_alignParentStart="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/fragment_re_list_item_count"
-        android:paddingEnd="@dimen/phone_apadding"
+        android:id="@+id/comment_number_tv"
+        android:layout_marginEnd="@dimen/phone_apadding"
         android:text="0"
         android:layout_alignBottom="@+id/textView15"
         android:layout_alignParentEnd="true" />
@@ -59,7 +59,7 @@
         android:text="@string/comment_str"
         android:id="@+id/textView15"
         android:layout_below="@+id/content_tv"
-        android:layout_toStartOf="@+id/fragment_re_list_item_count" />
+        android:layout_toStartOf="@+id/comment_number_tv" />
 
     <TextView
         android:layout_width="wrap_content"

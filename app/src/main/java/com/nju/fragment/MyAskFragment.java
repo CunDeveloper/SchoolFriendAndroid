@@ -21,8 +21,10 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniQuestion;
+import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
@@ -103,7 +105,6 @@ public class MyAskFragment extends BaseFragment {
                     mRefreshLayout.setRefreshing(false);
                     mFootView.setVisibility(View.GONE);
                 }
-
             }
         }
     };
@@ -144,25 +145,18 @@ public class MyAskFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                updateAsk();
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this,callback, Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateAsk();
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this,callback, Constant.ALL);
             }
         });
     }
 
-    private void updateAsk(){
-        final String json = QueryJson.queryLimitToString(this);
-        String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW_OWN+"?level=所有";
-        mRequestJson = new PostRequestJson(url,json,callback);
-        Log.e(TAG,url);
-        HttpManager.getInstance().exeRequest(mRequestJson);
 
-    }
 
     private void initListView(View view) {
         alumniQuestions = TestData.getQlumniQuestions();
@@ -183,7 +177,7 @@ public class MyAskFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (askAdapter.getCount())){
                     mFootView.setVisibility(View.VISIBLE);
-                    updateAsk();
+                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this,callback, Constant.ALL);
                 }
             }
 
@@ -209,6 +203,7 @@ public class MyAskFragment extends BaseFragment {
     @Override
     public void onStop(){
         super.onStop();
-        CloseRequestUtil.close(mRequestJson);
+        if (mRequestJson != null)
+            CloseRequestUtil.close(mRequestJson);
     }
 }

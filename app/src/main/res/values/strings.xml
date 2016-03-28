@@ -180,5 +180,7 @@
     <string name="replay_str">回复</string>
     <string name="new_praise">最新点赞</string>
     <string name="comment_ok">评论成功</string>
+    <string name="authorId">authorId</string>
+    <string name="you_have_praised">你已经点赞过,不能重复点赞</string>
 
 </resources>

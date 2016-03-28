@@ -14,78 +14,137 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_alignParentTop="true"
-                android:id="@+id/scrollView"
+                android:id="@+id/mScrollView"
                 android:layout_height="match_parent">
-                <RelativeLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/phone_apadding"
+                android:paddingBottom="300dp"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/phone_apadding"
+                    android:id="@+id/alumni_vo_imageView"
+                    android:src="@drawable/cheese_1"
+                    android:layout_marginEnd="@dimen/phone_apadding"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/light_blue"
+                    android:text="1"
+                    android:id="@+id/alumni_vo_name"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/alumni_vo_imageView" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/alumni_vo_label"
+                    android:text="1"
+                    android:layout_alignBottom="@+id/alumni_vo_name"
+                    android:layout_toEndOf="@+id/alumni_vo_name" />
+                <com.nju.View.SchoolFriendTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/light_blue"
+                    android:layout_marginTop="@dimen/FIVE_DP"
+                    android:id="@+id/alumni_vo_title"
+                    android:text="1"
+                    android:layout_below="@+id/alumni_vo_label"
+                    android:layout_toEndOf="@+id/alumni_vo_imageView" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/phone_apadding"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_marginBottom="@dimen/padding_left"
+                    android:id="@+id/alumni_vo_date"
+                    android:text="1"
+                    android:layout_below="@+id/alumni_vo_desc"
+                    android:layout_alignStart="@+id/alumni_vo_desc" />
+                <com.nju.View.SchoolFriendTextView
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/phone_apadding"
-                    >
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="@dimen/phone_apadding"
-                        android:id="@+id/alumni_vo_imageView"
-                        android:src="@drawable/cheese_1"
-                        android:layout_marginEnd="@dimen/phone_apadding"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@android:color/black"
-                        android:text="1"
-                        android:id="@+id/alumni_vo_name"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/alumni_vo_imageView" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:id="@+id/alumni_vo_label"
-                        android:text="1"
-                        android:layout_alignBottom="@+id/alumni_vo_name"
-                        android:layout_toEndOf="@+id/alumni_vo_name" />
-                    <com.nju.View.SchoolFriendTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/light_blue"
-                        android:layout_marginTop="@dimen/phone_apadding"
-                        android:id="@+id/alumni_vo_title"
-                        android:text="1"
-                        android:layout_below="@+id/alumni_vo_label"
-                        android:layout_toEndOf="@+id/alumni_vo_imageView" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:id="@+id/alumni_vo_date"
-                        android:text="1"
-                        android:layout_marginBottom="150dp"
-                        android:layout_below="@+id/alumni_vo_desc"
-                        android:layout_alignStart="@+id/alumni_vo_desc" />
-                    <com.nju.View.SchoolFriendTextView
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/phone_apadding"
-                        android:textColor="@android:color/black"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:layout_toEndOf="@+id/alumni_vo_imageView"
-                        android:layout_below="@+id/alumni_vo_title"
-                        android:id="@+id/alumni_vo_desc" />
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginBottom="@dimen/phone_apadding"
-                        android:id="@+id/linearLayout2"
-                        android:layout_below="@+id/alumni_vo_desc"
-                        android:layout_alignStart="@+id/alumni_vo_date" />
+                    android:layout_marginEnd="@dimen/phone_apadding"
+                    android:text="2012"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_toEndOf="@+id/alumni_vo_imageView"
+                    android:layout_below="@+id/alumni_vo_title"
+                    android:id="@+id/alumni_vo_desc" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/phone_apadding"
+                    android:id="@+id/linearLayout2"
+                    android:layout_below="@+id/alumni_vo_desc"
+                    android:layout_alignStart="@+id/alumni_vo_date" />
 
-                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/padding_left"
+                    android:background="@color/light_gray"
+                    android:id="@+id/empty_view1"
+                    android:layout_below="@+id/alumni_vo_date"
+                    />
+                <include layout="@layout/praise" android:id="@+id/parise" android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_below="@+id/empty_view1"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/padding_left"
+                    android:background="@color/light_gray"
+                    android:id="@+id/empty_view2"
+                    android:layout_below="@+id/parise"
+                    />
+                <include layout="@layout/new_comment" android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_below="@+id/empty_view2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="0"
+                    android:id="@+id/comment_number_tv"
+                    android:layout_alignTop="@+id/textView37"
+                    android:layout_alignEnd="@+id/alumni_vo_desc" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/comment_str"
+                    android:id="@+id/textView37"
+                    android:layout_alignBottom="@+id/alumni_vo_date"
+                    android:layout_toStartOf="@+id/comment_number_tv" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="0"
+                    android:layout_marginEnd="@dimen/phone_apadding"
+                    android:id="@+id/praise_number_tv"
+                    android:layout_alignTop="@+id/textView37"
+                    android:layout_toStartOf="@+id/textView37" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/praise_str"
+                    android:id="@+id/textView39"
+                    android:layout_alignTop="@+id/praise_number_tv"
+                    android:layout_toStartOf="@+id/praise_number_tv" />
+            </RelativeLayout>
+
             </ScrollView>
             <include layout="@layout/person_item_tool_bar"/>
         </RelativeLayout>

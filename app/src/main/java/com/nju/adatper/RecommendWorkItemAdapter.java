@@ -53,7 +53,7 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.recommend_work_item_list_item, parent, false);
             holder = new ViewHolder();
-            holder.countTx = (TextView) convertView.findViewById(R.id.fragment_re_list_item_count);
+            holder.countTx = (TextView) convertView.findViewById(R.id.comment_number_tv);
             holder.dateTx = (TextView) convertView.findViewById(R.id.re_list_item_date);
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.titleTx = (TextView) convertView.findViewById(R.id.re_list_item_title);

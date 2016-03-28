@@ -70,4 +70,5 @@ public class Constant {
     public static final String MONTH = "月";
     public static final String DD = "dd";
     public static final String MM = "MM";
+    public static final String ALL = "所有";
 }

@@ -1,7 +1,5 @@
 package com.nju.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -10,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,20 +19,33 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
+import com.nju.event.MessageEventId;
+import com.nju.http.ResponseCallback;
+import com.nju.http.request.PostRequestJson;
+import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniVoice;
+import com.nju.model.ContentComment;
+import com.nju.model.RespPraise;
+import com.nju.service.AlumniVoiceService;
+import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
+import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
+import com.nju.util.FragmentUtil;
+import com.nju.util.SchoolFriendGson;
 import com.nju.util.ShareUtil;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class AlumniVoiceItemDetail extends BaseFragment {
@@ -41,7 +54,115 @@ public class AlumniVoiceItemDetail extends BaseFragment {
     private static final String PARAM_VOICE= "voiceKey";
     private AlumniVoice mVoice;
     private EditText mContentEditText ;
+    private TextView mCommentNumberTV,mPraiseNumberTV,mPraiseTV;
+    private ArrayList<ContentComment> mContentComments;
+    private ArrayList<RespPraise> mPraiseAuthors = new ArrayList<>();
+    private CommentAdapter mCommentAdapter;
+    private View mMainView;
+    private int commentType = 0;
+    private boolean isPraise;
+    private PostRequestJson mRequestSaveJson,mRequestQueryJson,mRequestSavePraiseJson
+            ,mRequestQueryPraiseJson;
+    private ResponseCallback saveCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.e(TAG,error.getMessage());
+            }
+        }
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.i(TAG, responseBody);
+                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
+                mRequestQueryJson = AlumniVoiceService.queryComment(AlumniVoiceItemDetail.this,mVoice.getId(),queryCommentCallback);
+            }
+        }
+    };
 
+    private ResponseCallback savePraiseCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.e(TAG,error.getMessage());
+            }
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.i(TAG, responseBody);
+                ToastUtil.ShowText(getContext(), getString(R.string.praise_ok));
+                mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(AlumniVoiceItemDetail.this,mVoice.getId(),queryPraiseCallback);
+            }
+        }
+    };
+
+    private ResponseCallback queryPraiseCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.e(TAG,error.getMessage());
+            }
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.i(TAG, responseBody);
+                try {
+                    Object object = new ParseResponse().getInfo(responseBody,RespPraise.class);
+                    if (object != null) {
+                        ArrayList authors = (ArrayList) object;
+                        if (authors.size() > 0) {
+                            for (Object obj : authors) {
+                                RespPraise authorInfo = (RespPraise) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(authorInfo));
+                                 mPraiseAuthors.add(authorInfo);
+                            }
+                        }
+                    }
+                    mPraiseNumberTV.setText(mPraiseAuthors.size()+"");
+                    changePraiseColor();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    private ResponseCallback queryCommentCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.e(TAG, error.getMessage());
+            }
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
+                Log.i(TAG, responseBody);
+                try {
+                    Object object = new ParseResponse().getInfo(responseBody,ContentComment.class);
+                    if (object != null) {
+                        ArrayList comments = (ArrayList) object;
+                        if (comments.size() > 0) {
+                            for (Object obj : comments) {
+                                ContentComment contentComment = (ContentComment) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
+                                mContentComments.add(contentComment);
+                            }
+                        }
+                    }
+                    mCommentAdapter.notifyDataSetChanged();
+                    mCommentNumberTV.setText(mContentComments.size()+"");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 
     public static AlumniVoiceItemDetail newInstance(AlumniVoice voice) {
         AlumniVoiceItemDetail fragment = new AlumniVoiceItemDetail();
@@ -79,6 +200,7 @@ public class AlumniVoiceItemDetail extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alumni_voice_item_detail, container, false);
+        mMainView = view;
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         initToolBar(view);
@@ -89,13 +211,21 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
     public void inputEmotion(String text) {
         int selectionCursor = mContentEditText.getSelectionStart();
         mContentEditText.getText().insert(selectionCursor, text);
         mContentEditText.invalidate();
     }
 
-    private void initView(View view){
+    private void initView(final View view){
+        mCommentNumberTV = (TextView) view.findViewById(R.id.comment_number_tv);
+        mPraiseNumberTV = (TextView) view.findViewById(R.id.praise_number_tv);
         TextView nameTV = (TextView) view.findViewById(R.id.alumni_vo_name);
         nameTV.setText(mVoice.getAuthorInfo().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.alumni_vo_label);
@@ -118,15 +248,30 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         GridView gridView = (GridView) view.findViewById(R.id.new_gridview);
         gridView.setAdapter(new PraiseHeadAdapter(getContext()));
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
-        newListView.setAdapter(new CommentAdapter(getContext(), TestData.getComments()));
+        mContentComments = TestData.getComments();
+        mCommentAdapter = new CommentAdapter(getContext(),mContentComments);
+        newListView.setAdapter(mCommentAdapter);
+        Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);
+        sendBn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (commentType == 0){
+                    mRequestSaveJson = AlumniVoiceService.saveComment(AlumniVoiceItemDetail.this, view, mVoice.getId(), saveCallback);
+                }else {
+                    mRequestSaveJson = AlumniVoiceService.saveCommentForOther(AlumniVoiceItemDetail.this, view, commentType, saveCallback);
+                    commentType = 0;
+                }
+                 CommentUtil.closeSoftKey(getContext(), view);
+            }
+        });
+        mRequestQueryJson = AlumniVoiceService.queryComment(this,mVoice.getId(),queryCommentCallback);
+        mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this,mVoice.getId(),queryPraiseCallback);
     }
 
 
 
     private void initToolBar(final View view){
         TextView commentTV = (TextView) view.findViewById(R.id.comment);
-
-
         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         commentTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,13 +281,17 @@ public class AlumniVoiceItemDetail extends BaseFragment {
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
         });
+        mPraiseTV= (TextView) view.findViewById(R.id.praise);
 
-        final TextView praiseTV = (TextView) view.findViewById(R.id.praise);
-        praiseTV.setOnClickListener(new View.OnClickListener() {
+        mPraiseTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.ShowText(getContext(),getString(R.string.praise_ok));
-                praiseTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                if (isPraise){
+                    mRequestSavePraiseJson = AlumniVoiceService.praise(AlumniVoiceItemDetail.this,mVoice.getId(),savePraiseCallback);
+                    isPraise = false;
+                }else {
+                    ToastUtil.showShortText(getContext(),getString(R.string.you_have_praised));
+                }
             }
         });
 
@@ -150,8 +299,8 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         collectTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.ShowText(getContext(),getString(R.string.collect_ok));
-                collectTV.setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_orange_dark));
+                ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
+                collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
             }
         });
 
@@ -160,38 +309,44 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         shareTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ShareUtil.share(getContext());
-                File imagePath = new File(getContext().getFilesDir(),"images");
-                if (!imagePath.exists()){
-                    imagePath.mkdirs();
-                    File newFile = new File(imagePath,"test.jpg");
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.cheese_1);
-                    FileOutputStream out = null;
-                    try {
-                        out = new FileOutputStream(newFile);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); // bmp is your Bitmap instance
-                        // PNG is a lossless format, the compression factor (100) is ignored
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            if (out != null) {
-                                out.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                File[] files = imagePath.listFiles();
-
-                for (File file:files){
-
-                    Log.e(TAG,file.getName());
-                }
             }
         });
+    }
+
+    private void changePraiseColor(){
+        int authorId = getHostActivity().getSharedPreferences().getInt(getString(R.string.authorId),0);
+        for (RespPraise respPraise:mPraiseAuthors){
+            Log.i(TAG,respPraise.getPraiseAuthor().getAuthorId()+"");
+            if (respPraise.getPraiseAuthor().getAuthorId() == authorId){
+                isPraise = false;
+                mPraiseTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+            }
+        }
+    }
+
+    @Subscribe
+    public void onMessageEvent(MessageEventId event){
+        commentType = event.getId();
+        final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
+        final LinearLayout linearLayout = (LinearLayout) mMainView.findViewById(R.id.new_comment_layout);
+        CommentUtil.getHideLayout(mMainView).setVisibility(View.VISIBLE);
+        SoftInput.open(getContext());
+        scrollView.scrollTo(0, linearLayout.getBottom());
+    }
+
+    @Override
+    public void onStop(){
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+        if (mRequestSaveJson != null)
+            CloseRequestUtil.close(mRequestSaveJson);
+        if (mRequestQueryJson != null)
+            CloseRequestUtil.close(mRequestQueryJson);
+        if (mRequestSavePraiseJson != null)
+            CloseRequestUtil.close(mRequestSavePraiseJson);
+        if (mRequestQueryPraiseJson != null)
+            CloseRequestUtil.close(mRequestQueryPraiseJson);
     }
 
 }

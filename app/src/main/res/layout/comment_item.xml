@@ -60,10 +60,10 @@
         <com.nju.View.SchoolFriendAweTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/comment_icon"
             android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/textView40"
+            android:id="@+id/comment_icon_tv"
             />
         <TextView
             android:layout_width="match_parent"

@@ -20,6 +20,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/phone_apadding"
+                    android:paddingBottom="300dp"
                    >
                     <ImageView
                         android:layout_width="40dp"
@@ -111,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="0"
-                        android:id="@+id/textView36"
+                        android:id="@+id/comment_number_tv"
                         android:layout_alignTop="@+id/textView37"
                         android:layout_alignEnd="@+id/alumni_vo_desc" />
 
@@ -122,15 +123,15 @@
                         android:text="@string/comment_str"
                         android:id="@+id/textView37"
                         android:layout_alignBottom="@+id/alumni_vo_date"
-                        android:layout_toStartOf="@+id/textView36" />
+                        android:layout_toStartOf="@+id/comment_number_tv" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="0"
-                        android:paddingEnd="@dimen/phone_apadding"
-                        android:id="@+id/textView38"
+                        android:layout_marginEnd="@dimen/phone_apadding"
+                        android:id="@+id/praise_number_tv"
                         android:layout_alignTop="@+id/textView37"
                         android:layout_toStartOf="@+id/textView37" />
 
@@ -140,8 +141,8 @@
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="@string/praise_str"
                         android:id="@+id/textView39"
-                        android:layout_alignTop="@+id/textView38"
-                        android:layout_toStartOf="@+id/textView38" />
+                        android:layout_alignTop="@+id/praise_number_tv"
+                        android:layout_toStartOf="@+id/praise_number_tv" />
                 </RelativeLayout>
             </ScrollView>
             <include layout="@layout/tool_bar"/>

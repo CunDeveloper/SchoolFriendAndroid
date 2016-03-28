@@ -20,8 +20,10 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniVoice;
+import com.nju.service.AlumniVoiceService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
@@ -137,28 +139,19 @@ public class MyVoiceFragment extends BaseFragment {
         return view;
     }
 
-    private void updateMyVoices(){
-        final String json = QueryJson.queryLimitToString(this);
-        Log.e(TAG,json);
-        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_OWN_VOICE+"?level=所有";
-        mRequestJson = new PostRequestJson(url,json,callback);
-        Log.e(TAG,url);
-        HttpManager.getInstance().exeRequest(mRequestJson);
-    }
-
     private void setUpOnRefreshListener(View view){
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                updateMyVoices();
+                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this,callback, Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateMyVoices();
+                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this,callback, Constant.ALL);
             }
         });
     }
@@ -182,7 +175,7 @@ public class MyVoiceFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mPersonVoiceAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    updateMyVoices();
+                    mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this,callback, Constant.ALL);
                 }
             }
 
@@ -208,7 +201,8 @@ public class MyVoiceFragment extends BaseFragment {
     @Override
     public void onStop(){
         super.onStop();
-        CloseRequestUtil.close(mRequestJson);
+        if (mRequestJson != null)
+            CloseRequestUtil.close(mRequestJson);
     }
 
 }

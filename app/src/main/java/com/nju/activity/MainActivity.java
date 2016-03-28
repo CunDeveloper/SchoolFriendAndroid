@@ -151,9 +151,11 @@ public class MainActivity extends BaseActivity {
         getSharedPreferences().edit().putInt(getString(R.string.diviceWidth), deviceWidth).commit();
         getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight).commit();
         getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight), visibleDeviceHeight).commit();
+
         //for only test
         Set<String> levels = new HashSet<>();levels.add("本科");levels.add("所有");levels.add("硕士");
         getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
+        getSharedPreferences().edit().putInt(getString(R.string.authorId), 1).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
         getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken()))).commit();
     }

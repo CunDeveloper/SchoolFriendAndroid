@@ -26,8 +26,10 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.RecommendWork;
+import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
@@ -165,24 +167,18 @@ public class RecommendWorkFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                updateRecommendWork();
+                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback,Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateRecommendWork();
+                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback,Constant.ALL);
             }
         });
     }
 
-    private void updateRecommendWork() {
-        final String json = QueryJson.queryLimitToString(this);
-        String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level=所有";
-        mRequestJson = new PostRequestJson(url,json,callback);
-        Log.e(TAG,url);
-        HttpManager.getInstance().exeRequest(mRequestJson);
-    }
+
 
     private void  setListView(View view){
         mRecommendWorks = TestData.getRecommendWorks();
@@ -203,7 +199,7 @@ public class RecommendWorkFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mRecommendWorkItemAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    updateRecommendWork();
+                    mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback, Constant.ALL);
                 }
             }
             @Override
@@ -221,7 +217,7 @@ public class RecommendWorkFragment extends BaseFragment {
                     @Override
                     public void run() {
                         mRefreshLayout.setRefreshing(true);
-                        updateRecommendWork();
+                        mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback,Constant.ALL);
                     }
                 });
                 setTitle(charSequence.toString());
@@ -266,7 +262,7 @@ public class RecommendWorkFragment extends BaseFragment {
         });
     }
 
-    private void addLevelChooseItem(View view){
+    private void  addLevelChooseItem(View view){
          LinearLayout input = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         Set<String> levels = getHostActivity().getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
         Set<String> collegeSet = getHostActivity().getSharedPreferences()

@@ -110,8 +110,22 @@ public class EmotionPagerFragment extends BaseFragment {
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
+                } else if (mTag.equals(MajorAskDetailFragment.TAG)){
+                    MajorAskDetailFragment fragment = (MajorAskDetailFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                } else if (mTag.equals(PersonRecommendWorkItemDetailFragment.TAG)){
+                    PersonRecommendWorkItemDetailFragment fragment = (PersonRecommendWorkItemDetailFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
+                } else if (mTag.equals(PersonAlumniVoiceItemDetail.TAG)){
+                    PersonAlumniVoiceItemDetail fragment = (PersonAlumniVoiceItemDetail) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
                 }
-
             }
         });
     }

@@ -3,6 +3,8 @@ package com.nju.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * Created by cun on 2016/3/15.
  */
@@ -27,6 +29,8 @@ public class AlumniVoice implements Parcelable {
     private int commentCount;
     private String date;
     private AuthorInfo author;
+    private ArrayList<AuthorInfo> praiseAuthors;
+    private ArrayList<ContentComment> contentComments;
 
     public AlumniVoice() {
 
@@ -105,6 +109,26 @@ public class AlumniVoice implements Parcelable {
 
     public void setAuthorInfo(AuthorInfo authorInfo) {
         this.author = authorInfo;
+    }
+
+    public static Creator<AlumniVoice> getCREATOR() {
+        return CREATOR;
+    }
+
+    public ArrayList<AuthorInfo> getPraiseAuthors() {
+        return praiseAuthors;
+    }
+
+    public void setPraiseAuthors(ArrayList<AuthorInfo> praiseAuthors) {
+        this.praiseAuthors = praiseAuthors;
+    }
+
+    public ArrayList<ContentComment> getContentComments() {
+        return contentComments;
+    }
+
+    public void setContentComments(ArrayList<ContentComment> contentComments) {
+        this.contentComments = contentComments;
     }
 
     @Override

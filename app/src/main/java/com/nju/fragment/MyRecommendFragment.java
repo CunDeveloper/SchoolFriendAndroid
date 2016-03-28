@@ -21,8 +21,10 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.RecommendWork;
+import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
@@ -154,7 +156,7 @@ public class MyRecommendFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mPersonRecommendAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    updateRecommendWork();
+                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this,callback, Constant.ALL);
                 }
             }
 
@@ -171,25 +173,18 @@ public class MyRecommendFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                updateRecommendWork();
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this,callback, Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateRecommendWork();
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this,callback, Constant.ALL);
             }
         });
     }
 
-    private void updateRecommendWork(){
-        final String json = QueryJson.queryLimitToString(this);
-        String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level=所有";
-        mRequestJson = new PostRequestJson(url,json,callback);
-        Log.e(TAG,url);
-        HttpManager.getInstance().exeRequest(mRequestJson);
 
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -206,7 +201,8 @@ public class MyRecommendFragment extends BaseFragment {
     @Override
     public void onStop(){
         super.onStop();
-        CloseRequestUtil.close(mRequestJson);
+        if (mRequestJson != null)
+            CloseRequestUtil.close(mRequestJson);
     }
 
 }

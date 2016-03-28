@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.nju.fragment.BaseFragment;
 import com.nju.http.request.CommentParam;
+import com.nju.http.request.CommentParamId;
+import com.nju.http.request.ContentIdParam;
 import com.nju.http.request.IdParam;
 import com.nju.http.request.QueryLimit;
 import com.nju.http.request.RequestBodyJson;
@@ -38,6 +40,27 @@ public class QueryJson {
         RequestBodyJson<CommentParam> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(commentParam);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String commentOtherAuthorToString(final BaseFragment fragment,final CommentParamId commentParam){
+        RequestBodyJson<CommentParamId> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody(commentParam);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String praiseContentIdToString(final BaseFragment fragment,final ContentIdParam idParam){
+        RequestBodyJson<ContentIdParam> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody(idParam);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String deleteContentById(final BaseFragment fragment,final IdParam idParam){
+        RequestBodyJson<IdParam> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody(idParam);
         return gson.toJson(bodyJson);
     }
 }
