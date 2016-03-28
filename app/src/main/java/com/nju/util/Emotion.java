@@ -9,9 +9,9 @@ import java.util.List;
  * Created by xiaojuzhang on 2015/11/17.
  */
 public class Emotion {
-    private List<Drawable> emotions;
     private static ArrayList<ArrayList<String>> mEmotions;
-    private static ArrayList<String> mEmotionPage1,mEmotionPage2,mEmotionPage3;
+    private static ArrayList<String> mEmotionPage1, mEmotionPage2, mEmotionPage3;
+    private List<Drawable> emotions;
 
     public static ArrayList<ArrayList<String>> emotions() {
         if (mEmotions == null) {
@@ -23,7 +23,7 @@ public class Emotion {
         return mEmotions;
     }
 
-    private static ArrayList<String> emotionsPhonePage1(){
+    private static ArrayList<String> emotionsPhonePage1() {
         if (mEmotionPage1 == null) {
             mEmotionPage1 = new ArrayList<>();
             mEmotionPage1.add("\uD83D\uDE00");
@@ -63,7 +63,7 @@ public class Emotion {
         return mEmotionPage1;
     }
 
-    private static ArrayList<String> emotionsPhonePage2(){
+    private static ArrayList<String> emotionsPhonePage2() {
         if (mEmotionPage2 == null) {
             mEmotionPage2 = new ArrayList<>();
             mEmotionPage2.add("\uD83D\uDE1C");
@@ -102,7 +102,7 @@ public class Emotion {
         return mEmotionPage2;
     }
 
-    private static ArrayList<String> emotionsPhonePage3(){
+    private static ArrayList<String> emotionsPhonePage3() {
         if (mEmotionPage3 == null) {
             mEmotionPage3 = new ArrayList<>();
             mEmotionPage3.add("\uD83D\uDC7E");

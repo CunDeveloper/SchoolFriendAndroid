@@ -19,39 +19,31 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
     private static final String PRIMARY_KEY = " INTEGER PRIMARY KEY";
     private static final String CREATE_TABLE = "CREATE TABLE ";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
-
-    private static SchoolFriendDbHelper dbHelper;
-
     private static final String SQL_CREATE_CONTENT =
-            CREATE_TABLE+ ContentEntry.TABLE_NAME + " (" +
-                    ContentEntry.COLUMN_NAME_ID + INTEGER_TYPE +COMMA_SEP+
+            CREATE_TABLE + ContentEntry.TABLE_NAME + " (" +
+                    ContentEntry.COLUMN_NAME_ID + INTEGER_TYPE + COMMA_SEP +
                     ContentEntry.COLUMN_NAME_TEXT + TEXT_TYPE + COMMA_SEP +
-                    ContentEntry.COLUMN_NAME_IS_CONTAIN_IMAGE + INTEGER_TYPE +COMMA_SEP+
+                    ContentEntry.COLUMN_NAME_IS_CONTAIN_IMAGE + INTEGER_TYPE + COMMA_SEP +
                     ContentEntry.COLUMN_NAME_USER_ID + INTEGER_TYPE +
                     " )";
-
     private static final String SQL_CREATE_COLLEGE =
-            CREATE_TABLE+ CollegeEntry.TABLE_NAME + " (" +
-                    CollegeEntry.COLUMN_NAME_CO_ID + PRIMARY_KEY +COMMA_SEP+
+            CREATE_TABLE + CollegeEntry.TABLE_NAME + " (" +
+                    CollegeEntry.COLUMN_NAME_CO_ID + PRIMARY_KEY + COMMA_SEP +
                     CollegeEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     CollegeEntry.COLUMN_NAME_PROVINCE_ID + INTEGER_TYPE +
                     " )";
-
     private static final String SQL_CREATE_PROVINCE =
-            CREATE_TABLE+ ProvinceEntry.TABLE_NAME + " (" +
-                    ProvinceEntry.COLUMN_NAME_P_ID + PRIMARY_KEY +COMMA_SEP+
+            CREATE_TABLE + ProvinceEntry.TABLE_NAME + " (" +
+                    ProvinceEntry.COLUMN_NAME_P_ID + PRIMARY_KEY + COMMA_SEP +
                     ProvinceEntry.COLUMN_NAME_PROVINCE_ID + INTEGER_TYPE + COMMA_SEP +
                     ProvinceEntry.COLUMN_NAME_P_NAME + TEXT_TYPE +
                     " )";
-
     private static final String SQL_CREATE_SCHOOL =
-            CREATE_TABLE+ SchoolEntry.TABLE_NAME + " (" +
-                    SchoolEntry.COLUMN_NAME_SC_ID + PRIMARY_KEY +COMMA_SEP+
+            CREATE_TABLE + SchoolEntry.TABLE_NAME + " (" +
+                    SchoolEntry.COLUMN_NAME_SC_ID + PRIMARY_KEY + COMMA_SEP +
                     SchoolEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     SchoolEntry.COLUMN_NAME_COLLEGE_ID + INTEGER_TYPE +
                     " )";
-
-
     private static final String SQL_DELETE_COLLEGE =
             DROP_TABLE + CollegeEntry.TABLE_NAME;
     private static final String SQL_DELETE_PROVINCE =
@@ -60,21 +52,22 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
             DROP_TABLE + SchoolEntry.TABLE_NAME;
     private static final String SQL_DELETE_CONTENT =
             DROP_TABLE + ContentEntry.TABLE_NAME;
+    private static SchoolFriendDbHelper dbHelper;
 
+
+    private SchoolFriendDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public static SchoolFriendDbHelper newInstance(Context context) {
-        if (dbHelper ==null) {
+        if (dbHelper == null) {
             dbHelper = new SchoolFriendDbHelper(context.getApplicationContext());
         }
         return dbHelper;
     }
 
-    public static SchoolFriendDbHelper newInstance(){
+    public static SchoolFriendDbHelper newInstance() {
         return dbHelper;
-    }
-
-    private SchoolFriendDbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

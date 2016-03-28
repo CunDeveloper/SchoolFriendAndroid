@@ -1,18 +1,15 @@
 package com.nju.adatper;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniVoice;
-import com.nju.model.DynamicCollect;
 
 import java.util.ArrayList;
 
@@ -22,6 +19,7 @@ import java.util.ArrayList;
 public class VoiceCollectAdapter extends BaseAdapter {
     private ArrayList<AlumniVoice> mAlumniVoices;
     private Context mContext;
+
     public VoiceCollectAdapter(Context context, ArrayList<AlumniVoice> alumniVoices) {
         mContext = context;
         mAlumniVoices = alumniVoices;
@@ -45,8 +43,8 @@ public class VoiceCollectAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.voice_collect_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.voice_collect_item, parent, false);
             holder = new ViewHolder();
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
             holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
@@ -66,8 +64,8 @@ public class VoiceCollectAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder{
-        private ImageView headImg,contentImg;
-        private TextView nameTV,labelTV,dateTV,contentTV,titleTV;
+    private class ViewHolder {
+        private ImageView headImg, contentImg;
+        private TextView nameTV, labelTV, dateTV, contentTV, titleTV;
     }
 }

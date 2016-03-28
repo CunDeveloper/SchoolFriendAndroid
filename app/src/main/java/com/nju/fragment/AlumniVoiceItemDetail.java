@@ -11,15 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.adatper.CommentAdapter;
+import com.nju.adatper.PraiseHeadAdapter;
 import com.nju.model.AlumniVoice;
+import com.nju.test.TestData;
 import com.nju.util.CommentUtil;
+import com.nju.util.Constant;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.ShareUtil;
 import com.nju.util.SoftInput;
+import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
 
 import java.io.File;
@@ -93,11 +101,24 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         TextView labelTV = (TextView) view.findViewById(R.id.alumni_vo_label);
         labelTV.setText(mVoice.getAuthorInfo().getLabel());
         TextView titleTV = (TextView) view.findViewById(R.id.alumni_vo_title);
-        titleTV.setText(mVoice.getTitle());
+        try{
+            titleTV.setText(StringBase64.decode(mVoice.getTitle()));
+        }catch (IllegalArgumentException e){
+            titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         TextView contentTV = (TextView) view.findViewById(R.id.alumni_vo_desc);
-        contentTV.setText(mVoice.getContent());
+
+        try{
+            contentTV.setText(StringBase64.decode(mVoice.getContent()));
+        }catch (IllegalArgumentException e){
+            contentTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         TextView dateTV = (TextView) view.findViewById(R.id.alumni_vo_date);
-        dateTV.setText(mVoice.getDate());
+        dateTV.setText(DateUtil.getRelativeTimeSpanString(mVoice.getDate()));
+        GridView gridView = (GridView) view.findViewById(R.id.new_gridview);
+        gridView.setAdapter(new PraiseHeadAdapter(getContext()));
+        ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
+        newListView.setAdapter(new CommentAdapter(getContext(), TestData.getComments()));
     }
 
 

@@ -1,17 +1,17 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.model.AlumniVoice;
 import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
+import com.nju.util.DateUtil;
 import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class PersonRecommendAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<RecommendWork> mRecommendWorks;
+
     public PersonRecommendAdapter(Context context, ArrayList<RecommendWork> recommendWorks) {
         mContext = context;
         mRecommendWorks = recommendWorks;
@@ -45,10 +46,10 @@ public class PersonRecommendAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.person_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.person_item, parent, false);
             holder = new ViewHolder();
-            holder.dayTV = (TextView) convertView.findViewById(R.id.date_tv);
+            holder.dayTV = (TextView) convertView.findViewById(R.id.day_tv);
             holder.monthTV = (TextView) convertView.findViewById(R.id.month_tv);
             holder.titleTV = (TextView) convertView.findViewById(R.id.title_tv);
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
@@ -56,20 +57,24 @@ public class PersonRecommendAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         RecommendWork recommendWork = mRecommendWorks.get(position);
-        try{
+        try {
             holder.titleTV.setText(StringBase64.decode(recommendWork.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        try{
+        try {
             holder.contentTV.setText(StringBase64.decode(recommendWork.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+        final long time = DateUtil.getTime(recommendWork.getDate());
+        String day = DateFormat.format(Constant.DD, time).toString();
+        holder.dayTV.setText(day.startsWith("0")?day.charAt(1)+"":day);
+        holder.monthTV.setText(DateFormat.format(Constant.MM, time) + Constant.MONTH);
         return convertView;
     }
 
-    private class ViewHolder{
-        private TextView dayTV,monthTV,titleTV,contentTV;
+    private class ViewHolder {
+        private TextView dayTV, monthTV, titleTV, contentTV;
     }
 }

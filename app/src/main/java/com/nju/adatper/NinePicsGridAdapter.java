@@ -23,6 +23,7 @@ public class NinePicsGridAdapter extends BaseAdapter {
         mUploadImages = uploadImages;
         mContext = context;
     }
+
     @Override
     public int getCount() {
         return mUploadImages.size();
@@ -43,7 +44,7 @@ public class NinePicsGridAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.nine_pics_grid_item,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.nine_pics_grid_item, null);
             holder.mImageView = (ImageView) convertView;
             convertView.setTag(holder);
         } else {
@@ -53,7 +54,7 @@ public class NinePicsGridAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private static class ViewHolder{
+    private static class ViewHolder {
         public ImageView mImageView;
     }
 }

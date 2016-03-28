@@ -7,6 +7,7 @@ import com.squareup.okhttp.Request;
  */
 public abstract class RequestRunnable implements Runnable {
     protected final Request.Builder mBuilder;
+
     public RequestRunnable() {
         mBuilder = new Request.Builder();
     }

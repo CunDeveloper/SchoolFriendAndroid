@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,11 +15,11 @@ import java.util.List;
  */
 public class ShareUtil {
 
-    public static void share(Context context){
+    public static void share(Context context) {
         File imagePath = new File(context.getFilesDir(), "images");
         File newFile = new File(imagePath, "test.jpg");
         Uri contentUri = FileProvider.getUriForFile(context, "com.example.xiaojuzhang.test1.fileprovider", newFile);
-        ToastUtil.ShowText(context,contentUri.toString());
+        ToastUtil.ShowText(context, contentUri.toString());
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);

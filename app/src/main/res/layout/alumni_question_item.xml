@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <TextView
+    <com.nju.View.SchoolFriendTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -42,19 +42,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/count_tv"
-        android:text="2"
-        android:textColor="@android:color/black"
+        android:paddingEnd="@dimen/phone_apadding"
+        android:text="0"
         android:layout_below="@+id/name_tv"
         android:layout_alignParentEnd="true" />
 
-    <com.nju.View.SchoolFriendAweTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/comment_icon_r"
-        android:layout_marginEnd="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/replay_str"
         android:id="@+id/textView15"
         android:layout_alignTop="@+id/count_tv"
         android:layout_toStartOf="@+id/count_tv" />

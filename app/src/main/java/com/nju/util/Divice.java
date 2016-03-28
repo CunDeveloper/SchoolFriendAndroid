@@ -18,14 +18,14 @@ import android.view.WindowManager;
  */
 public class Divice {
 
-    public static float convertDpToPixel(float dp, Context context){
+    public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float px = dp * (metrics.densityDpi / 160f);
         return px;
     }
 
-    public static float convertPixelsToDp(float px, Context context){
+    public static float convertPixelsToDp(float px, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float dp = px / (metrics.densityDpi / 160f);
@@ -91,17 +91,17 @@ public class Divice {
         return heightPixels;
     }
 
-    public static int dividerScreen(Context context,int dividerNum){
-        return getDisplayWidth(context)/dividerNum;
+    public static int dividerScreen(Context context, int dividerNum) {
+        return getDisplayWidth(context) / dividerNum;
     }
 
-    public static boolean isPhone( ){
-       return true;
+    public static boolean isPhone() {
+        return true;
     }
 
     public static int getStatusBarHeight(Context context) {
         int result = 0;
-        if(context!=null) {
+        if (context != null) {
             int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
                 result = context.getResources().getDimensionPixelSize(resourceId);
@@ -114,7 +114,7 @@ public class Divice {
     public static String getAndroidId(Context content) {
         String android_id = Settings.Secure.getString(content.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        return  android_id;
+        return android_id;
     }
 
     public static void hideStatusBar(AppCompatActivity activity) {
@@ -129,7 +129,8 @@ public class Divice {
 
     public static void showStatusBar(AppCompatActivity activity) {
         View decorView = activity.getWindow().getDecorView();
-        int uiOption = View.SYSTEM_UI_FLAG_VISIBLE;;
+        int uiOption = View.SYSTEM_UI_FLAG_VISIBLE;
+        ;
         decorView.setSystemUiVisibility(uiOption);
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {

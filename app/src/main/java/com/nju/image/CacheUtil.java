@@ -13,20 +13,20 @@ import java.io.File;
  * Created by xiaojuzhang on 2016/1/5.
  */
 public class CacheUtil {
-    private LruCache<String,Bitmap> mMemoryCache;
-    private DiskLruCache mDiskLruCache;
-    private final Object mDiskCacheLock = new Object();
-    private boolean mDiskCacheStarting = true;
-    private static final int DISK_CACHE_SIZE = 1024*1024*10;
+    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10;
     private static final String DISK_CACHE_SUB_DIR = "school_friend_img_dir";
     private static final int M_UNIT = 1024;
     private static CacheUtil mCacheUtil = null;
+    private final Object mDiskCacheLock = new Object();
+    private LruCache<String, Bitmap> mMemoryCache;
+    private DiskLruCache mDiskLruCache;
+    private boolean mDiskCacheStarting = true;
 
 
     private CacheUtil() {
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory()/M_UNIT);
-        final int cacheSize = maxMemory/8;
-        mMemoryCache = new LruCache<String,Bitmap>(cacheSize){
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / M_UNIT);
+        final int cacheSize = maxMemory / 8;
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
                 // The cache size will be measured in kilobytes rather than
@@ -39,23 +39,23 @@ public class CacheUtil {
 
     public static CacheUtil getInstance() {
         if (mCacheUtil == null) {
-            mCacheUtil = new CacheUtil( );
+            mCacheUtil = new CacheUtil();
         }
         return mCacheUtil;
     }
 
-    public  void addBitmapToMemoryCache(String key,Bitmap bitmap) {
+    private static File getDiskCacheDir(Context context, String uniqueName) {
+        return null;
+    }
+
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
         if (getBitmapFromMemCache(key) == null) {
-            mMemoryCache.put(key,bitmap);
+            mMemoryCache.put(key, bitmap);
         }
     }
 
     public Bitmap getBitmapFromMemCache(String key) {
         return mMemoryCache.get(key);
-    }
-
-    private static File getDiskCacheDir(Context context,String uniqueName) {
-        return  null;
     }
 
 }

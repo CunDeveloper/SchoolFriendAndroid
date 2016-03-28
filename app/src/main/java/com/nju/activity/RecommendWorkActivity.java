@@ -1,11 +1,9 @@
 package com.nju.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.nju.activity.R;
 
 public class RecommendWorkActivity extends AppCompatActivity {
 

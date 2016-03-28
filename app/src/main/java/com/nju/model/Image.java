@@ -6,20 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by xiaojuzhang on 2015/12/3.
  */
-public class Image implements Parcelable{
-    private int height;
-    private int width;
-    private String data;
-    private String bucketDisplayName;
-
-    public Image(){}
-    protected Image(Parcel in) {
-        height = in.readInt();
-        width = in.readInt();
-        data = in.readString();
-        bucketDisplayName = in.readString();
-    }
-
+public class Image implements Parcelable {
     public static final Creator<Image> CREATOR = new Creator<Image>() {
         @Override
         public Image createFromParcel(Parcel in) {
@@ -31,6 +18,20 @@ public class Image implements Parcelable{
             return new Image[size];
         }
     };
+    private int height;
+    private int width;
+    private String data;
+    private String bucketDisplayName;
+
+    public Image() {
+    }
+
+    protected Image(Parcel in) {
+        height = in.readInt();
+        width = in.readInt();
+        data = in.readString();
+        bucketDisplayName = in.readString();
+    }
 
     public int getHeight() {
         return height;

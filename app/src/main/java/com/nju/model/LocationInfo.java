@@ -8,6 +8,7 @@ public class LocationInfo {
     private String address;
     private double distance;
     private String iconName;
+
     public String getLocationName() {
         return locationName;
     }

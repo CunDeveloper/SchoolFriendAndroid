@@ -12,8 +12,8 @@ public class SoftInput {
     private static InputMethodManager imm = null;
 
     private static void init(Context context) {
-        if (imm == null){
-            imm =  (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null) {
+            imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         }
     }
 
@@ -22,12 +22,12 @@ public class SoftInput {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-    public static void close(Context context,View view) {
+    public static void close(Context context, View view) {
         init(context);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static boolean openSoft(View view){
-        return imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+    public static boolean openSoft(View view) {
+        return imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 }

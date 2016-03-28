@@ -11,11 +11,11 @@ import com.nju.fragment.RecommendWorkItem;
 /**
  * Created by xiaojuzhang on 2016/3/14.
  */
-public class RecommendWorkAdapter  extends FragmentStatePagerAdapter {
+public class RecommendWorkAdapter extends FragmentStatePagerAdapter {
 
     private String[] mType;
 
-    public RecommendWorkAdapter(FragmentManager fragmentManager,String[] type) {
+    public RecommendWorkAdapter(FragmentManager fragmentManager, String[] type) {
         super(fragmentManager);
         mType = type;
     }

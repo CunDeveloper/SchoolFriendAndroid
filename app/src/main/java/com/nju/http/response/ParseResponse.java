@@ -40,9 +40,8 @@ public class ParseResponse {
         int code = code(root);
         if (code == Constant.OK){
             JsonNode jInfoNode = root.get(Constant.INFO);
-            Log.e("tag",jInfoNode.toString());
+            Log.i("tag",jInfoNode.toString());
             if (jInfoNode.isArray()){
-                ArrayNode infoNode = (ArrayNode) jInfoNode;
                 return gson.fromJsonToList(jInfoNode.toString(),aClass);
             } else if (jInfoNode.isObject()){
                 return jInfoNode.asText();

@@ -1,5 +1,7 @@
 package com.nju.util;
 
+import android.text.format.DateUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,22 +24,22 @@ public class DateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
 
     public static int year(Calendar calendar) {
-        return calendar!=null?calendar.get(Calendar.YEAR):0;
+        return calendar != null ? calendar.get(Calendar.YEAR) : 0;
     }
 
     public static int month(Calendar calendar) {
-        return calendar!=null?calendar.get(Calendar.MONTH)+1:0;
+        return calendar != null ? calendar.get(Calendar.MONTH) + 1 : 0;
     }
 
     public static int day(Calendar calendar) {
-        return calendar!=null?calendar.get(Calendar.DAY_OF_MONTH):0;
+        return calendar != null ? calendar.get(Calendar.DAY_OF_MONTH) : 0;
     }
 
-    public static long getTime(String strDate)  {
+    public static long getTime(String strDate) {
         try {
             Date date = format.parse(strDate);
             return date.getTime();
@@ -45,6 +47,11 @@ public class DateUtil {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static String getRelativeTimeSpanString(String date){
+        final long time = DateUtil.getTime(date);
+        return DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
     }
 
 }

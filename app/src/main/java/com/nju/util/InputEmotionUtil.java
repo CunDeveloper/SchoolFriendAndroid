@@ -1,14 +1,12 @@
 package com.nju.util;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,9 +26,10 @@ import java.util.ArrayList;
  */
 public class InputEmotionUtil {
 
-     private static String label;
-     private static RelativeLayout mEmoLayout;
-     public static void initView(final BaseFragment fragment,View view, final String TAG){
+    private static String label;
+    private static RelativeLayout mEmoLayout;
+
+    public static void initView(final BaseFragment fragment, View view, final String TAG) {
         mEmoLayout = (RelativeLayout) view.findViewById(R.id.emotion_layout);
         final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
         final TextView emotionIconTV = (TextView) view.findViewById(R.id.emotion_icon);
@@ -53,30 +52,30 @@ public class InputEmotionUtil {
         });
 
         EditText titleEditText = (EditText) view.findViewById(R.id.title);
-         if (titleEditText!=null){
-             titleEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                 @Override
-                 public void onFocusChange(View v, boolean hasFocus) {
-                     mEmoLayout.setVisibility(View.VISIBLE);
-                     emotionIconTV.setText(fragment.getString(R.string.smile));
-                     label = fragment.getString(R.string.title);
-                 }
-             });
-             titleEditText.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     emotionIconTV.setText(fragment.getString(R.string.smile));
-                     mEmoLayout.setVisibility(View.VISIBLE);
-                     label = fragment.getString(R.string.title);
-                 }
-             });
-         }
+        if (titleEditText != null) {
+            titleEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    mEmoLayout.setVisibility(View.VISIBLE);
+                    emotionIconTV.setText(fragment.getString(R.string.smile));
+                    label = fragment.getString(R.string.title);
+                }
+            });
+            titleEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    emotionIconTV.setText(fragment.getString(R.string.smile));
+                    mEmoLayout.setVisibility(View.VISIBLE);
+                    label = fragment.getString(R.string.title);
+                }
+            });
+        }
 
         final View transView = view.findViewById(R.id.emotion_transparent);
         transView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SoftInput.close(fragment.getContext(),transView);
+                SoftInput.close(fragment.getContext(), transView);
                 mEmoLayout.setVisibility(View.GONE);
                 frameLayout.setVisibility(View.GONE);
             }
@@ -102,19 +101,19 @@ public class InputEmotionUtil {
             }
         });
         final ViewPager emoViewPage = (ViewPager) view.findViewById(R.id.viewpager);
-        emoViewPage.setAdapter(new EmotionPageAdapter(fragment.getFragmentManager(),TAG));
-         TextView addPicTV = (TextView) view.findViewById(R.id.add_pic);
-         addPicTV.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 fragment.getHostActivity().open(MultiChoosePicFragment.newInstance(TAG));
-             }
-         });
+        emoViewPage.setAdapter(new EmotionPageAdapter(fragment.getFragmentManager(), TAG));
+        TextView addPicTV = (TextView) view.findViewById(R.id.add_pic);
+        addPicTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.getHostActivity().open(MultiChoosePicFragment.newInstance(TAG));
+            }
+        });
     }
 
-    public static void setUpGridView(final BaseFragment fragment,View view, final ArrayList<ImageWrapper> mUploadImgPaths){
+    public static void setUpGridView(final BaseFragment fragment, View view, final ArrayList<ImageWrapper> mUploadImgPaths) {
         GridView gridView = (GridView) view.findViewById(R.id.pics_gridview);
-        NinePicsGridAdapter adapter = new NinePicsGridAdapter(view.getContext(),mUploadImgPaths);
+        NinePicsGridAdapter adapter = new NinePicsGridAdapter(view.getContext(), mUploadImgPaths);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,7 +123,7 @@ public class InputEmotionUtil {
         });
     }
 
-    public static void addViewPageEvent(final Context context,View view){
+    public static void addViewPageEvent(final Context context, View view) {
         final int[] mSlidePosition = {0};
         ArrayList<View> mSlideCircleViews = new ArrayList<>();
         View mView;
@@ -156,11 +155,11 @@ public class InputEmotionUtil {
         });
     }
 
-    public static RelativeLayout getEmoLayout(){
+    public static RelativeLayout getEmoLayout() {
         return mEmoLayout;
     }
 
-    public static String getLabel(){
+    public static String getLabel() {
         return label;
     }
 }

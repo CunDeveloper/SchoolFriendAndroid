@@ -15,6 +15,7 @@ public class CustomViewPager extends ViewPager {
 
     private int mTouchSlop;
     private boolean mIsScrolling = false;
+
     public CustomViewPager(Context context) {
         super(context);
         ViewConfiguration vc = ViewConfiguration.get(getContext());
@@ -55,8 +56,8 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Toast.makeText(getContext(),"Helo",Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Helo", Toast.LENGTH_LONG).show();
 
-       return super.onTouchEvent(ev);
+        return super.onTouchEvent(ev);
     }
 }

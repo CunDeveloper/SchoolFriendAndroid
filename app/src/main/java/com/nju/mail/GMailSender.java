@@ -22,14 +22,14 @@ import javax.mail.internet.MimeMessage;
  * Created by xiaojuzhang on 2015/12/3.
  */
 public class GMailSender extends Authenticator {
+    static {
+        Security.addProvider(new JSSEProvider());
+    }
+
     private String mailHost = "smtp.163.com";
     private String user;
     private String password;
     private Session session;
-
-    static {
-        Security.addProvider(new JSSEProvider());
-    }
 
     public GMailSender(String user, String password) {
         this.user = user;
@@ -54,7 +54,7 @@ public class GMailSender extends Authenticator {
     }
 
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
-        try{
+        try {
             MimeMessage message = new MimeMessage(session);
             DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
             message.setSender(new InternetAddress(sender));
@@ -65,7 +65,7 @@ public class GMailSender extends Authenticator {
             else
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
             Transport.send(message);
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
     }

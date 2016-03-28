@@ -12,11 +12,13 @@ import com.nju.fragment.AlumniVoiceItemFragment;
 public class AlumniVoiceViewPage extends FragmentStatePagerAdapter {
 
     private static String[] mTypes;
-    public AlumniVoiceViewPage(FragmentManager fm, String[] types){
+
+    public AlumniVoiceViewPage(FragmentManager fm, String[] types) {
         super(fm);
         mTypes = types;
 
     }
+
     @Override
     public Fragment getItem(int i) {
         return AlumniVoiceItemFragment.newInstance(mTypes[i]);

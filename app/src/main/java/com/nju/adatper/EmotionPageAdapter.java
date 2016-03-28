@@ -4,8 +4,6 @@ package com.nju.adatper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.nju.fragment.EmotionPagerFragment;
 
@@ -22,7 +20,7 @@ public class EmotionPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return EmotionPagerFragment.newInstance(position,TAG);
+        return EmotionPagerFragment.newInstance(position, TAG);
     }
 
     @Override

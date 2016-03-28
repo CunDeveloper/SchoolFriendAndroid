@@ -22,6 +22,7 @@ public class EmotionAdapter extends BaseAdapter {
         this.mEmotions = mEmotions;
         this.mContext = context;
     }
+
     @Override
     public int getCount() {
         return mEmotions.size();
@@ -42,16 +43,16 @@ public class EmotionAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.emotion_adapter_item,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.emotion_adapter_item, null);
             viewHolder.textView = (TextView) convertView;
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.textView.setText(mEmotions.get(position));
-         return convertView;
+        return convertView;
     }
+
     private class ViewHolder {
         public TextView textView;
     }

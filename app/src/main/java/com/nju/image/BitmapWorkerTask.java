@@ -13,28 +13,31 @@ import java.util.concurrent.FutureTask;
  */
 public class BitmapWorkerTask extends FutureTask<Bitmap> {
 
-    private static String mUrl ="";
+    private static String mUrl = "";
+
     public BitmapWorkerTask(Callable<Bitmap> callable) {
         super(callable);
+    }
+
+    public String getUrl() {
+        return mUrl;
     }
 
     public static class LoadCallable implements Callable<Bitmap> {
         private final int mTargetWidth;
         private final int mTargetHeight;
-        public LoadCallable(String url,int targetWidth,int targetHeight) {
+
+        public LoadCallable(String url, int targetWidth, int targetHeight) {
             mUrl = url;
             mTargetWidth = targetWidth;
             mTargetHeight = targetHeight;
         }
+
         @Override
         public Bitmap call() throws Exception {
             InputStream inputStream = SchoolFriendHttp.getInstance().SynGetStream(mUrl);
-            return ImageUtil.decodeSampledBitmapFromStream(inputStream,mTargetWidth,mTargetHeight);
+            return ImageUtil.decodeSampledBitmapFromStream(inputStream, mTargetWidth, mTargetHeight);
         }
-    }
-
-    public String getUrl() {
-        return mUrl;
     }
 
 }

@@ -8,11 +8,12 @@ import com.squareup.okhttp.Call;
  */
 public class CloseRequestUtil {
 
-    public static void close(final PostRequestJson requestJson){
-        new Thread(){
-            @Override public void run(){
+    public static void close(final PostRequestJson requestJson) {
+        new Thread() {
+            @Override
+            public void run() {
                 Call call = requestJson.getCall();
-                if (call != null){
+                if (call != null) {
                     call.cancel();
                 }
             }

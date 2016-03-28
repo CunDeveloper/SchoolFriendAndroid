@@ -19,4 +19,5 @@
     <dimen name="bottom_choose_height">60dp</dimen>
     <dimen name="small_circle">50dp</dimen>
     <dimen name="bottom_margin">120dp</dimen>
+    <dimen name="FIVE_DP">5dp</dimen>
 </resources>

@@ -9,11 +9,11 @@ import com.nju.fragment.BaseFragment;
  */
 public class FragmentUtil {
 
-    public static boolean isAttachedToActivity(BaseFragment fragment){
+    public static boolean isAttachedToActivity(BaseFragment fragment) {
         Activity activity = fragment.getActivity();
-        if (activity != null && fragment.isAdded()){
+        if (activity != null && fragment.isAdded()) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

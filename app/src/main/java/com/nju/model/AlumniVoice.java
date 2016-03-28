@@ -8,29 +8,6 @@ import android.os.Parcelable;
  */
 public class AlumniVoice implements Parcelable {
 
-    private int id;
-    private String title;
-    private String content;
-    private String imgPaths;
-    private int praiseCount;
-    private int commentCount;
-    private String date;
-    private AuthorInfo author;
-
-    public AlumniVoice(){
-
-    }
-    protected AlumniVoice(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        content = in.readString();
-        imgPaths = in.readString();
-        praiseCount = in.readInt();
-        commentCount = in.readInt();
-        date = in.readString();
-        author= in.readParcelable(AuthorInfo.class.getClassLoader());
-    }
-
     public static final Creator<AlumniVoice> CREATOR = new Creator<AlumniVoice>() {
         @Override
         public AlumniVoice createFromParcel(Parcel in) {
@@ -42,6 +19,29 @@ public class AlumniVoice implements Parcelable {
             return new AlumniVoice[size];
         }
     };
+    private int id;
+    private String title;
+    private String content;
+    private String imgPaths;
+    private int praiseCount;
+    private int commentCount;
+    private String date;
+    private AuthorInfo author;
+
+    public AlumniVoice() {
+
+    }
+
+    protected AlumniVoice(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        content = in.readString();
+        imgPaths = in.readString();
+        praiseCount = in.readInt();
+        commentCount = in.readInt();
+        date = in.readString();
+        author = in.readParcelable(AuthorInfo.class.getClassLoader());
+    }
 
     public int getId() {
         return id;

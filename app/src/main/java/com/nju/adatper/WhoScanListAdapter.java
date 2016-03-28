@@ -1,16 +1,13 @@
 package com.nju.adatper;
 
-import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
@@ -29,7 +26,7 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
     private ArrayList<Entry> mGroupItems;
     private BaseFragment mContext;
 
-    public WhoScanListAdapter(BaseFragment context,ArrayList<Entry> gropItems){
+    public WhoScanListAdapter(BaseFragment context, ArrayList<Entry> gropItems) {
         this.mGroupItems = gropItems;
         this.mContext = context;
     }
@@ -85,13 +82,12 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.who_scan_group,parent,false);
+            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.who_scan_group, parent, false);
             holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_big_label);
             holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_label);
             holder.imageView = (TextView) convertView.findViewById(R.id.who_scan_group_img);
             convertView.setTag(holder);
-        } else
-        {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.bigTextView.setText(mGroupItems.get(groupPosition).getBigLabel());
@@ -102,16 +98,15 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final ViewHolder holder ;
+        final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.who_scan_group_child,parent,false);
+            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.who_scan_group_child, parent, false);
             holder.bigTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_child_big_label);
             holder.smallTextView = (TextView) convertView.findViewById(R.id.who_scan_group_item_small_child_label);
             holder.radioButton = (RadioButton) convertView.findViewById(R.id.who_scan_group_child_check);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -134,16 +129,16 @@ public class WhoScanListAdapter implements ExpandableListAdapter {
         return convertView;
     }
 
-    private  void openFragment(TextView bigText){
+    private void openFragment(TextView bigText) {
         BaseActivity.LocalStack stack = mContext.getHostActivity().getBackStack();
         stack.pop();
-        if (!stack.isEmpty()){
+        if (!stack.isEmpty()) {
             BaseFragment fragment = (BaseFragment) stack.peek();
-            if (fragment instanceof PublishDynamicFragment){
+            if (fragment instanceof PublishDynamicFragment) {
                 PublishDynamicFragment dynamicFragment = (PublishDynamicFragment) fragment;
                 dynamicFragment.setWhoScan(bigText.getText().toString());
                 mContext.getHostActivity().open(dynamicFragment);
-            } else if (fragment instanceof PublishVoiceFragment){
+            } else if (fragment instanceof PublishVoiceFragment) {
                 PublishVoiceFragment voiceFragment = (PublishVoiceFragment) fragment;
                 voiceFragment.setWhoScan(bigText.getText().toString());
                 mContext.getHostActivity().open(voiceFragment);

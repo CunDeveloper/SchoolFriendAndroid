@@ -19,7 +19,7 @@ public class UserCommentListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Comment> mList;
 
-    public UserCommentListAdapter(Context context,List<Comment> list) {
+    public UserCommentListAdapter(Context context, List<Comment> list) {
         mContext = context;
         mList = list;
     }
@@ -43,22 +43,21 @@ public class UserCommentListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment_list,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment_list, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mContentTV = (TextView) convertView.findViewById(R.id.user_comment_list_text);
             viewHolder.mUserNameTV = (TextView) convertView.findViewById(R.id.user_comment_list_user);
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Comment comment = mList.get(position);
-        viewHolder.mUserNameTV.setText(comment.getcUserName()+":");
+        viewHolder.mUserNameTV.setText(comment.getcUserName() + ":");
         viewHolder.mContentTV.setText(comment.getContent());
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         public TextView mUserNameTV;
         public TextView mContentTV;
     }

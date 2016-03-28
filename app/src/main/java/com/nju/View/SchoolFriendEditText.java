@@ -10,8 +10,8 @@ import android.widget.EditText;
  * Created by xiaojuzhang on 2015/12/16.
  */
 public class SchoolFriendEditText extends EditText {
-    private static Typeface mTypeface;
     private static final String FONT_PATH = "fonts/AppleColorEmoji.ttf";
+    private static Typeface mTypeface;
 
     public SchoolFriendEditText(Context context) {
         super(context);
@@ -28,9 +28,9 @@ public class SchoolFriendEditText extends EditText {
         initType();
     }
 
-    private void initType(){
-        if (mTypeface ==null) {
-            mTypeface = Typeface.createFromAsset(getContext().getAssets(),FONT_PATH);
+    private void initType() {
+        if (mTypeface == null) {
+            mTypeface = Typeface.createFromAsset(getContext().getAssets(), FONT_PATH);
         }
         this.setTypeface(mTypeface);
         this.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));

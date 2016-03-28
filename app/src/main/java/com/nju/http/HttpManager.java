@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.nju.http.request.CompressRequest;
 import com.nju.model.BitmapWrapper;
-import com.squareup.okhttp.Call;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +23,9 @@ public class HttpManager {
     private static final String TAG = HttpManager.class.getSimpleName();
     private static final int KEEP_ALIVE_TIME = 1;
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT;
-    private final BlockingDeque<Runnable> mDownloadWorkQueue;
-    private final ThreadPoolExecutor mDownloadThreadPool;
-    private final ExecutorService mThreadService;
-    private static HttpManager sInstance = null;
     private static final int CORE_POOL_SIZE = 8;
     private static final int MAXIMUM_POOL_SIZE = 8;
+    private static HttpManager sInstance = null;
     private static int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
 
     static {
@@ -37,13 +33,17 @@ public class HttpManager {
         sInstance = new HttpManager();
     }
 
-    private HttpManager(){
+    private final BlockingDeque<Runnable> mDownloadWorkQueue;
+    private final ThreadPoolExecutor mDownloadThreadPool;
+    private final ExecutorService mThreadService;
+
+    private HttpManager() {
         mDownloadWorkQueue = new LinkedBlockingDeque<>();
-        mDownloadThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE,MAXIMUM_POOL_SIZE,KEEP_ALIVE_TIME,KEEP_ALIVE_TIME_UNIT,mDownloadWorkQueue);
-        mThreadService =   Executors.newSingleThreadExecutor();
+        mDownloadThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, mDownloadWorkQueue);
+        mThreadService = Executors.newSingleThreadExecutor();
     }
 
-    public static HttpManager getInstance(){
+    public static HttpManager getInstance() {
         return sInstance;
     }
 
@@ -56,20 +56,20 @@ public class HttpManager {
 
     }
 
-    public ArrayList<BitmapWrapper> compressBitmap(Context context,ArrayList<BitmapWrapper> bitmapWrappers) {
+    public ArrayList<BitmapWrapper> compressBitmap(Context context, ArrayList<BitmapWrapper> bitmapWrappers) {
         ArrayList<BitmapWrapper> bitmaps = new ArrayList<>();
         ArrayList<CompressRequest> compressRequests = new ArrayList<>();
         for (BitmapWrapper bitmapWrapper : bitmapWrappers) {
             compressRequests.add(new CompressRequest(context, bitmapWrapper));
         }
         try {
-            List<Future<BitmapWrapper>> futures =mDownloadThreadPool.invokeAll(compressRequests);
-            for (Future<BitmapWrapper> future:futures){
+            List<Future<BitmapWrapper>> futures = mDownloadThreadPool.invokeAll(compressRequests);
+            for (Future<BitmapWrapper> future : futures) {
                 bitmaps.add(future.get());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return bitmaps;
     }

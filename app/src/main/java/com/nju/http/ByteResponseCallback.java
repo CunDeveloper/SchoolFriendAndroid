@@ -15,6 +15,7 @@ import java.io.IOException;
 public abstract class ByteResponseCallback implements Callback {
 
     abstract public void onFail(final Exception error);
+
     abstract public void onSuccess(final byte[] responseBody);
 
     @Override
@@ -24,7 +25,7 @@ public abstract class ByteResponseCallback implements Callback {
             public void run() {
                 e.printStackTrace();
                 if (e.getMessage().contains("Canceled") || e.getMessage().contains("Socket closed")) {
-                   // ToastUtil.show(R.string.canceled);
+                    // ToastUtil.show(R.string.canceled);
                 } else {
                     onFail(e);
                 }

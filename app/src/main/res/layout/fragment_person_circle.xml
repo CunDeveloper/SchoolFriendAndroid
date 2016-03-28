@@ -13,7 +13,6 @@
         android:paddingStart="@dimen/phone_apadding"
         android:listSelector="@android:color/transparent"
         android:paddingEnd="@dimen/phone_apadding"
-
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
          />

@@ -7,9 +7,9 @@ import android.widget.ListPopupWindow;
 /**
  * Created by xiaojuzhang on 2015/11/23.
  */
-public class CommentPopupWindow extends ListPopupWindow{
+public class CommentPopupWindow extends ListPopupWindow {
 
-    public CommentPopupWindow(Context context,View view) {
+    public CommentPopupWindow(Context context, View view) {
         super(context);
         this.setHeight(ListPopupWindow.WRAP_CONTENT);
         this.setVerticalOffset(-90);

@@ -20,10 +20,11 @@ public class UserLocationAdapter extends BaseAdapter {
     private List<LocationInfo> mInfoList;
     private Context mContext;
 
-    public UserLocationAdapter(List<LocationInfo> list,Context context) {
+    public UserLocationAdapter(List<LocationInfo> list, Context context) {
         mInfoList = list;
         mContext = context;
     }
+
     @Override
     public int getViewTypeCount() {
 
@@ -35,6 +36,7 @@ public class UserLocationAdapter extends BaseAdapter {
 
         return position;
     }
+
     @Override
     public int getCount() {
         return mInfoList.size();
@@ -54,14 +56,13 @@ public class UserLocationAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.user_location_item,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.user_location_item, null);
             holder = new ViewHolder();
             holder.nameView = (TextView) convertView.findViewById(R.id.user_location_item_name);
             holder.addressView = (TextView) convertView.findViewById(R.id.user_location_item_address);
             holder.checkView = (TextView) convertView.findViewById(R.id.user_location_item_image);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         LocationInfo info = mInfoList.get(position);

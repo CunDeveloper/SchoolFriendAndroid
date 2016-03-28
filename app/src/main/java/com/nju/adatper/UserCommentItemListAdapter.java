@@ -22,9 +22,9 @@ import java.util.List;
  * Created by xiaojuzhang on 2015/11/20.
  */
 public class UserCommentItemListAdapter extends BaseAdapter {
-    private static String TAG = UserCommentItemListAdapter.class.getSimpleName();
     public static final int PRAISE_OK = 0;
     public static final int COMMENT_OK = 1;
+    private static String TAG = UserCommentItemListAdapter.class.getSimpleName();
     private Context mContext;
     private int mPosition;
     private List<FriendWeibo> mWeibos;
@@ -32,7 +32,8 @@ public class UserCommentItemListAdapter extends BaseAdapter {
     private ListPopupWindow mPopupWindow;
     private ListView mListView;
     private Dictionary<Integer, Integer> listViewItemHeights = new Hashtable<>();
-    public UserCommentItemListAdapter(Context context,int position,List<FriendWeibo> weibos,Handler handler,ListPopupWindow listPopupWindow,ListView listView) {
+
+    public UserCommentItemListAdapter(Context context, int position, List<FriendWeibo> weibos, Handler handler, ListPopupWindow listPopupWindow, ListView listView) {
         mContext = context;
         mPosition = position;
         mWeibos = weibos;
@@ -58,7 +59,7 @@ public class UserCommentItemListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment,parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment, parent, false);
         TextView praiseTextView = (TextView) convertView.findViewById(R.id.user_comment_praise_text);
         final TextView commentTextView = (TextView) convertView.findViewById(R.id.user_comment_comment_text);
         praiseTextView.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +78,8 @@ public class UserCommentItemListAdapter extends BaseAdapter {
                 Message message = new Message();
                 message.what = COMMENT_OK;
                 message.obj = mPosition;
-                int length = mWeibos.size()-1;
-                for(int i =length;i >mPosition;i--){
+                int length = mWeibos.size() - 1;
+                for (int i = length; i > mPosition; i--) {
                     mWeibos.remove(i);
                 }
                 mHandler.sendMessage(message);

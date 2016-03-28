@@ -6,27 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by xiaojuzhang on 2015/11/12.
  */
-public class UserInfo implements  Parcelable {
-
-    private String label;
-    private String name;
-    private String sex;
-    private String yuanXiaoName;
-    private String fenYuan;
-    private String major;
-    private String date;
-    public UserInfo(){
-
-    }
-    public UserInfo(Parcel in) {
-        label = in.readString();
-        name = in.readString();
-        sex = in.readString();
-        yuanXiaoName = in.readString();
-        fenYuan = in.readString();
-        major = in.readString();
-        date = in.readString();
-    }
+public class UserInfo implements Parcelable {
 
     public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
         @Override
@@ -39,6 +19,27 @@ public class UserInfo implements  Parcelable {
             return new UserInfo[size];
         }
     };
+    private String label;
+    private String name;
+    private String sex;
+    private String yuanXiaoName;
+    private String fenYuan;
+    private String major;
+    private String date;
+
+    public UserInfo() {
+
+    }
+
+    public UserInfo(Parcel in) {
+        label = in.readString();
+        name = in.readString();
+        sex = in.readString();
+        yuanXiaoName = in.readString();
+        fenYuan = in.readString();
+        major = in.readString();
+        date = in.readString();
+    }
 
     public String getName() {
         return name;

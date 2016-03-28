@@ -19,6 +19,7 @@ public class FriendWeibo {
     private String location;
     private String praiseUserName = "";
     private List<Comment> comments;
+
     public String getContent() {
         return content;
     }

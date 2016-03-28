@@ -18,10 +18,12 @@ import java.util.ArrayList;
 public class UserInfoAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<UserInfo> mUserInfos;
-    public UserInfoAdapter(Context context,ArrayList<UserInfo> userInfos){
+
+    public UserInfoAdapter(Context context, ArrayList<UserInfo> userInfos) {
         mContext = context;
         mUserInfos = userInfos;
     }
+
     @Override
     public int getCount() {
         return mUserInfos.size();
@@ -42,7 +44,7 @@ public class UserInfoAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_user_info_item,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_user_info_item, null);
             holder.labelTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_label_text);
             holder.majorTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_major_text);
             holder.xueYuanTV = (TextView) convertView.findViewById(R.id.fragment_user_info_item_xueyuan_text);

@@ -22,10 +22,12 @@ public class PersonCircleAdapter extends BaseAdapter {
     private static final String TAG = PersonCircleAdapter.class.getSimpleName();
     private Context mContent;
     private ArrayList<Content> mList;
-    public PersonCircleAdapter(Context context,ArrayList<Content> list){
+
+    public PersonCircleAdapter(Context context, ArrayList<Content> list) {
         mContent = context;
         mList = list;
     }
+
     @Override
     public int getCount() {
         return mList.size();
@@ -46,31 +48,29 @@ public class PersonCircleAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContent).inflate(R.layout.fragment_person_circle_item ,null);
+            convertView = LayoutInflater.from(mContent).inflate(R.layout.fragment_person_circle_item, null);
             holder.mContentTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_content_tv);
             holder.mImageView = (ImageView) convertView.findViewById(R.id.fragment_person_circle_item_image);
             holder.mDayTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_daytv);
             holder.mMonthTV = (TextView) convertView.findViewById(R.id.fragment_person_circle_item_monthtv);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         Content content = mList.get(position);
-        if(content.getIs_contain_image()>0) {
-            holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent,android.R.color.white));
+        if (content.getIs_contain_image() > 0) {
+            holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent, android.R.color.white));
             holder.mContentTV.setIncludeFontPadding(false);
-            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent,R.drawable.head2));
-        }
-        else{
-            holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent,R.color.light_gray));
+            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent, R.drawable.head2));
+        } else {
+            holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent, R.color.light_gray));
             holder.mContentTV.setIncludeFontPadding(true);
-            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent,R.drawable.empty));
+            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent, R.drawable.empty));
         }
         holder.mContentTV.setText(content.getContent());
         holder.mDayTV.setText(content.getDay());
         holder.mMonthTV.setText(content.getMonth());
-       return convertView;
+        return convertView;
     }
 
     private static class ViewHolder {

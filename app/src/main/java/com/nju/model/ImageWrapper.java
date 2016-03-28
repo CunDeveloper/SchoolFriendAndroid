@@ -8,18 +8,6 @@ import android.os.Parcelable;
  * Created by xiaojuzhang on 2015/12/28.
  */
 public class ImageWrapper implements Parcelable {
-    private Bitmap bitmap;
-    private String path;
-
-    public ImageWrapper(){
-
-    }
-
-    protected ImageWrapper(Parcel in) {
-        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
-        path = in.readString();
-    }
-
     public static final Creator<ImageWrapper> CREATOR = new Creator<ImageWrapper>() {
         @Override
         public ImageWrapper createFromParcel(Parcel in) {
@@ -31,6 +19,17 @@ public class ImageWrapper implements Parcelable {
             return new ImageWrapper[size];
         }
     };
+    private Bitmap bitmap;
+    private String path;
+
+    public ImageWrapper() {
+
+    }
+
+    protected ImageWrapper(Parcel in) {
+        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        path = in.readString();
+    }
 
     public Bitmap getBitmap() {
         return bitmap;

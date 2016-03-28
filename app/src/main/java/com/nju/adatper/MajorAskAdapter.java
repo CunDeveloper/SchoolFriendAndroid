@@ -1,17 +1,21 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniQuestion;
+import com.nju.util.Constant;
+import com.nju.util.DateUtil;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by cun on 2016/3/16.
@@ -44,9 +48,9 @@ public class MajorAskAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.alumni_question_item,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.alumni_question_item, parent, false);
             holder.problemTV = (TextView) convertView.findViewById(R.id.title_tv);
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
@@ -55,14 +59,20 @@ public class MajorAskAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         AlumniQuestion alumniQuestion = mQuestions.get(position);
-        holder.problemTV.setText(alumniQuestion.getProblem());
+        try{
+            holder.problemTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
+        }catch (IllegalArgumentException e){
+            holder.problemTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         holder.nameTV.setText(alumniQuestion.getAuthor().getAuthorName());
-        holder.dateTV.setText(alumniQuestion.getDate());
-        holder.replayCountTV.setText(alumniQuestion.getReplayCount()+"");
+        final long time = DateUtil.getTime(alumniQuestion.getDate());
+        final String date = DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
+        holder.dateTV.setText(date);
+        holder.replayCountTV.setText(alumniQuestion.getReplayCount() + "");
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         private TextView problemTV;
         private TextView dateTV;
         private TextView nameTV;

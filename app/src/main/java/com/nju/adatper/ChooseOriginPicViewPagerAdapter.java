@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ChooseOriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<ImageWrapper> mImgPaths;
+
     public ChooseOriginPicViewPagerAdapter(FragmentManager fm, ArrayList<ImageWrapper> imgPaths) {
         super(fm);
         mImgPaths = imgPaths;
@@ -31,6 +32,7 @@ public class ChooseOriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
     public Object instantiateItem(View collection, final int pos) {
         return null;
     }
+
     @Override
     public int getCount() {
         return mImgPaths.size();

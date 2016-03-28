@@ -8,24 +8,6 @@ import android.os.Parcelable;
  */
 public class DynamicCollect implements Parcelable {
 
-    private int id;
-    private String content;
-    private String imgPath;
-    private AuthorInfo authorInfo;
-    private String date;
-
-    public DynamicCollect(){
-
-    }
-
-    protected DynamicCollect(Parcel in) {
-        id = in.readInt();
-        content = in.readString();
-        imgPath = in.readString();
-        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
-        date = in.readString();
-    }
-
     public static final Creator<DynamicCollect> CREATOR = new Creator<DynamicCollect>() {
         @Override
         public DynamicCollect createFromParcel(Parcel in) {
@@ -37,6 +19,23 @@ public class DynamicCollect implements Parcelable {
             return new DynamicCollect[size];
         }
     };
+    private int id;
+    private String content;
+    private String imgPath;
+    private AuthorInfo authorInfo;
+    private String date;
+
+    public DynamicCollect() {
+
+    }
+
+    protected DynamicCollect(Parcel in) {
+        id = in.readInt();
+        content = in.readString();
+        imgPath = in.readString();
+        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
+        date = in.readString();
+    }
 
     public int getId() {
         return id;

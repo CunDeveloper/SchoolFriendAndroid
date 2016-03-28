@@ -16,8 +16,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/light_blue"
         android:text="1"
         android:id="@+id/alumni_vo_name"
         android:layout_alignParentTop="true"
@@ -32,12 +32,12 @@
         android:layout_alignBottom="@+id/alumni_vo_name"
         android:layout_toEndOf="@+id/alumni_vo_name" />
 
-    <TextView
+    <com.nju.View.SchoolFriendTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_blue"
-        android:layout_marginTop="@dimen/phone_apadding"
+        android:layout_marginTop="@dimen/FIVE_DP"
         android:id="@+id/alumni_vo_title"
         android:text="1"
         android:layout_below="@+id/alumni_vo_label"
@@ -54,10 +54,10 @@
         android:layout_marginTop="@dimen/phone_apadding"
         android:layout_below="@+id/alumni_vo_simple_desc"
         android:layout_alignStart="@+id/alumni_vo_simple_desc" />
-    <com.nju.View.SchoolFriendAweTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/comment_icon"
+        android:text="@string/comment_str"
         android:layout_marginRight="@dimen/phone_apadding"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_alignTop="@+id/alumni_vo_date"
@@ -69,7 +69,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="1"
-        android:textColor="@android:color/black"
         android:id="@+id/alumni_vo_comment_number"
         android:layout_alignBottom="@+id/view"
         android:layout_alignParentEnd="true" />
@@ -79,13 +78,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="1"
-        android:textColor="@android:color/black"
         android:id="@+id/alumni_vo_praise_number"
         android:layout_marginEnd="6dp"
         android:layout_alignBottom="@+id/view"
         android:layout_toStartOf="@+id/view" />
 
-    <TextView
+    <com.nju.View.SchoolFriendTextView
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,11 +103,11 @@
         android:layout_below="@+id/alumni_vo_simple_desc"
         android:layout_alignStart="@+id/alumni_vo_date" />
 
-    <com.nju.View.SchoolFriendAweTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/praise_icon"
+        android:text="@string/praise_str"
         android:id="@+id/textView23"
         android:layout_alignBottom="@+id/alumni_vo_praise_number"
         android:layout_toStartOf="@+id/alumni_vo_praise_number" />

@@ -17,10 +17,10 @@ import java.util.concurrent.ExecutionException;
  * Created by xiaojuzhang on 2016/1/5.
  */
 public class BitmapDownloader {
-    private Context mContext;
-    private  Bitmap mPlaceHolderBitmap;
     private static BitmapDownloader mDownloader;
-    private  String mUrl;
+    private Context mContext;
+    private Bitmap mPlaceHolderBitmap;
+    private String mUrl;
     private int mReqWidth;
     private int mReqHeight;
     private WeakReference<ImageView> mImageViewWeakReference;
@@ -37,23 +37,48 @@ public class BitmapDownloader {
         return mDownloader;
     }
 
-    public  BitmapDownloader url(String url) {
+    public static boolean cancelPotentialWork(String url, ImageView imageView) {
+        final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+
+        if (bitmapWorkerTask != null) {
+            final String bitmapUrl = bitmapWorkerTask.getUrl();
+            if (bitmapUrl.equals("") || !bitmapUrl.equals(url)) {
+                bitmapWorkerTask.cancel(true);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            final Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncDrawable) {
+                final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+        }
+        return null;
+    }
+
+    public BitmapDownloader url(String url) {
         mUrl = url;
         return mDownloader;
     }
 
-    public  BitmapDownloader placeHolder(Bitmap bitmap) {
+    public BitmapDownloader placeHolder(Bitmap bitmap) {
         mPlaceHolderBitmap = bitmap;
         return mDownloader;
     }
 
-    public BitmapDownloader resize(final int targetWidth,final int targetHeight) {
+    public BitmapDownloader resize(final int targetWidth, final int targetHeight) {
         mReqWidth = targetWidth;
         mReqHeight = targetHeight;
         return mDownloader;
     }
 
-    public BitmapDownloader into(ImageView imageView)  {
+    public BitmapDownloader into(ImageView imageView) {
         mImageViewWeakReference = new WeakReference<>(imageView);
         exeTask();
         return mDownloader;
@@ -62,10 +87,10 @@ public class BitmapDownloader {
     private void exeTask() {
         if (mImageViewWeakReference != null) {
             final ImageView imageView = mImageViewWeakReference.get();
-            if (cancelPotentialWork(mUrl,imageView) && imageView != null) {
-                BitmapWorkerTask.LoadCallable callable = new BitmapWorkerTask.LoadCallable(mUrl,mReqWidth,mReqHeight);
+            if (cancelPotentialWork(mUrl, imageView) && imageView != null) {
+                BitmapWorkerTask.LoadCallable callable = new BitmapWorkerTask.LoadCallable(mUrl, mReqWidth, mReqHeight);
                 BitmapWorkerTask task = new BitmapWorkerTask(callable);
-                final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(),mPlaceHolderBitmap,task);
+                final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(), mPlaceHolderBitmap, task);
                 imageView.setImageDrawable(asyncDrawable);
                 HttpManager.getInstance().addDownLoadQueue(task);
                 try {
@@ -82,36 +107,11 @@ public class BitmapDownloader {
         }
     }
 
-    public static boolean cancelPotentialWork(String url,ImageView imageView) {
-        final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
-
-        if (bitmapWorkerTask != null) {
-            final String bitmapUrl = bitmapWorkerTask.getUrl();
-            if (bitmapUrl.equals("") || ! bitmapUrl.equals(url)) {
-                bitmapWorkerTask.cancel(true);
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView){
-        if (imageView != null) {
-            final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncDrawable) {
-                final  AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
-                return asyncDrawable.getBitmapWorkerTask();
-            }
-        }
-        return null;
-    }
-
-    static class AsyncDrawable extends BitmapDrawable{
+    static class AsyncDrawable extends BitmapDrawable {
         private final WeakReference<BitmapWorkerTask> mBitmapWorkerTaskReference;
 
-        public AsyncDrawable(Resources res,Bitmap bitmap,BitmapWorkerTask bitmapWorkerTask) {
-            super(res,bitmap);
+        public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask bitmapWorkerTask) {
+            super(res, bitmap);
             mBitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
         }
 

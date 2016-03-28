@@ -18,22 +18,24 @@ import java.util.ArrayList;
 public class SchoolService {
     private static final String TAG = SchoolService.class.getSimpleName();
     private SQLiteDatabase db;
+
     public SchoolService(Context context) {
         db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
     }
+
     public void save(ArrayList<School> schools) {
         db.beginTransaction();
-        String sql = "INSERT INTO "+ SchoolEntry.TABLE_NAME+"("+SchoolEntry.COLUMN_NAME_SC_ID+" ,"
-                +SchoolEntry.COLUMN_NAME_NAME+" ,"+SchoolEntry.COLUMN_NAME_COLLEGE_ID+")"+"values(?,?,?)";
+        String sql = "INSERT INTO " + SchoolEntry.TABLE_NAME + "(" + SchoolEntry.COLUMN_NAME_SC_ID + " ,"
+                + SchoolEntry.COLUMN_NAME_NAME + " ," + SchoolEntry.COLUMN_NAME_COLLEGE_ID + ")" + "values(?,?,?)";
         SQLiteStatement stmt = db.compileStatement(sql);
-        for (School school:schools) {
-            stmt.bindLong(1,school.getScId());
+        for (School school : schools) {
+            stmt.bindLong(1, school.getScId());
             stmt.bindString(2, school.getName());
             stmt.bindLong(3, school.getCollegeID());
             stmt.execute();
         }
         db.setTransactionSuccessful();
-        Log.i(TAG,"done");
+        Log.i(TAG, "done");
     }
 
     public ArrayList<School> query() {

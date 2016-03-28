@@ -16,9 +16,10 @@ import java.util.ArrayList;
 /**
  * Created by cun on 2016/3/19.
  */
-public class RecommendWorkCollectAdapter  extends BaseAdapter {
-    private ArrayList<RecommendWork>  mRecommendWorks;
+public class RecommendWorkCollectAdapter extends BaseAdapter {
+    private ArrayList<RecommendWork> mRecommendWorks;
     private Context mContext;
+
     public RecommendWorkCollectAdapter(Context context, ArrayList<RecommendWork> recommendWorks) {
         mContext = context;
         mRecommendWorks = recommendWorks;
@@ -42,8 +43,8 @@ public class RecommendWorkCollectAdapter  extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.voice_collect_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.voice_collect_item, parent, false);
             holder = new ViewHolder();
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
             holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
@@ -63,8 +64,8 @@ public class RecommendWorkCollectAdapter  extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder{
-        private ImageView headImg,contentImg;
-        private TextView nameTV,labelTV,dateTV,contentTV,titleTV;
+    private class ViewHolder {
+        private ImageView headImg, contentImg;
+        private TextView nameTV, labelTV, dateTV, contentTV, titleTV;
     }
 }

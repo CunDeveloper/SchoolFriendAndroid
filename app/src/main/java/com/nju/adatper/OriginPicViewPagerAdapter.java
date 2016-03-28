@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class OriginPicViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Image> mImages;
-    public OriginPicViewPagerAdapter(FragmentManager fm,ArrayList<Image> images) {
+
+    public OriginPicViewPagerAdapter(FragmentManager fm, ArrayList<Image> images) {
         super(fm);
         mImages = images;
     }

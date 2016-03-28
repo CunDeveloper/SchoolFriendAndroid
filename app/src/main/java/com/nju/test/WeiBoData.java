@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class WeiBoData {
 
-    public static List<FriendWeibo> weiBos(Context context){
+    public static List<FriendWeibo> weiBos(Context context) {
         List<FriendWeibo> weibos = new ArrayList<>();
         FriendWeibo friendWeibo;
         ArrayList<Bitmap> list;
@@ -35,11 +35,11 @@ public class WeiBoData {
                 " and end smoothly instead of starting and stopping abruptly.");
         list = new ArrayList<>();
         Bitmap bitmap;
-        bitmap = BitmapFactory.decodeResource(resources,R.drawable.cheese_2);
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.cheese_2);
         list.add(bitmap);
-        bitmap = BitmapFactory.decodeResource(resources,R.drawable.cheese_1);
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.cheese_1);
         list.add(bitmap);
-        bitmap = BitmapFactory.decodeResource(resources,R.drawable.cheese_3);
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.cheese_3);
         list.add(bitmap);
 
         user = new User();
@@ -400,6 +400,6 @@ public class WeiBoData {
         friendWeibo.setLocation("");
         weibos.add(friendWeibo);
 
-        return  weibos;
+        return weibos;
     }
 }

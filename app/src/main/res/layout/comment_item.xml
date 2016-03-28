@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/phone_apadding"
+    android:layout_marginBottom="@dimen/phone_apadding"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+     <ImageView
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:scaleType="fitXY"
+         android:layout_marginEnd="@dimen/padding_left"
+         android:src="@drawable/cheese_4"
+         android:id="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="name"
+        android:id="@+id/name_tv"
+        android:textColor="@color/light_blue"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="label"
+        android:id="@+id/label_tv"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/name_tv" />
+
+    <com.nju.View.SchoolFriendTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Medium Text"
+
+        android:textColor="@android:color/black"
+        android:id="@+id/content_tv"
+        android:layout_below="@+id/name_tv"
+        android:layout_toEndOf="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="date"
+        android:id="@+id/date_tv"
+        android:layout_below="@+id/content_tv"
+        android:layout_toEndOf="@+id/imageView" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_alignTop="@+id/date_tv"
+        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/frameLayout2">
+        <com.nju.View.SchoolFriendAweTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/comment_icon"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/textView40"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:gravity="center"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            android:text="2"
+            android:textSize="10sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/textView401"
+            />
+    </FrameLayout>
+
+</RelativeLayout>

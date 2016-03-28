@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/re_list_item_title"
-        android:layout_marginBottom="@dimen/phone_apadding"
+        android:text="222"
+        android:layout_marginBottom="@dimen/FIVE_DP"
         android:textColor="@color/light_blue"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -18,18 +19,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
-        android:id="@+id/re_list_item_name"
+        android:maxLines="3"
+        android:text="hhh"
+        android:layout_marginBottom="@dimen/FIVE_DP"
+        android:ellipsize="end"
+        android:id="@+id/content_tv"
         android:layout_below="@+id/re_list_item_title"
         android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/re_list_item_label"
-        android:layout_alignBottom="@+id/re_list_item_name"
-        android:layout_toEndOf="@+id/re_list_item_name" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:id="@+id/re_list_item_label"-->
+        <!--android:layout_alignBottom="@+id/re_list_item_name"-->
+        <!--android:layout_toEndOf="@+id/re_list_item_name" />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,21 +45,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/fragment_re_list_item_count"
-        android:text="2"
-        android:layout_below="@+id/re_list_item_name"
-        android:layout_toStartOf="@+id/textView15" />
+        android:paddingEnd="@dimen/phone_apadding"
+        android:text="0"
+        android:layout_alignBottom="@+id/textView15"
+        android:layout_alignParentEnd="true" />
 
-    <com.nju.View.SchoolFriendAweTextView
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_marginEnd="@dimen/phone_apadding"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/comment_icon"
+        android:text="@string/comment_str"
         android:id="@+id/textView15"
+        android:layout_below="@+id/content_tv"
+        android:layout_toStartOf="@+id/fragment_re_list_item_count" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/phone_apadding"
+        android:paddingEnd="@dimen/phone_apadding"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/recommend"
+        android:id="@+id/textView32"
         android:layout_alignTop="@+id/re_list_item_date"
-        android:layout_alignParentEnd="true" />
+        android:layout_toEndOf="@+id/re_list_item_date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/light_blue"
+        android:id="@+id/name_tv"
+        android:layout_alignTop="@+id/textView32"
+        android:layout_toEndOf="@+id/textView32" />
 
 
 </RelativeLayout>

@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import java.util.ArrayList;
  */
 public class CommentUtil {
 
-    public static void hideSoft(final Context context,View view) {
+    public static void hideSoft(final Context context, View view) {
 
         View mView = view.findViewById(R.id.re_work_item_detail_hide_layout);
         final TextView mEmotionTv = (TextView) view.findViewById(R.id.comment_emotion);
@@ -55,18 +54,18 @@ public class CommentUtil {
         });
     }
 
-    public static RelativeLayout getHideLayout(View view){
+    public static RelativeLayout getHideLayout(View view) {
         return (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
     }
 
-    public static void initViewPager(Fragment fragment,View view){
+    public static void initViewPager(Fragment fragment, View view) {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new EmotionPageAdapter(fragment.getChildFragmentManager(), fragment.getClass().getSimpleName()));
     }
 
-    public static EditText getCommentEdit(final View view){
+    public static EditText getCommentEdit(final View view) {
         final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
-        EditText editText =(EditText) view.findViewById(R.id.comment_edittext);
+        EditText editText = (EditText) view.findViewById(R.id.comment_edittext);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +81,15 @@ public class CommentUtil {
         return editText;
     }
 
-    public static void addViewPageEvent(final Context context,View view){
+    public static void closeSoftKey(Context context,View view){
+        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
+        final RelativeLayout hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
+        SoftInput.close(context, hideReLayout);
+        hideReLayout.setVisibility(View.GONE);
+        mEmotionLineLayout.setVisibility(View.GONE);
+    }
+
+    public static void addViewPageEvent(final Context context, View view) {
         final int[] mSlidePosition = {0};
         ArrayList<View> mSlideCircleViews = new ArrayList<>();
         View mView;
@@ -99,6 +106,7 @@ public class CommentUtil {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 finalMSlideCircleViews.get(mSlidePosition[0]).setBackground(ContextCompat.getDrawable(context, R.drawable.unselect_circle_label_bg));

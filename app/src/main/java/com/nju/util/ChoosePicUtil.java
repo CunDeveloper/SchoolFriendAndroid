@@ -1,11 +1,9 @@
 package com.nju.util;
 
 import com.nju.activity.BaseActivity;
-import com.nju.activity.R;
 import com.nju.fragment.AskPublishFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.PublishDynamicFragment;
-import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.PublishVoiceFragment;
 import com.nju.fragment.RecommendPublishFragment;
 import com.nju.model.ImageWrapper;
@@ -17,27 +15,27 @@ import java.util.ArrayList;
  */
 public class ChoosePicUtil {
 
-    public static void openFragment(BaseFragment fragment,String label,ArrayList<ImageWrapper> imageWrappers){
-        if (FragmentUtil.isAttachedToActivity(fragment)){
+    public static void openFragment(BaseFragment fragment, String label, ArrayList<ImageWrapper> imageWrappers) {
+        if (FragmentUtil.isAttachedToActivity(fragment)) {
             BaseActivity.LocalStack<BaseFragment> fragments = fragment.getHostActivity().getBackStack();
-            while (fragments.size()>0){
+            while (fragments.size() > 0) {
                 BaseFragment baseFragment = fragments.pop();
-                if (baseFragment instanceof PublishDynamicFragment){
+                if (baseFragment instanceof PublishDynamicFragment) {
                     PublishDynamicFragment dynamicFragment = (PublishDynamicFragment) baseFragment;
                     dynamicFragment.setImages(imageWrappers);
                     fragment.getHostActivity().open(dynamicFragment);
                     break;
-                } else if (baseFragment instanceof RecommendPublishFragment){
+                } else if (baseFragment instanceof RecommendPublishFragment) {
                     RecommendPublishFragment recommendPublishFragment = (RecommendPublishFragment) baseFragment;
                     recommendPublishFragment.setImages(imageWrappers);
                     fragment.getHostActivity().open(recommendPublishFragment);
                     break;
-                } else if (baseFragment instanceof AskPublishFragment){
+                } else if (baseFragment instanceof AskPublishFragment) {
                     AskPublishFragment askPublishFragment = (AskPublishFragment) baseFragment;
                     askPublishFragment.setImages(imageWrappers);
                     fragment.getHostActivity().open(askPublishFragment);
                     break;
-                } else if (baseFragment instanceof PublishVoiceFragment){
+                } else if (baseFragment instanceof PublishVoiceFragment) {
                     PublishVoiceFragment publishVoiceFragment = (PublishVoiceFragment) baseFragment;
                     publishVoiceFragment.setImages(imageWrappers);
                     fragment.getHostActivity().open(publishVoiceFragment);
@@ -61,20 +59,20 @@ public class ChoosePicUtil {
 //            }
     }
 
-    private static void peekFragment(BaseFragment fragment,ArrayList<ImageWrapper> images){
+    private static void peekFragment(BaseFragment fragment, ArrayList<ImageWrapper> images) {
         BaseActivity.LocalStack<BaseFragment> fragments = fragment.getHostActivity().getBackStack();
-        while (fragments.size()>0){
+        while (fragments.size() > 0) {
             BaseFragment baseFragment = fragments.pop();
-            if (baseFragment instanceof PublishDynamicFragment){
+            if (baseFragment instanceof PublishDynamicFragment) {
                 fragment.getHostActivity().open(baseFragment);
                 break;
-            } else if (baseFragment instanceof RecommendPublishFragment){
+            } else if (baseFragment instanceof RecommendPublishFragment) {
                 fragment.getHostActivity().open(baseFragment);
                 break;
-            } else if (baseFragment instanceof AskPublishFragment){
+            } else if (baseFragment instanceof AskPublishFragment) {
                 fragment.getHostActivity().open(baseFragment);
                 break;
-            } else if (baseFragment instanceof PublishVoiceFragment){
+            } else if (baseFragment instanceof PublishVoiceFragment) {
                 fragment.getHostActivity().open(baseFragment);
                 break;
             }

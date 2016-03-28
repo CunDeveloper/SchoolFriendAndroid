@@ -11,6 +11,7 @@ public class Entry {
     private String smallLabel;
     private String drawable;
     private ArrayList<Entry> childItems;
+
     public String getBigLabel() {
         return bigLabel;
     }

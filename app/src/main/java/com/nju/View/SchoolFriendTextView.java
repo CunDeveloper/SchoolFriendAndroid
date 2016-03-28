@@ -9,8 +9,8 @@ import android.widget.TextView;
  * Created by cun on 2015/12/3.
  */
 public class SchoolFriendTextView extends TextView {
-    private static Typeface mTypeface;
     private static final String FONT_PATH = "fonts/AppleColorEmoji.ttf";
+    private static Typeface mTypeface;
 
     public SchoolFriendTextView(Context context) {
         super(context);
@@ -27,9 +27,9 @@ public class SchoolFriendTextView extends TextView {
         initType();
     }
 
-    private void initType(){
-        if (mTypeface ==null) {
-            mTypeface = Typeface.createFromAsset(getContext().getAssets(),FONT_PATH);
+    private void initType() {
+        if (mTypeface == null) {
+            mTypeface = Typeface.createFromAsset(getContext().getAssets(), FONT_PATH);
         }
         this.setTypeface(mTypeface);
     }

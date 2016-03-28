@@ -3,8 +3,10 @@ package com.nju.test;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniVoice;
 import com.nju.model.AuthorInfo;
+import com.nju.model.ContentComment;
 import com.nju.model.DynamicCollect;
 import com.nju.model.RecommendWork;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,10 +16,12 @@ import java.util.HashSet;
  */
 public class TestData {
 
-    public static HashSet<String> getUndergraduateCollege(){
+    public static HashSet<String> getUndergraduateCollege() {
         HashSet<String> sets = new HashSet<>();
-        sets.add("文学系");sets.add("外国语学院");
-        sets.add("哲学系（宗教学系）");sets.add("历史学院");
+        sets.add("文学系");
+        sets.add("外国语学院");
+        sets.add("哲学系（宗教学系）");
+        sets.add("历史学院");
         sets.add("物理学院");
         sets.add("数学系");
         sets.add("天文与空间科学学院");
@@ -41,7 +45,7 @@ public class TestData {
         return sets;
     }
 
-    public static ArrayList<AlumniQuestion> getQlumniQuestions(){
+    public static ArrayList<AlumniQuestion> getQlumniQuestions() {
         ArrayList<AlumniQuestion> alumniQuestions = new ArrayList<>();
         AlumniQuestion alumniQuestion = new AlumniQuestion();
         alumniQuestion.setProblem("如何改变Toggle Button的背景颜色在Android里,当用户点击时");
@@ -61,10 +65,11 @@ public class TestData {
         return alumniQuestions;
     }
 
-    public static ArrayList<AlumniVoice> getVoicesData(){
-       ArrayList<AlumniVoice> voices = new ArrayList<>();
+    public static ArrayList<AlumniVoice> getVoicesData() {
+        ArrayList<AlumniVoice> voices = new ArrayList<>();
         AlumniVoice voice = new AlumniVoice();
-        voice.setCommentCount(1);voice.setPraiseCount(1);
+        voice.setCommentCount(1);
+        voice.setPraiseCount(1);
         voice.setTitle("大四学生就业建议");
         voice.setContent("1.树立自己就业的信心。\n" +
                 "大学生数目的增多，只能说明自己所处的平台更高、更宽，应该对自己就业有信心，\n" +
@@ -77,13 +82,14 @@ public class TestData {
                 "\n6.学校尽量建立企业的HR、管理层来校...");
         voice.setDate("2015-03-20");
         AuthorInfo authorInfo = new AuthorInfo();
-        authorInfo.setAuthorName("张秦");authorInfo.setLabel("南京大学 软件学院");
+        authorInfo.setAuthorName("张秦");
+        authorInfo.setLabel("南京大学 软件学院");
         voice.setAuthorInfo(authorInfo);
         voices.add(voice);
         return voices;
     }
 
-    public static ArrayList<RecommendWork> getRecommendWorks(){
+    public static ArrayList<RecommendWork> getRecommendWorks() {
         ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
         RecommendWork recommendWork = new RecommendWork();
         recommendWork.setTitle("百度质量部-百度云测试开发工程师");
@@ -99,14 +105,15 @@ public class TestData {
         recommendWork.setType(0);
         recommendWork.setDate("2016-03-10");
         AuthorInfo authorInfo = new AuthorInfo();
-        authorInfo.setAuthorId(1);authorInfo.setAuthorName("张小军");
+        authorInfo.setAuthorId(1);
+        authorInfo.setAuthorName("张小军");
         authorInfo.setLabel("南京大学软件学院2014");
         recommendWork.setAuthor(authorInfo);
         recommendWorks.add(recommendWork);
         return recommendWorks;
     }
 
-    public static ArrayList<DynamicCollect> getDynamicCollects(){
+    public static ArrayList<DynamicCollect> getDynamicCollects() {
         ArrayList<DynamicCollect> dynamicCollects = new ArrayList<>();
         DynamicCollect dynamicCollect = new DynamicCollect();
         dynamicCollect.setContent("你咋不上天啦！");
@@ -134,5 +141,26 @@ public class TestData {
         dynamicCollect.setAuthorInfo(authorInfo);
         dynamicCollects.add(dynamicCollect);
         return dynamicCollects;
+    }
+
+    public static ArrayList<ContentComment> getComments(){
+        ArrayList<ContentComment> contentComments = new ArrayList<>();
+        ContentComment contentComment = new ContentComment();
+        AuthorInfo commentAuthor = new AuthorInfo();
+        commentAuthor.setAuthorName("嘉兴西");
+        contentComment.setCommentAuthor(commentAuthor);
+        contentComment.setContent(StringBase64.encode("具体在什么时候什么地点招聘呀！"));
+        contentComment.setDate("2016-3-26 12:34:56");
+        contentComments.add(contentComment);
+
+        ContentComment contentComment1 = new ContentComment();
+        AuthorInfo commentAuthor1 = new AuthorInfo();
+        commentAuthor1.setAuthorName("程冠希");
+        contentComment1.setCommentAuthor(commentAuthor);
+        contentComment1.setContent(StringBase64.encode("具体在什么时候什么地点招聘呀！"));
+        contentComment1.setDate("2016-3-27 12:04:56");
+        contentComments.add(contentComment1);
+        return contentComments;
+
     }
 }

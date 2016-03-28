@@ -3,11 +3,15 @@ package com.nju.http.response;
 import android.util.Log;
 
 import com.nju.fragment.BaseFragment;
+import com.nju.http.request.CommentParam;
+import com.nju.http.request.IdParam;
 import com.nju.http.request.QueryLimit;
 import com.nju.http.request.RequestBodyJson;
 import com.nju.test.TestToken;
 import com.nju.util.CryptUtil;
 import com.nju.util.SchoolFriendGson;
+
+import java.util.ArrayList;
 
 /**
  * Created by cun on 2016/3/24.
@@ -20,7 +24,20 @@ public class QueryJson {
         QueryLimit limit = new QueryLimit();
         limit.setOffset(0);limit.setTotal(20);
         bodyJson.setBody(limit);
-        String json = gson.toJson(bodyJson);
-        return json;
+        return gson.toJson(bodyJson);
+    }
+
+    public static String queryCommentToString(final BaseFragment fragment,ArrayList<IdParam> idParams){
+        RequestBodyJson<ArrayList> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody(idParams);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String commentAuthorToString(final BaseFragment fragment,final CommentParam commentParam){
+        RequestBodyJson<CommentParam> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody(commentParam);
+        return gson.toJson(bodyJson);
     }
 }

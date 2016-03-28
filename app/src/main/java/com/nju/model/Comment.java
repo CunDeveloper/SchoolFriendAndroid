@@ -9,7 +9,7 @@ public class Comment {
     private String content;
     private String cUserName;
     private String reUserName;
-    private String praiseUserName ="";
+    private String praiseUserName = "";
 
     public int getId() {
         return id;

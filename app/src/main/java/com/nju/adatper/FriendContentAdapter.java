@@ -38,13 +38,15 @@ public class FriendContentAdapter extends BaseAdapter {
     private Handler mHandler;
     private ListView mListView;
     private BaseFragment mFragment;
-    public FriendContentAdapter(List<FriendWeibo> list, Context context,Handler handler,ListView listView,BaseFragment fragment) {
+
+    public FriendContentAdapter(List<FriendWeibo> list, Context context, Handler handler, ListView listView, BaseFragment fragment) {
         mWeiBelist = list;
         mContext = context;
         mHandler = handler;
         mListView = listView;
         mFragment = fragment;
     }
+
     @Override
     public int getViewTypeCount() {
 
@@ -56,6 +58,7 @@ public class FriendContentAdapter extends BaseAdapter {
 
         return position;
     }
+
     @Override
     public int getCount() {
         return mWeiBelist.size();
@@ -75,7 +78,7 @@ public class FriendContentAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.school_friend_item,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.school_friend_item, parent, false);
             holder = new ViewHolder();
             holder.mContentTextView = (TextView) convertView.findViewById(R.id.school_friend_item_content);
             holder.headImg = (ImageView) convertView.findViewById(R.id.school_friend_item_headicon_img);
@@ -90,7 +93,7 @@ public class FriendContentAdapter extends BaseAdapter {
             holder.mPublishDate = (TextView) convertView.findViewById(R.id.school_friend_item_publish_date);
             holder.mLocationTextView = (TextView) convertView.findViewById(R.id.school_friend_item_publish_location);
             holder.mCommentListView = (ListView) convertView.findViewById(R.id.school_friend_item_listView);
-            holder.praiseView = LayoutInflater.from(mContext).inflate(R.layout.user_comment_list_header,holder.mCommentListView,false);
+            holder.praiseView = LayoutInflater.from(mContext).inflate(R.layout.user_comment_list_header, holder.mCommentListView, false);
             holder.mPraiseUserTextView = (TextView) holder.praiseView.findViewById(R.id.user_comment_list_header_parise_username);
             holder.mPraiseUserTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,23 +108,23 @@ public class FriendContentAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext, imageView);
-                    listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext, position, mWeiBelist, mHandler, listPopupWindow,mListView));
+                    listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext, position, mWeiBelist, mHandler, listPopupWindow, mListView));
                     listPopupWindow.show();
                 }
             });
 
             SchoolFriendLayoutParams contentLayoutParams = new SchoolFriendLayoutParams(mContext);
-            if(!mFragment.getHostActivity().isPhone()){
+            if (!mFragment.getHostActivity().isPhone()) {
                 holder.mParams = contentLayoutParams.imgParams();
-            }else{
+            } else {
                 Resources resources = mContext.getResources();
                 holder.mParams = contentLayoutParams.imgPhoneParams(resources.getDimension(R.dimen.phone_head_length)
-                ,3*resources.getDimension(R.dimen.phone_apadding));
+                        , 3 * resources.getDimension(R.dimen.phone_apadding));
             }
 
             holder.mLocationParams = contentLayoutParams.locationParams();
 
-            ImageView imageView1 =(ImageView) convertView.findViewById(R.id.school_frien_item_im1);
+            ImageView imageView1 = (ImageView) convertView.findViewById(R.id.school_frien_item_im1);
 
             holder.imageViewList.add(imageView1);
             ImageView imageView2 = (ImageView) convertView.findViewById(R.id.school_frien_item_im2);
@@ -154,8 +157,7 @@ public class FriendContentAdapter extends BaseAdapter {
 
             holder.imageViewList.add(imageView9);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         FriendWeibo friendWeibo = mWeiBelist.get(position);
@@ -163,24 +165,24 @@ public class FriendContentAdapter extends BaseAdapter {
         holder.headImg.setImageDrawable(friendWeibo.getHeadIcon());
         User user = friendWeibo.getUser();
         holder.mUserNameTextView.setText(user.getName());
-        holder.mUserLabel.setText(user.getHigherSchool()+user.getXueYuan()+" "+user.getStartYear());
+        holder.mUserLabel.setText(user.getHigherSchool() + user.getXueYuan() + " " + user.getStartYear());
         holder.mPublishDate.setText(friendWeibo.getPublishDate());
-        if(friendWeibo.getPraiseUserName().equals("")){
+        if (friendWeibo.getPraiseUserName().equals("")) {
             holder.mCommentListView.removeHeaderView(holder.praiseView);
-        }else{
+        } else {
             holder.mPraiseUserTextView.setText(friendWeibo.getPraiseUserName());
-            if(holder.mCommentListView.getHeaderViewsCount()==0){
+            if (holder.mCommentListView.getHeaderViewsCount() == 0) {
                 holder.mCommentListView.addHeaderView(holder.praiseView);
             }
         }
-        holder.mCommentListView.setAdapter(new UserCommentListAdapter(mContext,friendWeibo.getComments()));
-        if(!friendWeibo.getLocation().equals("")){
+        holder.mCommentListView.setAdapter(new UserCommentListAdapter(mContext, friendWeibo.getComments()));
+        if (!friendWeibo.getLocation().equals("")) {
             holder.mLocationTextView.setLayoutParams(holder.mLocationParams);
             holder.mLocationTextView.setText(friendWeibo.getLocation());
         }
         final ArrayList<Bitmap> drawables = friendWeibo.getImages();
         int length = drawables.size();
-        for (int i = 0;i<length;i++) {
+        for (int i = 0; i < length; i++) {
             ImageView imageView = holder.imageViewList.get(i);
             final int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {

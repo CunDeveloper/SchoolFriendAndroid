@@ -10,13 +10,13 @@ import java.io.UnsupportedEncodingException;
 public class StringBase64 {
 
     public static String encode(String str) {
-       return Base64.encodeToString(str.getBytes(), Base64.DEFAULT);
+        return Base64.encodeToString(str.getBytes(), Base64.DEFAULT);
     }
 
-    public static String decode(String str){
-        String result ="";
+    public static String decode(String str) {
+        String result = "";
         try {
-            result = new String(Base64.decode(str, Base64.DEFAULT),Constant.UTF_8);
+            result = new String(Base64.decode(str, Base64.DEFAULT), Constant.UTF_8);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

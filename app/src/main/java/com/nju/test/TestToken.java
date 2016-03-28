@@ -7,7 +7,7 @@ import com.nju.model.AuthenticationAccessToken;
  */
 public class TestToken {
 
-    public static AuthenticationAccessToken getToken(){
+    public static AuthenticationAccessToken getToken() {
         AuthenticationAccessToken accessToken = new AuthenticationAccessToken();
         accessToken.setTokenId("rqPYuXw1J86qSHsj5IzxymUI9jwXpRVo");
         accessToken.setUserId(1);

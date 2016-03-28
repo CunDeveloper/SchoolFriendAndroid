@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,15 +27,24 @@ import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
+import com.nju.http.response.ParseResponse;
+import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniVoice;
+import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
+import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.squareup.okhttp.Call;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +56,9 @@ public class AlumniVoiceFragment extends BaseFragment {
     private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
-    private ArrayList<AlumniVoice> voices;
+    private ArrayList<AlumniVoice> mVoices;
+    private RelativeLayout mFootView;
+    private AlumniVoiceItemAdapter mAlumniVoiceItemAdapter;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -54,6 +66,8 @@ public class AlumniVoiceFragment extends BaseFragment {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
+                Log.e(TAG, error.getMessage());
+                mFootView.setVisibility(View.GONE);
             }
         }
 
@@ -61,7 +75,45 @@ public class AlumniVoiceFragment extends BaseFragment {
         public void onSuccess(String responseBody) {
             if (FragmentUtil.isAttachedToActivity(AlumniVoiceFragment.this)){
                 Log.i(TAG, responseBody);
-                mRefreshLayout.setRefreshing(false);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    Object object = parseResponse.getInfo(responseBody,AlumniVoice.class);
+                    if (object != null){
+                        ArrayList majorAsks = (ArrayList) object;
+                        if (majorAsks.size()>0){
+                            for (Object obj :majorAsks){
+                                 AlumniVoice   alumniVoice = (AlumniVoice) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoice));
+                                mVoices.add(alumniVoice);
+                            }
+                            Collections.sort(mVoices, new Comparator<AlumniVoice>() {
+                                @Override
+                                public int compare(AlumniVoice lhs, AlumniVoice rhs) {
+                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
+                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
+                                    if (lhsTime > rhsTime) {
+                                        return -1;
+                                    } else if (lhsTime < rhsTime) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }
+                            });
+                            int length = mVoices.size();
+                            if (length>10){
+                                for (int i = length-1;i>10;i--){
+                                    mVoices.remove(mVoices.get(i));
+                                }
+                            }
+                            mAlumniVoiceItemAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    mRefreshLayout.setRefreshing(false);
+                    mFootView.setVisibility(View.GONE);
+                }
             }
         }
     };
@@ -94,13 +146,31 @@ public class AlumniVoiceFragment extends BaseFragment {
     }
 
     private void  setListView(View view){
-        voices = TestData.getVoicesData();
+        mVoices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new AlumniVoiceItemAdapter(getContext(), voices));
+        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
+        mFootView.setVisibility(View.GONE);
+        listView.addFooterView(mFootView);
+        mAlumniVoiceItemAdapter = new AlumniVoiceItemAdapter(getContext(), mVoices);
+        listView.setAdapter(mAlumniVoiceItemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetail.newInstance(voices.get(position)));
+                getHostActivity().open(AlumniVoiceItemDetail.newInstance(mVoices.get(position)));
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == (mAlumniVoiceItemAdapter.getCount())) {
+                    mFootView.setVisibility(View.VISIBLE);
+                    updateVoices();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
         final int[] position = {0};
@@ -133,7 +203,10 @@ public class AlumniVoiceFragment extends BaseFragment {
     }
 
     private void updateVoices(){
-        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf","",callback);
+        final String json = QueryJson.queryLimitToString(this);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level=所有";
+        mRequestJson = new PostRequestJson(url,json,callback);
+        Log.i(TAG,url);
         HttpManager.getInstance().exeRequest(mRequestJson);
     }
 
@@ -164,7 +237,7 @@ public class AlumniVoiceFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitle(getString(R.string.tuijian));
+        setTitle(getString(R.string.alumni_heart));
         getHostActivity().display(5);
     }
 
@@ -208,7 +281,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         Set<String> levels = getHostActivity().getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
         Set<String> collegeSet = getHostActivity().getSharedPreferences()
                 .getStringSet(getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = (String[]) collegeSet.toArray(new String[collegeSet.size()]);
+        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
 
         for (String level:levels){
             Log.i(TAG,level);

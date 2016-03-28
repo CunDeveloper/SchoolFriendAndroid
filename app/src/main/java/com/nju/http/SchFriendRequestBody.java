@@ -10,7 +10,7 @@ import okio.BufferedSink;
 /**
  * Created by cun on 2015/12/9.
  */
-public abstract  class SchFriendRequestBody extends RequestBody {
+public abstract class SchFriendRequestBody extends RequestBody {
 
     @Override
     public MediaType contentType() {

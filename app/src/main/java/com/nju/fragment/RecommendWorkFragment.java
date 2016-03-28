@@ -1,9 +1,7 @@
 package com.nju.fragment;
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,18 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ListCallbackSingleChoice;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
-import com.nju.adatper.RecommendWorkAdapter;
 import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
@@ -38,15 +34,12 @@ import com.nju.util.FragmentUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
-
-
 public class RecommendWorkFragment extends BaseFragment {
 
     private static final String TAG = RecommendWorkFragment.class.getSimpleName();
@@ -57,6 +50,7 @@ public class RecommendWorkFragment extends BaseFragment {
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
+    private RelativeLayout mFootView;
 
     private ResponseCallback callback = new ResponseCallback() {
         @Override
@@ -66,7 +60,7 @@ public class RecommendWorkFragment extends BaseFragment {
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
                 Log.e(TAG, error.getMessage());
-                //mFootView.setVisibility(View.GONE);
+                mFootView.setVisibility(View.GONE);
             }
         }
 
@@ -111,7 +105,7 @@ public class RecommendWorkFragment extends BaseFragment {
                     e.printStackTrace();
                 } finally {
                     mRefreshLayout.setRefreshing(false);
-                    //mFootView.setVisibility(View.GONE);
+                    mFootView.setVisibility(View.GONE);
                 }
             }
         }
@@ -193,12 +187,27 @@ public class RecommendWorkFragment extends BaseFragment {
     private void  setListView(View view){
         mRecommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
+        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
+        mFootView.setVisibility(View.GONE);
+        listView.addFooterView(mFootView);
         mRecommendWorkItemAdapter = new RecommendWorkItemAdapter(getContext(), mRecommendWorks);
         listView.setAdapter(mRecommendWorkItemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == (mRecommendWorkItemAdapter.getCount())) {
+                    mFootView.setVisibility(View.VISIBLE);
+                    updateRecommendWork();
+                }
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
         });
         final int[] position = {0};
@@ -237,7 +246,6 @@ public class RecommendWorkFragment extends BaseFragment {
     }
 
     private void openChooseDialog(){
-
         mFloatBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,8 +271,7 @@ public class RecommendWorkFragment extends BaseFragment {
         Set<String> levels = getHostActivity().getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
         Set<String> collegeSet = getHostActivity().getSharedPreferences()
                 .getStringSet(getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = (String[]) collegeSet.toArray(new String[collegeSet.size()]);
-
+        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
         for (String level:levels){
             Log.i(TAG, level);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -275,7 +282,6 @@ public class RecommendWorkFragment extends BaseFragment {
             textView.setText(level);
             if (textView.getText().toString().equals(getString(R.string.undergraduate))){
                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-
             }
             input.addView(textView);
             textView.setOnClickListener(new View.OnClickListener() {

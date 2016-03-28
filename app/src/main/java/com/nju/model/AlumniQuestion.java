@@ -7,6 +7,17 @@ import android.os.Parcelable;
  * Created by xiaojuzhang on 2016/3/17.
  */
 public class AlumniQuestion implements Parcelable {
+    public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
+        @Override
+        public AlumniQuestion createFromParcel(Parcel in) {
+            return new AlumniQuestion(in);
+        }
+
+        @Override
+        public AlumniQuestion[] newArray(int size) {
+            return new AlumniQuestion[size];
+        }
+    };
     private int id;
     private String date;
     private String problem;
@@ -17,8 +28,9 @@ public class AlumniQuestion implements Parcelable {
     private boolean isSolved;
     private int whoScan;
 
-    public AlumniQuestion(){}
 
+    public AlumniQuestion() {
+    }
 
     protected AlumniQuestion(Parcel in) {
         id = in.readInt();
@@ -31,17 +43,9 @@ public class AlumniQuestion implements Parcelable {
         whoScan = in.readInt();
     }
 
-    public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
-        @Override
-        public AlumniQuestion createFromParcel(Parcel in) {
-            return new AlumniQuestion(in);
-        }
-
-        @Override
-        public AlumniQuestion[] newArray(int size) {
-            return new AlumniQuestion[size];
-        }
-    };
+    public static Creator<AlumniQuestion> getCREATOR() {
+        return CREATOR;
+    }
 
     @Override
     public int describeContents() {
@@ -130,9 +134,5 @@ public class AlumniQuestion implements Parcelable {
 
     public void setWhoScan(int whoScan) {
         this.whoScan = whoScan;
-    }
-
-    public static Creator<AlumniQuestion> getCREATOR() {
-        return CREATOR;
     }
 }

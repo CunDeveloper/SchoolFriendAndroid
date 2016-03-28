@@ -12,6 +12,7 @@ public class NonScrollableListView extends ListView {
     public NonScrollableListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // Do not use the highest two bits of Integer.MAX_VALUE because they are

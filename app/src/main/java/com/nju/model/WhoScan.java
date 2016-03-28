@@ -43,10 +43,11 @@ public class WhoScan {
         this.childItems = childItems;
     }
 
-    public static class ChildItem{
+    public static class ChildItem {
         private String childBigLabel;
         private String childSmallLabel;
-        public ChildItem(){
+
+        public ChildItem() {
 
         }
 

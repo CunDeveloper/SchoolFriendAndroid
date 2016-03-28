@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class CircleImageViewAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Bitmap> mImages;
 
-    public CircleImageViewAdapter(FragmentManager fm,ArrayList<Bitmap> images) {
+    public CircleImageViewAdapter(FragmentManager fm, ArrayList<Bitmap> images) {
         super(fm);
         mImages = images;
     }

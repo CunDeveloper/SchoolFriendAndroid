@@ -18,13 +18,24 @@ import java.util.Locale;
  */
 public class CapturePic {
 
-    private final BaseFragment mContent;
-
-    private static String mCurrentPhotoPath;
     public static final int REQUEST_TAKE_PHOTO = 202;
+    private static String mCurrentPhotoPath;
+    private final BaseFragment mContent;
 
     public CapturePic(BaseFragment content) {
         mContent = content;
+    }
+
+    public static void galleryAddPic(BaseFragment context) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        context.getActivity().sendBroadcast(mediaScanIntent);
+    }
+
+    public static String getImgPath() {
+        return mCurrentPhotoPath;
     }
 
     public void dispatchTakePictureIntent() {
@@ -55,18 +66,6 @@ public class CapturePic {
         );
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-    public static void galleryAddPic(BaseFragment context) {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        context.getActivity().sendBroadcast(mediaScanIntent);
-    }
-
-    public static String getImgPath() {
-        return mCurrentPhotoPath;
     }
 
 }

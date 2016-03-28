@@ -2,13 +2,11 @@ package com.nju.adatper;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.nju.View.RoundedTransformation;
@@ -24,6 +22,7 @@ import java.util.ArrayList;
 public class DynamicCollectAdapter extends BaseAdapter {
     private ArrayList<DynamicCollect> mDynamicCollects;
     private Context mContext;
+
     public DynamicCollectAdapter(Context context, ArrayList<DynamicCollect> dynamicCollects) {
         mContext = context;
         mDynamicCollects = dynamicCollects;
@@ -47,8 +46,8 @@ public class DynamicCollectAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.dynamic_collect_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.dynamic_collect_item, parent, false);
             holder = new ViewHolder();
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
             holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
@@ -61,23 +60,23 @@ public class DynamicCollectAdapter extends BaseAdapter {
         DynamicCollect dynamicCollect = mDynamicCollects.get(position);
         holder = (ViewHolder) convertView.getTag();
         Picasso.with(mContext).load(R.drawable.cheese_3)
-                .transform(new RoundedTransformation(R.dimen.small_circle,4))
-                .resizeDimen(R.dimen.small_circle,R.dimen.small_circle).centerCrop()
+                .transform(new RoundedTransformation(30, 4))
+                .resizeDimen(30, 30).centerCrop()
                 .into(holder.headImg);
         holder.nameTV.setText(dynamicCollect.getAuthorInfo().getAuthorName());
         holder.labelTV.setText(dynamicCollect.getAuthorInfo().getLabel());
-        if (dynamicCollect.getContent()!=null){
+        if (dynamicCollect.getContent() != null) {
             holder.contentTV.setText(dynamicCollect.getContent());
-        }else {
-            holder.contentImg.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(),R.drawable.cheese_2));
+        } else {
+            holder.contentImg.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.cheese_2));
         }
 
         holder.dateTV.setText(dynamicCollect.getDate());
         return convertView;
     }
 
-    private class ViewHolder{
-        private ImageView headImg,contentImg;
-        private TextView nameTV,labelTV,dateTV,contentTV;
+    private class ViewHolder {
+        private ImageView headImg, contentImg;
+        private TextView nameTV, labelTV, dateTV, contentTV;
     }
 }

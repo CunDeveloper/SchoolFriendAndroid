@@ -16,7 +16,7 @@ public class SchoolFriendListView extends ListView {
     private static final String TAG = SchoolFriendListView.class.getSimpleName();
     private int mTouchSlop;
     private ViewConfiguration mViewConfiguration;
-    private  boolean mIsScrolling;
+    private boolean mIsScrolling;
     private int startP;
     private int endP;
 
@@ -45,18 +45,18 @@ public class SchoolFriendListView extends ListView {
         }
 
         switch (action) {
-            case MotionEvent.ACTION_DOWN:{
+            case MotionEvent.ACTION_DOWN: {
                 startP = (int) ev.getY();
                 return true;
             }
-            case MotionEvent.ACTION_MOVE:{
+            case MotionEvent.ACTION_MOVE: {
                 if (mIsScrolling) {
                     return true;
                 }
                 endP = (int) ev.getY();
-                Toast.makeText(getContext(), "starp=" + startP + "==" + "endP=" + endP,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "starp=" + startP + "==" + "endP=" + endP, Toast.LENGTH_SHORT).show();
                 final int yDiff = endP - startP;
-                if (yDiff > mTouchSlop && getFirstVisiblePosition()!=0) {
+                if (yDiff > mTouchSlop && getFirstVisiblePosition() != 0) {
                     // Start scrolling!
                     mIsScrolling = true;
                     return true;

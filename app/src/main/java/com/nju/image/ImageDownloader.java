@@ -20,24 +20,91 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This helper class download images from the Internet and binds those with the provided ImageView.
- *
+ * <p/>
  * <p>It requires the INTERNET permission, which should be added to your application's manifest
  * file.</p>
- *
+ * <p/>
  * A local cache of downloaded images is maintained internally to improve performance.
  */
 public class ImageDownloader {
     private static final String TAG = ImageDownloader.class.getSimpleName();
+    private static final int HARD_CACHE_CAPACITY = 10;
+    private static final int DELAY_BEFORE_PURGE = 10 * 1000; // in milliseconds
+    // Soft cache for bitmaps kicked out of hard cache
+    private final static ConcurrentHashMap<String, SoftReference<Bitmap>> sSoftBitmapCache =
+            new ConcurrentHashMap<String, SoftReference<Bitmap>>(HARD_CACHE_CAPACITY / 2);
 
-    public enum Mode { NO_ASYNC_TASK, NO_DOWNLOADED_DRAWABLE, CORRECT }
+    /*
+     * Same as download but the image is always downloaded and the cache is not used.
+     * Kept private at the moment as its interest is not clear.
+       private void forceDownload(String url, ImageView view) {
+          forceDownload(url, view, null);
+       }
+     */
+    // Hard cache, with a fixed maximum capacity and a life duration
+    private final HashMap<String, Bitmap> sHardBitmapCache =
+            new LinkedHashMap<String, Bitmap>(HARD_CACHE_CAPACITY / 2, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(LinkedHashMap.Entry<String, Bitmap> eldest) {
+                    if (size() > HARD_CACHE_CAPACITY) {
+                        // Entries push-out of hard reference cache are transferred to soft reference cache
+                        sSoftBitmapCache.put(eldest.getKey(), new SoftReference<Bitmap>(eldest.getValue()));
+                        return true;
+                    } else
+                        return false;
+                }
+            };
+    private final Handler purgeHandler = new Handler();
+    private final Runnable purger = new Runnable() {
+        public void run() {
+            clearCache();
+        }
+    };
     private Mode mode = Mode.NO_ASYNC_TASK;
+
+    /**
+     * Returns true if the current download has been canceled or if there was no download in
+     * progress on this image view.
+     * Returns false if the download in progress deals with the same url. The download is not
+     * stopped in that case.
+     */
+    private static boolean cancelPotentialDownload(String url, ImageView imageView) {
+        BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
+
+        if (bitmapDownloaderTask != null) {
+            String bitmapUrl = bitmapDownloaderTask.url;
+            if ((bitmapUrl == null) || (!bitmapUrl.equals(url))) {
+                bitmapDownloaderTask.cancel(true);
+            } else {
+                // The same URL is already being downloaded.
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param imageView Any imageView
+     * @return Retrieve the currently active download task (if any) associated with this imageView.
+     * null if there is no such task.
+     */
+    private static BitmapDownloaderTask getBitmapDownloaderTask(ImageView imageView) {
+        if (imageView != null) {
+            Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof DownloadedDrawable) {
+                DownloadedDrawable downloadedDrawable = (DownloadedDrawable) drawable;
+                return downloadedDrawable.getBitmapDownloaderTask();
+            }
+        }
+        return null;
+    }
 
     /**
      * Download the specified image from the Internet and binds it to the provided ImageView. The
      * binding is immediate if the image is found in the cache and will be done asynchronously
      * otherwise. A null bitmap will be associated to the ImageView if an error occurs.
      *
-     * @param url The URL of the image to download.
+     * @param url       The URL of the image to download.
      * @param imageView The ImageView to bind the downloaded image to.
      */
     public void download(String url, ImageView imageView) {
@@ -52,12 +119,12 @@ public class ImageDownloader {
         }
     }
 
+
     /*
-     * Same as download but the image is always downloaded and the cache is not used.
-     * Kept private at the moment as its interest is not clear.
-       private void forceDownload(String url, ImageView view) {
-          forceDownload(url, view, null);
-       }
+     * Cache-related fields and methods.
+     *
+     * We use a hard and a soft cache. A soft reference cache is too aggressively cleared by the
+     * Garbage Collector.
      */
 
     /**
@@ -96,117 +163,14 @@ public class ImageDownloader {
         }
     }
 
-    /**
-     * Returns true if the current download has been canceled or if there was no download in
-     * progress on this image view.
-     * Returns false if the download in progress deals with the same url. The download is not
-     * stopped in that case.
-     */
-    private static boolean cancelPotentialDownload(String url, ImageView imageView) {
-        BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
-
-        if (bitmapDownloaderTask != null) {
-            String bitmapUrl = bitmapDownloaderTask.url;
-            if ((bitmapUrl == null) || (!bitmapUrl.equals(url))) {
-                bitmapDownloaderTask.cancel(true);
-            } else {
-                // The same URL is already being downloaded.
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param imageView Any imageView
-     * @return Retrieve the currently active download task (if any) associated with this imageView.
-     * null if there is no such task.
-     */
-    private static BitmapDownloaderTask getBitmapDownloaderTask(ImageView imageView) {
-        if (imageView != null) {
-            Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof DownloadedDrawable) {
-                DownloadedDrawable downloadedDrawable = (DownloadedDrawable)drawable;
-                return downloadedDrawable.getBitmapDownloaderTask();
-            }
-        }
-        return null;
-    }
-
     Bitmap downloadBitmap(String url) {
         final int IO_BUFFER_SIZE = 4 * 1024;
         try {
             final InputStream inputStream = SchoolFriendHttp.getInstance().SynGetStream(url);
-            return ImageUtil.decodeSampledBitmapFromStream(inputStream,100,100);
+            return ImageUtil.decodeSampledBitmapFromStream(inputStream, 100, 100);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-
-    /**
-     * The actual AsyncTask that will asynchronously download the image.
-     */
-    class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
-        private String url;
-        private final WeakReference<ImageView> imageViewReference;
-
-        public BitmapDownloaderTask(ImageView imageView) {
-            imageViewReference = new WeakReference<ImageView>(imageView);
-        }
-
-        /**
-         * Actual download method.
-         */
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            url = params[0];
-            return downloadBitmap(url);
-        }
-
-        /**
-         * Once the image is downloaded, associates it to the imageView
-         */
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (isCancelled()) {
-                bitmap = null;
-            }
-
-            addBitmapToCache(url, bitmap);
-
-            if (imageViewReference != null) {
-                ImageView imageView = imageViewReference.get();
-                BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
-                // Change bitmap only if this process is still associated with it
-                // Or if we don't use any bitmap to task association (NO_DOWNLOADED_DRAWABLE mode)
-                if ((this == bitmapDownloaderTask) || (mode != Mode.CORRECT)) {
-                    imageView.setImageBitmap(bitmap);
-                }
-            }
-        }
-    }
-
-
-    /**
-     * A fake Drawable that will be attached to the imageView while the download is in progress.
-     *
-     * <p>Contains a reference to the actual download task, so that a download task can be stopped
-     * if a new binding is required, and makes sure that only the last started download process can
-     * bind its result, independently of the download finish order.</p>
-     */
-    static class DownloadedDrawable extends ColorDrawable {
-        private final WeakReference<BitmapDownloaderTask> bitmapDownloaderTaskReference;
-
-        public DownloadedDrawable(BitmapDownloaderTask bitmapDownloaderTask) {
-            super(Color.BLACK);
-            bitmapDownloaderTaskReference =
-                    new WeakReference<BitmapDownloaderTask>(bitmapDownloaderTask);
-        }
-
-        public BitmapDownloaderTask getBitmapDownloaderTask() {
-            return bitmapDownloaderTaskReference.get();
         }
     }
 
@@ -215,45 +179,9 @@ public class ImageDownloader {
         clearCache();
     }
 
-
-    /*
-     * Cache-related fields and methods.
-     *
-     * We use a hard and a soft cache. A soft reference cache is too aggressively cleared by the
-     * Garbage Collector.
-     */
-
-    private static final int HARD_CACHE_CAPACITY = 10;
-    private static final int DELAY_BEFORE_PURGE = 10 * 1000; // in milliseconds
-
-    // Hard cache, with a fixed maximum capacity and a life duration
-    private final HashMap<String, Bitmap> sHardBitmapCache =
-            new LinkedHashMap<String, Bitmap>(HARD_CACHE_CAPACITY / 2, 0.75f, true) {
-                @Override
-                protected boolean removeEldestEntry(LinkedHashMap.Entry<String, Bitmap> eldest) {
-                    if (size() > HARD_CACHE_CAPACITY) {
-                        // Entries push-out of hard reference cache are transferred to soft reference cache
-                        sSoftBitmapCache.put(eldest.getKey(), new SoftReference<Bitmap>(eldest.getValue()));
-                        return true;
-                    } else
-                        return false;
-                }
-            };
-
-    // Soft cache for bitmaps kicked out of hard cache
-    private final static ConcurrentHashMap<String, SoftReference<Bitmap>> sSoftBitmapCache =
-            new ConcurrentHashMap<String, SoftReference<Bitmap>>(HARD_CACHE_CAPACITY / 2);
-
-    private final Handler purgeHandler = new Handler();
-
-    private final Runnable purger = new Runnable() {
-        public void run() {
-            clearCache();
-        }
-    };
-
     /**
      * Adds this bitmap to the cache.
+     *
      * @param bitmap The newly downloaded bitmap.
      */
     private void addBitmapToCache(String url, Bitmap bitmap) {
@@ -312,5 +240,71 @@ public class ImageDownloader {
     private void resetPurgeTimer() {
         purgeHandler.removeCallbacks(purger);
         purgeHandler.postDelayed(purger, DELAY_BEFORE_PURGE);
+    }
+
+    public enum Mode {NO_ASYNC_TASK, NO_DOWNLOADED_DRAWABLE, CORRECT}
+
+    /**
+     * A fake Drawable that will be attached to the imageView while the download is in progress.
+     * <p/>
+     * <p>Contains a reference to the actual download task, so that a download task can be stopped
+     * if a new binding is required, and makes sure that only the last started download process can
+     * bind its result, independently of the download finish order.</p>
+     */
+    static class DownloadedDrawable extends ColorDrawable {
+        private final WeakReference<BitmapDownloaderTask> bitmapDownloaderTaskReference;
+
+        public DownloadedDrawable(BitmapDownloaderTask bitmapDownloaderTask) {
+            super(Color.BLACK);
+            bitmapDownloaderTaskReference =
+                    new WeakReference<BitmapDownloaderTask>(bitmapDownloaderTask);
+        }
+
+        public BitmapDownloaderTask getBitmapDownloaderTask() {
+            return bitmapDownloaderTaskReference.get();
+        }
+    }
+
+    /**
+     * The actual AsyncTask that will asynchronously download the image.
+     */
+    class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        private String url;
+
+        public BitmapDownloaderTask(ImageView imageView) {
+            imageViewReference = new WeakReference<ImageView>(imageView);
+        }
+
+        /**
+         * Actual download method.
+         */
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            url = params[0];
+            return downloadBitmap(url);
+        }
+
+        /**
+         * Once the image is downloaded, associates it to the imageView
+         */
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            addBitmapToCache(url, bitmap);
+
+            if (imageViewReference != null) {
+                ImageView imageView = imageViewReference.get();
+                BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
+                // Change bitmap only if this process is still associated with it
+                // Or if we don't use any bitmap to task association (NO_DOWNLOADED_DRAWABLE mode)
+                if ((this == bitmapDownloaderTask) || (mode != Mode.CORRECT)) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
     }
 }

@@ -18,17 +18,17 @@ import com.nju.activity.R;
  */
 public class CommentDialog extends DialogFragment {
 
-    public CommentDialog(){
+    public CommentDialog() {
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.user_comment,container);
+        View view = inflater.inflate(R.layout.user_comment, container);
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        window.setGravity(Gravity.TOP| Gravity.LEFT);
+        window.setGravity(Gravity.TOP | Gravity.LEFT);
         params.x = 150;
         params.y = 150;
         window.setAttributes(params);

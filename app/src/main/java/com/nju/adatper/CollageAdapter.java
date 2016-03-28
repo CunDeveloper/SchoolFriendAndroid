@@ -17,7 +17,7 @@ public class CollageAdapter extends BaseAdapter {
     private Context mContext;
     private String[] mColleges;
 
-    public CollageAdapter(Context context,String[] colleges) {
+    public CollageAdapter(Context context, String[] colleges) {
         mContext = context;
         mColleges = colleges;
     }
@@ -40,9 +40,9 @@ public class CollageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.college_item,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.college_item, parent, false);
             holder.mNameTv = (TextView) convertView;
             convertView.setTag(holder);
         }
@@ -51,7 +51,7 @@ public class CollageAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         private TextView mNameTv;
     }
 }

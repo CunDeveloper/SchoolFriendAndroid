@@ -8,32 +8,45 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.nju.activity.R;
+import com.nju.adatper.AlumniVoiceItemAdapter;
 import com.nju.adatper.MajorAskAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
+import com.nju.http.response.ParseResponse;
+import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniQuestion;
+import com.nju.model.AlumniVoice;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
+import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.squareup.okhttp.Call;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class MajorAskFragment extends BaseFragment {
     private static final String TAG = MajorAskFragment.class.getSimpleName();
-    private ArrayList<AlumniQuestion> questions;
-    private Call mCall;
     private SwipeRefreshLayout mRefreshLayout;
     private PostRequestJson mRequestJson;
+    private ArrayList<AlumniQuestion> mAlumniQuestions;
+    private RelativeLayout mFootView;
+    private MajorAskAdapter mMajorAskAdapter ;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -41,6 +54,8 @@ public class MajorAskFragment extends BaseFragment {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
+                Log.e(TAG, error.getMessage());
+                mFootView.setVisibility(View.GONE);
             }
         }
 
@@ -48,7 +63,45 @@ public class MajorAskFragment extends BaseFragment {
         public void onSuccess(String responseBody) {
             if (FragmentUtil.isAttachedToActivity(MajorAskFragment.this)){
                 Log.i(TAG, responseBody);
-                mRefreshLayout.setRefreshing(false);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    Object object = parseResponse.getInfo(responseBody,AlumniQuestion.class);
+                    if (object != null){
+                        ArrayList majorAsks = (ArrayList) object;
+                        if (majorAsks.size()>0){
+                            for (Object obj :majorAsks){
+                                AlumniQuestion   alumniQuestion = (AlumniQuestion) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestion));
+                                mAlumniQuestions.add(alumniQuestion);
+                            }
+                            Collections.sort(mAlumniQuestions, new Comparator<AlumniQuestion>() {
+                                @Override
+                                public int compare(AlumniQuestion lhs, AlumniQuestion rhs) {
+                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
+                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
+                                    if (lhsTime > rhsTime) {
+                                        return -1;
+                                    } else if (lhsTime < rhsTime) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }
+                            });
+                            int length = mAlumniQuestions.size();
+                            if (length>10){
+                                for (int i = length-1;i>10;i--){
+                                    mAlumniQuestions.remove(mAlumniQuestions.get(i));
+                                }
+                            }
+                            mMajorAskAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    mRefreshLayout.setRefreshing(false);
+                    mFootView.setVisibility(View.GONE);
+                }
             }
         }
     };
@@ -114,7 +167,10 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     private void updateMajorAsk() {
-        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf","",callback);
+        final String json = QueryJson.queryLimitToString(this);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW+"?level=所有";
+        mRequestJson = new PostRequestJson(url,json,callback);
+        Log.i(TAG,url);
         HttpManager.getInstance().exeRequest(mRequestJson);
     }
 
@@ -136,13 +192,32 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        questions = TestData.getQlumniQuestions();
+        mAlumniQuestions = TestData.getQlumniQuestions();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new MajorAskAdapter(getContext(), questions));
+        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
+        mFootView.setVisibility(View.GONE);
+        listView.addFooterView(mFootView);
+        mMajorAskAdapter = new MajorAskAdapter(getContext(), mAlumniQuestions);
+        listView.setAdapter(mMajorAskAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(MajorAskDetailFragment.newInstance(questions.get(position)));
+                getHostActivity().open(MajorAskDetailFragment.newInstance(mAlumniQuestions.get(position)));
+            }
+        });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == (mMajorAskAdapter.getCount())) {
+                    mFootView.setVisibility(View.VISIBLE);
+                    updateMajorAsk();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
     }

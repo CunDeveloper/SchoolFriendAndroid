@@ -1,6 +1,7 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniVoice;
+import com.nju.util.Constant;
+import com.nju.util.DateUtil;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by cun on 2016/3/15.
@@ -46,7 +51,7 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.alumni_voice_item,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.alumni_voice_item, parent, false);
             holder.nameTV = (TextView) convertView.findViewById(R.id.alumni_vo_name);
             holder.labelTV = (TextView) convertView.findViewById(R.id.alumni_vo_label);
             holder.titleTV = (TextView) convertView.findViewById(R.id.alumni_vo_title);
@@ -58,17 +63,27 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         }
         AlumniVoice voice = mVoices.get(position);
         holder = (ViewHolder) convertView.getTag();
-        holder.commentTV.setText(voice.getCommentCount()+"");
-        holder.praiseCountTV.setText(voice.getPraiseCount()+"");
-        holder.titleTV.setText(voice.getTitle());
-        holder.dateTV.setText(voice.getDate());
+        holder.commentTV.setText(voice.getCommentCount() + "");
+        holder.praiseCountTV.setText(voice.getPraiseCount() + "");
+        try{
+            holder.titleTV.setText(StringBase64.decode(voice.getTitle()));
+        }catch (IllegalArgumentException e){
+            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+        final long time = DateUtil.getTime(voice.getDate());
+        final String date = DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
+        holder.dateTV.setText(date);
         holder.labelTV.setText(voice.getAuthorInfo().getLabel());
         holder.nameTV.setText(voice.getAuthorInfo().getAuthorName());
-        holder.simpleDescTV.setText(voice.getContent());
+        try{
+            holder.simpleDescTV.setText(StringBase64.decode(voice.getContent()));
+        }catch (IllegalArgumentException e){
+            holder.simpleDescTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         private ImageView headImg;
         private TextView nameTV;
         private TextView labelTV;

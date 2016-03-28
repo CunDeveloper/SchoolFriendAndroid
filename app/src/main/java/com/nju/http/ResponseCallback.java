@@ -15,9 +15,11 @@ import java.io.IOException;
  */
 public abstract class ResponseCallback implements Callback {
 
-    abstract public void onFail(final Exception error);
-    abstract public void onSuccess(final String responseBody);
     private static final String TAG = ResponseCallback.class.getSimpleName();
+
+    abstract public void onFail(final Exception error);
+
+    abstract public void onSuccess(final String responseBody);
 
     @Override
     public void onFailure(final Request request, final IOException e) {
@@ -37,10 +39,10 @@ public abstract class ResponseCallback implements Callback {
     @Override
     public void onResponse(final Response response) throws IOException {
         if (!response.isSuccessful()) {
-            if (response.body() != null){
+            if (response.body() != null) {
                 onFailure(response.request(), new IOException(response.body().string()));
             } else {
-                onFailure(response.request(),new IOException("unknown error"));
+                onFailure(response.request(), new IOException("unknown error"));
             }
             return;
         }
