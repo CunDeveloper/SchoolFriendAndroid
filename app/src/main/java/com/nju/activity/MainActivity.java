@@ -40,15 +40,22 @@ import com.nju.fragment.SettingFragment;
 import com.nju.fragment.XueXinAuthFragment;
 import com.nju.test.TestData;
 import com.nju.test.TestToken;
+import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.CryptUtil;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendGson;
+import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.mail.event.MessageChangedEvent;
 
 
 public class MainActivity extends BaseActivity {
@@ -109,6 +116,7 @@ public class MainActivity extends BaseActivity {
     public void onStart() {
         super.onStart();
         initFinalValue();
+        EventBus.getDefault().register(this);
     }
 
     private void initNavigationViewListener () {
@@ -165,6 +173,7 @@ public class MainActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -333,5 +342,18 @@ public class MainActivity extends BaseActivity {
     }
     private void initDataBase(){
         SchoolFriendDbHelper.newInstance(this);
+    }
+
+    @Subscribe
+    public void onNetStateMessageState(NetworkStateChanged event){
+        if (! event.isInternetConnected()){
+            ToastUtil.showShortText(this,getString(R.string.network_connect_unavaible));
+        }
+    }
+
+    @Override
+    public void onStop(){
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }

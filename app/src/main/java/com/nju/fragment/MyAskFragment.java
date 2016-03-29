@@ -13,13 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.PersonAskAdapter;
-import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniQuestion;
 import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
@@ -28,9 +27,11 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
-import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -145,13 +146,13 @@ public class MyAskFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this,callback, Constant.ALL);
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this,callback, Constant.ALL);
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
             }
         });
     }
@@ -175,9 +176,9 @@ public class MyAskFragment extends BaseFragment {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == (askAdapter.getCount())){
+                if (view.getLastVisiblePosition() == (askAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this,callback, Constant.ALL);
+                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
                 }
             }
 
@@ -186,6 +187,13 @@ public class MyAskFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Subscribe
+    public void onNetStateMessageState(NetworkInfoEvent event){
+        if (event.isConnected()){
+            mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
+        }
     }
 
     @Override
@@ -201,7 +209,14 @@ public class MyAskFragment extends BaseFragment {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void onStop(){
+        EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestJson != null)
             CloseRequestUtil.close(mRequestJson);

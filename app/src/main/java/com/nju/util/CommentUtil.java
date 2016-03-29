@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdapter;
+import com.nju.fragment.BaseFragment;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,28 @@ public class CommentUtil {
         viewPager.setAdapter(new EmotionPageAdapter(fragment.getChildFragmentManager(), fragment.getClass().getSimpleName()));
     }
 
-    public static EditText getCommentEdit(final View view) {
+//    public static EditText getCommentEdit(final  View view) {
+//        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
+//        EditText editText = (EditText) view.findViewById(R.id.comment_edittext);
+//        editText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mEmotionLineLayout.setVisibility(View.GONE);
+//            }
+//        });
+//        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                mEmotionLineLayout.setVisibility(View.GONE);
+//            }
+//        });
+//        return editText;
+//    }
+
+    public static EditText getCommentEdit(BaseFragment fragment,final View view) {
+        hideSoft(fragment.getContext(), view);
+        initViewPager(fragment,view);
+        addViewPageEvent(fragment.getContext(),view);
         final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
         EditText editText = (EditText) view.findViewById(R.id.comment_edittext);
         editText.setOnClickListener(new View.OnClickListener() {

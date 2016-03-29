@@ -36,6 +36,14 @@ public class AlumniVoiceService {
         HttpManager.getInstance().exeRequest(mRequestQueryJson);
         return mRequestQueryJson;
     }
+    public static PostRequestJson queryVoices(BaseFragment fragment,Callback callback,final String level){
+        final String json = QueryJson.queryLimitToString(fragment);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level="+level;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.i(TAG,url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
 
     public static PostRequestJson queryPraise(BaseFragment fragment,int id,Callback callback){
         ArrayList<IdParam> idParams = new ArrayList<>();

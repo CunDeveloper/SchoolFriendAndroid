@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.event.MessageEventId;
@@ -163,12 +164,9 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         mMainView = inflater.inflate(R.layout.fragment_recommend_work_item_detail, container, false);
         mMainView.setPadding(mMainView.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), mMainView.getPaddingRight(), mMainView.getPaddingBottom());
         initView(mMainView);
-        mContentEditText = CommentUtil.getCommentEdit(mMainView);
         findJobClick(mMainView);
         askJob(mMainView);
-        CommentUtil.hideSoft(getContext(), mMainView);
-        CommentUtil.initViewPager(this, mMainView);
-        CommentUtil.addViewPageEvent(getContext(), mMainView);
+        mContentEditText = CommentUtil.getCommentEdit(this,mMainView);
         mRequestQueryJson = RecommendWorkService.querySingleComment(this,mRecommendWork.getId(),queryCommentCallback);
         return mMainView;
     }
@@ -265,20 +263,27 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
 
     private void askJob(final View view ){
         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.mScrollView);
-        final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.new_comment_layout);
+        final ListView listView = (ListView) view.findViewById(R.id.new_comment_listview);
         TextView textView = (TextView) view.findViewById(R.id.re_work_item_ask_tv);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
                 SoftInput.open(getContext());
-                scrollView.scrollTo(0, linearLayout.getBottom());
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.scrollTo(0, listView.getBottom());
+                    }
+                });
             }
         });
     }
-
-    private void inputComment(View view){
-
+    @Subscribe
+    public void onNetStateMessageState(NetworkInfoEvent event){
+        if (event.isConnected()){
+            mRequestQueryJson = RecommendWorkService.querySingleComment(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(), queryCommentCallback);
+        }
     }
 
     @Subscribe

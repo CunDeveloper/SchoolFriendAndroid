@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
@@ -87,7 +88,6 @@ public class AlumniVoiceItemDetail extends BaseFragment {
                 Log.e(TAG,error.getMessage());
             }
         }
-
         @Override
         public void onSuccess(String responseBody) {
             if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
@@ -105,7 +105,6 @@ public class AlumniVoiceItemDetail extends BaseFragment {
                 Log.e(TAG,error.getMessage());
             }
         }
-
         @Override
         public void onSuccess(String responseBody) {
             if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetail.this)){
@@ -204,10 +203,7 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         initToolBar(view);
-        CommentUtil.hideSoft(getContext(), view);
-        CommentUtil.initViewPager(this, view);
-        CommentUtil.addViewPageEvent(getContext(),view);
-        mContentEditText = CommentUtil.getCommentEdit(view);
+        mContentEditText = CommentUtil.getCommentEdit(this,view);
         return view;
     }
 
@@ -326,6 +322,14 @@ public class AlumniVoiceItemDetail extends BaseFragment {
     }
 
     @Subscribe
+    public void onNetStateMessageState(NetworkInfoEvent event){
+        if (event.isConnected()){
+            mRequestQueryJson = AlumniVoiceService.queryComment(AlumniVoiceItemDetail.this, mVoice.getId(), queryCommentCallback);
+            mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(AlumniVoiceItemDetail.this, mVoice.getId(), queryPraiseCallback);
+        }
+    }
+
+    @Subscribe
     public void onMessageEvent(MessageEventId event){
         commentType = event.getId();
         final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
@@ -348,5 +352,4 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         if (mRequestQueryPraiseJson != null)
             CloseRequestUtil.close(mRequestQueryPraiseJson);
     }
-
 }

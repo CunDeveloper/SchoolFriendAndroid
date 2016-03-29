@@ -1,9 +1,6 @@
 package com.nju.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +15,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
@@ -29,6 +27,7 @@ import com.nju.model.AlumniVoice;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
+import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -37,7 +36,6 @@ import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.SchoolFriendGson;
-import com.nju.util.ShareUtil;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
@@ -45,12 +43,8 @@ import com.nju.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
 
 public class PersonAlumniVoiceItemDetail extends BaseFragment {
     public static final String TAG = PersonAlumniVoiceItemDetail.class.getSimpleName();
@@ -191,10 +185,7 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         initToolBar(view);
-        CommentUtil.hideSoft(getContext(), view);
-        CommentUtil.initViewPager(this, view);
-        CommentUtil.addViewPageEvent(getContext(),view);
-        mContentEditText = CommentUtil.getCommentEdit(view);
+        mContentEditText = CommentUtil.getCommentEdit(this,view);
         return view;
     }
 
@@ -266,11 +257,15 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this,mVoice.getId(),queryPraiseCallback);
     }
 
-
+    @Subscribe
+    public void onNetStateMessageState(NetworkInfoEvent event){
+        if (event.isConnected()){
+            mRequestQueryJson = AlumniVoiceService.queryComment(this,mVoice.getId(),queryCommentCallback);
+            mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this, mVoice.getId(), queryPraiseCallback);
+        }
+    }
 
     private void initToolBar(final View view){
-
-        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
     }
 
     @Override

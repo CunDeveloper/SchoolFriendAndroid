@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.event.MessageEventId;
@@ -24,6 +25,7 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
 import com.nju.model.RecommendWork;
+import com.nju.service.AlumniVoiceService;
 import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -188,10 +190,7 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         mMainView = view;
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
-        mContentEditText = CommentUtil.getCommentEdit(view);
-        CommentUtil.hideSoft(getContext(), view);
-        CommentUtil.initViewPager(this, view);
-        CommentUtil.addViewPageEvent(getContext(), view);
+        mContentEditText = CommentUtil.getCommentEdit(this,view);
         initToolBar(view);
         mRequestQueryJson = RecommendWorkService.querySingleComment(this,mRecommendWork.getId(),queryCommentCallback);
         return view;
@@ -271,6 +270,13 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
                 CommentUtil.closeSoftKey(getContext(),view);
             }
         });
+    }
+
+    @Subscribe
+    public void onNetStateMessageState(NetworkInfoEvent event){
+        if (event.isConnected()){
+            mRequestQueryJson = RecommendWorkService.querySingleComment(this, mRecommendWork.getId(), queryCommentCallback);
+        }
     }
 
     @Subscribe

@@ -71,4 +71,8 @@ public class Constant {
     public static final String DD = "dd";
     public static final String MM = "MM";
     public static final String ALL = "所有";
+
+    public static final String WIFI = "wifi";
+    public static final String MOBILE = "mobile";
+    public static final String OTHER = "other";
 }

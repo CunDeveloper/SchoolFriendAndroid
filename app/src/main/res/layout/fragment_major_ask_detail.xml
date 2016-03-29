@@ -86,7 +86,6 @@
                             />
                         <include layout="@layout/new_comment"/>
                     </LinearLayout>
-
             </ScrollView>
             <include layout="@layout/tool_bar"/>
         </RelativeLayout>

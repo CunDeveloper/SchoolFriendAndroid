@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniVoiceItemAdapter;
 import com.nju.adatper.AlumniVoiceViewPage;
@@ -31,8 +32,11 @@ import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniVoice;
 import com.nju.model.RecommendWork;
+import com.nju.service.AlumniVoiceService;
+import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
+import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
@@ -40,6 +44,9 @@ import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.squareup.okhttp.Call;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -164,10 +171,9 @@ public class AlumniVoiceFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mAlumniVoiceItemAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    updateVoices();
+                    mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
                 }
             }
-
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -184,7 +190,7 @@ public class AlumniVoiceFragment extends BaseFragment {
                     @Override
                     public void run() {
                         mRefreshLayout.setRefreshing(true);
-                        updateVoices();
+                        mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
                     }
                 });
                 setTitle(charSequence.toString());
@@ -202,13 +208,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         });
     }
 
-    private void updateVoices(){
-        final String json = QueryJson.queryLimitToString(this);
-        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level=所有";
-        mRequestJson = new PostRequestJson(url,json,callback);
-        Log.i(TAG,url);
-        HttpManager.getInstance().exeRequest(mRequestJson);
-    }
+
 
     private void setUpOnRefreshListener(View view){
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -216,19 +216,33 @@ public class AlumniVoiceFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                updateVoices();
+                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateVoices();
+                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
             }
         });
     }
 
+    @Subscribe
+    public void onNetStateMessageState(NetworkInfoEvent event){
+        if (event.isConnected()){
+            mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, Constant.ALL);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
     @Override
     public void onStop(){
+        EventBus.getDefault().unregister(this);
         super.onStop();
         CloseRequestUtil.close(mRequestJson);
     }

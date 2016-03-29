@@ -182,5 +182,6 @@
     <string name="comment_ok">评论成功</string>
     <string name="authorId">authorId</string>
     <string name="you_have_praised">你已经点赞过,不能重复点赞</string>
+    <string name="network_connect_unavaible">网络连接不可用</string>
 
 </resources>

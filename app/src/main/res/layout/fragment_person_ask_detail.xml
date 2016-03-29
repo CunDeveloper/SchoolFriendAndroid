@@ -14,14 +14,15 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/phone_item_height"
+                android:id="@+id/myScrollView"
                 android:layout_alignParentTop="true"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="vertical"
+                    android:paddingBottom="350dp"
                     android:layout_height="wrap_content">
-                    <TextView
+                    <com.nju.View.SchoolFriendTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/phone_apadding"
@@ -32,7 +33,7 @@
                         android:id="@+id/problem_tv"
                         />
 
-                    <TextView
+                    <com.nju.View.SchoolFriendTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/phone_apadding"
@@ -46,7 +47,7 @@
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:paddingTop="@dimen/phone_apadding"
-                        android:paddingBottom="@dimen/phone_item_height"
+                        android:paddingBottom="@dimen/phone_apadding"
                         android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
@@ -77,8 +78,13 @@
                             android:id="@+id/date_tv"
                             />
                     </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/padding_left"
+                        android:background="@color/light_gray"
+                        />
+                    <include layout="@layout/new_comment"/>
                 </LinearLayout>
-
             </ScrollView>
             <include layout="@layout/person_item_tool_bar"/>
         </RelativeLayout>

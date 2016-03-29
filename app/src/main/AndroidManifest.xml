@@ -45,16 +45,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <activity
-            android:name=".WebViewActivity"
-            android:label="@string/title_activity_web_view" >
-        </activity>
-        <activity
-            android:theme="@style/activityTheme"
-            android:name=".RecommendWorkActivity"
-            android:label="@string/title_activity_recommend_work" >
-        </activity>
+        <receiver android:name=".NetworkStateReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
