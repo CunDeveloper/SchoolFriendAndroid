@@ -20,6 +20,7 @@ import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
+import com.nju.db.db.service.AlumniVoiceCollectDbService;
 import com.nju.event.MessageEventId;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
@@ -39,6 +40,7 @@ import com.nju.util.FragmentUtil;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ShareUtil;
 import com.nju.util.SoftInput;
+import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
 
@@ -152,6 +154,7 @@ public class AlumniVoiceItemDetail extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
                             }
+                            mContentComments = SortUtil.softByDate(mContentComments);
                         }
                     }
                     mCommentAdapter.notifyDataSetChanged();
@@ -295,6 +298,7 @@ public class AlumniVoiceItemDetail extends BaseFragment {
         collectTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new AlumniVoiceCollectDbService(getContext()).save(mVoice);
                 ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
                 collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
             }

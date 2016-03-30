@@ -75,4 +75,6 @@ public class Constant {
     public static final String WIFI = "wifi";
     public static final String MOBILE = "mobile";
     public static final String OTHER = "other";
+    public static final String RECOMMEND_COLLECT ="recommendCollect" ;
+    public static final String RECOMMEND = "recommend";
 }

@@ -1,4 +1,6 @@
 package com.nju.fragment;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +23,8 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkItemAdapter;
+import com.nju.db.db.service.RecommendDbService;
+import com.nju.db.db.service.RecommendWorkCollectDbService;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
@@ -28,6 +32,7 @@ import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.RecommendWork;
 import com.nju.service.AlumniVoiceService;
+import com.nju.service.RecommendWorkIntentService;
 import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -43,6 +48,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -164,6 +170,7 @@ public class RecommendWorkFragment extends BaseFragment {
         hideChooseDialog(view);
         addLevelChooseItem(view);
         setUpOnRefreshListener(view);
+        new ExeCacheTask(this).execute();
         return view;
     }
 
@@ -187,7 +194,8 @@ public class RecommendWorkFragment extends BaseFragment {
 
 
     private void  setListView(View view){
-        mRecommendWorks = TestData.getRecommendWorks();
+        //mRecommendWorks = TestData.getRecommendWorks();
+        mRecommendWorks = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
@@ -319,6 +327,46 @@ public class RecommendWorkFragment extends BaseFragment {
                 view.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
             }else{
                 textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Intent intent = new Intent(getContext(),RecommendWorkIntentService.class);
+        for (RecommendWork recommendWork:mRecommendWorks){
+            Log.i(TAG,recommendWork.getId()+"");
+        }
+        intent.putExtra(Constant.RECOMMEND,mRecommendWorks);
+        getContext().startService(intent);
+    }
+
+    private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<RecommendWork>>
+    {
+        private final WeakReference<RecommendWorkFragment> mRecommendWorkWeakRef;
+        public ExeCacheTask(RecommendWorkFragment  recommendFragment){
+            this.mRecommendWorkWeakRef = new WeakReference<>(recommendFragment);
+        }
+        @Override
+        protected ArrayList<RecommendWork> doInBackground(Void... params) {
+            RecommendWorkFragment recommendFragment = mRecommendWorkWeakRef.get();
+            if (recommendFragment!=null){
+                return new RecommendDbService(recommendFragment.getContext()).getRecommendWorks();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<RecommendWork> recommendWorks) {
+            super.onPostExecute(recommendWorks);
+            RecommendWorkFragment recommendFragment = mRecommendWorkWeakRef.get();
+            if (recommendFragment!=null){
+                if (recommendWorks != null){
+                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(recommendWorks));
+                    recommendFragment.mRecommendWorks.addAll(recommendWorks);
+                    recommendFragment.mRecommendWorkItemAdapter.notifyDataSetChanged();
+                }
             }
         }
     }

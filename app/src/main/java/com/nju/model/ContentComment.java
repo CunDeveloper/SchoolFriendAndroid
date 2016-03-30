@@ -1,15 +1,37 @@
 package com.nju.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.nju.fragment.BaseFragment;
 
 /**
  * Created by cun on 2016/3/27.
  */
-public class ContentComment extends BaseEntity {
+public class ContentComment extends BaseEntity implements Parcelable {
     private AuthorInfo commentAuthor;
     private AuthorInfo commentedAuthor;
     private String content;
     private int contentId;
+    public ContentComment(){}
+    protected ContentComment(Parcel in) {
+        commentAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
+        commentedAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
+        content = in.readString();
+        contentId = in.readInt();
+    }
+
+    public static final Creator<ContentComment> CREATOR = new Creator<ContentComment>() {
+        @Override
+        public ContentComment createFromParcel(Parcel in) {
+            return new ContentComment(in);
+        }
+
+        @Override
+        public ContentComment[] newArray(int size) {
+            return new ContentComment[size];
+        }
+    };
 
     public AuthorInfo getCommentAuthor() {
         return commentAuthor;
@@ -41,5 +63,18 @@ public class ContentComment extends BaseEntity {
 
     public void setContentId(int contentId) {
         this.contentId = contentId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(commentAuthor, flags);
+        dest.writeParcelable(commentedAuthor, flags);
+        dest.writeString(content);
+        dest.writeInt(contentId);
     }
 }

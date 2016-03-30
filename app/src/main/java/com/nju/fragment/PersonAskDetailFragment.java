@@ -33,6 +33,7 @@ import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
+import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
 
@@ -94,6 +95,7 @@ public class PersonAskDetailFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
                             }
+                            mContentComments = SortUtil.softByDate(mContentComments);
                         }
                     }
                     mCommentAdapter.notifyDataSetChanged();

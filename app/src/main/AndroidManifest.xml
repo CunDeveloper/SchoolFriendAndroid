@@ -50,6 +50,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        <service android:name="com.nju.service.RecommendWorkIntentService"
+             android:exported="false"
+            />
     </application>
 
 </manifest>

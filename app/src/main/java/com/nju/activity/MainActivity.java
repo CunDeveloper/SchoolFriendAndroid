@@ -47,6 +47,7 @@ import com.nju.util.Divice;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
+import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -301,6 +302,8 @@ public class MainActivity extends BaseActivity {
         }
         return token;
     }
+
+
 
     @Override
     public void onBackPressed() {

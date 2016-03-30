@@ -64,6 +64,7 @@ public class CollegeService {
             college.setProvinceID(cursor.getInt(provinceIndex));
             colleges.add(college);
         }
+        cursor.close();
         return colleges;
     }
 }

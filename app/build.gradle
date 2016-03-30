@@ -50,6 +50,9 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:commons:0.8.5.0@aar') {
         transitive = true
     }
+    compile ('com.vincentbrison.openlibraries.android:dualcache:2.2.2@jar') {
+        transitive = true
+    }
     compile files('libs/TencentLocationSDK_v4.3.0_r196568_151014_1433.jar')
     compile files('libs/gson-2.5.jar')
     compile files('libs/mail.jar')

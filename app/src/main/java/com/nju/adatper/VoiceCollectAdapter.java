@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniVoice;
+import com.nju.util.Constant;
+import com.nju.util.DateUtil;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
 
@@ -58,9 +61,17 @@ public class VoiceCollectAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         holder.nameTV.setText(alumniVoice.getAuthorInfo().getAuthorName());
         holder.labelTV.setText(alumniVoice.getAuthorInfo().getLabel());
-        holder.dateTV.setText(alumniVoice.getDate());
-        holder.titleTV.setText(alumniVoice.getTitle());
-        holder.contentTV.setText(alumniVoice.getContent());
+        holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniVoice.getDate()));
+        try{
+            holder.titleTV.setText(StringBase64.decode(alumniVoice.getTitle()));
+        }catch (IllegalArgumentException e){
+            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+        try{
+            holder.contentTV.setText(StringBase64.decode(alumniVoice.getContent()));
+        }catch (IllegalArgumentException e){
+            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         return convertView;
     }
 

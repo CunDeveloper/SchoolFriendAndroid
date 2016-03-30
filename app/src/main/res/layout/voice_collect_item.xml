@@ -6,8 +6,6 @@
     android:paddingTop="@dimen/phone_apadding"
     android:layout_marginBottom="@dimen/phone_apadding"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -45,7 +43,7 @@
         android:id="@+id/date_tv"
         android:layout_alignBottom="@+id/name_tv"
         android:layout_alignParentEnd="true" />
-    <TextView
+    <com.nju.View.SchoolFriendTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -67,13 +65,14 @@
         android:layout_marginBottom="@dimen/phone_apadding"
         android:layout_below="@+id/title_tv"
         android:layout_alignStart="@+id/title_tv">
-        <TextView
+        <com.nju.View.SchoolFriendTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
+            android:textColor="@android:color/black"
             android:gravity="left|center"
-            android:lines="2"
+            android:maxLines="2"
             android:ellipsize="end"
             android:background="@color/light_gray"
             android:id="@+id/content_tv"

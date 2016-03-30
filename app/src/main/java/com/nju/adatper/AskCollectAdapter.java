@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.AlumniQuestion;
+import com.nju.util.Constant;
+import com.nju.util.DateUtil;
+import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
 
@@ -59,9 +62,17 @@ public class AskCollectAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         holder.nameTV.setText(alumniQuestion.getAuthor().getAuthorName());
         holder.labelTV.setText(alumniQuestion.getAuthor().getLabel());
-        holder.dateTV.setText(alumniQuestion.getDate());
-        holder.titleTV.setText(alumniQuestion.getProblem());
-        holder.contentTV.setText(alumniQuestion.getDescription());
+        holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniQuestion.getDate()));
+        try{
+            holder.titleTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
+        }catch (IllegalArgumentException e){
+            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+        try{
+            holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
+        }catch (IllegalArgumentException e){
+            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
         return convertView;
     }
 

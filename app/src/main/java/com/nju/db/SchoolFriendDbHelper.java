@@ -44,6 +44,27 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
                     SchoolEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     SchoolEntry.COLUMN_NAME_COLLEGE_ID + INTEGER_TYPE +
                     " )";
+    private static final String SQL_CREATE_RECOMMEND_COLLECT =
+            CREATE_TABLE + RecommendCollectEntity.TABLE_NAME + " (" +
+                    RecommendCollectEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    RecommendCollectEntity.CONTENT +TEXT_TYPE +
+                    " )";
+    private static final String SQL_CREATE_ALUMNI_VOICE_COLLECT =
+            CREATE_TABLE + AlumniVoiceCollectEntity.TABLE_NAME + " (" +
+                    AlumniVoiceCollectEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    AlumniVoiceCollectEntity.CONTENT +TEXT_TYPE +
+                    " )";
+    private static final String SQL_CREATE_MAJOR_ASK_COLLECT =
+            CREATE_TABLE + MajorAskCollectEntity.TABLE_NAME + " (" +
+                    MajorAskCollectEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    MajorAskCollectEntity.CONTENT +TEXT_TYPE +
+                    " )";
+    private static final String SQL_CREATE_RECOMMEND_WORK =
+            CREATE_TABLE + RecommendEntity.TABLE_NAME + " (" +
+                    RecommendEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    RecommendEntity.CONTENT +TEXT_TYPE +
+                    " )";
+
     private static final String SQL_DELETE_COLLEGE =
             DROP_TABLE + CollegeEntry.TABLE_NAME;
     private static final String SQL_DELETE_PROVINCE =
@@ -52,6 +73,14 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
             DROP_TABLE + SchoolEntry.TABLE_NAME;
     private static final String SQL_DELETE_CONTENT =
             DROP_TABLE + ContentEntry.TABLE_NAME;
+    private static final String SQL_DELETE_RECOMMEND_COLLECT =
+            DROP_TABLE + RecommendCollectEntity.TABLE_NAME;
+    private static final String SQL_DELETE_ALUMNI_VOICE_COLLECT =
+            DROP_TABLE + AlumniVoiceCollectEntity.TABLE_NAME;
+    private static final String SQL_DELETE_MAJOR_ASK_COLLECT =
+            DROP_TABLE + MajorAskCollectEntity.TABLE_NAME;
+
+
     private static SchoolFriendDbHelper dbHelper;
 
 
@@ -76,6 +105,10 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PROVINCE);
         db.execSQL(SQL_CREATE_SCHOOL);
         db.execSQL(SQL_CREATE_CONTENT);
+        db.execSQL(SQL_CREATE_RECOMMEND_COLLECT);
+        db.execSQL(SQL_CREATE_ALUMNI_VOICE_COLLECT);
+        db.execSQL(SQL_CREATE_MAJOR_ASK_COLLECT);
+        db.execSQL(SQL_CREATE_RECOMMEND_WORK);
     }
 
     @Override
@@ -84,6 +117,9 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_PROVINCE);
         db.execSQL(SQL_DELETE_SCHOOL);
         db.execSQL(SQL_DELETE_CONTENT);
+        db.execSQL(SQL_DELETE_RECOMMEND_COLLECT);
+        db.execSQL(SQL_DELETE_ALUMNI_VOICE_COLLECT);
+        db.execSQL(SQL_DELETE_MAJOR_ASK_COLLECT);
         onCreate(db);
     }
 }

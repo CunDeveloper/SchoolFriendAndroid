@@ -6,19 +6,9 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 
-public class RecommendWork extends BaseEntity implements Parcelable {
-
-    public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
-        @Override
-        public RecommendWork createFromParcel(Parcel in) {
-            return new RecommendWork(in);
-        }
-
-        @Override
-        public RecommendWork[] newArray(int size) {
-            return new RecommendWork[size];
-        }
-    };
+public class RecommendWork  implements Parcelable {
+    private int id;
+    private String date;
     private AuthorInfo authorInfo;
     private String title;
     private String content;
@@ -32,7 +22,10 @@ public class RecommendWork extends BaseEntity implements Parcelable {
     public RecommendWork() {
     }
 
+
     protected RecommendWork(Parcel in) {
+        id = in.readInt();
+        date = in.readString();
         authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
         title = in.readString();
         content = in.readString();
@@ -40,27 +33,20 @@ public class RecommendWork extends BaseEntity implements Parcelable {
         commentCount = in.readInt();
         email = in.readString();
         type = in.readInt();
+        comments = in.createTypedArrayList(ContentComment.CREATOR);
     }
 
-    public static Creator<RecommendWork> getCREATOR() {
-        return CREATOR;
-    }
+    public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
+        @Override
+        public RecommendWork createFromParcel(Parcel in) {
+            return new RecommendWork(in);
+        }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(authorInfo, flags);
-        dest.writeString(title);
-        dest.writeString(content);
-        dest.writeString(imgPaths);
-        dest.writeInt(commentCount);
-        dest.writeString(email);
-        dest.writeInt(type);
-    }
+        @Override
+        public RecommendWork[] newArray(int size) {
+            return new RecommendWork[size];
+        }
+    };
 
     public AuthorInfo getAuthor() {
         return authorInfo;
@@ -124,5 +110,48 @@ public class RecommendWork extends BaseEntity implements Parcelable {
 
     public void setComments(ArrayList<ContentComment> comments) {
         this.comments = comments;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public AuthorInfo getAuthorInfo() {
+        return authorInfo;
+    }
+
+    public void setAuthorInfo(AuthorInfo authorInfo) {
+        this.authorInfo = authorInfo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeParcelable(authorInfo, flags);
+        dest.writeString(title);
+        dest.writeString(content);
+        dest.writeString(imgPaths);
+        dest.writeInt(commentCount);
+        dest.writeString(email);
+        dest.writeInt(type);
+        dest.writeTypedList(comments);
     }
 }

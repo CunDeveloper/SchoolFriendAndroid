@@ -1,5 +1,6 @@
 package com.nju.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +14,15 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkCollectAdapter;
 import com.nju.adatper.VoiceCollectAdapter;
+import com.nju.db.db.service.MajorAskCollectDbService;
+import com.nju.db.db.service.RecommendWorkCollectDbService;
+import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniVoice;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 
@@ -25,6 +30,8 @@ public class RecommendCollectFragment extends BaseFragment {
 
     private static final String PARAM_TITLE = "paramTitle";
     private static String mTitle;
+    private ArrayList<RecommendWork>  mRecommendWorks;
+    private RecommendWorkCollectAdapter mRecommendWorkCollectAdapter;
     public static RecommendCollectFragment newInstance(String title) {
         RecommendCollectFragment fragment = new RecommendCollectFragment();
         Bundle args = new Bundle();
@@ -51,17 +58,19 @@ public class RecommendCollectFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.refresh_listview, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initListView(view);
+        new ExeCollectTask(this).execute();
         return view;
     }
 
     private void initListView(View view){
-        final ArrayList<RecommendWork>  recommendWorks = TestData.getRecommendWorks();
+        mRecommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new RecommendWorkCollectAdapter(getContext(),recommendWorks));
+        mRecommendWorkCollectAdapter = new RecommendWorkCollectAdapter(getContext(),mRecommendWorks);
+        listView.setAdapter(mRecommendWorkCollectAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
             }
         });
 
@@ -83,8 +92,35 @@ public class RecommendCollectFragment extends BaseFragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
-        getHostActivity().display(5);
+        getHostActivity().display(6);
     }
 
+    private static class ExeCollectTask extends AsyncTask<Void,Void,ArrayList<RecommendWork>>
+    {
+        private final WeakReference<RecommendCollectFragment> mRecommendWorkWeakRef;
+        public ExeCollectTask(RecommendCollectFragment  recommendCollectFragment){
+            this.mRecommendWorkWeakRef = new WeakReference<>(recommendCollectFragment);
+        }
+        @Override
+        protected ArrayList<RecommendWork> doInBackground(Void... params) {
+            RecommendCollectFragment recommendCollectFragment = mRecommendWorkWeakRef.get();
+            if (recommendCollectFragment!=null){
+                return new RecommendWorkCollectDbService(recommendCollectFragment.getContext()).getCollects();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<RecommendWork> recommendWorks) {
+            super.onPostExecute(recommendWorks);
+            RecommendCollectFragment recommendCollectFragment = mRecommendWorkWeakRef.get();
+            if (recommendCollectFragment!=null){
+                if (recommendWorks != null){
+                    recommendCollectFragment.mRecommendWorks.addAll(recommendWorks);
+                    recommendCollectFragment.mRecommendWorkCollectAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
 
 }

@@ -9,10 +9,12 @@ import com.splunk.mint.Mint;
  */
 public class MyApplication extends Application
 {
+    private static final String TAG = MyApplication.class.getSimpleName();
     @Override
     public void onCreate()
     {
         super.onCreate();
         Mint.initAndStartSession(getApplicationContext(), "ba2df536");
+
     }
 }
