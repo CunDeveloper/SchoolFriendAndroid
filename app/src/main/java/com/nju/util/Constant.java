@@ -77,4 +77,7 @@ public class Constant {
     public static final String OTHER = "other";
     public static final String RECOMMEND_COLLECT ="recommendCollect" ;
     public static final String RECOMMEND = "recommend";
+    public static final String ALUMNI_VOICE = "alumniVoice";
+    public static final String MAJOR_ASK = "majorAsk" ;
+    public static final String DELETE_TABLE_DATA = "DELETE * FROM ";
 }

@@ -1,8 +1,9 @@
 package com.nju.fragment;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,33 +23,27 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniVoiceItemAdapter;
-import com.nju.adatper.AlumniVoiceViewPage;
 import com.nju.adatper.CollageAdapter;
-import com.nju.adatper.RecommendWorkItemAdapter;
-import com.nju.http.HttpManager;
+import com.nju.db.db.service.AlumniVoiceDbService;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniVoice;
-import com.nju.model.RecommendWork;
 import com.nju.service.AlumniVoiceService;
-import com.nju.service.MajorAskService;
-import com.nju.test.TestData;
+import com.nju.service.CacheIntentService;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
-import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
-import com.squareup.okhttp.Call;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -93,19 +88,7 @@ public class AlumniVoiceFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoice));
                                 mVoices.add(alumniVoice);
                             }
-                            Collections.sort(mVoices, new Comparator<AlumniVoice>() {
-                                @Override
-                                public int compare(AlumniVoice lhs, AlumniVoice rhs) {
-                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
-                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
-                                    if (lhsTime > rhsTime) {
-                                        return -1;
-                                    } else if (lhsTime < rhsTime) {
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                            });
+                            Collections.sort(mVoices,new AlumniVoiceSort());
                             int length = mVoices.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
@@ -153,7 +136,8 @@ public class AlumniVoiceFragment extends BaseFragment {
     }
 
     private void  setListView(View view){
-        mVoices = TestData.getVoicesData();
+        mVoices = new ArrayList<>();
+        new ExeCacheTask(this).execute();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
@@ -171,9 +155,10 @@ public class AlumniVoiceFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mAlumniVoiceItemAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
+                    mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, Constant.ALL);
                 }
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -198,7 +183,6 @@ public class AlumniVoiceFragment extends BaseFragment {
             }
         };
         final SchoolFriendDialog dialog  = SchoolFriendDialog.singleChoiceListDialog(getContext(), getString(R.string.chooseType), getResources().getStringArray(R.array.voiceType), listCallback);
-
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,6 +319,59 @@ public class AlumniVoiceFragment extends BaseFragment {
                 view.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
             }else{
                  textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Intent intent = new Intent(getContext(),CacheIntentService.class);
+        intent.putExtra(Constant.LABEL,Constant.ALUMNI_VOICE);
+        intent.putExtra(Constant.ALUMNI_VOICE,mVoices);
+        getContext().startService(intent);
+    }
+
+    private static class AlumniVoiceSort implements Comparator<AlumniVoice>{
+        @Override
+        public int compare(AlumniVoice lhs, AlumniVoice rhs) {
+            final long lhsTime = DateUtil.getTime(lhs.getDate());
+            final long rhsTime = DateUtil.getTime(rhs.getDate());
+            if (lhsTime > rhsTime) {
+                return -1;
+            } else if (lhsTime < rhsTime) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<AlumniVoice>>
+    {
+        private final WeakReference<AlumniVoiceFragment> mAlumniVoiceWeakRef;
+        public ExeCacheTask(AlumniVoiceFragment  alumniVoiceFragment){
+            this.mAlumniVoiceWeakRef = new WeakReference<>(alumniVoiceFragment);
+        }
+        @Override
+        protected ArrayList<AlumniVoice> doInBackground(Void... params) {
+            AlumniVoiceFragment alumniVoiceFragment = mAlumniVoiceWeakRef.get();
+            if (alumniVoiceFragment!=null){
+                return new AlumniVoiceDbService(alumniVoiceFragment.getContext()).getAlumniVoice();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<AlumniVoice> alumniVoices) {
+            super.onPostExecute(alumniVoices);
+            AlumniVoiceFragment alumniVoiceFragment = mAlumniVoiceWeakRef.get();
+            if (alumniVoiceFragment!=null){
+                if (alumniVoices != null){
+                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniVoices));
+                    Collections.sort(alumniVoices, new AlumniVoiceSort());
+                    alumniVoiceFragment.mVoices.addAll(alumniVoices);
+                    alumniVoiceFragment.mAlumniVoiceItemAdapter.notifyDataSetChanged();
+                }
             }
         }
     }

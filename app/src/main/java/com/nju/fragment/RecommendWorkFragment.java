@@ -24,23 +24,17 @@ import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.db.db.service.RecommendDbService;
-import com.nju.db.db.service.RecommendWorkCollectDbService;
-import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.http.response.QueryJson;
 import com.nju.model.RecommendWork;
-import com.nju.service.AlumniVoiceService;
-import com.nju.service.RecommendWorkIntentService;
+import com.nju.service.CacheIntentService;
 import com.nju.service.RecommendWorkService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
-import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -93,19 +87,7 @@ public class RecommendWorkFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
                                 mRecommendWorks.add(recommendWork);
                             }
-                            Collections.sort(mRecommendWorks, new Comparator<RecommendWork>() {
-                                @Override
-                                public int compare(RecommendWork lhs, RecommendWork rhs) {
-                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
-                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
-                                    if (lhsTime > rhsTime) {
-                                        return -1;
-                                    } else if (lhsTime < rhsTime) {
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                            });
+                            Collections.sort(mRecommendWorks,new RecommendWorkSort());
                             int length = mRecommendWorks.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
@@ -334,12 +316,25 @@ public class RecommendWorkFragment extends BaseFragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Intent intent = new Intent(getContext(),RecommendWorkIntentService.class);
-        for (RecommendWork recommendWork:mRecommendWorks){
-            Log.i(TAG,recommendWork.getId()+"");
-        }
+        Intent intent = new Intent(getContext(),CacheIntentService.class);
+        intent.putExtra(Constant.LABEL,Constant.RECOMMEND);
         intent.putExtra(Constant.RECOMMEND,mRecommendWorks);
         getContext().startService(intent);
+    }
+
+    private static class RecommendWorkSort implements Comparator<RecommendWork>{
+
+        @Override
+        public int compare(RecommendWork lhs, RecommendWork rhs) {
+            final long lhsTime = DateUtil.getTime(lhs.getDate());
+            final long rhsTime = DateUtil.getTime(rhs.getDate());
+            if (lhsTime > rhsTime) {
+                return -1;
+            } else if (lhsTime < rhsTime) {
+                return 1;
+            }
+            return 0;
+        }
     }
 
     private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<RecommendWork>>
@@ -364,6 +359,7 @@ public class RecommendWorkFragment extends BaseFragment {
             if (recommendFragment!=null){
                 if (recommendWorks != null){
                     Log.i(TAG,SchoolFriendGson.newInstance().toJson(recommendWorks));
+                    Collections.sort(recommendWorks, new RecommendWorkSort());
                     recommendFragment.mRecommendWorks.addAll(recommendWorks);
                     recommendFragment.mRecommendWorkItemAdapter.notifyDataSetChanged();
                 }

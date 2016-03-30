@@ -29,7 +29,7 @@ public class MajorAskCollectDbService {
         ContentValues values = new ContentValues();
         values.put(MajorAskCollectEntity.ID,id);
         values.put(MajorAskCollectEntity.CONTENT,content);
-        db.insert(MajorAskCollectEntity.TABLE_NAME,null,values);
+        db.replace(MajorAskCollectEntity.TABLE_NAME,null,values);
     }
 
     public ArrayList<AlumniQuestion> getCollects(){

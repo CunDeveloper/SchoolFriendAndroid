@@ -1,5 +1,7 @@
 package com.nju.fragment;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -15,33 +17,28 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.nju.activity.NetworkInfoEvent;
-import com.nju.activity.NetworkStateChanged;
 import com.nju.activity.R;
-import com.nju.adatper.AlumniVoiceItemAdapter;
 import com.nju.adatper.MajorAskAdapter;
-import com.nju.http.HttpManager;
+import com.nju.db.db.service.MajorAskDbService;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.http.response.QueryJson;
 import com.nju.model.AlumniQuestion;
-import com.nju.model.AlumniVoice;
+import com.nju.service.CacheIntentService;
 import com.nju.service.MajorAskService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
-import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
-import com.squareup.okhttp.Call;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -81,19 +78,7 @@ public class MajorAskFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestion));
                                 mAlumniQuestions.add(alumniQuestion);
                             }
-                            Collections.sort(mAlumniQuestions, new Comparator<AlumniQuestion>() {
-                                @Override
-                                public int compare(AlumniQuestion lhs, AlumniQuestion rhs) {
-                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
-                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
-                                    if (lhsTime > rhsTime) {
-                                        return -1;
-                                    } else if (lhsTime < rhsTime) {
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                            });
+                            Collections.sort(mAlumniQuestions,new MajorAskSort());
                             int length = mAlumniQuestions.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
@@ -191,7 +176,8 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        mAlumniQuestions = TestData.getQlumniQuestions();
+        mAlumniQuestions = new ArrayList<>();
+        new ExeCacheTask(this).execute();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
@@ -228,12 +214,71 @@ public class MajorAskFragment extends BaseFragment {
         }
     }
 
+
     @Override
     public void onStop(){
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestJson != null)
             CloseRequestUtil.close(mRequestJson);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Intent intent = new Intent(getContext(),CacheIntentService.class);
+        intent.putExtra(Constant.LABEL,Constant.MAJOR_ASK);
+        intent.putExtra(Constant.MAJOR_ASK,mAlumniQuestions);
+        getContext().startService(intent);
+    }
+
+    private static class MajorAskSort implements Comparator<AlumniQuestion> {
+        @Override
+        public int compare(AlumniQuestion lhs, AlumniQuestion rhs) {
+            final long lhsTime = DateUtil.getTime(lhs.getDate());
+            final long rhsTime = DateUtil.getTime(rhs.getDate());
+            if (lhsTime > rhsTime) {
+                return -1;
+            } else if (lhsTime < rhsTime) {
+                return 1;
+            }
+            return 0;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            return false;
+        }
+    }
+
+    private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<AlumniQuestion>>
+    {
+        private final WeakReference<MajorAskFragment> mMajorAskWeakRef;
+        public ExeCacheTask(MajorAskFragment  majorAskFragment){
+            this.mMajorAskWeakRef = new WeakReference<>(majorAskFragment);
+        }
+        @Override
+        protected ArrayList<AlumniQuestion> doInBackground(Void... params) {
+            MajorAskFragment majorAskFragment = mMajorAskWeakRef.get();
+            if (majorAskFragment!=null){
+                return new MajorAskDbService(majorAskFragment.getContext()).getMajorAsks();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<AlumniQuestion> alumniQuestions) {
+            super.onPostExecute(alumniQuestions);
+            MajorAskFragment majorAskFragment = mMajorAskWeakRef.get();
+            if (majorAskFragment!=null){
+                if (alumniQuestions != null){
+                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniQuestions));
+                    Collections.sort(alumniQuestions, new MajorAskSort());
+                    majorAskFragment.mAlumniQuestions.addAll(alumniQuestions);
+                    majorAskFragment.mMajorAskAdapter.notifyDataSetChanged();
+                }
+            }
+        }
     }
 
 }

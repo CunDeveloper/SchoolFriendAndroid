@@ -28,7 +28,7 @@ public class RecommendWorkCollectDbService {
         ContentValues values = new ContentValues();
         values.put(RecommendCollectEntity.ID,id);
         values.put(RecommendCollectEntity.CONTENT,content);
-        db.insert(RecommendCollectEntity.TABLE_NAME,null,values);
+        db.replace(RecommendCollectEntity.TABLE_NAME,null,values);
     }
 
     public ArrayList<RecommendWork> getCollects(){

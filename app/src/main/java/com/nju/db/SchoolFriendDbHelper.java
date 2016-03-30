@@ -64,6 +64,17 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
                     RecommendEntity.ID + PRIMARY_KEY + COMMA_SEP +
                     RecommendEntity.CONTENT +TEXT_TYPE +
                     " )";
+    private static final String SQL_CREATE_ALUMNI_VOICE =
+            CREATE_TABLE + AlumniVoiceEntity.TABLE_NAME + " (" +
+                    AlumniVoiceEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    AlumniVoiceEntity.CONTENT +TEXT_TYPE +
+                    " )";
+    private static final String SQL_CREATE_MAJOR_ASK=
+            CREATE_TABLE + MajorAskEntity.TABLE_NAME + " (" +
+                    MajorAskEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    MajorAskEntity.CONTENT +TEXT_TYPE +
+                    " )";
+
 
     private static final String SQL_DELETE_COLLEGE =
             DROP_TABLE + CollegeEntry.TABLE_NAME;
@@ -79,6 +90,12 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
             DROP_TABLE + AlumniVoiceCollectEntity.TABLE_NAME;
     private static final String SQL_DELETE_MAJOR_ASK_COLLECT =
             DROP_TABLE + MajorAskCollectEntity.TABLE_NAME;
+    private static final String SQL_DELETE_RECOMMEND_WORK =
+            DROP_TABLE + RecommendEntity.TABLE_NAME;
+    private static final String SQL_DELETE_ALUMNI_VOICE =
+            DROP_TABLE + AlumniVoiceEntity.TABLE_NAME;
+    private static final String SQL_DELETE_MAJOR_ASK =
+            DROP_TABLE + MajorAskEntity.TABLE_NAME;
 
 
     private static SchoolFriendDbHelper dbHelper;
@@ -109,6 +126,8 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_ALUMNI_VOICE_COLLECT);
         db.execSQL(SQL_CREATE_MAJOR_ASK_COLLECT);
         db.execSQL(SQL_CREATE_RECOMMEND_WORK);
+        db.execSQL(SQL_CREATE_ALUMNI_VOICE);
+        db.execSQL(SQL_CREATE_MAJOR_ASK);
     }
 
     @Override
@@ -120,6 +139,9 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_RECOMMEND_COLLECT);
         db.execSQL(SQL_DELETE_ALUMNI_VOICE_COLLECT);
         db.execSQL(SQL_DELETE_MAJOR_ASK_COLLECT);
+        db.execSQL(SQL_DELETE_RECOMMEND_WORK);
+        db.execSQL(SQL_DELETE_ALUMNI_VOICE);
+        db.execSQL(SQL_DELETE_MAJOR_ASK);
         onCreate(db);
     }
 }

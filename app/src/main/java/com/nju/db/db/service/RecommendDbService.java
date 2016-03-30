@@ -1,15 +1,16 @@
 package com.nju.db.db.service;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
+import com.nju.db.MajorAskEntity;
 import com.nju.db.RecommendEntity;
 import com.nju.db.SchoolFriendDbHelper;
-
 import com.nju.model.RecommendWork;
+import com.nju.util.Constant;
 import com.nju.util.SchoolFriendGson;
 
 import java.util.ArrayList;
@@ -27,20 +28,15 @@ public class RecommendDbService {
     }
 
     public void save(ArrayList<RecommendWork> recommendWorks) {
-        db.beginTransaction();
-        String sql = "INSERT INTO "+ RecommendEntity.TABLE_NAME+"("+RecommendEntity.ID+" ,"
-                +RecommendEntity.CONTENT+")values(?,?)";
-        SQLiteStatement stmt = db.compileStatement(sql);
-        for (RecommendWork  recommendWork:recommendWorks) {
-            Log.i(TAG,recommendWork.getId()+"");
-            stmt.bindLong(1, recommendWork.getId());
+        db.execSQL(Constant.DELETE_FROM+ RecommendEntity.TABLE_NAME);
+        ContentValues contentValues;
+        for (RecommendWork recommendWork:recommendWorks){
+            contentValues = new ContentValues();
+            contentValues.put(RecommendEntity.ID,recommendWork.getId());
             final String json = gson.toJson(recommendWork);
-            stmt.bindString(2, json);
-            stmt.execute();
+            contentValues.put(RecommendEntity.CONTENT,json);
+            db.replace(RecommendEntity.TABLE_NAME,null,contentValues);
         }
-        db.setTransactionSuccessful();
-        Log.i(TAG, "done");
-        db.endTransaction();
     }
 
     public ArrayList<RecommendWork> getRecommendWorks(){
