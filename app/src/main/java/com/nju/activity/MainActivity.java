@@ -25,6 +25,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.fragment.AlumniCircleFragment;
+import com.nju.fragment.AlumniDynamicFragment;
 import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.AskPublishFragment;
 import com.nju.fragment.BaseFragment;
@@ -128,7 +129,7 @@ public class MainActivity extends BaseActivity {
                 item.setChecked(true);
                 switch (item.getItemId()) {
                     case R.id.nav_alumni_circle:
-                        open(AlumniCircleFragment.newInstance());
+                        open(AlumniDynamicFragment.newInstance());
                         break;
                     case R.id.nav_tucao:
                         open(MajorAskFragment.newInstance());

@@ -1,6 +1,5 @@
 package com.nju.fragment;
-import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -11,27 +10,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.NetworkInfoEvent;
+import com.nju.activity.CommentEvent;
+import com.nju.activity.PraiseEvent;
 import com.nju.activity.R;
-import com.nju.adatper.AlumniVoiceItemAdapter;
+import com.nju.adatper.AlumniTalkAdapter;
 import com.nju.adatper.CollageAdapter;
-import com.nju.db.db.service.AlumniVoiceDbService;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.model.AlumniVoice;
-import com.nju.service.AlumniVoiceService;
-import com.nju.service.CacheIntentService;
-import com.nju.util.CloseRequestUtil;
+import com.nju.model.AlumniTalk;
+import com.nju.service.AlumniTalkService;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
@@ -43,28 +38,25 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AlumniVoiceFragment extends BaseFragment {
-
-    private static final String TAG = AlumniVoiceFragment.class.getSimpleName();
-    private RelativeLayout mCollegeMainLayout;
-    private LinearLayout mChooseLayout;
-    private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
+public class AlumniDynamicFragment extends BaseFragment {
+    private static final String TAG = AlumniDynamicFragment.class.getSimpleName();
+    private ArrayList<AlumniTalk> mAlumniTalks;
+    private AlumniTalkAdapter mAlumniTalkAdapter;
     private PostRequestJson mRequestJson;
+    private RelativeLayout mCollegeMainLayout;
     private SwipeRefreshLayout mRefreshLayout;
-    private ArrayList<AlumniVoice> mVoices;
     private RelativeLayout mFootView;
-    private AlumniVoiceItemAdapter mAlumniVoiceItemAdapter;
+    private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(AlumniDynamicFragment.this)){
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
@@ -75,27 +67,27 @@ public class AlumniVoiceFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(AlumniDynamicFragment.this)){
                 Log.i(TAG, responseBody);
                 ParseResponse parseResponse = new ParseResponse();
                 try {
-                    Object object = parseResponse.getInfo(responseBody,AlumniVoice.class);
+                    Object object = parseResponse.getInfo(responseBody,AlumniTalk.class);
                     if (object != null){
                         ArrayList majorAsks = (ArrayList) object;
                         if (majorAsks.size()>0){
                             for (Object obj :majorAsks){
-                                 AlumniVoice   alumniVoice = (AlumniVoice) obj;
-                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoice));
-                                mVoices.add(alumniVoice);
+                                AlumniTalk  alumniTalk = (AlumniTalk) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
+                                mAlumniTalks.add(alumniTalk);
                             }
-                            Collections.sort(mVoices,new AlumniVoiceSort());
-                            int length = mVoices.size();
+                            Collections.sort(mAlumniTalks, new AlumniTalkSort());
+                            int length = mAlumniTalks.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
-                                    mVoices.remove(mVoices.get(i));
+                                    mAlumniTalks.remove(mAlumniTalks.get(i));
                                 }
                             }
-                            mAlumniVoiceItemAdapter.notifyDataSetChanged();
+                            mAlumniTalkAdapter.notifyDataSetChanged();
                         }
                     }
                 } catch (IOException e) {
@@ -107,90 +99,88 @@ public class AlumniVoiceFragment extends BaseFragment {
             }
         }
     };
+    public static AlumniDynamicFragment newInstance( ) {
+        AlumniDynamicFragment fragment = new AlumniDynamicFragment();
+        Bundle args = new Bundle();
 
-    public static AlumniVoiceFragment newInstance() {
-        return  new AlumniVoiceFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
-    public AlumniVoiceFragment() {
-
+    public AlumniDynamicFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+        }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tu_cao, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_alumni_dynamice, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getBottom());
+        initListView(view);
         mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
-        setListView(view);
-        addLevelChooseItem(view);
         setUpOnRefreshListener(view);
+        addLevelChooseItem(view);
         return view;
     }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar!=null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle(R.string.alumn_circle);
+        }
+        getHostActivity().display(2);
+    }
 
-    private void  setListView(View view){
-        mVoices = new ArrayList<>();
-        new ExeCacheTask(this).execute();
+    @Override
+    public void onStop(){
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onMessagePraiseEvent(PraiseEvent event){
+        ToastUtil.showShortText(getContext(), event.getId() + "praise");
+    }
+
+    @Subscribe
+    public void onMessageCommentEvent(CommentEvent event){
+        ToastUtil.showShortText(getContext(), event.getId() + "comment");
+    }
+
+    private void initListView(View view){
+        mAlumniTalks = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mAlumniVoiceItemAdapter = new AlumniVoiceItemAdapter(getContext(), mVoices);
-        listView.setAdapter(mAlumniVoiceItemAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetail.newInstance(mVoices.get(position)));
-            }
-        });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == (mAlumniVoiceItemAdapter.getCount())) {
-                    mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, Constant.ALL);
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-        final int[] position = {0};
-        TextView textView = (TextView) getActivity().findViewById(R.id.main_viewpager_menu_more);
-        MaterialDialog.ListCallbackSingleChoice listCallback= new MaterialDialog.ListCallbackSingleChoice(){
-
-            @Override
-            public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                position[0] = i;
-                mRefreshLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRefreshLayout.setRefreshing(true);
-                        mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
-                    }
-                });
-                setTitle(charSequence.toString());
-                return true;
-            }
-        };
-        final SchoolFriendDialog dialog  = SchoolFriendDialog.singleChoiceListDialog(getContext(), getString(R.string.chooseType), getResources().getStringArray(R.array.voiceType), listCallback);
-        textView.setOnClickListener(new View.OnClickListener() {
+        mAlumniTalkAdapter = new AlumniTalkAdapter(this,mAlumniTalks);
+        listView.setAdapter(mAlumniTalkAdapter);
+        ImageView mCameraImageView = getHostActivity().getMenuCameraView();
+        mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.setSelectedIndex(position[0]);
-                dialog.show();
+                getHostActivity().open(MultiChoosePicFragment.newInstance(PublishDynamicFragment.TAG));
             }
         });
     }
-
-
 
     private void setUpOnRefreshListener(View view){
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -198,53 +188,17 @@ public class AlumniVoiceFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL);
             }
         });
     }
 
-    @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
-            mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, Constant.ALL);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop(){
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-        CloseRequestUtil.close(mRequestJson);
-    }
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setTitle(getString(R.string.alumni_heart));
-        getHostActivity().display(5);
-    }
-
-    private void setTitle(String title){
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(title);
-        }
-    }
     private void openChooseDialog(View view){
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         floatBn.setOnClickListener(new View.OnClickListener() {
@@ -290,7 +244,7 @@ public class AlumniVoiceFragment extends BaseFragment {
             textView.setLayoutParams(param);
             textView.setText(level);
             if (textView.getText().toString().equals(getString(R.string.undergraduate))){
-                textView.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
+                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.primayDark));
                 listView.setAdapter(new CollageAdapter(getContext(), colleges));
                 listView.setVisibility(View.VISIBLE);
             }
@@ -318,23 +272,15 @@ public class AlumniVoiceFragment extends BaseFragment {
             if (view.getText().toString().equals(textView.getText().toString())){
                 view.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
             }else{
-                 textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
+                textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
             }
         }
     }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        Intent intent = new Intent(getContext(),CacheIntentService.class);
-        intent.putExtra(Constant.LABEL,Constant.ALUMNI_VOICE);
-        intent.putExtra(Constant.ALUMNI_VOICE,mVoices);
-        getContext().startService(intent);
-    }
 
-    private static class AlumniVoiceSort implements Comparator<AlumniVoice>{
+    private static class AlumniTalkSort implements Comparator<AlumniTalk> {
         @Override
-        public int compare(AlumniVoice lhs, AlumniVoice rhs) {
+        public int compare(AlumniTalk lhs, AlumniTalk rhs) {
             final long lhsTime = DateUtil.getTime(lhs.getDate());
             final long rhsTime = DateUtil.getTime(rhs.getDate());
             if (lhsTime > rhsTime) {
@@ -345,35 +291,4 @@ public class AlumniVoiceFragment extends BaseFragment {
             return 0;
         }
     }
-
-    private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<AlumniVoice>>
-    {
-        private final WeakReference<AlumniVoiceFragment> mAlumniVoiceWeakRef;
-        public ExeCacheTask(AlumniVoiceFragment  alumniVoiceFragment){
-            this.mAlumniVoiceWeakRef = new WeakReference<>(alumniVoiceFragment);
-        }
-        @Override
-        protected ArrayList<AlumniVoice> doInBackground(Void... params) {
-            AlumniVoiceFragment alumniVoiceFragment = mAlumniVoiceWeakRef.get();
-            if (alumniVoiceFragment!=null){
-                return new AlumniVoiceDbService(alumniVoiceFragment.getContext()).getAlumniVoice();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<AlumniVoice> alumniVoices) {
-            super.onPostExecute(alumniVoices);
-            AlumniVoiceFragment alumniVoiceFragment = mAlumniVoiceWeakRef.get();
-            if (alumniVoiceFragment!=null){
-                if (alumniVoices != null){
-                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniVoices));
-                    Collections.sort(alumniVoices, new AlumniVoiceSort());
-                    alumniVoiceFragment.mVoices.addAll(alumniVoices);
-                    alumniVoiceFragment.mAlumniVoiceItemAdapter.notifyDataSetChanged();
-                }
-            }
-        }
-    }
-
 }

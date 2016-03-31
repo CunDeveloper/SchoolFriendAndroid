@@ -27,7 +27,7 @@ public abstract class ResponseCallback implements Callback {
             @Override
             public void run() {
                 e.printStackTrace();
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, e.getMessage()+"exception");
                 if (e.getMessage().contains("Canceled") || e.getMessage().contains("Socket closed")) {
                 } else {
                     onFail(e);

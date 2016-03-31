@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,8 @@ public class PublishDynamicFragment extends BaseFragment {
     private TextView mLocationTV;
     private TextView whoScanTV;
     private SchoolFriendDialog mDialog;
-    private String mLocation = null;
-    private String mWhoScan = null;
+    private String mLocation;
+    private String mWhoScan;
 
     public static PublishDynamicFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         PublishDynamicFragment fragment = new PublishDynamicFragment();
@@ -64,7 +65,6 @@ public class PublishDynamicFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
-            ToastUtil.showShortText(getContext(),"size=");
             if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
                 mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
             }
@@ -87,7 +87,6 @@ public class PublishDynamicFragment extends BaseFragment {
         }else {
             mUploadImgPaths = new ArrayList<>();
         }
-
         return view;
     }
 
@@ -165,11 +164,13 @@ public class PublishDynamicFragment extends BaseFragment {
     ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
+            Log.e(TAG,error.getMessage());
             mDialog.dismiss();
         }
 
         @Override
         public void onSuccess(String responseBody) {
+            Log.i(TAG,responseBody);
             mDialog.dismiss();
         }
     };
@@ -196,11 +197,19 @@ public class PublishDynamicFragment extends BaseFragment {
                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
                 final String content = mContentET.getText().toString();
-                final String whoScan = 1+"";
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
-                params.put(Constant.WHO_SCAN,whoScan);
-                params.put(Constant.LOCATION,mLocation);
+                if (mWhoScan != null)
+                    params.put(Constant.WHO_SCAN,mWhoScan);
+                else{
+                    params.put(Constant.WHO_SCAN,1+"");
+                }
+                if (mLocation != null)
+                    params.put(Constant.LOCATION,mLocation);
+                else{
+                    params.put(Constant.LOCATION,"");
+                }
+
                 params.put(Constant.AUTHORIZATION, PublishDynamicFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
@@ -217,9 +226,9 @@ public class PublishDynamicFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
-                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
+                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
                 final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level=所有";
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(url, params, bitmapWrapperArrayList, callback));
             }
         });
     }

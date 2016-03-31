@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by cun on 2015/12/5.
@@ -35,7 +36,8 @@ public class SchoolFriendHttp {
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    ;
+    private static final int MAX_REQUEST_TIME = 60;
+    private static final String IMAGE_TYPE = "image/*";
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
     private static final String TAG = SchoolFriendHttp.class.getSimpleName();
     private static final MediaType MEDIA_TYPE_MARKDOWN
@@ -48,6 +50,8 @@ public class SchoolFriendHttp {
     private SchoolFriendHttp() {
         if (mClient == null) {
             mClient = new OkHttpClient();
+            mClient.setConnectTimeout(MAX_REQUEST_TIME, TimeUnit.SECONDS); // connect timeout
+            mClient.setReadTimeout(MAX_REQUEST_TIME, TimeUnit.SECONDS);    // socket timeout
             requestQueue = new LinkedBlockingDeque<>();
             CookieManager cookieManager = new CookieManager();
             CookieHandler.setDefault(cookieManager);
@@ -98,6 +102,7 @@ public class SchoolFriendHttp {
     public InputStream SynGetStream(final String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
+                .header("Content-Type", IMAGE_TYPE)
                 .build();
 
         Response response = mClient.newCall(request).execute();
@@ -112,8 +117,9 @@ public class SchoolFriendHttp {
      * @param url
      * @param callback
      */
-    public void AsyncGet(final String url, final ResponseCallback callback) {
+    public void AsyncGet(final String url, final Callback callback) {
         Request request = new Request.Builder()
+                .header("Content-Type",IMAGE_TYPE)
                 .url(url)
                 .build();
 

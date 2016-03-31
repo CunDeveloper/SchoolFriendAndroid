@@ -108,7 +108,7 @@ public class FriendContentAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext, imageView);
-                    listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext, position, mWeiBelist, mHandler, listPopupWindow, mListView));
+                    //listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext, position, mWeiBelist, mHandler, listPopupWindow, mListView));
                     listPopupWindow.show();
                 }
             });
