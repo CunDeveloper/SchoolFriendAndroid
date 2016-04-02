@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -162,6 +163,8 @@ public class MyAskFragment extends BaseFragment {
     private void initListView(View view) {
         alumniQuestions = TestData.getQlumniQuestions();
         final ListView listView = (ListView) view.findViewById(R.id.listView);
+        LinearLayout head = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.listview_header, listView, false);
+        listView.addHeaderView(head);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);

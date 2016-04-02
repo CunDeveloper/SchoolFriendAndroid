@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 public class MajorAskAdapter extends BaseAdapter {
 
+    private static  String[] empty = {};
     private Context mContext;
     private ArrayList<AlumniQuestion> mQuestions;
 
@@ -55,6 +57,7 @@ public class MajorAskAdapter extends BaseAdapter {
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
             holder.replayCountTV = (TextView) convertView.findViewById(R.id.count_tv);
+            holder.gridView = (GridView) convertView.findViewById(R.id.question_gridview);
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
@@ -69,6 +72,12 @@ public class MajorAskAdapter extends BaseAdapter {
         final String date = DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
         holder.dateTV.setText(date);
         holder.replayCountTV.setText(alumniQuestion.getReplayCount() + "");
+        if (alumniQuestion.getImgPaths() == null){
+            holder.gridView.setAdapter(new MajorAskPicAdapter(mContext, empty));
+        }
+        else {
+            holder.gridView.setAdapter(new MajorAskPicAdapter(mContext, alumniQuestion.getImgPaths().split(",")));
+        }
         return convertView;
     }
 
@@ -77,5 +86,6 @@ public class MajorAskAdapter extends BaseAdapter {
         private TextView dateTV;
         private TextView nameTV;
         private TextView replayCountTV;
+        private GridView gridView;
     }
 }

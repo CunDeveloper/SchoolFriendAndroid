@@ -87,8 +87,10 @@ public interface PathConstant {
     String ALUMNIS_QUESTION_ANSWER_SUB_PATH_SAVE = "save";
     String ALUMNIS_QUESTION_ANSWER_SUB_PATH_CANCEL = "cancel";
 
+    String IMAGE_PATH = BASE_URL +"images/";
     String IMAGE_PATH_SMALL = BASE_URL +"images/"+"small/";
     String ALUMNI_TALK_IMG_PATH = "alumniTalk/";
+    String ALUMNI_QUESTION_IMG_PATH = "alumniQuestion/";
 
     String REGISTER_PATH = "register";
     String REGISTER_SUB_PATH_PHONE = "phoneNumber";

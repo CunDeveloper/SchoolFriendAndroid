@@ -68,5 +68,4 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/share_icon"
         />
-
 </LinearLayout>

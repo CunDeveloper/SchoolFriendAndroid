@@ -179,6 +179,8 @@ public class RecommendWorkFragment extends BaseFragment {
         //mRecommendWorks = TestData.getRecommendWorks();
         mRecommendWorks = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
+        LinearLayout head = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.listview_header, listView, false);
+        listView.addHeaderView(head);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);

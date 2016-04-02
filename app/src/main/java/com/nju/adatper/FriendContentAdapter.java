@@ -188,7 +188,7 @@ public class FriendContentAdapter extends BaseAdapter {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(drawables, finalI));
+                     //mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(drawables, finalI));
                 }
             });
             imageView.setLayoutParams(holder.mParams);

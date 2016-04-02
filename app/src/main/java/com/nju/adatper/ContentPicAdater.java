@@ -68,7 +68,6 @@ public class ContentPicAdater extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         final String fileName = mImages[position];
         if (fileName != null){
-
             final String url = PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_TALK_IMG_PATH+fileName;
             ImageDownloader.download(url,holder.img);
         }

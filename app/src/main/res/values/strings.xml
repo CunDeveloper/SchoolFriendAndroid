@@ -183,5 +183,9 @@
     <string name="authorId">authorId</string>
     <string name="you_have_praised">你已经点赞过,不能重复点赞</string>
     <string name="network_connect_unavaible">网络连接不可用</string>
+    <string name="recommend_str">推荐</string>
+    <string name="hear_str">心声</string>
+    <string name="ask_str">咨询</string>
+    <string name="dynamic_str">动态</string>
 
 </resources>

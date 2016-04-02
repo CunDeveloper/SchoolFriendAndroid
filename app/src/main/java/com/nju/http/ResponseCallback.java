@@ -28,10 +28,10 @@ public abstract class ResponseCallback implements Callback {
             public void run() {
                 e.printStackTrace();
                 Log.e(TAG, e.getMessage()+"exception");
-                if (e.getMessage().contains("Canceled") || e.getMessage().contains("Socket closed")) {
-                } else {
+                if (e.getMessage() != null){
                     onFail(e);
                 }
+
             }
         });
     }

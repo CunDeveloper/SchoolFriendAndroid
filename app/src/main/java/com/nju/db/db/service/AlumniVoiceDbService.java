@@ -33,7 +33,7 @@ public class AlumniVoiceDbService {
             contentValues.put(AlumniVoiceEntity.ID,alumniVoice.getId());
             final String json = gson.toJson(alumniVoice);
             contentValues.put(AlumniVoiceEntity.CONTENT,json);
-            db.insert(AlumniVoiceEntity.TABLE_NAME,null,contentValues);
+            db.replace(AlumniVoiceEntity.TABLE_NAME,null,contentValues);
         }
     }
 

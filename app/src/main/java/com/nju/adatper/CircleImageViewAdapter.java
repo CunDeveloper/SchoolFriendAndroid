@@ -13,20 +13,20 @@ import java.util.ArrayList;
  * Created by xiaojuzhang on 2015/12/11.
  */
 public class CircleImageViewAdapter extends FragmentStatePagerAdapter {
-    private ArrayList<Bitmap> mImages;
+    private String[] mImages;
 
-    public CircleImageViewAdapter(FragmentManager fm, ArrayList<Bitmap> images) {
+    public CircleImageViewAdapter(FragmentManager fm,String[] images) {
         super(fm);
         mImages = images;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return CircleImageViewItemFragment.newInstance(mImages.get(position));
+        return CircleImageViewItemFragment.newInstance(mImages[position]);
     }
 
     @Override
     public int getCount() {
-        return mImages.size();
+        return mImages.length;
     }
 }

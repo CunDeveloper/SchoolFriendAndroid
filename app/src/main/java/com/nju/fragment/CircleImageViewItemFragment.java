@@ -4,6 +4,7 @@ package com.nju.fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,18 +15,21 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.CustomImageVIew;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
+import com.nju.http.ImageDownloader;
+import com.nju.util.PathConstant;
 
 
 public class CircleImageViewItemFragment extends Fragment {
 
+    private static final String TAG = CircleImageViewItemFragment.class.getSimpleName();
     private static final String BITMAP = "bitmap";
-    private Bitmap mBitmap;
+    private String imgPath;
     private CustomImageVIew mCustomImageView;
     private static String[]  dialog_items ;
-    public static CircleImageViewItemFragment newInstance(Bitmap bitmap) {
+    public static CircleImageViewItemFragment newInstance(String path) {
         CircleImageViewItemFragment fragment = new CircleImageViewItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(BITMAP,bitmap);
+        bundle.putString(BITMAP, path);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -44,7 +48,7 @@ public class CircleImageViewItemFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-             mBitmap = getArguments().getParcelable(BITMAP);
+            imgPath = getArguments().getString(BITMAP);
         }
         if (dialog_items == null) {
             dialog_items = getActivity().getResources().getStringArray(R.array.dialog_item);
@@ -60,9 +64,9 @@ public class CircleImageViewItemFragment extends Fragment {
         mCustomImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                 SchoolFriendDialog dialog =SchoolFriendDialog.listDialog(getContext(), dialog_items, callback);
-                 dialog.show();
-                 return true;
+                SchoolFriendDialog dialog = SchoolFriendDialog.listDialog(getContext(), dialog_items, callback);
+                dialog.show();
+                return true;
             }
         });
         mCustomImageView.setOnTouchListener(new View.OnTouchListener() {
@@ -71,7 +75,9 @@ public class CircleImageViewItemFragment extends Fragment {
                 return false;
             }
         });
-        mCustomImageView.setImageBitmap(mBitmap);
+        final String url = PathConstant.IMAGE_PATH + PathConstant.ALUMNI_TALK_IMG_PATH + imgPath;
+        Log.i(TAG,url);
+        ImageDownloader.download(url,mCustomImageView);
         return view;
     }
 

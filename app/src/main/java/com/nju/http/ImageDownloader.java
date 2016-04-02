@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.nju.image.CacheUtil;
 import com.nju.image.ImageUtil;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -23,13 +24,19 @@ import java.lang.ref.WeakReference;
  */
 public class ImageDownloader {
     private static final String TAG = ImageDownloader.class.getSimpleName();
+    private static CacheUtil cacheUtil = CacheUtil.getInstance();
 
     public static  void download(String url,ImageView imageView) {
         if (cancelPotentialDownload(url, imageView)) {
-            BitmapDownloaderTask task = new BitmapDownloaderTask(imageView);
-            DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
-            imageView.setImageDrawable(downloadedDrawable);
-            task.execute(url);
+            Bitmap bitmap;
+            if ((bitmap=cacheUtil.getBitmapFromMemCache(url))!= null){
+                imageView.setImageBitmap(bitmap);
+            } else {
+                BitmapDownloaderTask task = new BitmapDownloaderTask(imageView);
+                DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
+                imageView.setImageDrawable(downloadedDrawable);
+                task.execute(url);
+            }
         }
     }
 
@@ -66,12 +73,9 @@ public class ImageDownloader {
             bitmapDownloaderTaskReference =
                     new WeakReference<>(bitmapDownloaderTask);
         }
-
         public BitmapDownloaderTask getBitmapDownloaderTask() {
             return bitmapDownloaderTaskReference.get();
         }
-
-
     }
 
    private  static class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
@@ -87,7 +91,10 @@ public class ImageDownloader {
         protected Bitmap doInBackground(String... params) {
             try {
                 InputStream stream = SchoolFriendHttp.getInstance().SynGetStream(params[0]);
-                return BitmapFactory.decodeStream(stream);
+                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                CacheUtil.getInstance().addBitmapToMemoryCache(params[0],bitmap);
+                return bitmap;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

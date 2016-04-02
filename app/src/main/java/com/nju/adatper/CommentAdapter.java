@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.event.MessageEventId;
 import com.nju.model.ContentComment;
@@ -55,6 +56,7 @@ public class CommentAdapter  extends BaseAdapter {
             holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
+            holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon_img);
             holder.commentIconTV = (TextView) convertView.findViewById(R.id.comment_icon_tv);
             convertView.setTag(holder);
         }
@@ -71,6 +73,19 @@ public class CommentAdapter  extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new MessageEventId(contentComment.getId()));
+            }
+        });
+        holder.nameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView textView = (TextView) v;
+                EventBus.getDefault().post(new PersonInfoEvent(textView.getText().toString()));
+            }
+        });
+        holder.headImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new PersonInfoEvent(contentComment.getCommentAuthor().getAuthorName()));
             }
         });
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(contentComment.getDate()));

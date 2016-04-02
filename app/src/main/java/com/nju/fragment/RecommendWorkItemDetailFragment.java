@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.activity.NetworkInfoEvent;
+import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CommentAdapter;
 import com.nju.db.db.service.RecommendWorkCollectDbService;
@@ -196,8 +197,14 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         }
         TextView dateTv = (TextView) view.findViewById(R.id.date_tv);
         dateTv.setText(DateUtil.getRelativeTimeSpanString(mRecommendWork.getDate()));
-        TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
+        final TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
         nameTV.setText(mRecommendWork.getAuthor().getAuthorName());
+        nameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(CircleFragment.newInstance(nameTV.getText().toString()));
+            }
+        });
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
         labelTV.setText(mRecommendWork.getAuthor().getLabel());
         mEmailTV = (TextView) view.findViewById(R.id.email_tv);
@@ -288,6 +295,11 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         if (event.isConnected()){
             mRequestQueryJson = RecommendWorkService.querySingleComment(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(), queryCommentCallback);
         }
+    }
+
+    @Subscribe
+    public void onMessagePersonCicle(PersonInfoEvent event){
+        getHostActivity().open(CircleFragment.newInstance(event.getUserName()));
     }
 
     @Subscribe

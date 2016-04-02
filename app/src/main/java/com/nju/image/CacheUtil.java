@@ -2,11 +2,11 @@ package com.nju.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.LruCache;
-
-import com.squareup.okhttp.internal.DiskLruCache;
-
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -19,7 +19,6 @@ public class CacheUtil {
     private static CacheUtil mCacheUtil = null;
     private final Object mDiskCacheLock = new Object();
     private LruCache<String, Bitmap> mMemoryCache;
-    private DiskLruCache mDiskLruCache;
     private boolean mDiskCacheStarting = true;
 
 
@@ -34,7 +33,6 @@ public class CacheUtil {
                 return bitmap.getByteCount() / M_UNIT;
             }
         };
-
     }
 
     public static CacheUtil getInstance() {

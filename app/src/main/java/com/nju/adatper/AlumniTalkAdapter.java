@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleImageViewFragment;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.SchoolFriendHttp;
@@ -88,10 +90,11 @@ public class AlumniTalkAdapter extends BaseAdapter {
             });
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
             holder.mPicGridView = (GridView) convertView.findViewById(R.id.pics_gridview);
+
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        AlumniTalk alumniTalk = mAlumniTalks.get(position);
+        final AlumniTalk alumniTalk = mAlumniTalks.get(position);
         try{
             holder.contentTV.setText(StringBase64.decode(alumniTalk.getContent()));
         }catch (IllegalArgumentException e){
@@ -109,6 +112,12 @@ public class AlumniTalkAdapter extends BaseAdapter {
         else {
             holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),alumniTalk.getImagePaths().split(",")));
         }
+        holder.mPicGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mContext.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","),position));
+            }
+        });
         return convertView;
     }
 

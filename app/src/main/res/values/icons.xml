@@ -19,5 +19,9 @@
     <string name="collect_icon1">&#xf1b2;</string>
     <string name="publish_icon">&#xf14b;</string>
     <string name="ellipsis_icon">&#xf141;</string>
+    <string name="heart_icon">&#xf004;</string>
+    <string name="recommend_icon">&#xf26a;</string>
+    <string name="circle_icon">&#xf015;</string>
+    <string name="maror_ask">&#xf18d;</string>
 
 </resources>

@@ -1,6 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/light_gray"
-    android:layout_marginTop="@dimen/phone_apadding"
+    android:background="@android:color/white"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.nju.fragment.DynamicCollectFragment">
     <android.support.v4.widget.SwipeRefreshLayout
@@ -10,6 +9,7 @@
         android:layout_height="match_parent">
         <ListView
             android:id="@+id/listView"
+            android:headerDividersEnabled="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>

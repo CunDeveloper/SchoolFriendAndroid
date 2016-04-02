@@ -41,10 +41,10 @@ public class PersonCircleFragment extends BaseFragment {
     public static PersonCircleFragment newInstance(String userName) {
         if(mFragment == null) {
             mFragment = new PersonCircleFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(USERNAME,userName);
+            mFragment.setArguments(bundle);
         }
-        Bundle bundle = new Bundle();
-        bundle.putString(USERNAME,userName);
-        mFragment.setArguments(bundle);
         return mFragment;
     }
 
