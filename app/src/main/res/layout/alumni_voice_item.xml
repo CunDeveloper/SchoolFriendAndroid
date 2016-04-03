@@ -54,7 +54,7 @@
         android:text="1"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="@dimen/phone_apadding"
-        android:layout_below="@+id/alumni_vo_simple_desc"
+        android:layout_below="@+id/mGridView"
         android:layout_alignStart="@+id/alumni_vo_simple_desc" />
     <TextView
         android:layout_width="wrap_content"
@@ -96,14 +96,16 @@
         android:layout_toEndOf="@+id/alumni_vo_imageView"
         android:layout_below="@+id/alumni_vo_title"
         android:id="@+id/alumni_vo_simple_desc" />
-    <LinearLayout
-        android:orientation="horizontal"
+    <com.nju.View.SchoolFriendGridView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/phone_apadding"
-        android:id="@+id/linearLayout2"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
         android:layout_below="@+id/alumni_vo_simple_desc"
-        android:layout_alignStart="@+id/alumni_vo_date" />
+        android:horizontalSpacing="@dimen/FIVE_DP"
+        android:verticalSpacing="@dimen/FIVE_DP"
+        android:layout_alignStart="@+id/alumni_vo_simple_desc"
+        android:id="@+id/mGridView" />
+
 
     <TextView
         android:layout_width="wrap_content"

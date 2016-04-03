@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.activity.CommentEvent;
+import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.PraiseEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniTalkAdapter;
@@ -165,6 +166,10 @@ public class AlumniDynamicFragment extends BaseFragment {
         ToastUtil.showShortText(getContext(), event.getId() + "comment");
     }
 
+    @Subscribe
+    public void onMessagePersonEvent(PersonInfoEvent event){
+        getHostActivity().open(CircleFragment.newInstance(event.getAuthorInfo()));
+    }
     private void initListView(View view){
         mAlumniTalks = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);

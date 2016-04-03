@@ -1,21 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.nju.fragment.CircleImageViewFragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.v4.view.ViewPager
+        android:layout_alignParentTop="true"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_above="@+id/fragment_circle_image_view_label_layout"
         android:id="@+id/fragment_circle_image_view_viewpager"
         />
-    <FrameLayout
+    <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:id="@+id/fragment_circle_image_view_label_layout"
-            android:layout_marginBottom="50dp"
-            android:orientation="horizontal"
-            android:layout_height="@dimen/phone_apadding"/>
-    </FrameLayout>
-</FrameLayout>
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:paddingTop="@dimen/phone_apadding"
+        android:id="@+id/fragment_circle_image_view_label_layout"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/padding_left"/>
+</RelativeLayout>

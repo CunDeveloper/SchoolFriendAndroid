@@ -185,7 +185,7 @@ public class MajorAskFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mMajorAskAdapter = new MajorAskAdapter(getContext(), mAlumniQuestions);
+        mMajorAskAdapter = new MajorAskAdapter(this, mAlumniQuestions);
         listView.setAdapter(mMajorAskAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -202,7 +202,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         nameTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(CircleFragment.newInstance(nameTV.getText().toString()));
+                getHostActivity().open(CircleFragment.newInstance(mRecommendWork.getAuthorInfo()));
             }
         });
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
@@ -298,8 +298,8 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessagePersonCicle(PersonInfoEvent event){
-        getHostActivity().open(CircleFragment.newInstance(event.getUserName()));
+    public void onMessagePersonCircle(PersonInfoEvent event){
+        getHostActivity().open(CircleFragment.newInstance(event.getAuthorInfo()) );
     }
 
     @Subscribe

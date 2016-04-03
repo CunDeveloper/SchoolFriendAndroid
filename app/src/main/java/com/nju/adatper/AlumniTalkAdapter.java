@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
@@ -29,10 +31,13 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
+import com.nju.util.ToastUtil;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,32 +95,59 @@ public class AlumniTalkAdapter extends BaseAdapter {
             });
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
             holder.mPicGridView = (GridView) convertView.findViewById(R.id.pics_gridview);
-
             convertView.setTag(holder);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showShortText(mContext.getContext(),"Hello");
+                }
+            });
         }
         holder = (ViewHolder) convertView.getTag();
         final AlumniTalk alumniTalk = mAlumniTalks.get(position);
+        holder.headImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new PersonInfoEvent(alumniTalk.getAuthorInfo()));
+            }
+        });
         try{
             holder.contentTV.setText(StringBase64.decode(alumniTalk.getContent()));
         }catch (IllegalArgumentException e){
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        holder.locationTV.setText(alumniTalk.getLocation());
+        if (alumniTalk.getLocation()!=null){
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            holder.locationTV.setLayoutParams(params);
+            holder.locationTV.setVisibility(View.VISIBLE);
+            holder.locationTV.setText(alumniTalk.getLocation());
+        }else {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0,0);
+            holder.locationTV.setLayoutParams(params);
+            holder.locationTV.setVisibility(View.GONE);
+        }
+
         holder.nameTV.setText(alumniTalk.getAuthorInfo().getAuthorName());
+        holder.nameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new PersonInfoEvent(alumniTalk.getAuthorInfo()));
+            }
+        });
         holder.labelTV.setText(alumniTalk.getAuthorInfo().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniTalk.getDate()));
         final String url =PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_TALK_IMG_PATH+"cb54bd60f20942f9a340a027c3e018afIMG_20160330_183310.jpg";
          ImageDownloader.download(url, holder.headImg);
         if (alumniTalk.getImagePaths() == null){
-            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),empty));
+            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),PathConstant.ALUMNI_TALK_IMG_PATH,empty));
         }
         else {
-            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),alumniTalk.getImagePaths().split(",")));
+            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),PathConstant.ALUMNI_TALK_IMG_PATH,alumniTalk.getImagePaths().split(",")));
         }
         holder.mPicGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mContext.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","),position));
+                mContext.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","),position,PathConstant.ALUMNI_TALK_IMG_PATH));
             }
         });
         return convertView;

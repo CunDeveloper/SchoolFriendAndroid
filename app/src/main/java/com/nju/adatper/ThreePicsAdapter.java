@@ -18,21 +18,23 @@ import com.nju.util.PathConstant;
  * Created by cun on 2016/4/1.
  */
 
-public class MajorAskPicAdapter extends BaseAdapter {
+public class ThreePicsAdapter extends BaseAdapter {
 
-    private static final String TAG = MajorAskPicAdapter.class.getSimpleName() ;
+    private static final String TAG = ThreePicsAdapter.class.getSimpleName() ;
     private Context mContext;
     private String[] mImages;
+    private String mBaseImgPath;
 
     private int computeWidth(){
         int diviceWidth = Divice.getDisplayWidth(mContext);
-        int spaceWidth = (int) Divice.convertDpToPixel(40,mContext);
+        int spaceWidth = (int) Divice.convertDpToPixel(30,mContext);
         return (diviceWidth-spaceWidth)/3;
     }
 
-    public MajorAskPicAdapter(Context context, String[] images) {
+    public ThreePicsAdapter(Context context,String imgPath, String[] images) {
         this.mContext = context;
         this.mImages = images;
+        mBaseImgPath = imgPath;
     }
 
     @Override
@@ -64,11 +66,10 @@ public class MajorAskPicAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         final String fileName = mImages[position];
         if (fileName != null){
-            final String url = PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_QUESTION_IMG_PATH+fileName;
+            final String url = PathConstant.IMAGE_PATH_SMALL+mBaseImgPath+fileName;
             Log.i(TAG,url);
             ImageDownloader.download(url, holder.img);
         }
-
         return convertView;
     }
 

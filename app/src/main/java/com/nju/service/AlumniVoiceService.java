@@ -37,7 +37,7 @@ public class AlumniVoiceService {
         return mRequestQueryJson;
     }
     public static PostRequestJson queryVoices(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment);
+        final String json = QueryJson.queryLimitToString(fragment,0);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.i(TAG,url);
@@ -99,7 +99,7 @@ public class AlumniVoiceService {
     }
 
     public static PostRequestJson queryMyVoices(BaseFragment fragment,Callback callback,String level){
-        final String json = QueryJson.queryLimitToString(fragment);
+        final String json = QueryJson.queryLimitToString(fragment,0);
         Log.e(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_OWN_VOICE+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);

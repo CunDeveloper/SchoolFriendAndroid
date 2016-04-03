@@ -187,5 +187,11 @@
     <string name="hear_str">心声</string>
     <string name="ask_str">咨询</string>
     <string name="dynamic_str">动态</string>
+    <string name="sync_to">同步到</string>
+    <string name="graudate">本科学校</string>
+    <string name="master">硕士学校</string>
+    <string name="doctor">博士学校</string>
+    <string name="voice_type">心声类型</string>
+    <string name="ask_label">专业标签</string>
 
 </resources>

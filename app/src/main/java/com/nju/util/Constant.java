@@ -80,4 +80,7 @@ public class Constant {
     public static final String ALUMNI_VOICE = "alumniVoice";
     public static final String MAJOR_ASK = "majorAsk" ;
     public static final String DELETE_TABLE_DATA = "DELETE * FROM ";
+    public static final String[] EMPTY = {};
+    public static final int MAX_LIST_NUMBER = 100;
+    public static final String RECOMMEND_ID = "recommendID";
 }

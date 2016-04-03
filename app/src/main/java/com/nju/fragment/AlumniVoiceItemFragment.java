@@ -90,7 +90,7 @@ public class AlumniVoiceItemFragment extends BaseFragment {
     private void initListView(View view) {
         voices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.alumni_voice_item_list);
-        AlumniVoiceItemAdapter adapter = new AlumniVoiceItemAdapter(getContext(),voices);
+        AlumniVoiceItemAdapter adapter = new AlumniVoiceItemAdapter(this,voices);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

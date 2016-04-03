@@ -1,18 +1,23 @@
 package com.nju.adatper;
 
-import android.content.Context;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.fragment.AlumniVoiceItemDetail;
+import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleImageViewFragment;
 import com.nju.model.AlumniVoice;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
@@ -24,10 +29,10 @@ import java.util.Date;
 public class AlumniVoiceItemAdapter extends BaseAdapter {
 
     private ArrayList<AlumniVoice> mVoices;
-    private Context mContext;
+    private BaseFragment mFragment;
 
-    public AlumniVoiceItemAdapter(Context context, ArrayList<AlumniVoice> voices) {
-        mContext = context;
+    public AlumniVoiceItemAdapter(BaseFragment fragment, ArrayList<AlumniVoice> voices) {
+        mFragment = fragment;
         mVoices = voices;
     }
 
@@ -51,7 +56,7 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.alumni_voice_item, parent, false);
+            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.alumni_voice_item, parent, false);
             holder.nameTV = (TextView) convertView.findViewById(R.id.alumni_vo_name);
             holder.labelTV = (TextView) convertView.findViewById(R.id.alumni_vo_label);
             holder.titleTV = (TextView) convertView.findViewById(R.id.alumni_vo_title);
@@ -59,9 +64,10 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
             holder.praiseCountTV = (TextView) convertView.findViewById(R.id.alumni_vo_praise_number);
             holder.commentTV = (TextView) convertView.findViewById(R.id.alumni_vo_comment_number);
             holder.simpleDescTV = (TextView) convertView.findViewById(R.id.alumni_vo_simple_desc);
+            holder.picGridView = (GridView) convertView.findViewById(R.id.mGridView);
             convertView.setTag(holder);
         }
-        AlumniVoice voice = mVoices.get(position);
+        final AlumniVoice voice = mVoices.get(position);
         holder = (ViewHolder) convertView.getTag();
         holder.commentTV.setText(voice.getCommentCount() + "");
         holder.praiseCountTV.setText(voice.getPraiseCount() + "");
@@ -70,6 +76,12 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         }catch (IllegalArgumentException e){
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+        holder.titleTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.getHostActivity().open(AlumniVoiceItemDetail.newInstance(voice));
+            }
+        });
         final long time = DateUtil.getTime(voice.getDate());
         final String date = DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
         holder.dateTV.setText(date);
@@ -80,6 +92,18 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         }catch (IllegalArgumentException e){
             holder.simpleDescTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+        if (voice.getImgPaths() == null){
+            holder.picGridView.setAdapter(new ContentPicAdater(mFragment.getContext(),PathConstant.ALUMNI_VOICE_IMG_PATH, Constant.EMPTY));
+        }
+        else {
+            holder.picGridView.setAdapter(new ContentPicAdater(mFragment.getContext(),PathConstant.ALUMNI_VOICE_IMG_PATH, voice.getImgPaths().split(",")));
+        }
+        holder.picGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(voice.getImgPaths().split(","), position, PathConstant.ALUMNI_VOICE_IMG_PATH));
+            }
+        });
         return convertView;
     }
 
@@ -92,5 +116,6 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         private TextView praiseCountTV;
         private TextView commentTV;
         private TextView simpleDescTV;
+        private GridView picGridView;
     }
 }

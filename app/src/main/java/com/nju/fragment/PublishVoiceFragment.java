@@ -9,29 +9,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
+import com.nju.adatper.CollageAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.ImageWrapper;
+import com.nju.test.TestData;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
+import com.nju.util.SyncChoosePublish;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class PublishVoiceFragment extends BaseFragment {
     public static final String TAG = PublishVoiceFragment.class.getSimpleName();
@@ -75,6 +82,8 @@ public class PublishVoiceFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
+
+        SyncChoosePublish.sync(this, view);
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
@@ -145,6 +154,12 @@ public class PublishVoiceFragment extends BaseFragment {
         if (mWhoScan != null){
             mWhoScanTV.setText(mWhoScan);
         }
+
+        Spinner completeTextView = (Spinner) view.findViewById(R.id.voiceTypeACT);
+        HashSet<String> voiceSet = TestData.voiceTypes();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, voiceSet.toArray(new String[voiceSet.size()]));
+        completeTextView.setAdapter(adapter);
     }
 
     ResponseCallback callback = new ResponseCallback() {

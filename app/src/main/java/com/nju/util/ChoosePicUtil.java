@@ -20,10 +20,11 @@ public class ChoosePicUtil {
         if (FragmentUtil.isAttachedToActivity(fragment)) {
             BaseActivity.LocalStack<BaseFragment> backStack = fragment.getHostActivity().getBackStack();
             while (backStack.size() > 0) {
-                BaseFragment baseFragment = backStack.peek();
+                backStack.pop();
+                BaseFragment baseFragment =backStack.peek();
                 if (label.equals(PublishDynamicFragment.TAG)) {
                     if (baseFragment instanceof PublishDynamicFragment) {
-                        baseFragment = backStack.pop();
+                        //baseFragment = backStack.pop();
                         PublishDynamicFragment dynamicFragment = (PublishDynamicFragment) baseFragment;
                         dynamicFragment.setImages(imageWrappers);
                         fragment.getHostActivity().open(dynamicFragment);
@@ -32,15 +33,21 @@ public class ChoosePicUtil {
                         fragment.getHostActivity().open(PublishDynamicFragment.newInstance(fragment.getString(R.string.publish_dynamic), imageWrappers));
                         break;
                     }
-                } else if (baseFragment instanceof RecommendPublishFragment) {
-                    baseFragment = backStack.pop();
-                    RecommendPublishFragment recommendPublishFragment = (RecommendPublishFragment) baseFragment;
-                    recommendPublishFragment.setImages(imageWrappers);
-                    fragment.getHostActivity().open(recommendPublishFragment);
-                    break;
-                } else if (label.equals(AskPublishFragment.TAG)) {
+                }else if (label.equals(RecommendPublishFragment.TAG)){
+                    if (baseFragment instanceof RecommendPublishFragment) {
+                        //baseFragment = backStack.pop();
+                        RecommendPublishFragment recommendPublishFragment = (RecommendPublishFragment) baseFragment;
+                        recommendPublishFragment.setImages(imageWrappers);
+                        fragment.getHostActivity().open(recommendPublishFragment);
+                        break;
+                    }else {
+                        fragment.getHostActivity().open(AskPublishFragment.newInstance(fragment.getString(R.string.publish_recommend), imageWrappers));
+                        break;
+                    }
+                }
+                 else if (label.equals(AskPublishFragment.TAG)) {
                     if (baseFragment instanceof AskPublishFragment) {
-                        baseFragment = backStack.pop();
+                        //baseFragment = backStack.pop();
                         AskPublishFragment askPublishFragment = (AskPublishFragment) baseFragment;
                         askPublishFragment.setImages(imageWrappers);
                         fragment.getHostActivity().open(askPublishFragment);
@@ -49,12 +56,17 @@ public class ChoosePicUtil {
                         fragment.getHostActivity().open(AskPublishFragment.newInstance(fragment.getString(R.string.major_ask), imageWrappers));
                         break;
                     }
-                } else if (baseFragment instanceof PublishVoiceFragment) {
-                    baseFragment = backStack.pop();
-                    PublishVoiceFragment publishVoiceFragment = (PublishVoiceFragment) baseFragment;
-                    publishVoiceFragment.setImages(imageWrappers);
-                    fragment.getHostActivity().open(publishVoiceFragment);
-                    break;
+                } else if (label.equals(PublishVoiceFragment.TAG)){
+                    if (baseFragment instanceof PublishVoiceFragment) {
+                        //baseFragment = backStack.pop();
+                        PublishVoiceFragment publishVoiceFragment = (PublishVoiceFragment) baseFragment;
+                        publishVoiceFragment.setImages(imageWrappers);
+                        fragment.getHostActivity().open(publishVoiceFragment);
+                        break;
+                    } else {
+                        fragment.getHostActivity().open(PublishVoiceFragment.newInstance(fragment.getString(R.string.publish_voice), imageWrappers));
+                        break;
+                    }
                 }
             }
         }

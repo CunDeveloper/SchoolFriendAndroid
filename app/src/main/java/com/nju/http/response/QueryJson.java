@@ -20,11 +20,11 @@ import java.util.ArrayList;
  */
 public class QueryJson {
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
-    public static String queryLimitToString(final BaseFragment fragment){
+    public static String queryLimitToString(final BaseFragment fragment,int offset){
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimit limit = new QueryLimit();
-        limit.setOffset(0);limit.setTotal(20);
+        limit.setOffset(offset);limit.setTotal(20);
         bodyJson.setBody(limit);
         return gson.toJson(bodyJson);
     }

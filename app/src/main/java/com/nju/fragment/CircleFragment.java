@@ -10,17 +10,18 @@ import android.view.ViewGroup;
 
 import com.nju.activity.R;
 import com.nju.adatper.CirclePager;
+import com.nju.model.AuthorInfo;
 import com.nju.util.Divice;
 
 public class CircleFragment extends BaseFragment {
 
     private static final String TAG = CircleFragment.class.getSimpleName();
-    private static final String TITLE_PARAM ="title";
-    private String mTitle;
-    public static CircleFragment newInstance(String title) {
+    private static final String PARAM_AUTHOR ="authorInfo";
+    private AuthorInfo mAuthorInfo;
+    public static CircleFragment newInstance(AuthorInfo authorInfo) {
         CircleFragment fragment = new CircleFragment();
         Bundle args = new Bundle();
-        args.putString(TITLE_PARAM,title);
+        args.putParcelable(PARAM_AUTHOR,authorInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,7 +34,7 @@ public class CircleFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(TITLE_PARAM);
+            mAuthorInfo = getArguments().getParcelable(PARAM_AUTHOR);
         }
     }
 
@@ -44,7 +45,7 @@ public class CircleFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mTitle);
+            actionBar.setTitle(mAuthorInfo.getAuthorName());
         }
         getHostActivity().display(7);
     }

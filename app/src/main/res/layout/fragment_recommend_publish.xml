@@ -122,6 +122,7 @@
                         android:text="@string/shezhao"
                         android:id="@+id/shezhao_checkBox" />
                 </LinearLayout>
+                <include layout="@layout/sync_choose_layout"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

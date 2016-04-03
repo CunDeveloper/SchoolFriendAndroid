@@ -16,7 +16,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.activity.NetworkInfoEvent;
+import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
+import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.db.db.service.MajorAskCollectDbService;
 import com.nju.event.MessageEventId;
@@ -35,6 +37,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ShareUtil;
 import com.nju.util.SoftInput;
@@ -156,6 +159,7 @@ public class MajorAskDetailFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         initToolBar(view);
+        initListView(view);
         mContentEditText = CommentUtil.getCommentEdit(this,view);
         return view;
     }
@@ -181,6 +185,10 @@ public class MajorAskDetailFragment extends BaseFragment {
         SoftInput.open(getContext());
         scrollView.scrollTo(0, linearLayout.getBottom());
     }
+    @Subscribe
+    public void onMessagePersonEvent(PersonInfoEvent event){
+        getHostActivity().open(CircleFragment.newInstance(event.getAuthorInfo()));
+    }
 
     private void initView(final View view){
         TextView problemTV = (TextView) view.findViewById(R.id.problem_tv);
@@ -197,6 +205,12 @@ public class MajorAskDetailFragment extends BaseFragment {
             descTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
+        nameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(CircleFragment.newInstance(mAlumniQuestion.getAuthor()));
+            }
+        });
         nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mAlumniQuestion.getDate()));
@@ -218,6 +232,15 @@ public class MajorAskDetailFragment extends BaseFragment {
             }
         });
         mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
+    }
+
+    private void initListView(View view){
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        if (mAlumniQuestion.getImgPaths()!=null){
+            Log.e(TAG,mAlumniQuestion.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH,mAlumniQuestion.getImgPaths().split(",")));
+        }
+
     }
 
     private void initToolBar(final View view){

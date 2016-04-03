@@ -66,7 +66,7 @@
                         android:layout_marginBottom="@dimen/padding_left"
                         android:id="@+id/alumni_vo_date"
                         android:text="1"
-                        android:layout_below="@+id/alumni_vo_desc"
+                        android:layout_below="@+id/listView"
                         android:layout_alignStart="@+id/alumni_vo_desc" />
                     <com.nju.View.SchoolFriendTextView
                         android:orientation="horizontal"
@@ -79,13 +79,20 @@
                         android:layout_toEndOf="@+id/alumni_vo_imageView"
                         android:layout_below="@+id/alumni_vo_title"
                         android:id="@+id/alumni_vo_desc" />
+                    <com.nju.View.NonScrollableListView
+                        android:layout_below="@+id/alumni_vo_desc"
+                        android:id="@+id/listView"
+                        android:layout_marginStart="@dimen/phone_apadding"
+                        android:layout_marginEnd="@dimen/phone_apadding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginBottom="@dimen/phone_apadding"
                         android:id="@+id/linearLayout2"
-                        android:layout_below="@+id/alumni_vo_desc"
+                        android:layout_below="@+id/listView"
                         android:layout_alignStart="@+id/alumni_vo_date" />
 
                     <View
@@ -114,7 +121,7 @@
                         android:text="0"
                         android:id="@+id/comment_number_tv"
                         android:layout_alignTop="@+id/textView37"
-                        android:layout_alignEnd="@+id/alumni_vo_desc" />
+                        android:layout_alignEnd="@+id/listView" />
 
                     <TextView
                         android:layout_width="wrap_content"

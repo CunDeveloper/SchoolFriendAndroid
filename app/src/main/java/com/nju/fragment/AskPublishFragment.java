@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
@@ -19,17 +21,20 @@ import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.ImageWrapper;
+import com.nju.test.TestData;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
+import com.nju.util.SyncChoosePublish;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class AskPublishFragment extends BaseFragment {
 
@@ -79,6 +84,7 @@ public class AskPublishFragment extends BaseFragment {
         }else {
             mUploadImgPaths = new ArrayList<>();
         }
+        SyncChoosePublish.sync(this, view);
         initView(view);
         return view;
     }
@@ -136,8 +142,11 @@ public class AskPublishFragment extends BaseFragment {
 
             }
         });
-
-
+        Spinner completeTextView = (Spinner) view.findViewById(R.id.typeSpinner);
+        String[] majorTypes= TestData.getMajorType();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, majorTypes);
+        completeTextView.setAdapter(adapter);
     }
 
     public void inputEmotion(String text) {

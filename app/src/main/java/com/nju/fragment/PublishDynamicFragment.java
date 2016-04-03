@@ -27,6 +27,7 @@ import com.nju.util.InputEmotionUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
+import com.nju.util.SyncChoosePublish;
 import com.nju.util.ToastUtil;
 
 import java.io.File;
@@ -80,7 +81,7 @@ public class PublishDynamicFragment extends BaseFragment {
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         initView(view);
-
+        SyncChoosePublish.sync(this,view);
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);

@@ -80,6 +80,47 @@
                     android:layout_height="1dp"
                     android:layout_marginBottom="@dimen/phone_apadding"
                     android:background="@color/gray"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-1dp"
+                    android:background="@drawable/item_toggle_bg"
+                    android:layout_height="@dimen/phone_item_height">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/phone_apadding"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/ask_label"
+                        android:id="@+id/typeTV"
+                        android:textColor="@android:color/black"
+
+                        />
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textAlignment="textEnd"
+                        android:text="@string/work"
+                        android:id="@+id/typeSpinner"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/phone_apadding"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/edit_label"
+                        android:textColor="@color/light_blue"
+                        android:paddingStart="@dimen/phone_apadding"
+                        />
+                </LinearLayout>
+                <include layout="@layout/sync_choose_layout"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

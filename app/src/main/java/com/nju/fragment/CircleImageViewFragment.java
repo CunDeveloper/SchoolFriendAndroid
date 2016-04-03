@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.nju.activity.R;
 import com.nju.adatper.CircleImageViewAdapter;
 import com.nju.util.Divice;
+import com.nju.util.PathConstant;
 
 import java.util.ArrayList;
 
@@ -22,18 +23,21 @@ public class CircleImageViewFragment extends BaseFragment {
     public static final String TAG = CircleImageViewFragment.class.getSimpleName();
     private static final String IMAGE = "image";
     private static final String POSITION = "position";
+    private static final String IMG_PATH = "path";
     private LinearLayout mLabelLinearLayout;
     private String[] mImgPaths;
+    private String mPath;
     private int mPosition;
     private ViewPager mViewPager;
     private ArrayList<View> views;
     private int mChoosePosition;
 
-    public static CircleImageViewFragment newInstance(String[] imgPaths,int position) {
+    public static CircleImageViewFragment newInstance(String[] imgPaths,int position,String path) {
         CircleImageViewFragment fragment = new CircleImageViewFragment();
         Bundle bundle = new Bundle();
         bundle.putStringArray(IMAGE, imgPaths);
         bundle.putInt(POSITION, position);
+        bundle.putString(IMG_PATH,path);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -47,6 +51,7 @@ public class CircleImageViewFragment extends BaseFragment {
         if (getArguments() != null) {
             mImgPaths = getArguments().getStringArray(IMAGE);
             mPosition= getArguments().getInt(POSITION);
+            mPath = getArguments().getString(IMG_PATH);
         }
     }
 
@@ -57,7 +62,7 @@ public class CircleImageViewFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mLabelLinearLayout = (LinearLayout) view.findViewById(R.id.fragment_circle_image_view_label_layout);
         mViewPager = (ViewPager) view.findViewById(R.id.fragment_circle_image_view_viewpager);
-        mViewPager.setAdapter(new CircleImageViewAdapter(getFragmentManager(),mImgPaths));
+        mViewPager.setAdapter(new CircleImageViewAdapter(getFragmentManager(),mImgPaths,mPath));
         views = new ArrayList<>(9);
         initLabel(inflater);
         initViewPagerChangeEvent();

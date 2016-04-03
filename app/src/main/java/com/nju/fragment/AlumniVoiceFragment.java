@@ -142,7 +142,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mAlumniVoiceItemAdapter = new AlumniVoiceItemAdapter(getContext(), mVoices);
+        mAlumniVoiceItemAdapter = new AlumniVoiceItemAdapter(this, mVoices);
         listView.setAdapter(mAlumniVoiceItemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

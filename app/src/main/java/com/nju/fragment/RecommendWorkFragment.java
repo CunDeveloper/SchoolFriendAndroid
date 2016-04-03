@@ -87,10 +87,19 @@ public class RecommendWorkFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
                                 mRecommendWorks.add(recommendWork);
                             }
-                            Collections.sort(mRecommendWorks,new RecommendWorkSort());
+                            Collections.sort(mRecommendWorks, new RecommendWorkSort());
+                            if (mRecommendWorks.size()>0){
+                                RecommendWork recommendWork = mRecommendWorks.get(0);
+                                if (recommendWork != null){
+                                    getHostActivity().getSharedPreferences()
+                                            .edit().
+                                            putInt(Constant.RECOMMEND_ID,recommendWork.getId()).apply();
+                                }
+                            }
+
                             int length = mRecommendWorks.size();
-                            if (length>10){
-                                for (int i = length-1;i>10;i--){
+                            if (length>Constant.MAX_LIST_NUMBER){
+                                for (int i = length-1;i>Constant.MAX_LIST_NUMBER;i--){
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }

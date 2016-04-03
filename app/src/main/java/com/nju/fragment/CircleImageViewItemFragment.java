@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -16,20 +17,24 @@ import com.nju.View.CustomImageVIew;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
+import com.nju.util.Divice;
 import com.nju.util.PathConstant;
 
 
-public class CircleImageViewItemFragment extends Fragment {
+public class CircleImageViewItemFragment extends BaseFragment {
 
     private static final String TAG = CircleImageViewItemFragment.class.getSimpleName();
     private static final String BITMAP = "bitmap";
+    private static final String PARAM_BASE_PATH = "basePath";
     private String imgPath;
+    private String mBaseImgPath;
     private CustomImageVIew mCustomImageView;
     private static String[]  dialog_items ;
-    public static CircleImageViewItemFragment newInstance(String path) {
+    public static CircleImageViewItemFragment newInstance(String path,String basePath) {
         CircleImageViewItemFragment fragment = new CircleImageViewItemFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BITMAP, path);
+        bundle.putString(PARAM_BASE_PATH,basePath);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,6 +54,7 @@ public class CircleImageViewItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             imgPath = getArguments().getString(BITMAP);
+            mBaseImgPath = getArguments().getString(PARAM_BASE_PATH);
         }
         if (dialog_items == null) {
             dialog_items = getActivity().getResources().getStringArray(R.array.dialog_item);
@@ -60,6 +66,7 @@ public class CircleImageViewItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_circle_image_view_item, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mCustomImageView = (CustomImageVIew) view.findViewById(R.id.fragment_circle_image_view_item_iamge);
         mCustomImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -69,13 +76,16 @@ public class CircleImageViewItemFragment extends Fragment {
                 return true;
             }
         });
-        mCustomImageView.setOnTouchListener(new View.OnTouchListener() {
+        mCustomImageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
+            public void onClick(View v) {
+                getHostActivity().getBackStack().pop();
+                BaseFragment baseFragment = getHostActivity().getBackStack().peek();
+                getHostActivity().open(baseFragment);
             }
         });
-        final String url = PathConstant.IMAGE_PATH + PathConstant.ALUMNI_TALK_IMG_PATH + imgPath;
+
+        final String url = PathConstant.IMAGE_PATH + mBaseImgPath+ imgPath;
         Log.i(TAG,url);
         ImageDownloader.download(url,mCustomImageView);
         return view;

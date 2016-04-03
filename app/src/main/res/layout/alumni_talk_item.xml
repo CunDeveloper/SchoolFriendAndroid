@@ -46,6 +46,7 @@
              />
         <com.nju.View.SchoolFriendGridView
             android:id="@+id/pics_gridview"
+            android:paddingTop="@dimen/FIVE_DP"
             android:layout_width="match_parent"
             android:numColumns="3"
             android:verticalSpacing="@dimen/FIVE_DP"
@@ -56,22 +57,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/FIVE_DP"
-                android:text="shanghai"
 
                 android:id="@+id/location_tv"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/FIVE_DP"
                 android:text="11"
                 android:layout_below="@+id/location_tv"
                 android:id="@+id/date_tv"
                 />
             <com.nju.View.SchoolFriendAweTextView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:textSize="20sp"
                 android:id="@+id/comment_icon_tv"
                 android:textColor="@color/light_blue"

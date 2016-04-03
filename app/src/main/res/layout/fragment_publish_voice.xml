@@ -7,7 +7,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout3">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +96,7 @@
                         android:textColor="@android:color/black"
                         android:layout_centerVertical="true"
                         android:paddingStart="@dimen/phone_apadding"
-                        />
+                        android:id="@+id/textView41" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -103,11 +104,52 @@
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="@string/school_scan"
                         android:id="@+id/whoScanTV"
-                        android:paddingRight="@dimen/padding_left"
-                        android:layout_centerVertical="true"
+                         android:layout_marginEnd="@dimen/phone_apadding"
+                        android:layout_alignTop="@+id/textView41"
                         android:layout_alignParentEnd="true" />
                 </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-1dp"
+                    android:background="@drawable/item_toggle_bg"
+                    android:layout_height="@dimen/phone_item_height">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/phone_apadding"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/voice_type"
+                        android:id="@+id/typeTV"
+                        android:textColor="@android:color/black"
 
+                        />
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textAlignment="textEnd"
+                        android:text="@string/work"
+                        android:id="@+id/voiceTypeACT"
+                        android:paddingRight="@dimen/padding_left"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/phone_apadding"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/edit_label"
+                        android:textColor="@color/light_blue"
+                        android:paddingStart="@dimen/phone_apadding"
+                        />
+                </LinearLayout>
+                <include layout="@layout/sync_choose_layout"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

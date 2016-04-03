@@ -22,7 +22,8 @@
                     android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:paddingBottom="350dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                     >
                     <com.nju.View.SchoolFriendTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -41,50 +42,56 @@
                         android:paddingEnd="@dimen/phone_apadding"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black"
-                        android:layout_marginTop="@dimen/padding_left"
+                        android:layout_marginTop="@dimen/phone_apadding"
                         android:id="@+id/description_tv"
                         />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:orientation="horizontal"
-                            android:paddingTop="@dimen/phone_apadding"
-                            android:paddingBottom="@dimen/phone_apadding"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:textColor="@android:color/black"
-                                android:text="@string/asked_by"
-                                android:paddingStart="@dimen/phone_apadding"
-                                android:paddingEnd="@dimen/phone_apadding"
-                                android:id="@+id/askby"
-                                />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:textColor="@color/light_blue"
-                                android:paddingStart="@dimen/phone_apadding"
-                                android:paddingEnd="@dimen/phone_apadding"
-                                android:id="@+id/name_tv"
-                                />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:gravity="end"
-                                android:paddingStart="@dimen/phone_apadding"
-                                android:paddingEnd="@dimen/phone_apadding"
-                                android:id="@+id/date_tv"
-                                />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/padding_left"
-                            android:background="@color/light_gray"
+                    <com.nju.View.NonScrollableListView
+                        android:layout_width="match_parent"
+                        android:paddingStart="@dimen/phone_apadding"
+                        android:paddingEnd="@dimen/phone_apadding"
+                        android:id="@+id/listView"
+                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/phone_apadding"
+                        android:paddingBottom="@dimen/phone_apadding"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@android:color/black"
+                            android:text="@string/asked_by"
+                            android:paddingStart="@dimen/phone_apadding"
+                            android:paddingEnd="@dimen/phone_apadding"
+                            android:id="@+id/askby"
                             />
-                        <include layout="@layout/new_comment"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/light_blue"
+                            android:paddingStart="@dimen/phone_apadding"
+                            android:paddingEnd="@dimen/phone_apadding"
+                            android:id="@+id/name_tv"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:gravity="end"
+                            android:paddingStart="@dimen/phone_apadding"
+                            android:paddingEnd="@dimen/phone_apadding"
+                            android:id="@+id/date_tv"
+                            />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/padding_left"
+                        android:background="@color/light_gray"
+                        />
+                    <include layout="@layout/new_comment"/>
                     </LinearLayout>
             </ScrollView>
             <include layout="@layout/tool_bar"/>

@@ -29,6 +29,7 @@ import com.nju.util.InputEmotionUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
+import com.nju.util.SyncChoosePublish;
 import com.nju.util.ToastUtil;
 
 import java.io.File;
@@ -86,6 +87,7 @@ public class RecommendPublishFragment extends BaseFragment {
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
         }
+        SyncChoosePublish.sync(this, view);
         initView(view);
         initCheckBox(view);
         return view;

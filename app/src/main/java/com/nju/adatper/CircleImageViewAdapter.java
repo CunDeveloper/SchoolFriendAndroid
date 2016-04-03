@@ -14,15 +14,17 @@ import java.util.ArrayList;
  */
 public class CircleImageViewAdapter extends FragmentStatePagerAdapter {
     private String[] mImages;
+    private String mPath;
 
-    public CircleImageViewAdapter(FragmentManager fm,String[] images) {
+    public CircleImageViewAdapter(FragmentManager fm,String[] images,String path) {
         super(fm);
         mImages = images;
+        mPath = path;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return CircleImageViewItemFragment.newInstance(mImages[position]);
+        return CircleImageViewItemFragment.newInstance(mImages[position],mPath);
     }
 
     @Override

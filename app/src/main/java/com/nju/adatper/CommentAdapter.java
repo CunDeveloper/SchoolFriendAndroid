@@ -79,13 +79,13 @@ public class CommentAdapter  extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 TextView textView = (TextView) v;
-                EventBus.getDefault().post(new PersonInfoEvent(textView.getText().toString()));
+                EventBus.getDefault().post(new PersonInfoEvent(contentComment.getCommentAuthor()));
             }
         });
         holder.headImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new PersonInfoEvent(contentComment.getCommentAuthor().getAuthorName()));
+                EventBus.getDefault().post(new PersonInfoEvent(contentComment.getCommentAuthor()));
             }
         });
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(contentComment.getDate()));

@@ -21,7 +21,7 @@ public class AlumniTalkService {
 
     private static final String TAG = AlumniTalkService.class.getSimpleName();
     public static PostRequestJson queryAlumniTalks(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment);
+        final String json = QueryJson.queryLimitToString(fragment,0);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH+PathConstant.ALUMNI_TALK_SUB_PATH_VIEW_ALL+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.i(TAG, url);

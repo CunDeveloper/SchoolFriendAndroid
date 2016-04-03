@@ -12,6 +12,7 @@ import com.nju.http.request.CommentParamId;
 import com.nju.http.request.IdParam;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.QueryJson;
+import com.nju.util.Constant;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 import com.squareup.okhttp.Callback;
@@ -25,7 +26,9 @@ public class RecommendWorkService {
 
     private static final String TAG = RecommendWorkService.class.getSimpleName();
     public static PostRequestJson queryRecommendWork(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment);
+        final int offset = fragment.getHostActivity().getSharedPreferences().getInt(Constant.RECOMMEND_ID,0);
+        Log.i(TAG,offset+"--");
+        final String json = QueryJson.queryLimitToString(fragment,offset);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);
@@ -76,7 +79,7 @@ public class RecommendWorkService {
     }
 
     public static PostRequestJson queryMyRecommendWork(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment);
+        final String json = QueryJson.queryLimitToString(fragment,0);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);

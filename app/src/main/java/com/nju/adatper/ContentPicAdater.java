@@ -27,6 +27,7 @@ public class ContentPicAdater extends BaseAdapter {
     private static final String TAG = ContentPicAdater.class.getSimpleName() ;
     private Context mContext;
     private String[] mImages;
+    private String mBaseImg;
 
     private int computeWidth(){
         int diviceWidth = Divice.getDisplayWidth(mContext);
@@ -34,9 +35,10 @@ public class ContentPicAdater extends BaseAdapter {
         return (diviceWidth-spaceWidth)/3;
     }
 
-    public ContentPicAdater(Context context, String[] images) {
+    public ContentPicAdater(Context context,String imgPath, String[] images) {
         this.mContext = context;
         this.mImages = images;
+        mBaseImg = imgPath;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class ContentPicAdater extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         final String fileName = mImages[position];
         if (fileName != null){
-            final String url = PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_TALK_IMG_PATH+fileName;
+            final String url = PathConstant.IMAGE_PATH_SMALL+mBaseImg+fileName;
             ImageDownloader.download(url,holder.img);
         }
 

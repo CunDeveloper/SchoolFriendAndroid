@@ -100,6 +100,7 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true" />
                 </RelativeLayout>
+                <include layout="@layout/sync_choose_layout"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

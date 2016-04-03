@@ -16,6 +16,27 @@ import java.util.HashSet;
  */
 public class TestData {
 
+    public static HashSet<String> voiceTypes(){
+        HashSet<String> sets = new HashSet<>();
+        sets.add("工作");
+        sets.add("学习");
+        sets.add("实习");
+        sets.add("求职");
+        sets.add("兼职");
+        sets.add("接项目");
+        return sets;
+    }
+
+    public static String[] getMajorType(){
+        String[] types = new String[6];
+        types[0]="C++";
+        types[1]= "C";
+        types[2] = "JAVA";
+        types[3] = "VC";
+        types[4] = "Python";
+        types[5] = "JavaScript";
+        return types;
+    }
     public static HashSet<String> getUndergraduateCollege() {
         HashSet<String> sets = new HashSet<>();
         sets.add("文学系");
@@ -123,7 +144,6 @@ public class TestData {
         authorInfo.setLabel("南京大学商学院2013");
         dynamicCollect.setAuthorInfo(authorInfo);
         dynamicCollects.add(dynamicCollect);
-
         dynamicCollect = new DynamicCollect();
         dynamicCollect.setContent(StringBase64.encode("奋战在毕业设计第一线！"));
         dynamicCollect.setDate("2016-2-23");
@@ -152,7 +172,6 @@ public class TestData {
         contentComment.setContent(StringBase64.encode("具体在什么时候什么地点招聘呀！"));
         contentComment.setDate("2016-3-26 12:34:56");
         contentComments.add(contentComment);
-
         ContentComment contentComment1 = new ContentComment();
         AuthorInfo commentAuthor1 = new AuthorInfo();
         commentAuthor1.setAuthorName("程冠希");
