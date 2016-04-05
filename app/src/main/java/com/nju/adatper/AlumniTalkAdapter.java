@@ -29,6 +29,7 @@ import com.nju.model.AlumniTalk;
 import com.nju.util.CommentPopupWindow;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
+import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
@@ -105,12 +106,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         final AlumniTalk alumniTalk = mAlumniTalks.get(position);
-        holder.headImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new PersonInfoEvent(alumniTalk.getAuthorInfo()));
-            }
-        });
+        HeadIcon.setUp(holder.headImg,alumniTalk.getAuthorInfo());
         try{
             holder.contentTV.setText(StringBase64.decode(alumniTalk.getContent()));
         }catch (IllegalArgumentException e){

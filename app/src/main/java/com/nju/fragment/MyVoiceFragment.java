@@ -27,6 +27,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.ListViewHead;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -167,8 +168,7 @@ public class MyVoiceFragment extends BaseFragment {
     private void initListView(View view){
         mAlumniVoices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        LinearLayout head = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.listview_header, listView, false);
-        listView.addHeaderView(head);
+        ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);

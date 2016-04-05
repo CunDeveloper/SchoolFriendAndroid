@@ -31,11 +31,13 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniVoice;
 import com.nju.service.AlumniVoiceService;
 import com.nju.service.CacheIntentService;
+import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.ListViewHead;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -128,7 +130,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         setListView(view);
-        addLevelChooseItem(view);
+        BottomToolBar.show(this,view);
         setUpOnRefreshListener(view);
         return view;
     }
@@ -137,8 +139,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         mVoices = new ArrayList<>();
         new ExeCacheTask(this).execute();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        LinearLayout head = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.listview_header, listView, false);
-        listView.addHeaderView(head);
+        ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
@@ -200,13 +201,13 @@ public class AlumniVoiceFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
+                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, Constant.ALL);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this,callback,Constant.ALL);
+                mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, Constant.ALL);
             }
         });
     }
@@ -247,98 +248,7 @@ public class AlumniVoiceFragment extends BaseFragment {
             actionBar.setTitle(title);
         }
     }
-    private void openChooseDialog(View view){
-        FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
-        final ListView collegeListView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
-        floatBn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCollegeMainLayout.setVisibility(View.VISIBLE);
-                collegeListView.setVisibility(View.GONE);
-            }
-        });
-    }
 
-    private void hideChooseDialog(View view){
-        View mView = view.findViewById(R.id.college_choose_dialog_view);
-        final ListView collegeListView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
-        mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCollegeMainLayout.setVisibility(View.GONE);
-                collegeListView.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    private void addLevelChooseItem(View view){
-        openChooseDialog(view);
-        hideChooseDialog(view);
-        LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
-        final ListView listView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCollegeMainLayout.setVisibility(View.GONE);
-            }
-        });
-        Set<String> levels = getHostActivity().getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
-        Set<String> collegeSet = getHostActivity().getSharedPreferences()
-                .getStringSet(getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
-
-        for (String level:levels){
-            Log.i(TAG,level);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-            TextView textView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.bottom_choose_textview,null);
-            textView.setLayoutParams(param);
-            textView.setText(level);
-            if (textView.getText().toString().equals(getString(R.string.undergraduate))){
-                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.primayDark));
-            }
-            layout.addView(textView);
-            textView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    TextView tv = (TextView) v;
-                    if (!tv.getText().toString().equals(Constant.ALL)) {
-                        listView.setAdapter(new CollageAdapter(getContext(), colleges));
-                        listView.setVisibility(View.VISIBLE);
-                    }
-                    changeLevelTVColor(tv);
-                    return true;
-                }
-            });
-
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView mTV = (TextView) v;
-//                    if (!mTV.getText().toString().equals(getString(R.string.all))) {
-//                        listView.setAdapter(new CollageAdapter(getContext(), colleges));
-//                        listView.setVisibility(View.VISIBLE);
-//                    } else {
-//                        mCollegeMainLayout.setVisibility(View.GONE);
-//                    }
-                    mCollegeMainLayout.setVisibility(View.GONE);
-                    changeLevelTVColor(mTV);
-                }
-            });
-            mChooseLevelViews.add(textView);
-        }
-    }
-
-    private void changeLevelTVColor(TextView view){
-        for (TextView textView:mChooseLevelViews){
-            if (view.getText().toString().equals(textView.getText().toString())){
-                view.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
-            }else{
-                 textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
-            }
-        }
-    }
 
     @Override
     public void onDestroy(){

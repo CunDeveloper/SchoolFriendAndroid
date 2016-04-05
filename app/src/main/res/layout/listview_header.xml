@@ -38,10 +38,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="张小军"
             android:textColor="@android:color/white"
-            android:layout_marginTop="10dp"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/imageView"
-            android:layout_marginEnd="7dp" />
+            android:layout_toStartOf="@+id/head_icon_img"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="9dp" />
     </RelativeLayout>
 
 
