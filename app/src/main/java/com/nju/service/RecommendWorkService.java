@@ -36,6 +36,18 @@ public class RecommendWorkService {
         return mRequestJson;
     }
 
+    public static PostRequestJson queryRecommendWorkByType(BaseFragment fragment,Callback callback,final String level,int type){
+        final int offset = fragment.getHostActivity().getSharedPreferences().getInt(Constant.RECOMMEND_ID,0);
+        Log.i(TAG,offset+"--");
+        final String json = QueryJson.queryLimitByTypeToString(fragment, offset, type);
+        String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_BY_TYPE+"?level="+level;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG, url);
+        Log.e(TAG,json);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
     public static PostRequestJson  querySingleComment(BaseFragment fragment,int id,Callback callback){
         ArrayList<IdParam> idParams = new ArrayList<>();
         IdParam idParam = new IdParam();

@@ -115,7 +115,7 @@ public class RecommendWorkItem extends BaseFragment {
     private void  initListView (View view){
         recommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.fragment_recommend_work_item_listview);
-        listView.setAdapter(new RecommendWorkItemAdapter(getContext(), recommendWorks));
+        listView.setAdapter(new RecommendWorkItemAdapter(this, recommendWorks));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -9,4 +9,6 @@ public class RecommendEntity implements BaseColumns {
     public static final String TABLE_NAME = "recommend";
     public static final String ID = "id";
     public static final String CONTENT = "content";
+    public static final String TYPE = "type";
+    public static final String DEGREE = "degree";
 }

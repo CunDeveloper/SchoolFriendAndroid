@@ -44,6 +44,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -59,7 +60,7 @@ public class RecommendWorkFragment extends BaseFragment {
     private SwipeRefreshLayout mRefreshLayout;
     private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
     private RelativeLayout mFootView;
-
+    private static String degreeLabel = Constant.ALL;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -86,6 +87,7 @@ public class RecommendWorkFragment extends BaseFragment {
                                 RecommendWork   recommendWork = (RecommendWork) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
                                 mRecommendWorks.add(recommendWork);
+
                             }
                             Collections.sort(mRecommendWorks, new RecommendWorkSort());
                             if (mRecommendWorks.size()>0){
@@ -161,7 +163,7 @@ public class RecommendWorkFragment extends BaseFragment {
         hideChooseDialog(view);
         addLevelChooseItem(view);
         setUpOnRefreshListener(view);
-        new ExeCacheTask(this).execute();
+        new ExeCacheTask(this).execute(Constant.ALL,0+"");
         return view;
     }
 
@@ -193,7 +195,7 @@ public class RecommendWorkFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mRecommendWorkItemAdapter = new RecommendWorkItemAdapter(getContext(), mRecommendWorks);
+        mRecommendWorkItemAdapter = new RecommendWorkItemAdapter(this, mRecommendWorks);
         listView.setAdapter(mRecommendWorkItemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -224,9 +226,27 @@ public class RecommendWorkFragment extends BaseFragment {
                     @Override
                     public void run() {
                         mRefreshLayout.setRefreshing(true);
-                        mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback,Constant.ALL);
                     }
                 });
+                String typeStr = charSequence.toString();
+                String type = 0+"";
+                switch (typeStr) {
+                    case Constant.INTERN:
+                        type = 1 + "";
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
+                        break;
+                    case Constant.ALL_JOG:
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
+                        type = 2 + "";
+                        break;
+                    case Constant.SCHOOL_JOG:
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
+                        type = 3 + "";
+                        break;
+                }
+                String text = getHostActivity().getSharedPreferences().getString(Constant.DEGREE,Constant.ALL);
+                new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
+                mRequestJson = RecommendWorkService.queryRecommendWorkByType(RecommendWorkFragment.this, callback,text, Integer.valueOf(type));
                 setTitle(charSequence.toString());
                 return true;
             }
@@ -306,6 +326,34 @@ public class RecommendWorkFragment extends BaseFragment {
                 public void onClick(View v) {
                     TextView mTV = (TextView) v;
                     changeLevelTVColor(mTV);
+                    final String text = (String) mTV.getText();
+                    String type = getHostActivity().getSharedPreferences().getString(Constant.WORK_TYP,0+"");
+                    switch (text) {
+                        case Constant.UNDERGRADUATE: {
+                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE,text).commit();
+                            new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.UNDERGRADUATE);
+                            break;
+                        }
+                        case Constant.MASTER: {
+                            new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
+                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE,text).commit();
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.MASTER);
+                            break;
+                        }
+                        case Constant.DOCTOR: {
+                            new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
+                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE, text).commit();
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.DOCTOR);
+                            break;
+                        }
+                        case Constant.ALL: {
+                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE, text).commit();
+                            new ExeCacheTask(RecommendWorkFragment.this).execute(text, type);
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL);
+                            break;
+                        }
+                    }
                     mFloatBn.setVisibility(View.VISIBLE);
                     mCollegeMainLayout.setVisibility(View.GONE);
                 }
@@ -348,17 +396,20 @@ public class RecommendWorkFragment extends BaseFragment {
         }
     }
 
-    private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<RecommendWork>>
+    private static class ExeCacheTask extends AsyncTask<String,Void,ArrayList<RecommendWork>>
     {
         private final WeakReference<RecommendWorkFragment> mRecommendWorkWeakRef;
         public ExeCacheTask(RecommendWorkFragment  recommendFragment){
             this.mRecommendWorkWeakRef = new WeakReference<>(recommendFragment);
         }
         @Override
-        protected ArrayList<RecommendWork> doInBackground(Void... params) {
+        protected ArrayList<RecommendWork> doInBackground(String... params) {
             RecommendWorkFragment recommendFragment = mRecommendWorkWeakRef.get();
             if (recommendFragment!=null){
-                return new RecommendDbService(recommendFragment.getContext()).getRecommendWorks();
+                String degree = params[0];
+                String type = params[1];
+                Log.i(TAG,"degree="+degree +" "+"type = "+type);
+                return new RecommendDbService(recommendFragment.getContext()).getRecommendWorksByDegreeAndType(degree,type);
             }
             return null;
         }
@@ -369,9 +420,18 @@ public class RecommendWorkFragment extends BaseFragment {
             RecommendWorkFragment recommendFragment = mRecommendWorkWeakRef.get();
             if (recommendFragment!=null){
                 if (recommendWorks != null){
-                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(recommendWorks));
+                    Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWorks));
                     Collections.sort(recommendWorks, new RecommendWorkSort());
-                    recommendFragment.mRecommendWorks.addAll(recommendWorks);
+                    ArrayList<RecommendWork> source = recommendFragment.mRecommendWorks;
+                    ArrayList<RecommendWork> tempArray = new ArrayList<>();
+                    RecommendWork work;
+                    for (int i=0;i<source.size();i++){
+                        work = new RecommendWork();
+                        tempArray.add(work);
+                    }
+                     Collections.copy(tempArray,source);
+                    source.removeAll(tempArray);
+                    source.addAll(recommendWorks);
                     recommendFragment.mRecommendWorkItemAdapter.notifyDataSetChanged();
                 }
             }

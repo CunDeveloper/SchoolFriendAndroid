@@ -33,6 +33,8 @@ public class RecommendDbService {
         for (RecommendWork recommendWork:recommendWorks){
             contentValues = new ContentValues();
             contentValues.put(RecommendEntity.ID,recommendWork.getId());
+            contentValues.put(RecommendEntity.TYPE,recommendWork.getType());
+            contentValues.put(RecommendEntity.DEGREE,recommendWork.getAuthor().getLabel().split(" ")[2]);
             final String json = gson.toJson(recommendWork);
             contentValues.put(RecommendEntity.CONTENT,json);
             db.replace(RecommendEntity.TABLE_NAME,null,contentValues);
@@ -49,6 +51,60 @@ public class RecommendDbService {
                 projection,
                 null,
                 null,
+                null,
+                null,
+                null
+        );
+        int contentId = cursor.getColumnIndex(RecommendEntity.CONTENT);
+        RecommendWork recommendWork;
+        while (cursor.moveToNext()) {
+            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId),RecommendWork.class);
+            Log.i(TAG,recommendWork.getContent());
+            recommendWorks.add(recommendWork);
+        }
+        cursor.close();
+        return recommendWorks;
+    }
+
+    public ArrayList<RecommendWork> getRecommendWorksByDegreeAndType(String degree,String type){
+        ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
+        String[] projection ={
+                RecommendEntity.CONTENT
+        };
+        String selection = RecommendEntity.DEGREE +"=?" +"AND "+RecommendEntity.TYPE +"=?";
+        String[] selectionArgs = {degree,type};
+        Cursor cursor = db.query(
+                RecommendEntity.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+        int contentId = cursor.getColumnIndex(RecommendEntity.CONTENT);
+        RecommendWork recommendWork;
+        while (cursor.moveToNext()) {
+            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId),RecommendWork.class);
+            Log.i(TAG,recommendWork.getContent());
+            recommendWorks.add(recommendWork);
+        }
+        cursor.close();
+        return recommendWorks;
+    }
+
+    public ArrayList<RecommendWork> getRecommendWorksByType(String type){
+        ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
+        String[] projection ={
+                RecommendEntity.CONTENT
+        };
+        String selection = RecommendEntity.TYPE +"= ?";
+        String[] selectionArgs = {type};
+        Cursor cursor = db.query(
+                RecommendEntity.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 null

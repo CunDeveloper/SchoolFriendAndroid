@@ -168,6 +168,20 @@ public class MainActivity extends BaseActivity {
         getSharedPreferences().edit().putInt(getString(R.string.authorId), 1).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
         getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken()))).commit();
+        //设置推荐工作的默认查询参数
+        setRecommendWorkDefaultQueryParam();
+    }
+
+    private void setRecommendWorkDefaultQueryParam(){
+        Set<String> levels = getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
+        if (levels.size() == 4){
+            getSharedPreferences().edit().putString(Constant.DEGREE,Constant.DOCTOR);
+        }else if (levels.size() == 3){
+            getSharedPreferences().edit().putString(Constant.DEGREE,Constant.MASTER);
+        }else {
+            getSharedPreferences().edit().putString(Constant.DEGREE,Constant.UNDERGRADUATE);
+        }
+        getSharedPreferences().edit().putString(Constant.WORK_TYP,0+"");
     }
 
     @Override
@@ -344,6 +358,8 @@ public class MainActivity extends BaseActivity {
         }
         ft.commit();
     }
+
+
     private void initDataBase(){
         SchoolFriendDbHelper.newInstance(this);
     }

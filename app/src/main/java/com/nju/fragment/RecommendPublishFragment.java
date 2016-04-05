@@ -69,8 +69,6 @@ public class RecommendPublishFragment extends BaseFragment {
             mTitle = getArguments().getString(PARAM_TITLE);
             if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
                 mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
-            } else {
-                mUploadImgPaths = new ArrayList<>();
             }
         }
     }
@@ -86,6 +84,9 @@ public class RecommendPublishFragment extends BaseFragment {
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
+        }
+        else {
+            mUploadImgPaths = new ArrayList<>();
         }
         SyncChoosePublish.sync(this, view);
         initView(view);

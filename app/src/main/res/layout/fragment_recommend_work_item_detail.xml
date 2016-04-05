@@ -43,6 +43,13 @@
                     android:layout_marginTop="@dimen/phone_apadding"
                     android:id="@+id/recommend_work_item_detail_detail"
                     />
+                <com.nju.View.NonScrollableListView
+                    android:id="@+id/listView"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:layout_width="match_parent"
+                    android:divider="@null"
+                    android:layout_height="wrap_content"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/phone_apadding"

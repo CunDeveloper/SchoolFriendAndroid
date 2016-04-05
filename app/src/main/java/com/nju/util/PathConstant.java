@@ -92,6 +92,7 @@ public interface PathConstant {
     String ALUMNI_TALK_IMG_PATH = "alumniTalk/";
     String ALUMNI_QUESTION_IMG_PATH = "alumniQuestion/";
     String ALUMNI_VOICE_IMG_PATH = "alumnusVoice/";
+    String ALUMNI_RECOMMEND_IMG_PATH ="recommendWork/";
 
     String REGISTER_PATH = "register";
     String REGISTER_SUB_PATH_PHONE = "phoneNumber";

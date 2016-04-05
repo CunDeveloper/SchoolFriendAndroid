@@ -8,6 +8,7 @@ import com.nju.http.request.CommentParamId;
 import com.nju.http.request.ContentIdParam;
 import com.nju.http.request.IdParam;
 import com.nju.http.request.QueryLimit;
+import com.nju.http.request.QueryLimitType;
 import com.nju.http.request.RequestBodyJson;
 import com.nju.test.TestToken;
 import com.nju.util.CryptUtil;
@@ -25,6 +26,16 @@ public class QueryJson {
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimit limit = new QueryLimit();
         limit.setOffset(offset);limit.setTotal(20);
+        bodyJson.setBody(limit);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String queryLimitByTypeToString(final BaseFragment fragment,int offset,int type){
+        RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        QueryLimitType limit = new QueryLimitType();
+        limit.setOffset(offset);limit.setTotal(20);
+        limit.setType(type);
         bodyJson.setBody(limit);
         return gson.toJson(bodyJson);
     }

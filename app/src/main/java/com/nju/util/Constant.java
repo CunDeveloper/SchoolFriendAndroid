@@ -83,4 +83,12 @@ public class Constant {
     public static final String[] EMPTY = {};
     public static final int MAX_LIST_NUMBER = 100;
     public static final String RECOMMEND_ID = "recommendID";
+    public static final String UNDERGRADUATE = "本科";
+    public static final String MASTER = "硕士";
+    public static final String DOCTOR = "博士";
+    public static final String DEGREE = "degree";
+    public static final String WORK_TYP = "workType" ;
+    public static final String INTERN = "实习";
+    public static final String ALL_JOG = "社招" ;
+    public static final String SCHOOL_JOG = "校招" ;
 }

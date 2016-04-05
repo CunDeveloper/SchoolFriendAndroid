@@ -249,20 +249,24 @@ public class AlumniVoiceFragment extends BaseFragment {
     }
     private void openChooseDialog(View view){
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
+        final ListView collegeListView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
         floatBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCollegeMainLayout.setVisibility(View.VISIBLE);
+                collegeListView.setVisibility(View.GONE);
             }
         });
     }
 
     private void hideChooseDialog(View view){
         View mView = view.findViewById(R.id.college_choose_dialog_view);
+        final ListView collegeListView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCollegeMainLayout.setVisibility(View.GONE);
+                collegeListView.setVisibility(View.GONE);
             }
         });
     }
@@ -292,22 +296,33 @@ public class AlumniVoiceFragment extends BaseFragment {
             textView.setLayoutParams(param);
             textView.setText(level);
             if (textView.getText().toString().equals(getString(R.string.undergraduate))){
-                textView.setTextColor(ContextCompat.getColor(getContext(),R.color.primayDark));
-                listView.setAdapter(new CollageAdapter(getContext(), colleges));
-                listView.setVisibility(View.VISIBLE);
+                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.primayDark));
             }
             layout.addView(textView);
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    TextView tv = (TextView) v;
+                    if (!tv.getText().toString().equals(Constant.ALL)) {
+                        listView.setAdapter(new CollageAdapter(getContext(), colleges));
+                        listView.setVisibility(View.VISIBLE);
+                    }
+                    changeLevelTVColor(tv);
+                    return true;
+                }
+            });
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TextView mTV = (TextView) v;
-                    if (!mTV.getText().toString().equals(getString(R.string.all))) {
-                        listView.setAdapter(new CollageAdapter(getContext(),colleges));
-                        listView.setVisibility(View.VISIBLE);
-                    } else {
-                        mCollegeMainLayout.setVisibility(View.GONE);
-                    }
+//                    if (!mTV.getText().toString().equals(getString(R.string.all))) {
+//                        listView.setAdapter(new CollageAdapter(getContext(), colleges));
+//                        listView.setVisibility(View.VISIBLE);
+//                    } else {
+//                        mCollegeMainLayout.setVisibility(View.GONE);
+//                    }
+                    mCollegeMainLayout.setVisibility(View.GONE);
                     changeLevelTVColor(mTV);
                 }
             });

@@ -173,7 +173,14 @@ public class AlumniDynamicFragment extends BaseFragment {
     private void initListView(View view){
         mAlumniTalks = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        LinearLayout head = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.listview_header,listView,false);
+        LinearLayout head = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.listview_header, listView, false);
+        ImageView mHeadImgIcon = (ImageView) head.findViewById(R.id.head_icon_img);
+        mHeadImgIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(DetailPersonInfo.newInstance());
+            }
+        });
         listView.addHeaderView(head);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);

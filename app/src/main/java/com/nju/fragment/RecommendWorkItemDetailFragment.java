@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
+import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.db.db.service.RecommendWorkCollectDbService;
 import com.nju.event.MessageEventId;
@@ -35,6 +36,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
@@ -243,6 +245,11 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
                 CommentUtil.closeSoftKey(getContext(),view);
             }
         });
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        if (mRecommendWork.getImgPaths()!=null){
+            Log.e(TAG,mRecommendWork.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH,mRecommendWork.getImgPaths().split(",")));
+        }
 
     }
 

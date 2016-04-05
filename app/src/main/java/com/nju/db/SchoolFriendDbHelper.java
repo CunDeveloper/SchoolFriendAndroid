@@ -62,7 +62,9 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_RECOMMEND_WORK =
             CREATE_TABLE + RecommendEntity.TABLE_NAME + " (" +
                     RecommendEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    RecommendEntity.CONTENT +TEXT_TYPE +
+                    RecommendEntity.CONTENT +TEXT_TYPE + COMMA_SEP+
+                    RecommendEntity.TYPE + INTEGER_TYPE +COMMA_SEP +
+                    RecommendEntity.DEGREE + TEXT_TYPE+
                     " )";
     private static final String SQL_CREATE_ALUMNI_VOICE =
             CREATE_TABLE + AlumniVoiceEntity.TABLE_NAME + " (" +
