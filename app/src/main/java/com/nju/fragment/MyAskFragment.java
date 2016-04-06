@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,13 @@ import android.widget.RelativeLayout;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.PersonAskAdapter;
+import com.nju.adatper.PersonRecommendAdapter;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
+import com.nju.model.EntryDate;
+import com.nju.model.RecommendWork;
 import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -39,6 +43,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class MyAskFragment extends BaseFragment {
 
@@ -51,6 +56,8 @@ public class MyAskFragment extends BaseFragment {
     private ArrayList<AlumniQuestion> alumniQuestions;
     private PersonAskAdapter askAdapter;
     private RelativeLayout mFootView;
+    private HashMap<EntryDate,ArrayList<AlumniQuestion>> mAlumniQuestionMap = new HashMap<>();
+    private ListView mListView;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -78,27 +85,15 @@ public class MyAskFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(majorAsk));
                                 alumniQuestions.add(majorAsk);
                             }
-                            Collections.sort(alumniQuestions, new Comparator<AlumniQuestion>() {
-                                @Override
-                                public int compare(AlumniQuestion lhs, AlumniQuestion rhs) {
-                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
-                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
-                                    if (lhsTime>rhsTime){
-                                        return -1;
-                                    }else if (lhsTime<rhsTime)
-                                    {
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                            });
+
                             int length = alumniQuestions.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
                                     alumniQuestions.remove(alumniQuestions.get(i));
                                 }
                             }
-                            askAdapter.notifyDataSetChanged();
+                            initMap();
+                            mListView.setAdapter(new PersonAskAdapter(MyAskFragment.this, mAlumniQuestionMap));
                         }
                     }
 
@@ -159,24 +154,39 @@ public class MyAskFragment extends BaseFragment {
         });
     }
 
+    private void initMap(){
+        EntryDate entryDate;
+        for (AlumniQuestion alumniQuestion:alumniQuestions){
+            final long time = DateUtil.getTime(alumniQuestion.getDate());
+            String day = DateFormat.format(Constant.DD, time).toString();
+            String month = DateFormat.format(Constant.MM, time).toString();
+            String key = day+";"+month;
+            entryDate = new EntryDate(month,day);
+            if (mAlumniQuestionMap.containsKey(entryDate)){
+                ArrayList<AlumniQuestion> tempList = mAlumniQuestionMap.get(entryDate);
+                tempList.add(alumniQuestion);
+                mAlumniQuestionMap.put(entryDate,tempList);
+            }else {
+                ArrayList<AlumniQuestion> tempList = new ArrayList<>();
+                tempList.add(alumniQuestion);
+                mAlumniQuestionMap.put(entryDate,tempList);
 
+            }
+        }
+    }
 
     private void initListView(View view) {
         alumniQuestions = TestData.getQlumniQuestions();
-        final ListView listView = (ListView) view.findViewById(R.id.listView);
-        ListViewHead.setUp(this, view, listView);
-        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
+        initMap();
+        mListView = (ListView) view.findViewById(R.id.listView);
+        ListViewHead.setUp(this, view, mListView);
+        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
-        listView.addFooterView(mFootView);
-        askAdapter = new PersonAskAdapter(getContext(), alumniQuestions);
-        listView.setAdapter(askAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(PersonAskDetailFragment.newInstance(alumniQuestions.get(position)));
-            }
-        });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        mListView.addFooterView(mFootView);
+        askAdapter = new PersonAskAdapter(this, mAlumniQuestionMap);
+        mListView.setAdapter(askAdapter);
+
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (askAdapter.getCount())) {

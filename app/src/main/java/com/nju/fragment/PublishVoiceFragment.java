@@ -50,6 +50,7 @@ public class PublishVoiceFragment extends BaseFragment {
     private EditText mContentET;
     private SchoolFriendDialog mDialog;
     private String mWhoScan;
+    private String level;
     public static PublishVoiceFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         PublishVoiceFragment fragment = new PublishVoiceFragment();
         Bundle args = new Bundle();
@@ -82,8 +83,7 @@ public class PublishVoiceFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
-
-        SyncChoosePublish.sync(this, view);
+        level = SyncChoosePublish.newInstance(view).sync(this).level();
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
@@ -223,7 +223,7 @@ public class PublishVoiceFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH + PathConstant.ALUMNS_VOICE_SUB_PATH_SAVE+"?level=所有";
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH + PathConstant.ALUMNS_VOICE_SUB_PATH_SAVE+"?level="+level;
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
         });

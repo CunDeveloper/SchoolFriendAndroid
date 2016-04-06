@@ -49,6 +49,7 @@ public class RecommendPublishFragment extends BaseFragment {
     private EditText mEmailET;
     private String mType =1+"";
     private SchoolFriendDialog mDialog;
+    private String level;
     public static RecommendPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         RecommendPublishFragment fragment = new RecommendPublishFragment();
         Bundle args = new Bundle();
@@ -88,7 +89,7 @@ public class RecommendPublishFragment extends BaseFragment {
         else {
             mUploadImgPaths = new ArrayList<>();
         }
-        SyncChoosePublish.sync(this, view);
+        level = SyncChoosePublish.newInstance(view).sync(this).level();
         initView(view);
         initCheckBox(view);
         return view;
@@ -309,7 +310,7 @@ public class RecommendPublishFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH + PathConstant.RECOMMEND_WORK_SUB_PATH_SAVE+"?level=所有";
+                final String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH + PathConstant.RECOMMEND_WORK_SUB_PATH_SAVE+"?level="+level;
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
         });

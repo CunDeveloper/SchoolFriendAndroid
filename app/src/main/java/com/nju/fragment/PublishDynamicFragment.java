@@ -47,6 +47,7 @@ public class PublishDynamicFragment extends BaseFragment {
     private SchoolFriendDialog mDialog;
     private String mLocation;
     private String mWhoScan;
+    private String level;
 
     public static PublishDynamicFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         PublishDynamicFragment fragment = new PublishDynamicFragment();
@@ -81,7 +82,7 @@ public class PublishDynamicFragment extends BaseFragment {
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         initView(view);
-        SyncChoosePublish.sync(this,view);
+        level = SyncChoosePublish.newInstance(view).sync(this).level();
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
@@ -228,7 +229,7 @@ public class PublishDynamicFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level=所有";
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level="+level;
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url, params, bitmapWrapperArrayList, callback));
             }
         });

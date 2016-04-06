@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/phone_apadding"
+    android:paddingEnd="@dimen/phone_apadding"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.nju.View.SchoolFriendTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:layout_marginTop="5dp"
+        android:id="@+id/title_tv"
+        android:textColor="@android:color/black"
+        android:layout_alignTop="@+id/day_tv"
+        android:layout_toEndOf="@+id/month_tv" />
+
+    <com.nju.View.SchoolFriendTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/phone_apadding"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:layout_marginEnd="@dimen/phone_apadding"
+        android:textColor="@android:color/black"
+        android:background="@color/light_gray"
+        android:id="@+id/content_tv"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_below="@+id/title_tv"
+        android:layout_alignStart="@+id/title_tv" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:layout_alignStart="@+id/content_tv"
+        android:layout_below="@+id/content_tv"/>
+</RelativeLayout>

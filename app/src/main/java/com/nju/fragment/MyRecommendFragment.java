@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
+import com.nju.model.EntryDate;
 import com.nju.model.RecommendWork;
 import com.nju.service.AlumniVoiceService;
 import com.nju.service.RecommendWorkService;
@@ -43,6 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 
 public class MyRecommendFragment extends BaseFragment {
@@ -53,6 +56,8 @@ public class MyRecommendFragment extends BaseFragment {
     private SwipeRefreshLayout mRefreshLayout;
     private final static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private ArrayList<RecommendWork> mRecommendWorks;
+    private HashMap<EntryDate,ArrayList<RecommendWork>> mRecommendWorkMap = new HashMap<>();
+    private ListView listView;
     private PersonRecommendAdapter mPersonRecommendAdapter;
     private RelativeLayout mFootView;
     private ResponseCallback callback = new ResponseCallback() {
@@ -82,26 +87,15 @@ public class MyRecommendFragment extends BaseFragment {
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
                                 mRecommendWorks.add(recommendWork);
                             }
-                            Collections.sort(mRecommendWorks, new Comparator<RecommendWork>() {
-                                @Override
-                                public int compare(RecommendWork lhs, RecommendWork rhs) {
-                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
-                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
-                                    if (lhsTime > rhsTime) {
-                                        return -1;
-                                    } else if (lhsTime < rhsTime) {
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                            });
                             int length = mRecommendWorks.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }
-                            mPersonRecommendAdapter.notifyDataSetChanged();
+                            initMap();
+                            listView.setAdapter(new PersonRecommendAdapter(MyRecommendFragment.this, mRecommendWorkMap));
+                            Log.e(TAG, mRecommendWorkMap.size() + "SS");
                         }
                     }
                 } catch (IOException e) {
@@ -146,19 +140,14 @@ public class MyRecommendFragment extends BaseFragment {
 
     private void initListView(View view){
         mRecommendWorks = TestData.getRecommendWorks();
-        ListView listView = (ListView) view.findViewById(R.id.listView);
+        initMap();
+        listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mPersonRecommendAdapter = new PersonRecommendAdapter(getContext(), mRecommendWorks);
+        mPersonRecommendAdapter = new PersonRecommendAdapter(this,mRecommendWorkMap);
         listView.setAdapter(mPersonRecommendAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
-            }
-        });
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -174,6 +163,26 @@ public class MyRecommendFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void initMap(){
+        EntryDate entryDate;
+        for (RecommendWork recommendWork:mRecommendWorks){
+            final long time = DateUtil.getTime(recommendWork.getDate());
+            String day = DateFormat.format(Constant.DD, time).toString();
+            String month = DateFormat.format(Constant.MM, time).toString();
+            entryDate = new EntryDate(month,day);
+            if (mRecommendWorkMap.containsKey(entryDate)){
+                ArrayList<RecommendWork> tempList = mRecommendWorkMap.get(entryDate);
+                tempList.add(recommendWork);
+                mRecommendWorkMap.put(entryDate,tempList);
+            }else {
+                ArrayList<RecommendWork> tempList = new ArrayList<>();
+                tempList.add(recommendWork);
+                mRecommendWorkMap.put(entryDate,tempList);
+
+            }
+        }
     }
 
     private void setUpOnRefreshListener(View view){

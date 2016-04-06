@@ -4,9 +4,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="240dp">
 
-    <View
+    <ImageView
+        android:id="@+id/bgImageView"
         android:layout_width="match_parent"
-        android:background="@drawable/bg"
+        android:src="@drawable/bg"
+        android:scaleType="fitXY"
         android:layout_height="200dp"/>
 
     <TextView

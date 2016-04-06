@@ -46,6 +46,7 @@ public class AskPublishFragment extends BaseFragment {
     private EditText mDescriptionET;
     private EditText mProblemET;
     private SchoolFriendDialog mDialog;
+    private String level;
     public static AskPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         AskPublishFragment fragment = new AskPublishFragment();
         Bundle args = new Bundle();
@@ -84,7 +85,7 @@ public class AskPublishFragment extends BaseFragment {
         }else {
             mUploadImgPaths = new ArrayList<>();
         }
-        SyncChoosePublish.sync(this, view);
+        level = SyncChoosePublish.newInstance(view).sync(this).level();
         initView(view);
         return view;
     }
@@ -227,7 +228,7 @@ public class AskPublishFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH + PathConstant.ALUMNIS_QUESTION_SUB_PATH_SAVE+"?level=所有";
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH + PathConstant.ALUMNIS_QUESTION_SUB_PATH_SAVE+"?level="+level;
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
         });

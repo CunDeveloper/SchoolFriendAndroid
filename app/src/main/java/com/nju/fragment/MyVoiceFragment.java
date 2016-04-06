@@ -3,6 +3,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,14 @@ import android.widget.RelativeLayout;
 
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
+import com.nju.adatper.PersonRecommendAdapter;
 import com.nju.adatper.PersonVoiceAdapter;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniVoice;
+import com.nju.model.EntryDate;
+import com.nju.model.RecommendWork;
 import com.nju.service.AlumniVoiceService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -38,6 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class MyVoiceFragment extends BaseFragment {
     private static final String TAG = MyVoiceFragment.class.getSimpleName();
@@ -48,7 +53,9 @@ public class MyVoiceFragment extends BaseFragment {
     private ArrayList<AlumniVoice> mAlumniVoices;
     private PersonVoiceAdapter mPersonVoiceAdapter;
     private RelativeLayout mFootView;
+    private HashMap<EntryDate,ArrayList<AlumniVoice>> mAlumniVoiceMap = new HashMap<>();
     private final static SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private ListView mListView;
 
     private ResponseCallback callback = new ResponseCallback() {
         @Override
@@ -77,26 +84,15 @@ public class MyVoiceFragment extends BaseFragment {
                                 Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniVoice));
                                 mAlumniVoices.add(alumniVoice);
                             }
-                            Collections.sort(mAlumniVoices, new Comparator<AlumniVoice>() {
-                                @Override
-                                public int compare(AlumniVoice lhs, AlumniVoice rhs) {
-                                    final long lhsTime = DateUtil.getTime(lhs.getDate());
-                                    final long rhsTime = DateUtil.getTime(rhs.getDate());
-                                    if (lhsTime > rhsTime) {
-                                        return -1;
-                                    } else if (lhsTime < rhsTime) {
-                                        return 1;
-                                    }
-                                    return 0;
-                                }
-                            });
+
                             int length = mAlumniVoices.size();
                             if (length>10){
                                 for (int i = length-1;i>10;i--){
                                     mAlumniVoices.remove(mAlumniVoices.get(i));
                                 }
                             }
-                            mPersonVoiceAdapter.notifyDataSetChanged();
+                            initMap();
+                            mListView.setAdapter(new PersonVoiceAdapter(MyVoiceFragment.this, mAlumniVoiceMap));
                         }
                     }
 
@@ -165,22 +161,37 @@ public class MyVoiceFragment extends BaseFragment {
         });
     }
 
+    private void initMap(){
+        EntryDate entryDate;
+        for (AlumniVoice alumniVoice:mAlumniVoices){
+            final long time = DateUtil.getTime(alumniVoice.getDate());
+            String day = DateFormat.format(Constant.DD, time).toString();
+            String month = DateFormat.format(Constant.MM, time) + Constant.MONTH;
+            entryDate = new EntryDate(month,day);
+            if (mAlumniVoiceMap.containsKey(entryDate)){
+                ArrayList<AlumniVoice> tempList = mAlumniVoiceMap.get(entryDate);
+                tempList.add(alumniVoice);
+                mAlumniVoiceMap.put(entryDate,tempList);
+            }else {
+                ArrayList<AlumniVoice> tempList = new ArrayList<>();
+                tempList.add(alumniVoice);
+                mAlumniVoiceMap.put(entryDate,tempList);
+
+            }
+        }
+    }
+
     private void initListView(View view){
         mAlumniVoices = TestData.getVoicesData();
-        ListView listView = (ListView) view.findViewById(R.id.listView);
-        ListViewHead.setUp(this, view, listView);
-        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
+        mListView = (ListView) view.findViewById(R.id.listView);
+        ListViewHead.setUp(this, view, mListView);
+        mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
-        listView.addFooterView(mFootView);
-        mPersonVoiceAdapter = new PersonVoiceAdapter(getContext(),mAlumniVoices);
-        listView.setAdapter(mPersonVoiceAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(PersonAlumniVoiceItemDetail.newInstance(mAlumniVoices.get(position), "学习"));
-            }
-        });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        mListView.addFooterView(mFootView);
+        mPersonVoiceAdapter = new PersonVoiceAdapter(this,mAlumniVoiceMap);
+        mListView.setAdapter(mPersonVoiceAdapter);
+
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mPersonVoiceAdapter.getCount())) {

@@ -4,36 +4,52 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
+import com.nju.fragment.PersonAskDetailFragment;
 import com.nju.model.AlumniQuestion;
+import com.nju.model.AlumniVoice;
+import com.nju.model.EntryDate;
 import com.nju.util.Constant;
+import com.nju.util.DateUtil;
 import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by cun on 2016/3/19.
  */
 public class PersonAskAdapter extends BaseAdapter {
-    private Context mContext;
-    private ArrayList<AlumniQuestion> mAlumniQuestions;
+    private BaseFragment mFragment;
+    private HashMap<EntryDate,ArrayList<AlumniQuestion>> mAlumniQuestionMap;
+    private EntryDate[] arrayKeys;
 
-    public PersonAskAdapter(Context context, ArrayList<AlumniQuestion> alumniQuestions) {
-        mContext = context;
-        mAlumniQuestions = alumniQuestions;
+    public PersonAskAdapter(BaseFragment fragment, HashMap<EntryDate,ArrayList<AlumniQuestion>> arrayListHashMap) {
+        mFragment = fragment;
+        mAlumniQuestionMap = arrayListHashMap;
+        Set<EntryDate> keys = mAlumniQuestionMap.keySet();
+        arrayKeys=  keys.toArray(new EntryDate[keys.size()]);
+        Arrays.sort(arrayKeys, Collections.reverseOrder());
     }
 
     @Override
     public int getCount() {
-        return mAlumniQuestions.size();
+        return arrayKeys.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return mAlumniQuestions.get(position);
+        return mAlumniQuestionMap.get(arrayKeys[position]);
+        // return mRecommendWorks.get(position);
     }
 
     @Override
@@ -45,32 +61,31 @@ public class PersonAskAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.person_item, parent, false);
+            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.person_item, parent, false);
             holder = new ViewHolder();
-            holder.dayTV = (TextView) convertView.findViewById(R.id.date_tv);
+            holder.dayTV = (TextView) convertView.findViewById(R.id.day_tv);
             holder.monthTV = (TextView) convertView.findViewById(R.id.month_tv);
-            holder.titleTV = (TextView) convertView.findViewById(R.id.title_tv);
-            holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
+            holder.listView = (ListView) convertView.findViewById(R.id.listView);
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        AlumniQuestion alumniQuestion = mAlumniQuestions.get(position);
-        try {
-            holder.titleTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
-        }
-        try {
-            holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
-        }
+        EntryDate entryDate = arrayKeys[position];
+        final ArrayList<AlumniQuestion> alumniQuestions = mAlumniQuestionMap.get(entryDate);
+        holder.listView.setAdapter(new PersonAskListItemAdapter(mFragment.getContext(),alumniQuestions ));
+        holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mFragment.getHostActivity().open(PersonAskDetailFragment.newInstance(alumniQuestions.get(position)));
+            }
+        });
+
+        holder.dayTV.setText(entryDate.getDay());
+        holder.monthTV.setText(DateUtil.getNoZeroMonth(entryDate.getMonth()));
         return convertView;
     }
 
     private class ViewHolder {
-        private TextView dayTV, monthTV, titleTV, contentTV;
+        private TextView dayTV, monthTV;
+        private ListView listView;
     }
 }

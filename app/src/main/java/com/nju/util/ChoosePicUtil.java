@@ -19,7 +19,7 @@ public class ChoosePicUtil {
     public static void openFragment(BaseFragment fragment, String label, ArrayList<ImageWrapper> imageWrappers) {
         if (FragmentUtil.isAttachedToActivity(fragment)) {
             BaseActivity.LocalStack<BaseFragment> backStack = fragment.getHostActivity().getBackStack();
-            while (backStack.size() > 0) {
+            while (backStack.size() > 1) {
                 backStack.pop();
                 BaseFragment baseFragment =backStack.peek();
                 if (label.equals(PublishDynamicFragment.TAG)) {

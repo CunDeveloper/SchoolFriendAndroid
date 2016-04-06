@@ -54,4 +54,11 @@ public class DateUtil {
         return DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
     }
 
+    public static String getNoZeroMonth(String month){
+        if (month.startsWith("0")){
+            return month.charAt(1)+Constant.MONTH;
+        }
+        return month+Constant.MONTH;
+    }
+
 }
