@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/serarch_layout"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_height="@dimen/phone_item_height"
+        android:paddingStart="@dimen/phone_apadding"
+        android:background="@android:color/white"
+        android:paddingEnd="@dimen/phone_apadding"
+        >
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="@string/search"
+            android:background="@drawable/circle_button_bg"
+            android:id="@+id/searchBn"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3"
+            android:hint="@string/input_key_search"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/searchBn"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
+        android:alpha="0.8"
+        android:id="@+id/search_gray_view"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/mProgressBar"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyle"
+            android:background="@drawable/write_circle"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp" />
+    </RelativeLayout>
+
+</LinearLayout>

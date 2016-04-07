@@ -21,4 +21,5 @@
         <include layout="@layout/hand_touch_bn"/>
     </FrameLayout>
     <include layout="@layout/college_choose_dialog"/>
+    <include layout="@layout/search"/>
 </RelativeLayout>

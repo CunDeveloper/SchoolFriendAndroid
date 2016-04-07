@@ -2,6 +2,7 @@ package com.nju.fragment;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.CustomImageVIew;
+import com.nju.View.GestureImageView;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
@@ -28,7 +30,7 @@ public class CircleImageViewItemFragment extends BaseFragment {
     private static final String PARAM_BASE_PATH = "basePath";
     private String imgPath;
     private String mBaseImgPath;
-    private CustomImageVIew mCustomImageView;
+    private GestureImageView mCustomImageView;
     private static String[]  dialog_items ;
     public static CircleImageViewItemFragment newInstance(String path,String basePath) {
         CircleImageViewItemFragment fragment = new CircleImageViewItemFragment();
@@ -66,8 +68,7 @@ public class CircleImageViewItemFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_circle_image_view_item, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
-        mCustomImageView = (CustomImageVIew) view.findViewById(R.id.fragment_circle_image_view_item_iamge);
+        mCustomImageView = (GestureImageView) view.findViewById(R.id.fragment_circle_image_view_item_iamge);
         mCustomImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -86,7 +87,8 @@ public class CircleImageViewItemFragment extends BaseFragment {
         });
 
         final String url = PathConstant.IMAGE_PATH + mBaseImgPath+ imgPath;
-        Log.i(TAG,url);
+        Log.i(TAG, url);
+
         ImageDownloader.download(url,mCustomImageView);
         return view;
     }

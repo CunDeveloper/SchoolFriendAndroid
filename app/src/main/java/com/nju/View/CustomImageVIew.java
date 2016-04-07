@@ -43,6 +43,7 @@ public class CustomImageVIew extends ImageView {
         matrix.setTranslate(1f, 1f);
         m = new float[9];
         setImageMatrix(matrix);
+        setScaleType(ScaleType.FIT_XY);
         setScaleType(ScaleType.MATRIX);
 
         setOnTouchListener(new OnTouchListener() {

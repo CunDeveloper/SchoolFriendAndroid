@@ -27,6 +27,7 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
 import com.nju.service.CacheIntentService;
 import com.nju.service.MajorAskService;
+import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -34,6 +35,7 @@ import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
 import com.nju.util.SchoolFriendGson;
+import com.nju.util.SearchViewUtil;
 import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -133,7 +135,7 @@ public class MajorAskFragment extends BaseFragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.own_major_ask);
         }
-        getHostActivity().display(2);
+        getHostActivity().display(5);
     }
 
     @Override
@@ -144,7 +146,9 @@ public class MajorAskFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initListView(view);
         initCameraView();
+        BottomToolBar.showMajorTool(this, view);
         setUpOnRefreshListener(view);
+        SearchViewUtil.setUp(this,view);
         return view;
     }
 

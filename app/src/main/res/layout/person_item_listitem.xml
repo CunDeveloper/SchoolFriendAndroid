@@ -21,10 +21,10 @@
     <com.nju.View.SchoolFriendTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/phone_apadding"
+        android:layout_marginTop="@dimen/FIVE_DP"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
-        android:layout_marginEnd="@dimen/phone_apadding"
+
         android:textColor="@android:color/black"
         android:background="@color/light_gray"
         android:id="@+id/content_tv"
@@ -33,8 +33,11 @@
         android:layout_below="@+id/title_tv"
         android:layout_alignStart="@+id/title_tv" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <com.nju.View.SchoolFriendGridView
+        android:id="@+id/mPersonItemGridView"
+        android:numColumns="3"
+        android:verticalSpacing="@dimen/FIVE_DP"
+        android:horizontalSpacing="@dimen/FIVE_DP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/phone_apadding"

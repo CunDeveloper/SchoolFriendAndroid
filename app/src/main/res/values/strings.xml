@@ -193,5 +193,7 @@
     <string name="doctor">博士学校</string>
     <string name="voice_type">心声类型</string>
     <string name="ask_label">专业标签</string>
+    <string name="search">搜索</string>
+    <string name="input_key_search">输入关键字进行搜索</string>
 
 </resources>

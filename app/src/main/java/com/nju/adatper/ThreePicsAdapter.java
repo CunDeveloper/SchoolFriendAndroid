@@ -24,17 +24,26 @@ public class ThreePicsAdapter extends BaseAdapter {
     private Context mContext;
     private String[] mImages;
     private String mBaseImgPath;
+    private int mExtraDp ;
 
     private int computeWidth(){
         int diviceWidth = Divice.getDisplayWidth(mContext);
-        int spaceWidth = (int) Divice.convertDpToPixel(30,mContext);
+        int spaceWidth = (int) Divice.convertDpToPixel(mExtraDp,mContext);
         return (diviceWidth-spaceWidth)/3;
+    }
+
+    public ThreePicsAdapter(Context context,String imgPath, String[] images,int extraDp) {
+        this.mContext = context;
+        this.mImages = images;
+        mBaseImgPath = imgPath;
+        this.mExtraDp = extraDp;
     }
 
     public ThreePicsAdapter(Context context,String imgPath, String[] images) {
         this.mContext = context;
         this.mImages = images;
         mBaseImgPath = imgPath;
+        mExtraDp = 30;
     }
 
     @Override

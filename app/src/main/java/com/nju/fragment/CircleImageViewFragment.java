@@ -31,6 +31,7 @@ public class CircleImageViewFragment extends BaseFragment {
     private ViewPager mViewPager;
     private ArrayList<View> views;
     private int mChoosePosition;
+    private CircleImageViewAdapter circleImageViewAdapter;
 
     public static CircleImageViewFragment newInstance(String[] imgPaths,int position,String path) {
         CircleImageViewFragment fragment = new CircleImageViewFragment();
@@ -59,10 +60,11 @@ public class CircleImageViewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_circle_image_view, container, false);
-        view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
         mLabelLinearLayout = (LinearLayout) view.findViewById(R.id.fragment_circle_image_view_label_layout);
         mViewPager = (ViewPager) view.findViewById(R.id.fragment_circle_image_view_viewpager);
-        mViewPager.setAdapter(new CircleImageViewAdapter(getFragmentManager(),mImgPaths,mPath));
+        circleImageViewAdapter = new CircleImageViewAdapter(getFragmentManager(),mImgPaths,mPath);
+        mViewPager.setAdapter(circleImageViewAdapter);
+
         views = new ArrayList<>(9);
         initLabel(inflater);
         initViewPagerChangeEvent();
@@ -76,6 +78,7 @@ public class CircleImageViewFragment extends BaseFragment {
             }
             @Override
             public void onPageSelected(int i) {
+                circleImageViewAdapter.notifyDataSetChanged();
                 views.get(mChoosePosition).setBackground(ContextCompat.getDrawable(getContext(),R.drawable.unselect_circle_label_bg));
                 mChoosePosition = i ;
                 views.get(mChoosePosition).setBackground(ContextCompat.getDrawable(getContext(),R.drawable.select_circle_label_bg));

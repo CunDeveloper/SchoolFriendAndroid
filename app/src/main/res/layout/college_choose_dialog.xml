@@ -19,7 +19,18 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
-        android:layout_height="250dp">
+        android:layout_height="310dp">
+        <GridView
+            android:id="@+id/mGridView"
+            android:layout_above="@+id/college_choose_dialog_choose_layout"
+            android:visibility="gone"
+            android:numColumns="5"
+            android:padding="@dimen/phone_apadding"
+            android:verticalSpacing="@dimen/FIVE_DP"
+            android:horizontalSpacing="@dimen/FIVE_DP"
+            android:background="@drawable/gray_line_deep_bg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
         <ListView
             android:layout_width="match_parent"
             android:id="@+id/college_choose_dialog_listview"
@@ -28,7 +39,36 @@
             android:paddingStart="@dimen/padding_left"
             android:background="@drawable/gray_line_deep_bg"
             android:layout_above="@+id/college_choose_dialog_choose_layout"
-            android:layout_height="match_parent"/>
+            android:layout_height="250dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_above="@+id/college_choose_dialog_choose_layout"
+            android:orientation="vertical"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="-1dp"
+                android:background="@android:color/darker_gray"
+                />
+            <Spinner
+                android:id="@+id/mSpinner"
+                android:visibility="gone"
+                android:paddingStart="@dimen/phone_apadding"
+                android:paddingEnd="@dimen/phone_apadding"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:id="@+id/mListview"
+                android:visibility="gone"
+                android:divider="@null"
+                android:paddingStart="@dimen/padding_left"
+                android:background="@drawable/gray_line_deep_bg"
+                android:layout_height="200dp"/>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/college_choose_dialog_choose_layout"
             android:layout_width="match_parent"

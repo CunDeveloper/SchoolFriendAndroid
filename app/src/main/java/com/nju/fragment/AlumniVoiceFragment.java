@@ -39,6 +39,7 @@ import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
 import com.nju.util.SchoolFriendGson;
+import com.nju.util.SearchViewUtil;
 import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -130,8 +131,9 @@ public class AlumniVoiceFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         setListView(view);
-        BottomToolBar.show(this,view);
+        BottomToolBar.showVoiceTool(this, view);
         setUpOnRefreshListener(view);
+        SearchViewUtil.setUp(this,view);
         return view;
     }
 

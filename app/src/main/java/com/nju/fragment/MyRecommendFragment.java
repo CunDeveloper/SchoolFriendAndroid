@@ -154,7 +154,7 @@ public class MyRecommendFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mPersonRecommendAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL);
+                    //mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL);
                 }
             }
 

@@ -37,6 +37,8 @@ import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
 import com.nju.util.SchoolFriendGson;
+import com.nju.util.SearchViewUtil;
+import com.nju.util.SoftInput;
 import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -164,6 +166,7 @@ public class RecommendWorkFragment extends BaseFragment {
         hideChooseDialog(view);
         addLevelChooseItem(view);
         setUpOnRefreshListener(view);
+        SearchViewUtil.setUp(this,view);
         new ExeCacheTask(this).execute(Constant.ALL,0+"");
         return view;
     }
@@ -216,50 +219,41 @@ public class RecommendWorkFragment extends BaseFragment {
             }
         });
         final int[] position = {0};
-        TextView textView = (TextView) getActivity().findViewById(R.id.main_viewpager_menu_more);
-        ListCallbackSingleChoice listCallback= new ListCallbackSingleChoice(){
 
-            @Override
-            public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                position[0] = i;
-                mRefreshLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRefreshLayout.setRefreshing(true);
-                    }
-                });
-                String typeStr = charSequence.toString();
-                String type = 0+"";
-                switch (typeStr) {
-                    case Constant.INTERN:
-                        type = 1 + "";
-                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
-                        break;
-                    case Constant.ALL_JOG:
-                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
-                        type = 2 + "";
-                        break;
-                    case Constant.SCHOOL_JOG:
-                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
-                        type = 3 + "";
-                        break;
-                }
-                String text = getHostActivity().getSharedPreferences().getString(Constant.DEGREE,Constant.ALL);
-                new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
-                mRequestJson = RecommendWorkService.queryRecommendWorkByType(RecommendWorkFragment.this, callback,text, Integer.valueOf(type));
-                setTitle(charSequence.toString());
-                return true;
-            }
-        };
-        final SchoolFriendDialog dialog  = SchoolFriendDialog.singleChoiceListDialog(getContext(), getString(R.string.chooseType), getResources().getStringArray(R.array.recommdWorkType), listCallback);
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.setSelectedIndex(position[0]);
-                dialog.show();
-            }
-        });
+//        ListCallbackSingleChoice listCallback= new ListCallbackSingleChoice(){
+//
+//            @Override
+//            public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+//                position[0] = i;
+//                mRefreshLayout.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mRefreshLayout.setRefreshing(true);
+//                    }
+//                });
+//                String typeStr = charSequence.toString();
+//                String type = 0+"";
+//                switch (typeStr) {
+//                    case Constant.INTERN:
+//                        type = 1 + "";
+//                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
+//                        break;
+//                    case Constant.ALL_JOG:
+//                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
+//                        type = 2 + "";
+//                        break;
+//                    case Constant.SCHOOL_JOG:
+//                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
+//                        type = 3 + "";
+//                        break;
+//                }
+//                String text = getHostActivity().getSharedPreferences().getString(Constant.DEGREE,Constant.ALL);
+//                new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
+//                mRequestJson = RecommendWorkService.queryRecommendWorkByType(RecommendWorkFragment.this, callback,text, Integer.valueOf(type));
+//                setTitle(charSequence.toString());
+//                return true;
+//            }
+//        };
     }
 
     @Subscribe

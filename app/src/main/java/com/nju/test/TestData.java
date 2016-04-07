@@ -180,6 +180,20 @@ public class TestData {
         contentComment1.setDate("2016-3-27 12:04:56");
         contentComments.add(contentComment1);
         return contentComments;
+    }
 
+    public static ArrayList<String> getLabels(){
+        ArrayList<String> labels = new ArrayList<>();
+        labels.add("javascript");
+        labels.add("java");
+        labels.add("c#");
+        labels.add("php"); labels.add("android"); labels.add("jquery");
+        labels.add("python"); labels.add("html"); labels.add("");
+        labels.add("ios"); labels.add("mysql"); labels.add("c++");
+        labels.add("css"); labels.add("sql"); labels.add("object-c");
+        labels.add("arrays"); labels.add("ruby"); labels.add("sqlserver");
+        labels.add("xcode"); labels.add("database"); labels.add("vb.net");
+        labels.add("ajax"); labels.add("linux"); labels.add("node.js");
+        return labels;
     }
 }

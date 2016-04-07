@@ -29,6 +29,7 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniTalk;
 import com.nju.service.AlumniTalkService;
 import com.nju.util.BottomToolBar;
+import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
@@ -52,10 +53,8 @@ public class AlumniDynamicFragment extends BaseFragment {
     private ArrayList<AlumniTalk> mAlumniTalks;
     private AlumniTalkAdapter mAlumniTalkAdapter;
     private PostRequestJson mRequestJson;
-    private RelativeLayout mCollegeMainLayout;
     private SwipeRefreshLayout mRefreshLayout;
     private RelativeLayout mFootView;
-    private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -135,7 +134,6 @@ public class AlumniDynamicFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_alumni_dynamice, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getBottom());
         initListView(view);
-        mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         setUpOnRefreshListener(view);
         BottomToolBar.show(this, view);
         return view;
@@ -156,6 +154,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     public void onStop(){
         EventBus.getDefault().unregister(this);
         super.onStop();
+        CloseRequestUtil.close(mRequestJson);
     }
 
     @Subscribe
@@ -221,4 +220,6 @@ public class AlumniDynamicFragment extends BaseFragment {
             return 0;
         }
     }
+
+
 }
