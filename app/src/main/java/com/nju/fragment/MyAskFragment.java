@@ -92,6 +92,10 @@ public class MyAskFragment extends BaseFragment {
                                     alumniQuestions.remove(alumniQuestions.get(i));
                                 }
                             }
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.MY_ASK_PRE_ID,alumniQuestions.get(0).getId()).apply();
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.MY_ASK_NEXT_ID,alumniQuestions.get(alumniQuestions.size()-1).getId()).apply();
                             initMap();
                             mListView.setAdapter(new PersonAskAdapter(MyAskFragment.this, mAlumniQuestionMap));
                         }
@@ -143,13 +147,13 @@ public class MyAskFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
     }
@@ -191,7 +195,7 @@ public class MyAskFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (askAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
+                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.NEXT);
                 }
             }
 
@@ -205,7 +209,7 @@ public class MyAskFragment extends BaseFragment {
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL);
+            mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE);
         }
     }
 

@@ -25,10 +25,9 @@ import java.util.ArrayList;
 public class RecommendWorkService {
 
     private static final String TAG = RecommendWorkService.class.getSimpleName();
-    public static PostRequestJson queryRecommendWork(BaseFragment fragment,Callback callback,final String level){
-        final int offset = fragment.getHostActivity().getSharedPreferences().getInt(Constant.RECOMMEND_ID,0);
-        Log.i(TAG,offset+"--");
-        final String json = QueryJson.queryLimitToString(fragment,offset);
+    public static PostRequestJson queryRecommendWork(BaseFragment fragment,Callback callback,final String level,String dir){
+        final String json = QueryJson.queryLimitToString(fragment,dir);
+        Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);
@@ -36,10 +35,9 @@ public class RecommendWorkService {
         return mRequestJson;
     }
 
-    public static PostRequestJson queryRecommendWorkByType(BaseFragment fragment,Callback callback,final String level,int type){
-        final int offset = fragment.getHostActivity().getSharedPreferences().getInt(Constant.RECOMMEND_ID,0);
-        Log.i(TAG,offset+"--");
-        final String json = QueryJson.queryLimitByTypeToString(fragment, offset, type);
+    public static PostRequestJson queryRecommendWorkByType(BaseFragment fragment,Callback callback,final String level,int type,String dir){
+        final String json = QueryJson.queryLimitByTypeToString(fragment, dir, type);
+        Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_BY_TYPE+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);
@@ -69,6 +67,7 @@ public class RecommendWorkService {
         param.setContent(StringBase64.encode(contentET.getText().toString()));
         param.setContentId(id);
         final String json = QueryJson.commentAuthorToString(fragment, param);
+        Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_ASK;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);
@@ -83,6 +82,7 @@ public class RecommendWorkService {
         param.setContent(StringBase64.encode(contentET.getText().toString()));
         param.setId(id);
         final String json = QueryJson.commentOtherAuthorToString(fragment, param);
+        Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_ASK;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);
@@ -90,8 +90,8 @@ public class RecommendWorkService {
         return  mRequestJson;
     }
 
-    public static PostRequestJson queryMyRecommendWork(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment,0);
+    public static PostRequestJson queryMyRecommendWork(BaseFragment fragment,Callback callback,final String level,String dir){
+        final String json = QueryJson.queryLimitToString(fragment,dir);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);

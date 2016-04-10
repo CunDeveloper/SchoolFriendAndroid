@@ -36,8 +36,9 @@ public class AlumniVoiceService {
         HttpManager.getInstance().exeRequest(mRequestQueryJson);
         return mRequestQueryJson;
     }
-    public static PostRequestJson queryVoices(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment,0);
+    public static PostRequestJson queryVoices(BaseFragment fragment,Callback callback,final String level,String dir){
+        final String json = QueryJson.queryLimitToString(fragment,dir);
+        Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.i(TAG,url);
@@ -98,8 +99,8 @@ public class AlumniVoiceService {
         return mRequestJson;
     }
 
-    public static PostRequestJson queryMyVoices(BaseFragment fragment,Callback callback,String level){
-        final String json = QueryJson.queryLimitToString(fragment,0);
+    public static PostRequestJson queryMyVoices(BaseFragment fragment,Callback callback,String level,String dir){
+        final String json = QueryJson.queryLimitToString(fragment,dir);
         Log.e(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_OWN_VOICE+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);

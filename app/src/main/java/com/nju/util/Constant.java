@@ -91,4 +91,22 @@ public class Constant {
     public static final String INTERN = "实习";
     public static final String ALL_JOG = "社招" ;
     public static final String SCHOOL_JOG = "校招" ;
+
+    public static final int LIMIT = 200;
+    public static final String DYNAMIC_PRE_ID = "dynamicPreId";
+    public static final String DYNAMIC_NEXT_ID = "dynamicNextId";
+    public static final String VOICE_PRE_ID = "voicePreId";
+    public static final String VOICE_NEXT_ID = "voiceNextId";
+    public static final String MY_VOICE_PRE_ID = "myVoicePreId";
+    public static final String MY_VOICE_NEXT_ID = "myVoiceNextId";
+    public static final String ASK_PRE_ID = "askPreId";
+    public static final String ASK_NEXT_ID = "askNextId";
+    public static final String MY_ASK_PRE_ID = "myAskPreId";
+    public static final String MY_ASK_NEXT_ID = "myAskNextId";
+    public static final String RECOMMEND_PRE_ID = "recommendPreId";
+    public static final String RECOMMEND_NEXT_ID = "recommendNextId";
+    public static final String MY_RECOMMEND_PRE_ID = "recommendPreId";
+    public static final String MY_RECOMMEND_NEXT_ID = "recommendNextId";
+    public static final String PRE = "pre";
+    public static final String NEXT = "next";
 }

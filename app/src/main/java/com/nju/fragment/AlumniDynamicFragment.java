@@ -89,6 +89,10 @@ public class AlumniDynamicFragment extends BaseFragment {
                                     mAlumniTalks.remove(mAlumniTalks.get(i));
                                 }
                             }
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.DYNAMIC_PRE_ID,mAlumniTalks.get(0).getId()).apply();
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.DYNAMIC_NEXT_ID,mAlumniTalks.get(mAlumniTalks.size()-1).getId()).apply();
                             mAlumniTalkAdapter.notifyDataSetChanged();
                         }
                     }
@@ -195,13 +199,13 @@ public class AlumniDynamicFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
     }
@@ -210,11 +214,11 @@ public class AlumniDynamicFragment extends BaseFragment {
     private static class AlumniTalkSort implements Comparator<AlumniTalk> {
         @Override
         public int compare(AlumniTalk lhs, AlumniTalk rhs) {
-            final long lhsTime = DateUtil.getTime(lhs.getDate());
-            final long rhsTime = DateUtil.getTime(rhs.getDate());
-            if (lhsTime > rhsTime) {
+            final int lhsId = lhs.getId();
+            final int rhsId = rhs.getId();
+            if (lhsId > rhsId) {
                 return -1;
-            } else if (lhsTime < rhsTime) {
+            } else if (lhsId < rhsId) {
                 return 1;
             }
             return 0;

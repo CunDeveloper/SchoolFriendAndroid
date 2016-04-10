@@ -93,9 +93,13 @@ public class MyRecommendFragment extends BaseFragment {
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.RECOMMEND_PRE_ID,mRecommendWorks.get(0).getId()).apply();
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.RECOMMEND_NEXT_ID,mRecommendWorks.get(mRecommendWorks.size()-1).getId()).apply();
+
                             initMap();
                             listView.setAdapter(new PersonRecommendAdapter(MyRecommendFragment.this, mRecommendWorkMap));
-                            Log.e(TAG, mRecommendWorkMap.size() + "SS");
                         }
                     }
                 } catch (IOException e) {
@@ -191,13 +195,13 @@ public class MyRecommendFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL);
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL);
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
     }
@@ -219,7 +223,7 @@ public class MyRecommendFragment extends BaseFragment {
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL);
+            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE);
         }
     }
 

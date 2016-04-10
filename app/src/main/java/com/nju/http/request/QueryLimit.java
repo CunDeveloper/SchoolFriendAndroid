@@ -4,28 +4,39 @@ package com.nju.http.request;
  * Created by xiaojuzhang on 2016/3/24.
  */
 public class QueryLimit {
+    private int rowId;
+    private int limit;
+    private String dir;
 
-    private int offset;
-    private int total;
+    public QueryLimit(){}
 
-    public int getOffset() {
-        return offset;
+    public QueryLimit(int rowId, int limit, String dir) {
+        this.rowId = rowId;
+        this.limit = limit;
+        this.dir = dir;
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
+    public int getRowId() {
+        return rowId;
     }
 
-    public int getTotal() {
-        return total;
+    public void setRowId(int rowId) {
+        this.rowId = rowId;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public int getLimit() {
+        return limit;
     }
 
-    @Override
-    public String toString(){
-        return "{offest:"+offset+",total:"+total+"}";
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
     }
 }

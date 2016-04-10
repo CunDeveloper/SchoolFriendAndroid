@@ -109,12 +109,10 @@ public class BitmapDownloader {
 
     static class AsyncDrawable extends BitmapDrawable {
         private final WeakReference<BitmapWorkerTask> mBitmapWorkerTaskReference;
-
         public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask bitmapWorkerTask) {
             super(res, bitmap);
             mBitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
         }
-
         public BitmapWorkerTask getBitmapWorkerTask() {
             return mBitmapWorkerTaskReference.get();
         }

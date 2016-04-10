@@ -66,8 +66,8 @@ public class MajorAskService {
         return mRequestQueryJson;
     }
 
-    public static PostRequestJson  queryMyAsk(BaseFragment fragment,Callback callback,final String level){
-        final String json = QueryJson.queryLimitToString(fragment,0);
+    public static PostRequestJson  queryMyAsk(BaseFragment fragment,Callback callback,final String level,String dir){
+        final String json = QueryJson.queryLimitToString(fragment,dir);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW_OWN+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);
@@ -75,8 +75,9 @@ public class MajorAskService {
         return  mRequestJson;
     }
 
-    public static  PostRequestJson  queryMajorAsk(BaseFragment fragment,Callback callback,final String level) {
-        final String json = QueryJson.queryLimitToString(fragment,0);
+    public static  PostRequestJson  queryMajorAsk(BaseFragment fragment,Callback callback,final String level,String dir) {
+        final String json = QueryJson.queryLimitToString(fragment,dir);
+        Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.i(TAG, url);

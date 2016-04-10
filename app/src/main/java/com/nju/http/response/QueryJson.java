@@ -2,7 +2,14 @@ package com.nju.http.response;
 
 import android.util.Log;
 
+import com.nju.fragment.AlumniDynamicFragment;
+import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.MajorAskFragment;
+import com.nju.fragment.MyAskFragment;
+import com.nju.fragment.MyRecommendFragment;
+import com.nju.fragment.MyVoiceFragment;
+import com.nju.fragment.RecommendWorkFragment;
 import com.nju.http.request.CommentParam;
 import com.nju.http.request.CommentParamId;
 import com.nju.http.request.ContentIdParam;
@@ -11,6 +18,7 @@ import com.nju.http.request.QueryLimit;
 import com.nju.http.request.QueryLimitType;
 import com.nju.http.request.RequestBodyJson;
 import com.nju.test.TestToken;
+import com.nju.util.Constant;
 import com.nju.util.CryptUtil;
 import com.nju.util.SchoolFriendGson;
 
@@ -21,20 +29,21 @@ import java.util.ArrayList;
  */
 public class QueryJson {
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
-    public static String queryLimitToString(final BaseFragment fragment,int offset){
+    public static String queryLimitToString(final BaseFragment fragment,String dir){
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
-        QueryLimit limit = new QueryLimit();
-        limit.setOffset(offset);limit.setTotal(20);
-        bodyJson.setBody(limit);
+        bodyJson.setBody(queryLimit(fragment,dir));
         return gson.toJson(bodyJson);
     }
 
-    public static String queryLimitByTypeToString(final BaseFragment fragment,int offset,int type){
+    public static String queryLimitByTypeToString(final BaseFragment fragment,String dir,int type){
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimitType limit = new QueryLimitType();
-        limit.setOffset(offset);limit.setTotal(20);
+        QueryLimit queryLimit = queryLimit(fragment,dir);
+        limit.setRowId(queryLimit.getRowId());
+        limit.setDir(queryLimit.getDir());
+        limit.setLimit(queryLimit.getLimit());
         limit.setType(type);
         bodyJson.setBody(limit);
         return gson.toJson(bodyJson);
@@ -73,5 +82,74 @@ public class QueryJson {
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(idParam);
         return gson.toJson(bodyJson);
+    }
+
+    private static QueryLimit queryLimit(BaseFragment fragment,String dir){
+        QueryLimit limit = new QueryLimit();
+        if (dir != null && dir.equals(Constant.NEXT) ){
+            if (fragment instanceof AlumniDynamicFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.DYNAMIC_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof AlumniVoiceFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.VOICE_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof RecommendWorkFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.RECOMMEND_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MajorAskFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.ASK_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyVoiceFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_VOICE_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyAskFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_ASK_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyRecommendFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_RECOMMEND_NEXT_ID,0);
+                limit.setRowId(rowId);
+            }
+
+        }else {
+            if (fragment instanceof AlumniDynamicFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.DYNAMIC_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof AlumniVoiceFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.VOICE_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof RecommendWorkFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.RECOMMEND_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MajorAskFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.ASK_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyVoiceFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_VOICE_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyAskFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_ASK_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyRecommendFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_RECOMMEND_PRE_ID,0);
+                limit.setRowId(rowId);
+            }
+        }
+        limit.setDir(dir);
+        limit.setLimit(Constant.LIMIT);
+        return limit;
     }
 }

@@ -93,14 +93,6 @@ public class RecommendWorkFragment extends BaseFragment {
 
                             }
                             Collections.sort(mRecommendWorks, new RecommendWorkSort());
-                            if (mRecommendWorks.size()>0){
-                                RecommendWork recommendWork = mRecommendWorks.get(0);
-                                if (recommendWork != null){
-                                    getHostActivity().getSharedPreferences()
-                                            .edit().
-                                            putInt(Constant.RECOMMEND_ID,recommendWork.getId()).apply();
-                                }
-                            }
 
                             int length = mRecommendWorks.size();
                             if (length>Constant.MAX_LIST_NUMBER){
@@ -108,6 +100,10 @@ public class RecommendWorkFragment extends BaseFragment {
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.RECOMMEND_PRE_ID,mRecommendWorks.get(0).getId()).apply();
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.RECOMMEND_NEXT_ID,mRecommendWorks.get(mRecommendWorks.size()-1).getId()).apply();
                             mRecommendWorkItemAdapter.notifyDataSetChanged();
                         }
                     }
@@ -177,13 +173,13 @@ public class RecommendWorkFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL);
+                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL);
+                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
     }
@@ -211,7 +207,7 @@ public class RecommendWorkFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mRecommendWorkItemAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback, Constant.ALL);
+                    mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback, Constant.ALL,Constant.NEXT);
                 }
             }
             @Override
@@ -259,7 +255,7 @@ public class RecommendWorkFragment extends BaseFragment {
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL);
+            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.PRE);
         }
     }
 
@@ -326,25 +322,25 @@ public class RecommendWorkFragment extends BaseFragment {
                         case Constant.UNDERGRADUATE: {
                             getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE,text).commit();
                             new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.UNDERGRADUATE);
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.UNDERGRADUATE,Constant.NEXT);
                             break;
                         }
                         case Constant.MASTER: {
                             new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
                             getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE,text).commit();
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.MASTER);
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.MASTER,Constant.NEXT);
                             break;
                         }
                         case Constant.DOCTOR: {
                             new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
                             getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE, text).commit();
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.DOCTOR);
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.DOCTOR,Constant.NEXT);
                             break;
                         }
                         case Constant.ALL: {
                             getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE, text).commit();
                             new ExeCacheTask(RecommendWorkFragment.this).execute(text, type);
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL);
+                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.NEXT);
                             break;
                         }
                     }
@@ -379,11 +375,11 @@ public class RecommendWorkFragment extends BaseFragment {
 
         @Override
         public int compare(RecommendWork lhs, RecommendWork rhs) {
-            final long lhsTime = DateUtil.getTime(lhs.getDate());
-            final long rhsTime = DateUtil.getTime(rhs.getDate());
-            if (lhsTime > rhsTime) {
+            final int lhsId = lhs.getId();
+            final int rhsId = rhs.getId();
+            if (lhsId > rhsId) {
                 return -1;
-            } else if (lhsTime < rhsTime) {
+            } else if (lhsId < rhsId) {
                 return 1;
             }
             return 0;

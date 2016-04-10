@@ -89,6 +89,11 @@ public class MajorAskFragment extends BaseFragment {
                                     mAlumniQuestions.remove(mAlumniQuestions.get(i));
                                 }
                             }
+                            Log.i(TAG,"preId="+mAlumniQuestions.get(0).getId());
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.ASK_PRE_ID,mAlumniQuestions.get(0).getId()).apply();
+                            getHostActivity().getSharedPreferences().edit()
+                                    .putInt(Constant.ASK_NEXT_ID,mAlumniQuestions.get(mAlumniQuestions.size()-1).getId()).apply();
                             mMajorAskAdapter.notifyDataSetChanged();
                         }
                     }
@@ -157,14 +162,14 @@ public class MajorAskFragment extends BaseFragment {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL);
+                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL);
+                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL,Constant.PRE);
             }
         });
     }
@@ -203,7 +208,7 @@ public class MajorAskFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mMajorAskAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL);
+                    mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL,Constant.NEXT);
                 }
             }
 
@@ -217,7 +222,7 @@ public class MajorAskFragment extends BaseFragment {
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL);
+            mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL,Constant.NEXT);
         }
     }
 
@@ -242,11 +247,11 @@ public class MajorAskFragment extends BaseFragment {
     private static class MajorAskSort implements Comparator<AlumniQuestion> {
         @Override
         public int compare(AlumniQuestion lhs, AlumniQuestion rhs) {
-            final long lhsTime = DateUtil.getTime(lhs.getDate());
-            final long rhsTime = DateUtil.getTime(rhs.getDate());
-            if (lhsTime > rhsTime) {
+            final int lhsId = lhs.getId();
+            final int rhsId = rhs.getId();
+            if (lhsId > rhsId) {
                 return -1;
-            } else if (lhsTime < rhsTime) {
+            } else if (lhsId < rhsId) {
                 return 1;
             }
             return 0;
