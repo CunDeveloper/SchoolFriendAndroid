@@ -238,10 +238,12 @@ public class MajorAskFragment extends BaseFragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Intent intent = new Intent(getContext(),CacheIntentService.class);
-        intent.putExtra(Constant.LABEL,Constant.MAJOR_ASK);
-        intent.putExtra(Constant.MAJOR_ASK,mAlumniQuestions);
-        getContext().startService(intent);
+        if (mAlumniQuestions != null && mAlumniQuestions.size()>0){
+            Intent intent = new Intent(getContext(),CacheIntentService.class);
+            intent.putExtra(Constant.LABEL,Constant.MAJOR_ASK);
+            intent.putExtra(Constant.MAJOR_ASK,mAlumniQuestions);
+            getContext().startService(intent);
+        }
     }
 
     private static class MajorAskSort implements Comparator<AlumniQuestion> {
@@ -283,11 +285,16 @@ public class MajorAskFragment extends BaseFragment {
             super.onPostExecute(alumniQuestions);
             MajorAskFragment majorAskFragment = mMajorAskWeakRef.get();
             if (majorAskFragment!=null){
-                if (alumniQuestions != null){
+                if (alumniQuestions != null && alumniQuestions.size()>0){
                     Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniQuestions));
                     Collections.sort(alumniQuestions, new MajorAskSort());
                     majorAskFragment.mAlumniQuestions.addAll(alumniQuestions);
                     majorAskFragment.mMajorAskAdapter.notifyDataSetChanged();
+                }else {
+                    majorAskFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.ASK_PRE_ID,0).apply();
+                    majorAskFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.ASK_NEXT_ID,0).apply();
                 }
             }
         }

@@ -19,8 +19,10 @@ import com.nju.View.GestureImageView;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
+import com.nju.image.BitmapDownloader;
 import com.nju.util.Divice;
 import com.nju.util.PathConstant;
+import com.nju.util.ToastUtil;
 
 
 public class CircleImageViewItemFragment extends BaseFragment {
@@ -32,6 +34,7 @@ public class CircleImageViewItemFragment extends BaseFragment {
     private String mBaseImgPath;
     private GestureImageView mCustomImageView;
     private static String[]  dialog_items ;
+    private ImageDownloader.BitmapDownloaderTask downloaderTask;
     public static CircleImageViewItemFragment newInstance(String path,String basePath) {
         CircleImageViewItemFragment fragment = new CircleImageViewItemFragment();
         Bundle bundle = new Bundle();
@@ -74,7 +77,7 @@ public class CircleImageViewItemFragment extends BaseFragment {
             public boolean onLongClick(View v) {
                 SchoolFriendDialog dialog = SchoolFriendDialog.listDialog(getContext(), dialog_items, callback);
                 dialog.show();
-                return true;
+                return false;
             }
         });
         mCustomImageView.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +92,12 @@ public class CircleImageViewItemFragment extends BaseFragment {
         final String url = PathConstant.IMAGE_PATH + mBaseImgPath+ imgPath;
         Log.i(TAG, url);
 
-        ImageDownloader.download(url,mCustomImageView);
+        downloaderTask = ImageDownloader.download(url, mCustomImageView);
         return view;
     }
 
+    public ImageDownloader.BitmapDownloaderTask getTask(){
+        return downloaderTask;
+    }
 
 }

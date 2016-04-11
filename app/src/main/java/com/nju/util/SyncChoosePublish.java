@@ -17,9 +17,7 @@ public class SyncChoosePublish {
     private  LinearLayout syncLayout;
     private static SyncChoosePublish choosePublish = null;
     public static SyncChoosePublish newInstance(View view){
-        if (choosePublish == null){
-            choosePublish = new SyncChoosePublish(view);
-        }
+        choosePublish = new SyncChoosePublish(view);
         return choosePublish;
     }
 

@@ -58,7 +58,7 @@ public class RecommendWorkFragment extends BaseFragment {
     private RelativeLayout mCollegeMainLayout;
     private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
     private FloatingActionButton mFloatBn;
-    private  ArrayList<RecommendWork>  mRecommendWorks;
+    private  ArrayList<RecommendWork>  mRecommendWorks = new ArrayList<>();
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
@@ -188,7 +188,7 @@ public class RecommendWorkFragment extends BaseFragment {
 
     private void  setListView(View view){
         //mRecommendWorks = TestData.getRecommendWorks();
-        mRecommendWorks = new ArrayList<>();
+
         ListView listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
@@ -365,10 +365,12 @@ public class RecommendWorkFragment extends BaseFragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Intent intent = new Intent(getContext(),CacheIntentService.class);
-        intent.putExtra(Constant.LABEL,Constant.RECOMMEND);
-        intent.putExtra(Constant.RECOMMEND,mRecommendWorks);
-        getContext().startService(intent);
+        if (mRecommendWorks != null && mRecommendWorks.size()>0){
+            Intent intent = new Intent(getContext(),CacheIntentService.class);
+            intent.putExtra(Constant.LABEL,Constant.RECOMMEND);
+            intent.putExtra(Constant.RECOMMEND,mRecommendWorks);
+            getContext().startService(intent);
+        }
     }
 
     private static class RecommendWorkSort implements Comparator<RecommendWork>{
@@ -398,7 +400,7 @@ public class RecommendWorkFragment extends BaseFragment {
             if (recommendFragment!=null){
                 String degree = params[0];
                 String type = params[1];
-                Log.i(TAG,"degree="+degree +" "+"type = "+type);
+                Log.i(TAG, "degree=" + degree + " " + "type = " + type);
                 return new RecommendDbService(recommendFragment.getContext()).getRecommendWorksByDegreeAndType(degree,type);
             }
             return null;
@@ -409,8 +411,8 @@ public class RecommendWorkFragment extends BaseFragment {
             super.onPostExecute(recommendWorks);
             RecommendWorkFragment recommendFragment = mRecommendWorkWeakRef.get();
             if (recommendFragment!=null){
-                if (recommendWorks != null){
-                    Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWorks));
+                if (recommendWorks != null && recommendWorks.size()>0){
+                    Log.i(TAG, "cache json =="+SchoolFriendGson.newInstance().toJson(recommendWorks));
                     Collections.sort(recommendWorks, new RecommendWorkSort());
                     ArrayList<RecommendWork> source = recommendFragment.mRecommendWorks;
                     ArrayList<RecommendWork> tempArray = new ArrayList<>();
@@ -423,6 +425,11 @@ public class RecommendWorkFragment extends BaseFragment {
                     source.removeAll(tempArray);
                     source.addAll(recommendWorks);
                     recommendFragment.mRecommendWorkItemAdapter.notifyDataSetChanged();
+                }else {
+                    recommendFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.RECOMMEND_PRE_ID,0).apply();
+                    recommendFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.RECOMMEND_NEXT_ID, 0).apply();
                 }
             }
         }

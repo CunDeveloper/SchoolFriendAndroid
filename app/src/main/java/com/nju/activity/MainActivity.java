@@ -54,6 +54,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -164,6 +165,9 @@ public class MainActivity extends BaseActivity {
 
         //for only test
         Set<String> levels = new HashSet<>();levels.add("本科");levels.add("所有");levels.add("硕士");
+        Set<String> degrees = new HashSet<>();
+        degrees.add("本科;2010");degrees.add("硕士;2014");
+        getSharedPreferences().edit().putStringSet(Constant.DEGREES,degrees).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
         getSharedPreferences().edit().putInt(getString(R.string.authorId), 1).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();

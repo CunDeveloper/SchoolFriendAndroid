@@ -109,6 +109,17 @@ public class SchoolFriendHttp {
         return response.body().byteStream();
     }
 
+    public  Call AsyncGetStream(final String url,Callback callback) {
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Content-Type", IMAGE_TYPE)
+                .build();
+        requestQueue.addFirst(request);
+        Call call = mClient.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
     /**
      * The callback is made after the response headers are ready.
      * Reading the response body may still block.

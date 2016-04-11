@@ -109,4 +109,5 @@ public class Constant {
     public static final String MY_RECOMMEND_NEXT_ID = "recommendNextId";
     public static final String PRE = "pre";
     public static final String NEXT = "next";
+    public static final String DEGREES = "degress";
 }

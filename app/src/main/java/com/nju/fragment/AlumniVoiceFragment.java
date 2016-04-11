@@ -56,12 +56,9 @@ import java.util.Set;
 public class AlumniVoiceFragment extends BaseFragment {
 
     private static final String TAG = AlumniVoiceFragment.class.getSimpleName();
-    private RelativeLayout mCollegeMainLayout;
-    private LinearLayout mChooseLayout;
-    private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
-    private ArrayList<AlumniVoice> mVoices;
+    private ArrayList<AlumniVoice> mVoices = new ArrayList<>();
     private RelativeLayout mFootView;
     private AlumniVoiceItemAdapter mAlumniVoiceItemAdapter;
     private ResponseCallback callback = new ResponseCallback() {
@@ -133,7 +130,6 @@ public class AlumniVoiceFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tu_cao, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
-        mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         setListView(view);
         BottomToolBar.showVoiceTool(this, view);
         setUpOnRefreshListener(view);
@@ -142,8 +138,7 @@ public class AlumniVoiceFragment extends BaseFragment {
     }
 
     private void  setListView(View view){
-        mVoices = new ArrayList<>();
-        new ExeCacheTask(this).execute();
+
         ListView listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
@@ -151,10 +146,17 @@ public class AlumniVoiceFragment extends BaseFragment {
         listView.addFooterView(mFootView);
         mAlumniVoiceItemAdapter = new AlumniVoiceItemAdapter(this, mVoices);
         listView.setAdapter(mAlumniVoiceItemAdapter);
+        new ExeCacheTask(this).execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getHostActivity().open(AlumniVoiceItemDetail.newInstance(mVoices.get(position)));
+            }
+        });
+        mFootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShortText(getContext(),"hhh");
             }
         });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -259,10 +261,12 @@ public class AlumniVoiceFragment extends BaseFragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Intent intent = new Intent(getContext(),CacheIntentService.class);
-        intent.putExtra(Constant.LABEL,Constant.ALUMNI_VOICE);
-        intent.putExtra(Constant.ALUMNI_VOICE,mVoices);
-        getContext().startService(intent);
+        if(mVoices != null && mVoices.size()>0){
+            Intent intent = new Intent(getContext(),CacheIntentService.class);
+            intent.putExtra(Constant.LABEL,Constant.ALUMNI_VOICE);
+            intent.putExtra(Constant.ALUMNI_VOICE,mVoices);
+            getContext().startService(intent);
+        }
     }
 
     private static class AlumniVoiceSort implements Comparator<AlumniVoice>{
@@ -299,11 +303,16 @@ public class AlumniVoiceFragment extends BaseFragment {
             super.onPostExecute(alumniVoices);
             AlumniVoiceFragment alumniVoiceFragment = mAlumniVoiceWeakRef.get();
             if (alumniVoiceFragment!=null){
-                if (alumniVoices != null){
+                if (alumniVoices != null && alumniVoices.size()>0){
                     Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniVoices));
                     Collections.sort(alumniVoices, new AlumniVoiceSort());
                     alumniVoiceFragment.mVoices.addAll(alumniVoices);
                     alumniVoiceFragment.mAlumniVoiceItemAdapter.notifyDataSetChanged();
+                }else {
+                    alumniVoiceFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.VOICE_PRE_ID,0).apply();
+                    alumniVoiceFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.VOICE_NEXT_ID,0).apply();
                 }
             }
         }

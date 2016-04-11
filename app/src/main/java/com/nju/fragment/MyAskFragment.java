@@ -195,7 +195,7 @@ public class MyAskFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (askAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.NEXT);
+                   // mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.NEXT);
                 }
             }
 

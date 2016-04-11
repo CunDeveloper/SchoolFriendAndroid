@@ -94,9 +94,9 @@ public class MyRecommendFragment extends BaseFragment {
                                 }
                             }
                             getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.RECOMMEND_PRE_ID,mRecommendWorks.get(0).getId()).apply();
+                                    .putInt(Constant.MY_RECOMMEND_PRE_ID,mRecommendWorks.get(0).getId()).apply();
                             getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.RECOMMEND_NEXT_ID,mRecommendWorks.get(mRecommendWorks.size()-1).getId()).apply();
+                                    .putInt(Constant.MY_RECOMMEND_NEXT_ID,mRecommendWorks.get(mRecommendWorks.size()-1).getId()).apply();
 
                             initMap();
                             listView.setAdapter(new PersonRecommendAdapter(MyRecommendFragment.this, mRecommendWorkMap));

@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.nju.http.request.RequestImage;
 import com.nju.image.CacheUtil;
 import com.nju.image.ImageUtil;
 import com.squareup.okhttp.Callback;
@@ -26,7 +27,7 @@ public class ImageDownloader {
     private static final String TAG = ImageDownloader.class.getSimpleName();
     private static CacheUtil cacheUtil = CacheUtil.getInstance();
 
-    public static  void download(String url,ImageView imageView) {
+    public static  BitmapDownloaderTask download(String url,ImageView imageView) {
         if (cancelPotentialDownload(url, imageView)) {
             Bitmap bitmap;
             if ((bitmap=cacheUtil.getBitmapFromMemCache(url))!= null){
@@ -36,8 +37,10 @@ public class ImageDownloader {
                 DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
                 imageView.setImageDrawable(downloadedDrawable);
                 task.execute(url);
+                return task;
             }
         }
+        return null;
     }
 
     private static BitmapDownloaderTask getBitmapDownloaderTask(ImageView imageView) {
@@ -78,13 +81,37 @@ public class ImageDownloader {
         }
     }
 
-   private  static class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
+   public   static class BitmapDownloaderTask extends AsyncTask<String,Void,Bitmap>{
         private String url;
         private final WeakReference<ImageView> imageViewReference;
 
-        public BitmapDownloaderTask(ImageView imageView) {
+        public BitmapDownloaderTask(ImageView imageView ) {
             imageViewReference = new WeakReference<>(imageView);
         }
+
+//       Callback callback = new Callback() {
+//           @Override
+//           public void onFailure(Request request, IOException e) {
+//
+//           }
+//
+//           @Override
+//           public void onResponse(Response response) throws IOException {
+//               InputStream inputStream = response.body().byteStream();
+//               Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//               CacheUtil.getInstance().addBitmapToMemoryCache(url,bitmap);
+//               ImageView imageView = imageViewReference.get();
+//               BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
+//               //Change bitmap only if this process is still associated with it
+//              if (BitmapDownloaderTask.this == bitmapDownloaderTask) {
+//                imageView.setImageBitmap(bitmap);
+//              }
+//           }
+//       };
+//       RequestImage requestImage = new RequestImage(mUrl,callback);
+//       public void exe(){
+//           HttpManager.getInstance().exeRequest(requestImage);
+//       }
 
         @Override
         // Actual download method, run in the task thread
