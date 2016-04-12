@@ -77,6 +77,12 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
                     MajorAskEntity.CONTENT +TEXT_TYPE +
                     " )";
 
+    private static final String SQL_CREATE_ALUMNI_DYNAMIC =
+            CREATE_TABLE + AlumniDynamicEntity.TABLE_NAME + " (" +
+                    AlumniDynamicEntity.ID + PRIMARY_KEY + COMMA_SEP +
+                    AlumniDynamicEntity.CONTENT +TEXT_TYPE +
+                    " )";
+
 
     private static final String SQL_DELETE_COLLEGE =
             DROP_TABLE + CollegeEntry.TABLE_NAME;
@@ -98,6 +104,8 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
             DROP_TABLE + AlumniVoiceEntity.TABLE_NAME;
     private static final String SQL_DELETE_MAJOR_ASK =
             DROP_TABLE + MajorAskEntity.TABLE_NAME;
+    private static final String SQL_DELETE_ALUMNI_DYNAMIC =
+            DROP_TABLE + AlumniDynamicEntity.TABLE_NAME;
 
 
     private static SchoolFriendDbHelper dbHelper;
@@ -130,6 +138,7 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_RECOMMEND_WORK);
         db.execSQL(SQL_CREATE_ALUMNI_VOICE);
         db.execSQL(SQL_CREATE_MAJOR_ASK);
+        db.execSQL(SQL_CREATE_ALUMNI_DYNAMIC);
     }
 
     @Override
@@ -144,6 +153,7 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_RECOMMEND_WORK);
         db.execSQL(SQL_DELETE_ALUMNI_VOICE);
         db.execSQL(SQL_DELETE_MAJOR_ASK);
+        db.execSQL(SQL_DELETE_ALUMNI_DYNAMIC);
         onCreate(db);
     }
 }

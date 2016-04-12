@@ -1,7 +1,10 @@
 package com.nju.activity;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.nju.http.ResponseCallback;
+import com.nju.http.request.PostRequestJson;
 import com.splunk.mint.Mint;
 
 /**
@@ -9,12 +12,25 @@ import com.splunk.mint.Mint;
  */
 public class MyApplication extends Application
 {
+    private PostRequestJson mRequestJson;
     private static final String TAG = MyApplication.class.getSimpleName();
+    ResponseCallback collegeCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            Log.i(TAG,responseBody);
+        }
+    };
     @Override
     public void onCreate()
     {
         super.onCreate();
         Mint.initAndStartSession(getApplicationContext(), "ba2df536");
-
     }
+
+
 }

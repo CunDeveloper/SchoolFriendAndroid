@@ -50,5 +50,15 @@ public class ParseResponse {
         return null;
     }
 
+    public String getInfo (final String json) throws IOException {
+        ObjectNode root = getRoot(json);
+        int code = code(root);
+        if (code == Constant.OK){
+            JsonNode jInfoNode = root.get(Constant.INFO);
+            return jInfoNode.toString();
+        }
+        return null;
+    }
+
 
 }

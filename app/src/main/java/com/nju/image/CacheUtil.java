@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.LruCache;
+
+import com.jakewharton.disklrucache.DiskLruCache;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -13,6 +16,7 @@ import java.io.IOException;
  * Created by xiaojuzhang on 2016/1/5.
  */
 public class CacheUtil {
+    private DiskLruCache mDiskLruCache;
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10;
     private static final String DISK_CACHE_SUB_DIR = "school_friend_img_dir";
     private static final int M_UNIT = 1024;
@@ -48,11 +52,14 @@ public class CacheUtil {
 
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
         if (getBitmapFromMemCache(key) == null) {
-            mMemoryCache.put(key, bitmap);
+            if (key != null && bitmap != null){
+                mMemoryCache.put(key, bitmap);
+            }
         }
     }
 
     public Bitmap getBitmapFromMemCache(String key) {
+
         return mMemoryCache.get(key);
     }
 

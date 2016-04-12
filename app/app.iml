@@ -97,8 +97,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="mail" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.4.2" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-2.4.2" level="project" />
+    <orderEntry type="library" exported="" name="jackson-databind-2.4.2" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="TencentLocationSDK_v4.3.0_r196568_151014_1433" level="project" />
     <orderEntry type="library" exported="" name="commons-0.8.5.0" level="project" />

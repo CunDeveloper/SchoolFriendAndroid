@@ -19,6 +19,7 @@ import com.nju.activity.R;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
+import com.nju.http.response.ParseResponse;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.ImageWrapper;
 import com.nju.util.Constant;
@@ -29,6 +30,7 @@ import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
 import com.nju.util.SyncChoosePublish;
 import com.nju.util.ToastUtil;
+import com.nju.util.WhoScanUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,10 +47,9 @@ public class PublishDynamicFragment extends BaseFragment {
     private TextView mLocationTV;
     private TextView whoScanTV;
     private SchoolFriendDialog mDialog;
+    private SyncChoosePublish choosePublish;
     private String mLocation;
     private String mWhoScan;
-    private String level;
-
     public static PublishDynamicFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         PublishDynamicFragment fragment = new PublishDynamicFragment();
         Bundle args = new Bundle();
@@ -82,7 +83,7 @@ public class PublishDynamicFragment extends BaseFragment {
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         initView(view);
-        level = SyncChoosePublish.newInstance(view).sync(this).level();
+        choosePublish = SyncChoosePublish.newInstance(view).sync(this);
         if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
@@ -174,6 +175,17 @@ public class PublishDynamicFragment extends BaseFragment {
         public void onSuccess(String responseBody) {
             Log.i(TAG,responseBody);
             mDialog.dismiss();
+            ParseResponse parseResponse = new ParseResponse();
+            try {
+                String info = parseResponse.getInfo(responseBody);
+                Log.i(TAG,info);
+                if (info != null && info.equals(Constant.OK_MSG)) {
+                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
+                    getHostActivity().open(AlumniDynamicFragment.newInstance(),PublishDynamicFragment.this);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -201,17 +213,13 @@ public class PublishDynamicFragment extends BaseFragment {
                 final String content = mContentET.getText().toString();
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
-                if (mWhoScan != null)
-                    params.put(Constant.WHO_SCAN,mWhoScan);
-                else{
-                    params.put(Constant.WHO_SCAN,1+"");
+                String whoScan = WhoScanUtil.access(whoScanTV.getText().toString());
+                params.put(Constant.WHO_SCAN, whoScan);
+                CharSequence location = mLocationTV.getText().toString();
+                if (location.toString().equals(Constant.IN_LOCATION)){
+                    location = "";
                 }
-                if (mLocation != null)
-                    params.put(Constant.LOCATION,mLocation);
-                else{
-                    params.put(Constant.LOCATION,"");
-                }
-
+                params.put(Constant.LOCATION,location.toString());
                 params.put(Constant.AUTHORIZATION, PublishDynamicFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
@@ -229,7 +237,8 @@ public class PublishDynamicFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level="+level;
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level="+choosePublish.level();
+                Log.i(TAG,url);
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url, params, bitmapWrapperArrayList, callback));
             }
         });

@@ -124,6 +124,7 @@ public class RecommendWorkFragment extends BaseFragment {
 
     public RecommendWorkFragment() {
         // Required empty public constructor
+        new ExeCacheTask(this).execute(Constant.ALL,0+"");
     }
 
     @Override
@@ -162,8 +163,8 @@ public class RecommendWorkFragment extends BaseFragment {
         hideChooseDialog(view);
         addLevelChooseItem(view);
         setUpOnRefreshListener(view);
-        SearchViewUtil.setUp(this,view);
-        new ExeCacheTask(this).execute(Constant.ALL,0+"");
+        SearchViewUtil.setUp(this, view);
+
         return view;
     }
 

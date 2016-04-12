@@ -44,6 +44,7 @@ dependencies {
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile "com.splunk.mint:mint:5.0.0"
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.jakewharton:disklrucache:2.0.2'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.0@aar') {
         transitive = true
     }

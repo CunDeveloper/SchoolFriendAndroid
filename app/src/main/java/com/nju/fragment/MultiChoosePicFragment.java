@@ -161,7 +161,7 @@ public class MultiChoosePicFragment extends BaseFragment {
             image.setData(CapturePic.getImgPath());
             ArrayList<Image> images = new ArrayList<>();
             images.add(image);
-            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,getString(R.string.capture_image),mLabel));
+            getHostActivity().open(CameraImageViewFragment.newInstance(images,0,getString(R.string.capture_image),mLabel),this);
         }
     }
 

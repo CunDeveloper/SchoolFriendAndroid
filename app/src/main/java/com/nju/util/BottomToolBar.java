@@ -21,15 +21,43 @@ import com.nju.fragment.BaseFragment;
 import com.nju.test.TestData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Created by cun on 2016/4/5.
  */
 public class BottomToolBar {
+    private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private static Map<String,ArrayList<String>> mCollegeMap;
+    private static ArrayList<String> mVoiceLabels;
+    private static ArrayList<String> mAskLabels;
+
+    private static void initMap(BaseFragment fragment){
+        if (mCollegeMap == null){
+            String collegeJson = fragment.getHostActivity().getSharedPreferences()
+                    .getString(Constant.COLLEGES, "");
+            if (!collegeJson.equals("")){
+                mCollegeMap = gson.fromJsonToMap(collegeJson);
+            }
+        }
+        if (mVoiceLabels == null){
+            Set<String> voiceLabelSet = fragment.getHostActivity().getSharedPreferences()
+                    .getStringSet(Constant.VOICE_LABEL,new HashSet<String>());
+            mVoiceLabels = new ArrayList<>(voiceLabelSet);
+        }
+
+        if (mAskLabels == null){
+            Set<String> askLabelSet = fragment.getHostActivity().getSharedPreferences()
+                    .getStringSet(Constant.ASK_LABEL,new HashSet<String>());
+            mAskLabels = new ArrayList<>(askLabelSet);
+        }
+    }
 
     public static void show(final BaseFragment fragment,View view ){
+        initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         final ListView listView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
@@ -42,10 +70,7 @@ public class BottomToolBar {
                 mCollegeMainLayout.setVisibility(View.GONE);
             }
         });
-        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level),new HashSet<String>());
-        Set<String> collegeSet = fragment.getHostActivity().getSharedPreferences()
-                .getStringSet(fragment.getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
+        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
 
         for (String level:levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -56,8 +81,6 @@ public class BottomToolBar {
             textView.setText(level);
             if (textView.getText().toString().equals(fragment.getString(R.string.undergraduate))) {
                 textView.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.primayDark));
-                listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
-                listView.setVisibility(View.VISIBLE);
             }
             layout.addView(textView);
             mChooseLevelViews.add(textView);
@@ -65,9 +88,15 @@ public class BottomToolBar {
                 @Override
                 public boolean onLongClick(View v) {
                     TextView tv = (TextView) v;
-                    if (!tv.getText().toString().equals(Constant.ALL)) {
-                        listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
-                        listView.setVisibility(View.VISIBLE);
+                    String level = tv.getText().toString();
+                    if (!level.equals(Constant.ALL)) {
+                        if (mCollegeMap != null){
+                            ArrayList<String> colleges = mCollegeMap.get(level);
+                            if (colleges != null){
+                                listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
+                                listView.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
                     changeLevelTVColor(mChooseLevelViews, fragment.getContext(), tv);
                     return true;
@@ -79,20 +108,21 @@ public class BottomToolBar {
                 public void onClick(View v) {
                     TextView mTV = (TextView) v;
                     mCollegeMainLayout.setVisibility(View.GONE);
-                    changeLevelTVColor(mChooseLevelViews,fragment.getContext(),mTV);
+                    changeLevelTVColor(mChooseLevelViews, fragment.getContext(), mTV);
                 }
             });
         }
     }
 
     public static void showVoiceTool(final BaseFragment fragment,View view ){
+        initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         final ListView listView = (ListView) view.findViewById(R.id.mListview);
         final Spinner spinner = (Spinner) view.findViewById(R.id.mSpinner);
-        HashSet<String> voiceSet = TestData.voiceTypes();
+
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(fragment.getContext(),
-                android.R.layout.simple_dropdown_item_1line, voiceSet.toArray(new String[voiceSet.size()]));
+                android.R.layout.simple_dropdown_item_1line, mVoiceLabels.toArray(new String[mVoiceLabels.size()]));
 
         final RelativeLayout mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         openChooseDialog(mCollegeMainLayout,listView,view);
@@ -103,10 +133,7 @@ public class BottomToolBar {
                 mCollegeMainLayout.setVisibility(View.GONE);
             }
         });
-        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level),new HashSet<String>());
-        Set<String> collegeSet = fragment.getHostActivity().getSharedPreferences()
-                .getStringSet(fragment.getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
+        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
 
         for (String level:levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -124,11 +151,16 @@ public class BottomToolBar {
                 @Override
                 public boolean onLongClick(View v) {
                     TextView tv = (TextView) v;
-                    if (!tv.getText().toString().equals(Constant.ALL)) {
-                        listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
-                        listView.setVisibility(View.VISIBLE);
-                        spinner.setAdapter(adapter);
-                        spinner.setVisibility(View.VISIBLE);
+                    String level = tv.getText().toString();
+                    if (!level.equals(Constant.ALL)) {
+                        ArrayList<String> colleges = mCollegeMap.get(level);
+                        if (colleges != null) {
+                            listView.setAdapter(new CollageAdapter(fragment.getContext(),colleges));
+                            listView.setVisibility(View.VISIBLE);
+                            spinner.setAdapter(adapter);
+                            spinner.setVisibility(View.VISIBLE);
+                        }
+
                     }
                     changeLevelTVColor(mChooseLevelViews, fragment.getContext(), tv);
                     return true;
@@ -140,7 +172,7 @@ public class BottomToolBar {
                 public void onClick(View v) {
                     TextView mTV = (TextView) v;
                     mCollegeMainLayout.setVisibility(View.GONE);
-                    changeLevelTVColor(mChooseLevelViews,fragment.getContext(),mTV);
+                    changeLevelTVColor(mChooseLevelViews, fragment.getContext(), mTV);
                 }
             });
         }
@@ -148,6 +180,7 @@ public class BottomToolBar {
 
 
     public static void showMajorTool(final BaseFragment fragment,View view ){
+        initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         final GridView gridView = (GridView) view.findViewById(R.id.mGridView);
@@ -163,9 +196,6 @@ public class BottomToolBar {
             }
         });
         Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level),new HashSet<String>());
-        Set<String> collegeSet = fragment.getHostActivity().getSharedPreferences()
-                .getStringSet(fragment.getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
 
         for (String level:levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -176,8 +206,6 @@ public class BottomToolBar {
             textView.setText(level);
             if (textView.getText().toString().equals(fragment.getString(R.string.undergraduate))) {
                 textView.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.primayDark));
-                gridView.setAdapter(new LabelAdapter(fragment.getContext(), TestData.getLabels()));
-                gridView.setVisibility(View.VISIBLE);
             }
             layout.addView(textView);
             mChooseLevelViews.add(textView);
@@ -186,7 +214,7 @@ public class BottomToolBar {
                 public boolean onLongClick(View v) {
                     TextView tv = (TextView) v;
                     if (!tv.getText().toString().equals(Constant.ALL)) {
-                        gridView.setAdapter(new LabelAdapter(fragment.getContext(), TestData.getLabels()));
+                        gridView.setAdapter(new LabelAdapter(fragment.getContext(),mAskLabels));
                         gridView.setVisibility(View.VISIBLE);
                     }
                     changeLevelTVColor(mChooseLevelViews, fragment.getContext(), tv);

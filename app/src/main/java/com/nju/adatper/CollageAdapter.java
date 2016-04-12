@@ -9,27 +9,29 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by xiaojuzhang on 2016/3/15.
  */
 public class CollageAdapter extends BaseAdapter {
 
     private Context mContext;
-    private String[] mColleges;
+    private ArrayList<String> mColleges;
 
-    public CollageAdapter(Context context, String[] colleges) {
+    public CollageAdapter(Context context, ArrayList<String> colleges) {
         mContext = context;
         mColleges = colleges;
     }
 
     @Override
     public int getCount() {
-        return mColleges.length;
+        return mColleges.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mColleges[position];
+        return mColleges.get(position);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class CollageAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        holder.mNameTv.setText(mColleges[position]);
+        holder.mNameTv.setText(mColleges.get(position));
         return convertView;
     }
 

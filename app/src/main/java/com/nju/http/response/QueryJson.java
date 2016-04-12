@@ -2,6 +2,7 @@ package com.nju.http.response;
 
 import android.util.Log;
 
+import com.nju.activity.BaseActivity;
 import com.nju.fragment.AlumniDynamicFragment;
 import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.BaseFragment;
@@ -74,6 +75,13 @@ public class QueryJson {
         RequestBodyJson<ContentIdParam> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(idParam);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String emptyBodyToString(final BaseActivity activity){
+        RequestBodyJson<String> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(activity.token());
+        bodyJson.setBody("");
         return gson.toJson(bodyJson);
     }
 

@@ -13,4 +13,5 @@
         android:id="@+id/fragment_circle_image_view_item_iamge"
         />
 
+
 </FrameLayout>

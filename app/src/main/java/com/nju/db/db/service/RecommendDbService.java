@@ -88,7 +88,6 @@ public class RecommendDbService {
             recommendWorks.add(recommendWork);
         }
         cursor.close();
-        db.close();
         return recommendWorks;
     }
 
@@ -138,7 +137,6 @@ public class RecommendDbService {
             recommendWorks.add(recommendWork);
         }
         cursor.close();
-        db.close();
         return recommendWorks;
     }
 

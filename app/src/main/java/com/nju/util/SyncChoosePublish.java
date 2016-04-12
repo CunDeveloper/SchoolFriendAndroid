@@ -50,15 +50,15 @@ public class SyncChoosePublish {
 
     public String level(){
         String result = "";
-        if (graduateCB.isChecked()){
-            result = Constant.UNDERGRADUATE;
-        }else if (masterCB.isChecked()){
-            result = Constant.MASTER;
-        }else if (doctorCB.isChecked()){
-            result = Constant.DOCTOR;
-        } else if (graduateCB.isChecked() && masterCB.isChecked()){
+        if (graduateCB.isChecked() && masterCB.isChecked()){
             result = Constant.ALL;
-        }else {
+        } else if (graduateCB.isChecked()){
+            result = Constant.UNDERGRADUATE;
+        } else if (masterCB.isChecked()){
+            result = Constant.MASTER;
+        } else if (doctorCB.isChecked()){
+            result = Constant.DOCTOR;
+        } else {
             result = defaultLevel;
         }
         return result;

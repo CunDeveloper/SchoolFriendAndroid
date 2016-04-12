@@ -4,55 +4,41 @@ package com.nju.image;
  * Created by cun on 2016/3/31.
  */
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
+import android.os.Environment;
 import android.os.StrictMode;
+
+import java.io.File;
+
 /**
  * Class containing some static utility methods.
  */
 public class Utils {
+    public static final int IO_BUFFER_SIZE = 8 * 1024;
+
     private Utils() {};
 
-
-    @TargetApi(VERSION_CODES.HONEYCOMB)
-    public static void enableStrictMode() {
-        if (Utils.hasGingerbread()) {
-            StrictMode.ThreadPolicy.Builder threadPolicyBuilder =
-                    new StrictMode.ThreadPolicy.Builder()
-                            .detectAll()
-                            .penaltyLog();
-            StrictMode.VmPolicy.Builder vmPolicyBuilder =
-                    new StrictMode.VmPolicy.Builder()
-                            .detectAll()
-                            .penaltyLog();
-            StrictMode.setThreadPolicy(threadPolicyBuilder.build());
-            StrictMode.setVmPolicy(vmPolicyBuilder.build());
+    public static boolean isExternalStorageRemovable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            return Environment.isExternalStorageRemovable();
         }
+        return true;
     }
 
-    public static boolean hasFroyo() {
-        // Can use static final constants like FROYO, declared in later versions
-        // of the OS since they are inlined at compile time. This is guaranteed behavior.
-        return Build.VERSION.SDK_INT >= VERSION_CODES.FROYO;
+    public static File getExternalCacheDir(Context context) {
+        if (hasExternalCacheDir()) {
+            return context.getExternalCacheDir();
+        }
+
+        // Before Froyo we need to construct the external cache dir ourselves
+        final String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
+        return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
     }
 
-    public static boolean hasGingerbread() {
-        return Build.VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD;
+    public static boolean hasExternalCacheDir() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }
 
-    public static boolean hasHoneycomb() {
-        return Build.VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB;
-    }
-
-    public static boolean hasHoneycombMR1() {
-        return Build.VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB_MR1;
-    }
-
-    public static boolean hasJellyBean() {
-        return Build.VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN;
-    }
-
-    public static boolean hasKitKat() {
-        return Build.VERSION.SDK_INT >= VERSION_CODES.KITKAT;
-    }
 }

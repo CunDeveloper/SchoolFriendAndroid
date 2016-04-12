@@ -11,18 +11,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.CustomImageVIew;
 import com.nju.View.GestureImageView;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.BitmapEvent;
+import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
 import com.nju.image.BitmapDownloader;
 import com.nju.util.Divice;
 import com.nju.util.PathConstant;
 import com.nju.util.ToastUtil;
+import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class CircleImageViewItemFragment extends BaseFragment {
@@ -90,11 +97,14 @@ public class CircleImageViewItemFragment extends BaseFragment {
         });
 
         final String url = PathConstant.IMAGE_PATH + mBaseImgPath+ imgPath;
-        Log.i(TAG, url);
+
 
         downloaderTask = ImageDownloader.download(url, mCustomImageView);
+        //Picasso.with(getContext()).load(url).into(mCustomImageView);
         return view;
     }
+
+
 
     public ImageDownloader.BitmapDownloaderTask getTask(){
         return downloaderTask;

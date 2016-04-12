@@ -108,6 +108,7 @@
                         android:id="@+id/typeSpinner"
                         />
                     <TextView
+                        android:id="@+id/edit_label_tv"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:gravity="end"

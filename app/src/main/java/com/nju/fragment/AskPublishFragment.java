@@ -13,15 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
+import com.nju.http.response.ParseResponse;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.ImageWrapper;
 import com.nju.test.TestData;
+import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
@@ -29,12 +33,17 @@ import com.nju.util.PathConstant;
 import com.nju.util.SoftInput;
 import com.nju.util.StringBase64;
 import com.nju.util.SyncChoosePublish;
+import com.nju.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class AskPublishFragment extends BaseFragment {
 
@@ -46,7 +55,9 @@ public class AskPublishFragment extends BaseFragment {
     private EditText mDescriptionET;
     private EditText mProblemET;
     private SchoolFriendDialog mDialog;
-    private String level;
+    private SyncChoosePublish syncChoosePublish;
+    private Spinner mAskLableSpinner;
+    private CharSequence customLabel;
     public static AskPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         AskPublishFragment fragment = new AskPublishFragment();
         Bundle args = new Bundle();
@@ -85,8 +96,9 @@ public class AskPublishFragment extends BaseFragment {
         }else {
             mUploadImgPaths = new ArrayList<>();
         }
-        level = SyncChoosePublish.newInstance(view).sync(this).level();
+        syncChoosePublish = SyncChoosePublish.newInstance(view).sync(this);
         initView(view);
+        customLabel = null;
         return view;
     }
 
@@ -143,11 +155,21 @@ public class AskPublishFragment extends BaseFragment {
 
             }
         });
-        Spinner completeTextView = (Spinner) view.findViewById(R.id.typeSpinner);
-        String[] majorTypes= TestData.getMajorType();
+        mAskLableSpinner = (Spinner) view.findViewById(R.id.typeSpinner);
+        Set<String> askLabels = getHostActivity().getSharedPreferences()
+                .getStringSet(Constant.ASK_LABEL,new HashSet<String>());
+        String[] majorTypes= askLabels.toArray(new String[askLabels.size()]);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, majorTypes);
-        completeTextView.setAdapter(adapter);
+        mAskLableSpinner.setAdapter(adapter);
+
+        TextView editLabelTv = (TextView) view.findViewById(R.id.edit_label_tv);
+        editLabelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SchoolFriendDialog.inputDialog(getContext(),Constant.EDIT,Constant.PLEASE_LABEL_CONTENT,null).show();
+            }
+        });
     }
 
     public void inputEmotion(String text) {
@@ -180,8 +202,37 @@ public class AskPublishFragment extends BaseFragment {
         public void onSuccess(String responseBody) {
             Log.i(TAG,responseBody);
             mDialog.dismiss();
+            ParseResponse parseResponse = new ParseResponse();
+            try {
+                String info = parseResponse.getInfo(responseBody);
+                Log.i(TAG,info);
+                if (info != null && info.equals(Constant.OK_MSG)) {
+                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
+                    getHostActivity().open(MajorAskFragment.newInstance(),AskPublishFragment.this);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     };
+
+    @Subscribe
+    public void onMessageLabel(MessageEvent event){
+        Log.i(TAG,event.getMessage());
+        customLabel = event.getMessage();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop(){
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -206,11 +257,19 @@ public class AskPublishFragment extends BaseFragment {
                 mDialog.show();
                 final String description = mDescriptionET.getText().toString();
                 final String  problem = mProblemET.getText().toString();
+                final String label;
+                if (customLabel != null){
+                    label = customLabel.toString();
+                }else {
+                    label = mAskLableSpinner.getSelectedItem().toString();
+                }
+                Log.i(TAG,"ask label "+label);
                 final String whoScan = 1+"";
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.DESCRIPTION, StringBase64.encode(description));
                 params.put(Constant.PROBLEM,StringBase64.encode(problem));
                 params.put(Constant.WHO_SCAN,whoScan);
+                params.put(Constant.A_LABEL,label);
                 params.put(Constant.AUTHORIZATION, AskPublishFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
@@ -228,7 +287,8 @@ public class AskPublishFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH + PathConstant.ALUMNIS_QUESTION_SUB_PATH_SAVE+"?level="+level;
+                final String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH + PathConstant.ALUMNIS_QUESTION_SUB_PATH_SAVE+"?level="+syncChoosePublish.level();
+                Log.i(TAG,url);
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
         });

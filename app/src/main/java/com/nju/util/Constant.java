@@ -110,4 +110,23 @@ public class Constant {
     public static final String PRE = "pre";
     public static final String NEXT = "next";
     public static final String DEGREES = "degress";
+    public static final String ASK_LABEL = "askLabel";
+    public static final String VOICE_LABEL = "voiceLabel";
+    public static final String COLLEGES = "colleges";
+    public static final String EMAIL = "email";
+    public static final String A_LABEL = "label";
+    public static final String EDIT = "编辑";
+    public static final String PLEASE_LABEL_CONTENT = "请输入标签内容";
+    public static final String ALL_SACN = "所有校友可见";
+    public static final String ONLY_ME_SCAN = "仅自己可见";
+    public static final String SAME_YEAR_COLLEAGE = "同届同一学院可见";
+    public static final String SAME_COLLEGE_NOT_YEAR = "本学院其他届可见";
+    public static final String SAME_NOT_YEAR_NOT_COLLEGE = "其他届其他学院可见";
+    public static final String SAME_YEAR_NOT_COLLEGE = "本届其他学院可见";
+
+    public static final String OK_MSG = "\"OK\"";
+    public static final String PUBLISH_OK = "发布成功";
+    public static final String PUBLISH_ERREOR = "发表失败";
+    public static final String IN_LOCATION = "所在位置";
+    public static final String ALUMNI_DYNAMIC = "alumniDynamic";
 }

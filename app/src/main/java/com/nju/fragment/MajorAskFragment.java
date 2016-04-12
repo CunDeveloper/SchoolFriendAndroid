@@ -52,7 +52,7 @@ public class MajorAskFragment extends BaseFragment {
     private static final String TAG = MajorAskFragment.class.getSimpleName();
     private SwipeRefreshLayout mRefreshLayout;
     private PostRequestJson mRequestJson;
-    private ArrayList<AlumniQuestion> mAlumniQuestions;
+    private ArrayList<AlumniQuestion> mAlumniQuestions = new ArrayList<>();;
     private RelativeLayout mFootView;
     private MajorAskAdapter mMajorAskAdapter ;
     private ResponseCallback callback = new ResponseCallback() {
@@ -116,6 +116,7 @@ public class MajorAskFragment extends BaseFragment {
 
     public MajorAskFragment() {
         // Required empty public constructor
+        new ExeCacheTask(this).execute();
     }
 
     @Override
@@ -187,8 +188,6 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        mAlumniQuestions = new ArrayList<>();
-        new ExeCacheTask(this).execute();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);

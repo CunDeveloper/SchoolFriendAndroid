@@ -45,6 +45,7 @@ import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.CryptUtil;
 import com.nju.util.Divice;
+import com.nju.util.LoadData;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
@@ -119,6 +120,7 @@ public class MainActivity extends BaseActivity {
     public void onStart() {
         super.onStart();
         initFinalValue();
+        new LoadData(this).loadCollege().loadQuestionLable().loadVoiceLable();
         EventBus.getDefault().register(this);
     }
 

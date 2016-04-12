@@ -4,10 +4,12 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.nju.db.db.service.AlumniDynamicDbService;
 import com.nju.db.db.service.AlumniVoiceDbService;
 import com.nju.db.db.service.MajorAskDbService;
 import com.nju.db.db.service.RecommendDbService;
 import com.nju.model.AlumniQuestion;
+import com.nju.model.AlumniTalk;
 import com.nju.model.AlumniVoice;
 import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
@@ -62,6 +64,17 @@ public class CacheIntentService extends IntentService {
                             Log.i(TAG, alumniQuestion.getId() + ""+alumniQuestion.getDescription());
                         }
                         new MajorAskDbService(getBaseContext()).save(alumniQuestions);
+                    }
+                    break;
+                }
+
+                case Constant.ALUMNI_DYNAMIC:{
+                    ArrayList<AlumniTalk> alumniTalks = intent.getParcelableArrayListExtra(Constant.ALUMNI_DYNAMIC);
+                    if (alumniTalks != null) {
+                        for (AlumniTalk alumniTalk:alumniTalks){
+                            Log.i(TAG, alumniTalk.getId() + ""+alumniTalk.getContent());
+                        }
+                        new AlumniDynamicDbService(getBaseContext()).save(alumniTalks);
                     }
                     break;
                 }

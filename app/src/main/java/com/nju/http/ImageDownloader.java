@@ -9,12 +9,16 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.nju.activity.BitmapEvent;
+import com.nju.activity.MessageEvent;
 import com.nju.http.request.RequestImage;
 import com.nju.image.CacheUtil;
 import com.nju.image.ImageUtil;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.io.InputStream;

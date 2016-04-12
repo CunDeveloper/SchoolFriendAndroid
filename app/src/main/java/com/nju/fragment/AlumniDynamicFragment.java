@@ -1,5 +1,7 @@
 package com.nju.fragment;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -23,11 +25,15 @@ import com.nju.activity.PraiseEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniTalkAdapter;
 import com.nju.adatper.CollageAdapter;
+import com.nju.db.db.service.AlumniDynamicDbService;
+import com.nju.db.db.service.MajorAskDbService;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
+import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniTalk;
 import com.nju.service.AlumniTalkService;
+import com.nju.service.CacheIntentService;
 import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
@@ -42,6 +48,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -50,7 +57,7 @@ import java.util.Set;
 
 public class AlumniDynamicFragment extends BaseFragment {
     private static final String TAG = AlumniDynamicFragment.class.getSimpleName();
-    private ArrayList<AlumniTalk> mAlumniTalks;
+    private ArrayList<AlumniTalk> mAlumniTalks = new ArrayList<>();
     private AlumniTalkAdapter mAlumniTalkAdapter;
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
@@ -115,6 +122,7 @@ public class AlumniDynamicFragment extends BaseFragment {
 
     public AlumniDynamicFragment() {
         // Required empty public constructor
+        new ExeCacheTask(this).execute();
     }
 
     @Override
@@ -161,6 +169,17 @@ public class AlumniDynamicFragment extends BaseFragment {
         CloseRequestUtil.close(mRequestJson);
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if (mAlumniTalks != null && mAlumniTalks.size()>0){
+            Intent intent = new Intent(getContext(),CacheIntentService.class);
+            intent.putExtra(Constant.LABEL,Constant.ALUMNI_DYNAMIC);
+            intent.putExtra(Constant.ALUMNI_DYNAMIC,mAlumniTalks);
+            getContext().startService(intent);
+        }
+    }
+
     @Subscribe
     public void onMessagePraiseEvent(PraiseEvent event){
         ToastUtil.showShortText(getContext(), event.getId() + "praise");
@@ -176,7 +195,6 @@ public class AlumniDynamicFragment extends BaseFragment {
         getHostActivity().open(CircleFragment.newInstance(event.getAuthorInfo()));
     }
     private void initListView(View view){
-        mAlumniTalks = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this,view,listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
@@ -222,6 +240,41 @@ public class AlumniDynamicFragment extends BaseFragment {
                 return 1;
             }
             return 0;
+        }
+    }
+
+    private static class ExeCacheTask extends AsyncTask<Void,Void,ArrayList<AlumniTalk>>
+    {
+        private final WeakReference<AlumniDynamicFragment> mAlumniDynamicWeakRef;
+        public ExeCacheTask(AlumniDynamicFragment  alumniDynamicFragment){
+            this.mAlumniDynamicWeakRef = new WeakReference<>(alumniDynamicFragment);
+        }
+        @Override
+        protected ArrayList<AlumniTalk> doInBackground(Void... params) {
+            AlumniDynamicFragment alumniDynamicFragment = mAlumniDynamicWeakRef.get();
+            if (alumniDynamicFragment != null){
+                return new AlumniDynamicDbService(alumniDynamicFragment.getContext()).getAlumniDynamic();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<AlumniTalk> alumniTalks) {
+            super.onPostExecute(alumniTalks);
+            AlumniDynamicFragment alumniDynamicFragment = mAlumniDynamicWeakRef.get();
+            if (alumniDynamicFragment!=null){
+                if (alumniTalks != null && alumniTalks.size()>0){
+                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniTalks));
+                    Collections.sort(alumniTalks, new AlumniTalkSort());
+                    alumniDynamicFragment.mAlumniTalks.addAll(alumniTalks);
+                    alumniDynamicFragment.mAlumniTalkAdapter.notifyDataSetChanged();
+                }else {
+                    alumniDynamicFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.DYNAMIC_PRE_ID,0).apply();
+                    alumniDynamicFragment.getHostActivity().getSharedPreferences().edit()
+                            .putInt(Constant.DYNAMIC_NEXT_ID,0).apply();
+                }
+            }
         }
     }
 

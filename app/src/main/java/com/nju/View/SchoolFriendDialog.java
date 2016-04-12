@@ -3,9 +3,14 @@ package com.nju.View;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
+import com.nju.util.Constant;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by xiaojuzhang on 2015/11/26.
@@ -53,6 +58,21 @@ public class SchoolFriendDialog extends MaterialDialog {
                 .items(itmes)
                 .itemsColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
                 .itemsCallbackSingleChoice(0, listCallback);
+        return new SchoolFriendDialog((builder));
+    }
+
+    public static SchoolFriendDialog inputDialog(final Context context, final String title, final String content, final ListCallbackSingleChoice listCallback) {
+        final Builder builder = new Builder(context)
+                .title(title)
+                .content(content)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .input(null,null,new MaterialDialog.InputCallback()
+                {
+                    @Override
+                    public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
+                        EventBus.getDefault().post(new MessageEvent(charSequence.toString()));
+                    }
+                });
         return new SchoolFriendDialog((builder));
     }
 

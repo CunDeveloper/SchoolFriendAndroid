@@ -113,16 +113,18 @@ public class AlumniVoiceFragment extends BaseFragment {
     };
 
     public static AlumniVoiceFragment newInstance() {
+        Log.i(TAG,"new Fragment");
         return  new AlumniVoiceFragment();
     }
 
     public AlumniVoiceFragment() {
-
+        new ExeCacheTask(this).execute();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG,"on create exe");
     }
 
     @Override
@@ -146,7 +148,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         listView.addFooterView(mFootView);
         mAlumniVoiceItemAdapter = new AlumniVoiceItemAdapter(this, mVoices);
         listView.setAdapter(mAlumniVoiceItemAdapter);
-        new ExeCacheTask(this).execute();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -42,6 +42,8 @@ public class SchoolFriendHttp {
     private static final String TAG = SchoolFriendHttp.class.getSimpleName();
     private static final MediaType MEDIA_TYPE_MARKDOWN
             = MediaType.parse("text/x-markdown; charset=utf-8");
+    private static final MediaType MEDIA_TYPE_TEXT
+            = MediaType.parse("text/plain; charset=utf-8");
     private static final String FILE = "file";
     private static SchoolFriendHttp mInstance;
     private static OkHttpClient mClient;
@@ -97,6 +99,16 @@ public class SchoolFriendHttp {
 
         Response response = mClient.newCall(request).execute();
         return response.body().string();
+    }
+
+    public Call asynGet(final String url,Callback callback) {
+        Request request = new Request.Builder()
+                .addHeader("Content-Type","text/plain")
+                .url(url)
+                .build();
+        Call call = mClient.newCall(request);
+        call.enqueue(callback);
+        return call;
     }
 
     public InputStream SynGetStream(final String url) throws IOException {

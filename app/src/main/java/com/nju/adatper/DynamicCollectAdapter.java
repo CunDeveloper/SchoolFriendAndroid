@@ -59,7 +59,7 @@ public class DynamicCollectAdapter extends BaseAdapter {
         }
         DynamicCollect dynamicCollect = mDynamicCollects.get(position);
         holder = (ViewHolder) convertView.getTag();
-        Picasso.with(mContext).load(R.drawable.cheese_4)
+        Picasso.with(mContext).load(R.drawable.head2)
                 .transform(new RoundedTransformation(30, 4))
                 .resizeDimen(30, 30).centerCrop()
                 .into(holder.headImg);

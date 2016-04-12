@@ -21,8 +21,10 @@ import com.nju.activity.R;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.MultiImgRequest;
+import com.nju.http.response.ParseResponse;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.ImageWrapper;
+import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
@@ -49,7 +51,7 @@ public class RecommendPublishFragment extends BaseFragment {
     private EditText mEmailET;
     private String mType =1+"";
     private SchoolFriendDialog mDialog;
-    private String level;
+    private SyncChoosePublish choosePublish;
     public static RecommendPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
         RecommendPublishFragment fragment = new RecommendPublishFragment();
         Bundle args = new Bundle();
@@ -89,7 +91,7 @@ public class RecommendPublishFragment extends BaseFragment {
         else {
             mUploadImgPaths = new ArrayList<>();
         }
-        level = SyncChoosePublish.newInstance(view).sync(this).level();
+        choosePublish = SyncChoosePublish.newInstance(view).sync(this);
         initView(view);
         initCheckBox(view);
         return view;
@@ -257,12 +259,25 @@ public class RecommendPublishFragment extends BaseFragment {
         public void onFail(Exception error) {
             Log.e(TAG, error.getLocalizedMessage());
             mDialog.dismiss();
+            ToastUtil.showShortText(getContext(),Constant.PUBLISH_ERREOR);
         }
 
         @Override
         public void onSuccess(String responseBody) {
-            Log.i(TAG,responseBody);
+            Log.i(TAG, responseBody);
             mDialog.dismiss();
+            ParseResponse parseResponse = new ParseResponse();
+            try {
+                String info = parseResponse.getInfo(responseBody);
+                Log.i(TAG,info);
+                if (info != null && info.equals(Constant.OK_MSG)) {
+                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
+                    getHostActivity().open(RecommendWorkFragment.newInstance(), RecommendPublishFragment.this);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     };
 
@@ -289,10 +304,12 @@ public class RecommendPublishFragment extends BaseFragment {
                 mDialog.show();
                 final String content = mContentET.getText().toString();
                 final String title = mTitleET.getText().toString();
+                final String email = mEmailET.getText().toString();
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
                 params.put(Constant.TITLE,StringBase64.encode(title));
                 params.put(Constant.TYPE,mType);
+                params.put(Constant.EMAIL,email);
                 params.put(Constant.AUTHORIZATION, RecommendPublishFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
@@ -310,6 +327,8 @@ public class RecommendPublishFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
+                String level = choosePublish.level();
+                Log.i(TAG,"level value "+level);
                 final String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH + PathConstant.RECOMMEND_WORK_SUB_PATH_SAVE+"?level="+level;
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
             }
