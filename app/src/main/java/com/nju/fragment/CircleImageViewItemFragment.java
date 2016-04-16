@@ -99,7 +99,7 @@ public class CircleImageViewItemFragment extends BaseFragment {
         final String url = PathConstant.IMAGE_PATH + mBaseImgPath+ imgPath;
 
 
-        downloaderTask = ImageDownloader.download(url, mCustomImageView);
+        downloaderTask = ImageDownloader.with(getContext()).download(url, mCustomImageView);
         //Picasso.with(getContext()).load(url).into(mCustomImageView);
         return view;
     }

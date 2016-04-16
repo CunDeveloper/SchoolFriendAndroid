@@ -130,6 +130,11 @@ public class EmotionPagerFragment extends BaseFragment {
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
+                } else if (mTag.equals(AlumniDynamicFragment.TAG)){
+                    AlumniDynamicFragment fragment = (AlumniDynamicFragment) getHostActivity().getBackStack().peek();
+                    if (fragment != null) {
+                        fragment.inputEmotion(mSubEmotions.get(position));
+                    }
                 }
             }
         });

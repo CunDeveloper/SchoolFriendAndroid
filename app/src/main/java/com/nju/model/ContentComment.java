@@ -13,6 +13,7 @@ public class ContentComment extends BaseEntity implements Parcelable {
     private AuthorInfo commentedAuthor;
     private String content;
     private int contentId;
+    private int alumnicTalkId;
     public ContentComment(){}
     protected ContentComment(Parcel in) {
         commentAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
@@ -76,5 +77,22 @@ public class ContentComment extends BaseEntity implements Parcelable {
         dest.writeParcelable(commentedAuthor, flags);
         dest.writeString(content);
         dest.writeInt(contentId);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        ContentComment that = (ContentComment) o;
+        if (this.getId() == that.getId()){
+            return true;
+        }
+        return false;
+    }
+
+    public int getAlumnicTalkId() {
+        return alumnicTalkId;
+    }
+
+    public void setAlumnicTalkId(int alumnicTalkId) {
+        this.alumnicTalkId = alumnicTalkId;
     }
 }

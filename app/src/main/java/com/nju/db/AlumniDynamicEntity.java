@@ -9,4 +9,5 @@ public class AlumniDynamicEntity implements BaseColumns {
     public static final String TABLE_NAME = "AlumniDynamicEntity";
     public static final String ID = "id";
     public static final String CONTENT = "content";
+    public static final String DEGREE = "degree";
 }

@@ -15,10 +15,9 @@ public class AlumniTalk implements Parcelable {
     private String imagePaths;
     private String location;
     private AuthorInfo authorInfo;
+    private ArrayList<AlumnicTalkPraise> talkPraises = new ArrayList<>();
+    private ArrayList<ContentComment> comments = new ArrayList<>();
 
-
-
-    private ArrayList<String> images = new ArrayList<>();
     public AlumniTalk(){}
 
     protected AlumniTalk(Parcel in) {
@@ -28,6 +27,8 @@ public class AlumniTalk implements Parcelable {
         imagePaths = in.readString();
         location = in.readString();
         authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
+        talkPraises = in.createTypedArrayList(AlumnicTalkPraise.CREATOR);
+        comments = in.createTypedArrayList(ContentComment.CREATOR);
     }
 
     public static final Creator<AlumniTalk> CREATOR = new Creator<AlumniTalk>() {
@@ -55,6 +56,8 @@ public class AlumniTalk implements Parcelable {
         dest.writeString(imagePaths);
         dest.writeString(location);
         dest.writeParcelable(authorInfo, flags);
+        dest.writeTypedList(talkPraises);
+        dest.writeTypedList(comments);
     }
 
     public int getId() {
@@ -105,13 +108,23 @@ public class AlumniTalk implements Parcelable {
         this.authorInfo = authorInfo;
     }
 
+    public ArrayList<AlumnicTalkPraise> getTalkPraises() {
+        return talkPraises;
+    }
+
+    public void setTalkPraises(ArrayList<AlumnicTalkPraise> talkPraises) {
+        this.talkPraises = talkPraises;
+    }
+
+    public ArrayList<ContentComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<ContentComment> comments) {
+        this.comments = comments;
+    }
+
     public static Creator<AlumniTalk> getCREATOR() {
         return CREATOR;
     }
-
-    public ArrayList<String> getImages() {
-        return images;
-    }
-
-
 }

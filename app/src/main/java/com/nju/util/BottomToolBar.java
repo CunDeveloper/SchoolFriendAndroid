@@ -14,11 +14,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.adatper.CollageAdapter;
 import com.nju.adatper.LabelAdapter;
 import com.nju.fragment.BaseFragment;
 import com.nju.test.TestData;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,6 +113,7 @@ public class BottomToolBar {
                     TextView mTV = (TextView) v;
                     mCollegeMainLayout.setVisibility(View.GONE);
                     changeLevelTVColor(mChooseLevelViews, fragment.getContext(), mTV);
+                    EventBus.getDefault().post(new MessageEvent(mTV.getText().toString()));
                 }
             });
         }

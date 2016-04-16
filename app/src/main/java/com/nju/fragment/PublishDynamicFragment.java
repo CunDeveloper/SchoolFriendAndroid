@@ -178,7 +178,7 @@ public class PublishDynamicFragment extends BaseFragment {
             ParseResponse parseResponse = new ParseResponse();
             try {
                 String info = parseResponse.getInfo(responseBody);
-                Log.i(TAG,info);
+                Log.i(TAG,"info="+info);
                 if (info != null && info.equals(Constant.OK_MSG)) {
                     ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
                     getHostActivity().open(AlumniDynamicFragment.newInstance(),PublishDynamicFragment.this);
@@ -243,6 +243,4 @@ public class PublishDynamicFragment extends BaseFragment {
             }
         });
     }
-
-
 }

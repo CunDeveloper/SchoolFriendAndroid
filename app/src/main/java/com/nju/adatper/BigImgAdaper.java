@@ -55,7 +55,7 @@ public class BigImgAdaper extends BaseAdapter {
         viewHolder = (ViewHolder) convertView.getTag();
         final String url = PathConstant.IMAGE_PATH +mBaseImg+ mImgPaths[position];
         Log.i(TAG,url);
-        ImageDownloader.download(url,viewHolder.imageView);
+        ImageDownloader.with(mContext).download(url,viewHolder.imageView);
         return convertView;
     }
 

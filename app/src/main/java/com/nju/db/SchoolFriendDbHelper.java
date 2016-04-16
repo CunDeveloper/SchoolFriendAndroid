@@ -80,7 +80,8 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ALUMNI_DYNAMIC =
             CREATE_TABLE + AlumniDynamicEntity.TABLE_NAME + " (" +
                     AlumniDynamicEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    AlumniDynamicEntity.CONTENT +TEXT_TYPE +
+                    AlumniDynamicEntity.CONTENT +TEXT_TYPE + COMMA_SEP +
+                    AlumniDynamicEntity.DEGREE + TEXT_TYPE +
                     " )";
 
 

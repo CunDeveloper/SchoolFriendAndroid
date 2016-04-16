@@ -77,7 +77,7 @@ public class ThreePicsAdapter extends BaseAdapter {
         if (fileName != null){
             final String url = PathConstant.IMAGE_PATH_SMALL+mBaseImgPath+fileName;
             Log.i(TAG,url);
-            ImageDownloader.download(url, holder.img);
+            ImageDownloader.with(mContext).download(url, holder.img);
         }
         return convertView;
     }

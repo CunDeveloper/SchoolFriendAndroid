@@ -21,6 +21,11 @@ public class AuthorInfo implements Parcelable {
     private String headUrl;
     private String label;
 
+    public AuthorInfo(int authorId, String authorName) {
+        this.authorId = authorId;
+        this.authorName = authorName;
+    }
+
     public AuthorInfo() {
 
     }

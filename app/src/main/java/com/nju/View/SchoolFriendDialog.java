@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
+import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.nju.activity.MessageDeleteEvent;
 import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.util.Constant;
@@ -49,6 +51,18 @@ public class SchoolFriendDialog extends MaterialDialog {
         Builder builder = new Builder(context)
                 .items(itmes).contentColor(ContextCompat.getColor(context, android.R.color.black))
                 .itemsCallback(listCallback);
+        return new SchoolFriendDialog(builder);
+    }
+
+    public static SchoolFriendDialog listItemDialog(final Context context, final String[] itmes ) {
+        Builder builder = new Builder(context)
+                .items(itmes).contentColor(ContextCompat.getColor(context, android.R.color.black))
+                .itemsCallback(new ListItemCallback(){
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        EventBus.getDefault().post(new MessageDeleteEvent(charSequence.toString()));
+                    }
+                });
         return new SchoolFriendDialog(builder);
     }
 

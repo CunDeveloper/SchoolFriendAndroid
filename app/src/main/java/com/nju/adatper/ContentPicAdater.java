@@ -71,7 +71,7 @@ public class ContentPicAdater extends BaseAdapter {
         final String fileName = mImages[position];
         if (fileName != null){
             final String url = PathConstant.IMAGE_PATH_SMALL+mBaseImg+fileName;
-            ImageDownloader.download(url,holder.img);
+            ImageDownloader.with(mContext).download(url,holder.img);
         }
 
         return convertView;

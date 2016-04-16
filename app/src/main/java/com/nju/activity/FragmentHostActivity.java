@@ -34,8 +34,6 @@ public interface FragmentHostActivity {
     void display(int i);
     BaseActivity.LocalStack<BaseFragment> getBackStack();
     boolean isPhone();
-    ArrayList<TextView> getRecommendLabelViews();
-    ArrayList<TextView> getVoicesLabelViews();
     String token();
-
+    int userId();
 }

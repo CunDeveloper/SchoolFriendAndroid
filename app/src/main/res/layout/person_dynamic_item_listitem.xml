@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/phone_apadding"
+    android:paddingEnd="@dimen/phone_apadding"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.nju.View.SchoolFriendTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginTop="5dp"
+        android:id="@+id/content_tv"
+        android:background="@color/light_gray"
+        android:textColor="@android:color/black"
+        android:layout_alignTop="@+id/day_tv"
+        android:layout_toEndOf="@+id/month_tv" />
+    <com.nju.View.SchoolFriendGridView
+        android:id="@+id/mPersonItemGridView"
+        android:numColumns="3"
+        android:verticalSpacing="@dimen/FIVE_DP"
+        android:horizontalSpacing="@dimen/FIVE_DP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/phone_apadding"
+        android:layout_alignStart="@+id/content_tv"
+        android:layout_below="@+id/content_tv"/>
+</RelativeLayout>

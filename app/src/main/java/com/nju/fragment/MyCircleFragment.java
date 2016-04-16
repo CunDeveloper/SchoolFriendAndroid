@@ -60,7 +60,7 @@ public class MyCircleFragment extends BaseFragment {
         mDynamicLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PersonCircleFragment.newInstance("张小军"));
+                getHostActivity().open(MyDynamicFragment.newInstance("张小军"));
             }
         });
         RelativeLayout mDynamicCollectLay = (RelativeLayout) view.findViewById(R.id.dynamic_collect);

@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity {
         degrees.add("本科;2010");degrees.add("硕士;2014");
         getSharedPreferences().edit().putStringSet(Constant.DEGREES,degrees).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
+        getSharedPreferences().edit().putInt(Constant.USER_ID,1).commit();
         getSharedPreferences().edit().putInt(getString(R.string.authorId), 1).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
         getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken()))).commit();
@@ -187,7 +188,7 @@ public class MainActivity extends BaseActivity {
         }else {
             getSharedPreferences().edit().putString(Constant.DEGREE,Constant.UNDERGRADUATE);
         }
-        getSharedPreferences().edit().putString(Constant.WORK_TYP,0+"");
+        getSharedPreferences().edit().putString(Constant.WORK_TYP, 0 + "");
     }
 
     @Override
@@ -296,25 +297,6 @@ public class MainActivity extends BaseActivity {
         return isPhone;
     }
 
-    @Override
-    public ArrayList<TextView> getRecommendLabelViews() {
-        ArrayList<TextView> textViews = new ArrayList<>();
-        textViews.add((TextView) findViewById(R.id.rec_label1));
-        textViews.add((TextView) findViewById(R.id.rec_label2));
-        textViews.add((TextView) findViewById(R.id.rec_label3));
-        return textViews;
-    }
-
-    @Override
-    public ArrayList<TextView> getVoicesLabelViews() {
-        ArrayList<TextView> textViews = new ArrayList<>();
-        textViews.add((TextView) findViewById(R.id.voice_label1));
-        textViews.add((TextView) findViewById(R.id.voice_label2));
-        textViews.add((TextView) findViewById(R.id.voice_label3));
-        textViews.add((TextView) findViewById(R.id.voice_label4));
-        textViews.add((TextView) findViewById(R.id.voice_label5));
-        return textViews;
-    }
 
     @Override
     public String token() {
@@ -324,6 +306,10 @@ public class MainActivity extends BaseActivity {
         return token;
     }
 
+    @Override
+    public int userId() {
+        return getSharedPreferences().getInt(Constant.USER_ID,0);
+    }
 
 
     @Override

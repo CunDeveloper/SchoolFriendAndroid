@@ -1,10 +1,5 @@
 package com.nju.adatper;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Path;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,31 +13,27 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nju.activity.CommentOtherEvent;
+import com.nju.activity.DeleteCommentEvent;
+import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.http.ImageDownloader;
-import com.nju.http.ResponseCallback;
-import com.nju.http.SchoolFriendHttp;
 import com.nju.model.AlumniTalk;
+import com.nju.model.AlumnicTalkPraise;
+import com.nju.model.ContentComment;
 import com.nju.util.CommentPopupWindow;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
-import com.nju.util.ToastUtil;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cun on 2016/3/30.
@@ -85,27 +76,26 @@ public class AlumniTalkAdapter extends BaseAdapter {
             holder.locationTV = (TextView) convertView.findViewById(R.id.location_tv);
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
             holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon_img);
-            final TextView commentTV = (TextView) convertView.findViewById(R.id.comment_icon_tv);
-            commentTV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext.getContext(), commentTV);
-                    listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext.getContext(),listPopupWindow, position));
-                    listPopupWindow.show();
-                }
-            });
+            holder.listViewHead = (LinearLayout) LayoutInflater.from(mContext.getContext()).inflate(R.layout.comment_list_head, parent, false);
+            holder.commentTV = (TextView) convertView.findViewById(R.id.comment_icon_tv);
+            holder.deleteTV = (TextView) convertView.findViewById(R.id.delete_tv);
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
+            holder.commentListView.addHeaderView(holder.listViewHead);
             holder.mPicGridView = (GridView) convertView.findViewById(R.id.pics_gridview);
             convertView.setTag(holder);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToastUtil.showShortText(mContext.getContext(),"Hello");
-                }
-            });
+
         }
         holder = (ViewHolder) convertView.getTag();
         final AlumniTalk alumniTalk = mAlumniTalks.get(position);
+        final TextView tempTV = holder.commentTV;
+        tempTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext.getContext(),tempTV);
+                listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext.getContext(),listPopupWindow, position));
+                listPopupWindow.show();
+            }
+        });
         HeadIcon.setUp(holder.headImg,alumniTalk.getAuthorInfo());
         try{
             holder.contentTV.setText(StringBase64.decode(alumniTalk.getContent()));
@@ -122,7 +112,18 @@ public class AlumniTalkAdapter extends BaseAdapter {
             holder.locationTV.setLayoutParams(params);
             holder.locationTV.setVisibility(View.GONE);
         }
-
+        int authorId = alumniTalk.getAuthorInfo().getAuthorId();
+        if (authorId == mContext.getHostActivity().userId()){
+            holder.deleteTV.setText(Constant.DELETE);
+        }else {
+            holder.deleteTV.setText("");
+        }
+        holder.deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new MessageContentIdEvent(alumniTalk.getId()));
+            }
+        });
         holder.nameTV.setText(alumniTalk.getAuthorInfo().getAuthorName());
         holder.nameTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +134,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
         holder.labelTV.setText(alumniTalk.getAuthorInfo().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniTalk.getDate()));
         final String url =PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_TALK_IMG_PATH+"cb54bd60f20942f9a340a027c3e018afIMG_20160330_183310.jpg";
-         ImageDownloader.download(url, holder.headImg);
+         ImageDownloader.with(mContext.getContext()).download(url, holder.headImg);
         if (alumniTalk.getImagePaths() == null){
             holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),PathConstant.ALUMNI_TALK_IMG_PATH,empty));
         }
@@ -143,7 +144,36 @@ public class AlumniTalkAdapter extends BaseAdapter {
         holder.mPicGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mContext.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","),position,PathConstant.ALUMNI_TALK_IMG_PATH));
+                mContext.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","), position, PathConstant.ALUMNI_TALK_IMG_PATH));
+            }
+        });
+        holder.listViewHead.removeAllViews();
+        ArrayList<AlumnicTalkPraise> alumnicTalkPraises = alumniTalk.getTalkPraises();
+        for (int i = 0;i<alumnicTalkPraises.size();i++){
+            TextView textView = (TextView) LayoutInflater.from(mContext.getContext()).inflate(R.layout.dynamic_praise_item,parent,false);
+            textView.setText(alumnicTalkPraises.get(i).getPraiseAuthor().getAuthorName());
+            holder.listViewHead.addView(textView,i);
+        }
+        final ArrayList<ContentComment> comments = alumniTalk.getComments();
+        holder.listViewHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.commentListView.setAdapter(new CommentListAdapter(mContext.getContext(), comments));
+        holder.commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EventBus.getDefault().post(new CommentOtherEvent(comments.get(position - 1)));
+            }
+        });
+
+        holder.commentListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                EventBus.getDefault().post(new DeleteCommentEvent(comments.get(position - 1)));
+                return true;
             }
         });
         return convertView;
@@ -162,5 +192,9 @@ public class AlumniTalkAdapter extends BaseAdapter {
         public View praiseView;
         public LinearLayout.LayoutParams mParams;
         public LinearLayout.LayoutParams mLocationParams;
+        private LinearLayout listViewHead;
+        private TextView praiseItemTV;
+        private TextView commentTV;
+        private TextView deleteTV;
     }
 }

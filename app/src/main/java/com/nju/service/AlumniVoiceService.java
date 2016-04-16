@@ -25,8 +25,7 @@ public class AlumniVoiceService {
 
     public static PostRequestJson queryComment(BaseFragment fragment,int id,Callback callback){
         ArrayList<IdParam> idParams = new ArrayList<>();
-        IdParam idParam = new IdParam();
-        idParam.setId(id);
+        IdParam idParam = new IdParam(id);
         idParams.add(idParam);
         final String json = QueryJson.queryCommentToString(fragment,idParams);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_GET_COMMENT;
@@ -48,8 +47,7 @@ public class AlumniVoiceService {
 
     public static PostRequestJson queryPraise(BaseFragment fragment,int id,Callback callback){
         ArrayList<IdParam> idParams = new ArrayList<>();
-        IdParam idParam = new IdParam();
-        idParam.setId(id);
+        IdParam idParam = new IdParam(id);
         idParams.add(idParam);
         final String json = QueryJson.queryCommentToString(fragment,idParams);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_GET_PRAISE;

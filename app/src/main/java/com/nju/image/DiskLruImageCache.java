@@ -24,18 +24,15 @@ public class DiskLruImageCache {
 
     private DiskLruCache mDiskCache;
     private Bitmap.CompressFormat mCompressFormat = Bitmap.CompressFormat.JPEG;
-    private int mCompressQuality = 70;
+    private int mCompressQuality = 100;
     private static final int APP_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final String TAG = "DiskLruImageCache";
 
-    public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
-                              Bitmap.CompressFormat compressFormat, int quality ) {
+    public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize) {
         try {
             final File diskCacheDir = getDiskCacheDir(context, uniqueName );
             mDiskCache = DiskLruCache.open( diskCacheDir, APP_VERSION, VALUE_COUNT, diskCacheSize );
-            mCompressFormat = compressFormat;
-            mCompressQuality = quality;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +104,6 @@ public class DiskLruImageCache {
         Bitmap bitmap = null;
         DiskLruCache.Snapshot snapshot = null;
         try {
-
             snapshot = mDiskCache.get( key );
             if ( snapshot == null ) {
                 return null;

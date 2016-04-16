@@ -8,6 +8,7 @@ import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.MyAskFragment;
+import com.nju.fragment.MyDynamicFragment;
 import com.nju.fragment.MyRecommendFragment;
 import com.nju.fragment.MyVoiceFragment;
 import com.nju.fragment.RecommendWorkFragment;
@@ -34,6 +35,17 @@ public class QueryJson {
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(queryLimit(fragment,dir));
+        return gson.toJson(bodyJson);
+    }
+
+    public static String queryLimitToString(final BaseFragment fragment,int rowId,String dir){
+        RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        QueryLimit limit = new QueryLimit();
+        limit.setLimit(Constant.LIMIT);
+        limit.setRowId(rowId);
+        limit.setDir(dir);
+        bodyJson.setBody(limit);
         return gson.toJson(bodyJson);
     }
 
@@ -123,6 +135,10 @@ public class QueryJson {
                 final int rowId = fragment.getHostActivity()
                         .getSharedPreferences().getInt(Constant.MY_RECOMMEND_NEXT_ID,0);
                 limit.setRowId(rowId);
+            }else if (fragment instanceof MyDynamicFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_DYNAMIC_NEXT_ID,0);
+                limit.setRowId(rowId);
             }
 
         }else {
@@ -153,6 +169,10 @@ public class QueryJson {
             }else if (fragment instanceof MyRecommendFragment){
                 final int rowId = fragment.getHostActivity()
                         .getSharedPreferences().getInt(Constant.MY_RECOMMEND_PRE_ID,0);
+                limit.setRowId(rowId);
+            }else if (fragment instanceof MyDynamicFragment){
+                final int rowId = fragment.getHostActivity()
+                        .getSharedPreferences().getInt(Constant.MY_DYNAMIC_PRE_ID,0);
                 limit.setRowId(rowId);
             }
         }

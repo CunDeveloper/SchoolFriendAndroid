@@ -129,4 +129,10 @@ public class Constant {
     public static final String PUBLISH_ERREOR = "发表失败";
     public static final String IN_LOCATION = "所在位置";
     public static final String ALUMNI_DYNAMIC = "alumniDynamic";
+    public static final String MY_DYNAMIC_PRE_ID = "myDynamicPreId";
+    public static final String MY_DYNAMIC_NEXT_ID = "myDynamicNextId";
+    public static final String REPLAY = "回复";
+    public static final String PRAISE_OK = "点赞成功";
+    public static final String COMMENT_OK = "评论成功";
+    public static final String DELETE = "删除" ;
 }

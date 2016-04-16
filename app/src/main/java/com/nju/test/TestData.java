@@ -196,4 +196,23 @@ public class TestData {
         labels.add("ajax"); labels.add("linux"); labels.add("node.js");
         return labels;
     }
+
+    public static ArrayList<ContentComment> getTestComment(){
+        ContentComment contentComment;
+        ArrayList<ContentComment> contentComments = new ArrayList<>();
+        contentComment = new ContentComment();
+        contentComment.setContent("hello world");
+        contentComment.setCommentAuthor(new AuthorInfo(1, "张飞"));
+        contentComment.setCommentedAuthor(new AuthorInfo());
+        contentComments.add(contentComment);
+
+        contentComment = new ContentComment();
+        contentComment.setContent("你现在过得怎么样");
+        contentComment.setCommentAuthor(new AuthorInfo(2, "贾新喜"));
+        contentComment.setCommentedAuthor(new AuthorInfo());
+        contentComment.setCommentedAuthor(new AuthorInfo(3,"张小军"));
+        contentComments.add(contentComment);
+
+        return contentComments;
+    }
 }

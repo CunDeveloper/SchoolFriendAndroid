@@ -6,18 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.nju.db.MajorAskEntity;
 import com.nju.db.RecommendEntity;
 import com.nju.db.SchoolFriendDbHelper;
-import com.nju.fragment.BaseFragment;
 import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
 import com.nju.util.SchoolFriendGson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by cun on 2016/3/29.
@@ -25,27 +21,16 @@ import java.util.Set;
 public class RecommendDbService {
     private static final String TAG = RecommendDbService.class.getSimpleName();
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
-    private SQLiteDatabase db;
-    private static HashMap<String,String> degrees = null;
-
+    private SQLiteDatabase mDb;
+    private Context mContext;
     public RecommendDbService(Context context) {
-        db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
-        if (degrees == null) {
-            degrees = new HashMap<>();
-            if (context != null) {
-                Set<String> stringSet = context.getSharedPreferences(Constant.SCHOOL_FRIEND_SHARED_PREFERENCE, Context.MODE_PRIVATE).getStringSet(Constant.DEGREES, new HashSet<String>());
-                for (String str:stringSet){
-                    String[] strs = str.split(";");
-                    degrees.put(strs[1],strs[0]);
-                }
-            }
-
-        }
+        mDb = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
+        mContext = context;
     }
 
     public void save(ArrayList<RecommendWork> recommendWorks) {
 
-        db.execSQL(Constant.DELETE_FROM+ RecommendEntity.TABLE_NAME);
+        mDb.execSQL(Constant.DELETE_FROM + RecommendEntity.TABLE_NAME);
         ContentValues contentValues;
         for (RecommendWork recommendWork:recommendWorks){
             contentValues = new ContentValues();
@@ -54,13 +39,14 @@ public class RecommendDbService {
             Log.i(TAG, "TYPE == " + type);
             contentValues.put(RecommendEntity.TYPE, type);
             String entryYear = recommendWork.getAuthor().getLabel().split(" ")[2];
+            HashMap<String,String> degrees = DegreeUtil.degrees(mContext);
             String degree = degrees.get(entryYear);
             if (degree != null) {
-                Log.i(TAG,"DEGREE == "+degrees.get(degree));
+                Log.i(TAG, "DEGREE == " + degrees.get(degree));
                 contentValues.put(RecommendEntity.DEGREE, degrees.get(degree));
                 final String json = gson.toJson(recommendWork);
                 contentValues.put(RecommendEntity.CONTENT, json);
-                long id = db.replace(RecommendEntity.TABLE_NAME,null,contentValues);
+                long id = mDb.replace(RecommendEntity.TABLE_NAME,null,contentValues);
                 Log.i(TAG,"ID == "+id);
             }
         }
@@ -71,7 +57,7 @@ public class RecommendDbService {
         String[] projection ={
                 RecommendEntity.CONTENT
         };
-        Cursor cursor = db.query(
+        Cursor cursor = mDb.query(
                 RecommendEntity.TABLE_NAME,
                 projection,
                 null,
@@ -104,7 +90,7 @@ public class RecommendDbService {
            selection = RecommendEntity.TYPE +"=?";
             Log.i(TAG,selection);
             selectionArgs[0] = type;
-            cursor = db.query(
+            cursor = mDb.query(
                     RecommendEntity.TABLE_NAME,
                     projection,
                     selection,
@@ -118,7 +104,7 @@ public class RecommendDbService {
             Log.i(TAG,selection);
             selectionArgsTwo[0] = degree;
             selectionArgsTwo[1] = type;
-            cursor = db.query(
+            cursor = mDb.query(
                     RecommendEntity.TABLE_NAME,
                     projection,
                     selection,
@@ -147,7 +133,7 @@ public class RecommendDbService {
         };
         String selection = RecommendEntity.TYPE +"= ?";
         String[] selectionArgs = {type};
-        Cursor cursor = db.query(
+        Cursor cursor = mDb.query(
                 RecommendEntity.TABLE_NAME,
                 projection,
                 selection,
