@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
@@ -20,6 +21,8 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,11 +67,24 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.titleTx = (TextView) convertView.findViewById(R.id.re_list_item_title);
             holder.usernameTx = (TextView) convertView.findViewById(R.id.name_tv);
+            holder.deleteTV = (TextView) convertView.findViewById(R.id.delete_tv);
             holder.gridView = (GridView) convertView.findViewById(R.id.mGridView);
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
         final RecommendWork recommendWork = mRecommendWorks.get(position);
+        int author_id = recommendWork.getAuthorInfo().getAuthorId();
+        if (author_id == mFragment.getHostActivity().userId()){
+            holder.deleteTV.setText(Constant.DELETE);
+        }else {
+            holder.deleteTV.setText("");
+        }
+        holder.deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new MessageContentIdEvent(recommendWork.getId()));
+            }
+        });
         try {
             holder.titleTx.setText(StringBase64.decode(recommendWork.getTitle()));
         } catch (IllegalArgumentException e) {
@@ -109,6 +125,7 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         private TextView countTx;
         private TextView usernameTx;
         private TextView contentTV;
+        private TextView deleteTV;
         private GridView gridView;
     }
 }

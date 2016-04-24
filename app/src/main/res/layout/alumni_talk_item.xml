@@ -9,7 +9,6 @@
     >
     <ImageView
         android:id="@+id/head_icon_img"
-        android:src="@drawable/head2"
         android:scaleType="fitXY"
         android:layout_width="@dimen/phone_head_length"
         android:layout_height="@dimen/phone_head_length"

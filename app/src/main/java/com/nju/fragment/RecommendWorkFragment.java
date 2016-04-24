@@ -2,8 +2,6 @@ package com.nju.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,15 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.MaterialDialog.ListCallbackSingleChoice;
-import com.nju.View.SchoolFriendDialog;
+
+import com.nju.activity.MessageContentIdEvent;
+import com.nju.activity.MessageEvent;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
+import com.nju.activity.RecommendWorkTypeEvent;
 import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.db.db.service.RecommendDbService;
 import com.nju.http.ResponseCallback;
@@ -30,15 +27,14 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.RecommendWork;
 import com.nju.service.CacheIntentService;
 import com.nju.service.RecommendWorkService;
+import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
-import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SearchViewUtil;
-import com.nju.util.SoftInput;
 import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,23 +43,17 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 public class RecommendWorkFragment extends BaseFragment {
-
     private static final String TAG = RecommendWorkFragment.class.getSimpleName();
-    private RelativeLayout mCollegeMainLayout;
-    private ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
-    private FloatingActionButton mFloatBn;
     private  ArrayList<RecommendWork>  mRecommendWorks = new ArrayList<>();
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
     private RelativeLayout mFootView;
-    private static String degreeLabel = Constant.ALL;
+    private static CharSequence mDegree = Constant.ALL;
+    private static CharSequence mType;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -84,28 +74,25 @@ public class RecommendWorkFragment extends BaseFragment {
                 try {
                     Object object = parseResponse.getInfo(responseBody,RecommendWork.class);
                     if (object != null){
+                        mRecommendWorks.clear();
                         ArrayList majorAsks = (ArrayList) object;
                         if (majorAsks.size()>0){
                             for (Object obj :majorAsks){
-                                RecommendWork   recommendWork = (RecommendWork) obj;
+                                RecommendWork  recommendWork = (RecommendWork) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
-                                mRecommendWorks.add(recommendWork);
-
+                                if (!mRecommendWorks.contains(recommendWork)){
+                                    mRecommendWorks.add(recommendWork);
+                                }
                             }
                             Collections.sort(mRecommendWorks, new RecommendWorkSort());
-
                             int length = mRecommendWorks.size();
-                            if (length>Constant.MAX_LIST_NUMBER){
-                                for (int i = length-1;i>Constant.MAX_LIST_NUMBER;i--){
+                            if (length>Constant.MAX_ROW){
+                                for (int i = length-1;i>Constant.MAX_ROW;i--){
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.RECOMMEND_PRE_ID,mRecommendWorks.get(0).getId()).apply();
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.RECOMMEND_NEXT_ID,mRecommendWorks.get(mRecommendWorks.size()-1).getId()).apply();
-                            mRecommendWorkItemAdapter.notifyDataSetChanged();
                         }
+                        mRecommendWorkItemAdapter.notifyDataSetChanged();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -124,7 +111,7 @@ public class RecommendWorkFragment extends BaseFragment {
 
     public RecommendWorkFragment() {
         // Required empty public constructor
-        new ExeCacheTask(this).execute(Constant.ALL,0+"");
+        new ExeCacheTask(this).execute(mDegree.toString(), 0 + "");
     }
 
     @Override
@@ -134,10 +121,11 @@ public class RecommendWorkFragment extends BaseFragment {
 
         }
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitle(getString(R.string.shixi));
+        setTitle(mType.toString());
         getHostActivity().display(5);
     }
 
@@ -156,15 +144,11 @@ public class RecommendWorkFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recommend_work, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
-        mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
-        mFloatBn =  (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         setListView(view);
-        openChooseDialog();
-        hideChooseDialog(view);
-        addLevelChooseItem(view);
+        BottomToolBar.showRecommendTool(this, view);
         setUpOnRefreshListener(view);
         SearchViewUtil.setUp(this, view);
-
+        mType = BottomToolBar.getRecommendType(view);
         return view;
     }
 
@@ -174,22 +158,19 @@ public class RecommendWorkFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, mDegree.toString(), Constant.PRE, 0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, mDegree.toString(), Constant.PRE, 0);
             }
         });
     }
 
-
-
     private void  setListView(View view){
         //mRecommendWorks = TestData.getRecommendWorks();
-
         ListView listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
@@ -206,58 +187,42 @@ public class RecommendWorkFragment extends BaseFragment {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == (mRecommendWorkItemAdapter.getCount())) {
+                if (view.getLastVisiblePosition() == (mRecommendWorkItemAdapter.getCount()) &&
+                        view.getLastVisiblePosition() == Constant.MAX_ROW) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this,callback, Constant.ALL,Constant.NEXT);
+                    mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL, Constant.NEXT);
                 }
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
         });
-        final int[] position = {0};
-
-//        ListCallbackSingleChoice listCallback= new ListCallbackSingleChoice(){
-//
-//            @Override
-//            public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-//                position[0] = i;
-//                mRefreshLayout.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mRefreshLayout.setRefreshing(true);
-//                    }
-//                });
-//                String typeStr = charSequence.toString();
-//                String type = 0+"";
-//                switch (typeStr) {
-//                    case Constant.INTERN:
-//                        type = 1 + "";
-//                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
-//                        break;
-//                    case Constant.ALL_JOG:
-//                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
-//                        type = 2 + "";
-//                        break;
-//                    case Constant.SCHOOL_JOG:
-//                        getHostActivity().getSharedPreferences().edit().putString(Constant.WORK_TYP, type).commit();
-//                        type = 3 + "";
-//                        break;
-//                }
-//                String text = getHostActivity().getSharedPreferences().getString(Constant.DEGREE,Constant.ALL);
-//                new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
-//                mRequestJson = RecommendWorkService.queryRecommendWorkByType(RecommendWorkFragment.this, callback,text, Integer.valueOf(type));
-//                setTitle(charSequence.toString());
-//                return true;
-//            }
-//        };
     }
 
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.PRE);
+            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback,mDegree.toString(),Constant.PRE,0);
         }
+    }
+
+    @Subscribe
+    public void onMessageDeleteContent(MessageContentIdEvent event){
+        Log.i(TAG, "DELETE ID = " + event.getId());
+    }
+
+    @Subscribe
+    public void onMessageDegree(MessageEvent event){
+        Log.i(TAG,"DEGREE = " + event.getMessage());
+        mDegree = event.getMessage();
+        mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback,mDegree.toString(),Constant.PRE,0);
+    }
+
+    @Subscribe
+    public void onMessageType(RecommendWorkTypeEvent event){
+        setTitle(event.getType());
+        ToastUtil.showShortText(getContext(),"TYPE ="+event.getType());
     }
 
     @Override
@@ -273,95 +238,7 @@ public class RecommendWorkFragment extends BaseFragment {
         CloseRequestUtil.close(mRequestJson);
     }
 
-    private void openChooseDialog(){
-        mFloatBn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCollegeMainLayout.setVisibility(View.VISIBLE);
-                mFloatBn.setVisibility(View.GONE);
-            }
-        });
-    }
 
-    private void hideChooseDialog(View view){
-        View mView = view.findViewById(R.id.college_choose_dialog_view);
-        mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCollegeMainLayout.setVisibility(View.GONE);
-                mFloatBn.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    private void  addLevelChooseItem(View view){
-         LinearLayout input = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
-        Set<String> levels = getHostActivity().getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
-        Set<String> collegeSet = getHostActivity().getSharedPreferences()
-                .getStringSet(getString(R.string.undergraduateCollege),new HashSet<String>());
-        final String[] colleges = collegeSet.toArray(new String[collegeSet.size()]);
-        for (String level:levels){
-            Log.i(TAG, level);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-            TextView textView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.bottom_choose_textview,null);
-            textView.setLayoutParams(param);
-            textView.setText(level);
-            if (textView.getText().toString().equals(getString(R.string.undergraduate))){
-                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            }
-            input.addView(textView);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView mTV = (TextView) v;
-                    changeLevelTVColor(mTV);
-                    final String text = (String) mTV.getText();
-                    String type = getHostActivity().getSharedPreferences().getString(Constant.WORK_TYP,0+"");
-                    switch (text) {
-                        case Constant.UNDERGRADUATE: {
-                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE,text).commit();
-                            new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.UNDERGRADUATE,Constant.NEXT);
-                            break;
-                        }
-                        case Constant.MASTER: {
-                            new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
-                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE,text).commit();
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.MASTER,Constant.NEXT);
-                            break;
-                        }
-                        case Constant.DOCTOR: {
-                            new ExeCacheTask(RecommendWorkFragment.this).execute(text,type);
-                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE, text).commit();
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.DOCTOR,Constant.NEXT);
-                            break;
-                        }
-                        case Constant.ALL: {
-                            getHostActivity().getSharedPreferences().edit().putString(Constant.DEGREE, text).commit();
-                            new ExeCacheTask(RecommendWorkFragment.this).execute(text, type);
-                            mRequestJson = RecommendWorkService.queryRecommendWork(RecommendWorkFragment.this, callback, Constant.ALL,Constant.NEXT);
-                            break;
-                        }
-                    }
-                    mFloatBn.setVisibility(View.VISIBLE);
-                    mCollegeMainLayout.setVisibility(View.GONE);
-                }
-            });
-            mChooseLevelViews.add(textView);
-        }
-    }
-
-    private void changeLevelTVColor(TextView view){
-        for (TextView textView:mChooseLevelViews){
-            if (view.getText().toString().equals(textView.getText().toString())){
-                view.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
-            }else{
-                textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
-            }
-        }
-    }
 
     @Override
     public void onDestroy(){

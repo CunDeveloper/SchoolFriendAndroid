@@ -70,6 +70,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private int mIndex;
     private int commentId = 0;
     private AtomicInteger dynamicId;
+    private String mDegree = Constant.ALL;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -91,25 +92,24 @@ public class AlumniDynamicFragment extends BaseFragment {
                     Object object = parseResponse.getInfo(responseBody,AlumniTalk.class);
                     if (object != null){
                         ArrayList majorAsks = (ArrayList) object;
+                        mAlumniTalks.clear();
                         if (majorAsks.size()>0){
                             for (Object obj :majorAsks){
                                 AlumniTalk  alumniTalk = (AlumniTalk) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
-                                mAlumniTalks.add(alumniTalk);
+                                if (!mAlumniTalks.contains(alumniTalk)){
+                                    mAlumniTalks.add(alumniTalk);
+                                }
                             }
                             Collections.sort(mAlumniTalks, new AlumniTalkSort());
                             int length = mAlumniTalks.size();
-                            if (length>10){
-                                for (int i = length-1;i>10;i--){
+                            if (length>Constant.MAX_ROW){
+                                for (int i = length-1;i>Constant.MAX_ROW;i--){
                                     mAlumniTalks.remove(mAlumniTalks.get(i));
                                 }
                             }
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.DYNAMIC_PRE_ID,mAlumniTalks.get(0).getId()).apply();
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.DYNAMIC_NEXT_ID,mAlumniTalks.get(mAlumniTalks.size()-1).getId()).apply();
-                            mAlumniTalkAdapter.notifyDataSetChanged();
                         }
+                        mAlumniTalkAdapter.notifyDataSetChanged();
                     }
                     queryPraiseAndComment();
                 } catch (IOException e) {
@@ -301,7 +301,7 @@ public class AlumniDynamicFragment extends BaseFragment {
 
     public AlumniDynamicFragment() {
         // Required empty public constructor
-        new ExeCacheTask(this).execute(Constant.ALL);
+        new ExeCacheTask(this).execute(mDegree);
     }
 
     @Override
@@ -406,7 +406,9 @@ public class AlumniDynamicFragment extends BaseFragment {
 
     @Subscribe
     public void onMessageDegree(MessageEvent event){
-        new ExeCacheTask(this).execute(event.getMessage());
+        mDegree = event.getMessage();
+        mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback,mDegree, Constant.PRE,0);
+        //new ExeCacheTask(this).execute(event.getMessage());
     }
     @Subscribe
     public void onMessageDeleteComment(DeleteCommentEvent event){
@@ -467,23 +469,17 @@ public class AlumniDynamicFragment extends BaseFragment {
 
     private void setUpOnRefreshListener(View view){
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
-//        mRefreshLayout.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mRefreshLayout.setRefreshing(true);
-//
-//                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL, Constant.PRE);
-//            }
-//        });
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, mDegree, Constant.PRE,0);
+            }
+        });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (mAlumniTalks.size()>0){
-                    mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL, Constant.PRE,mAlumniTalks.get(0).getId());
-                }
-                else {
-                    mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
-                }
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback,mDegree, Constant.PRE,0);
 
             }
         });
@@ -542,34 +538,12 @@ public class AlumniDynamicFragment extends BaseFragment {
             int preId = 0;
             if (alumniDynamicFragment!=null){
                 if (alumniTalks != null && alumniTalks.size()>0){
-                    Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniTalks));
+                    Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalks));
                     Collections.sort(alumniTalks, new AlumniTalkSort());
-                    preId = alumniTalks.get(0).getId();
                     ArrayList<AlumniTalk> source = alumniDynamicFragment.mAlumniTalks;
-                    ArrayList<AlumniTalk> tempArray = new ArrayList<>();
-                    AlumniTalk work;
-                    for (int i=0;i<source.size();i++){
-                        work = new AlumniTalk();
-                        tempArray.add(work);
-                    }
-                    Collections.copy(tempArray, source);
-                    source.removeAll(tempArray);
+                    source.clear();
                     source.addAll(alumniTalks);
                     alumniDynamicFragment.mAlumniTalkAdapter.notifyDataSetChanged();
-                }
-                switch (degree) {
-                    case Constant.ALL:
-                        alumniDynamicFragment.mRequestJson = AlumniTalkService.queryAlumniTalks(alumniDynamicFragment, alumniDynamicFragment.callback, Constant.ALL, Constant.PRE, preId);
-                        break;
-                    case Constant.UNDERGRADUATE:
-                        alumniDynamicFragment.mRequestJson = AlumniTalkService.queryAlumniTalks(alumniDynamicFragment, alumniDynamicFragment.callback, Constant.UNDERGRADUATE, Constant.PRE, preId);
-                        break;
-                    case Constant.MASTER:
-                        alumniDynamicFragment.mRequestJson = AlumniTalkService.queryAlumniTalks(alumniDynamicFragment, alumniDynamicFragment.callback, Constant.MASTER, Constant.PRE, preId);
-                        break;
-                    case Constant.DOCTOR:
-                        alumniDynamicFragment.mRequestJson = AlumniTalkService.queryAlumniTalks(alumniDynamicFragment, alumniDynamicFragment.callback, Constant.DOCTOR, Constant.PRE, preId);
-                        break;
                 }
               }
             }

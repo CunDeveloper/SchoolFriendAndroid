@@ -13,5 +13,6 @@
     <color name="test">#16777261</color>
     <color name="light_gray">#eee</color>
     <color name="lighter_blue">#E3F2FD</color>
+    <color name="ligher_gray">#FAFAFA</color>
 
 </resources>

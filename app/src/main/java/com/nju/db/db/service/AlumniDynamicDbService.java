@@ -88,7 +88,6 @@ public class AlumniDynamicDbService {
             }
             cursor.close();
         }
-
         return alumniVoices;
     }
 }

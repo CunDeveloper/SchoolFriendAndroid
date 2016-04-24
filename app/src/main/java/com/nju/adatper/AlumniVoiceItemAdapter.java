@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
 import com.nju.fragment.AlumniVoiceItemDetail;
 import com.nju.fragment.BaseFragment;
@@ -17,8 +18,11 @@ import com.nju.fragment.CircleImageViewFragment;
 import com.nju.model.AlumniVoice;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
+import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,10 +69,26 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
             holder.commentTV = (TextView) convertView.findViewById(R.id.alumni_vo_comment_number);
             holder.simpleDescTV = (TextView) convertView.findViewById(R.id.alumni_vo_simple_desc);
             holder.picGridView = (GridView) convertView.findViewById(R.id.mGridView);
+            holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon_img);
+            holder.deleteTV = (TextView) convertView.findViewById(R.id.delete_tv);
             convertView.setTag(holder);
         }
         final AlumniVoice voice = mVoices.get(position);
         holder = (ViewHolder) convertView.getTag();
+        int author_id = voice.getAuthorInfo().getAuthorId();
+        if (author_id == mFragment.getHostActivity().userId()){
+            holder.deleteTV.setText(Constant.DELETE);
+        }else {
+            holder.deleteTV.setText("");
+        }
+        holder.deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new MessageContentIdEvent(voice.getId()));
+            }
+        });
+
+        HeadIcon.setUp(holder.headImg, voice.getAuthorInfo());
         holder.commentTV.setText(voice.getCommentCount() + "");
         holder.praiseCountTV.setText(voice.getPraiseCount() + "");
         try{
@@ -116,6 +136,7 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         private TextView praiseCountTV;
         private TextView commentTV;
         private TextView simpleDescTV;
+        private TextView deleteTV;
         private GridView picGridView;
     }
 }

@@ -7,6 +7,34 @@ import android.os.Parcelable;
  * Created by xiaojuzhang on 2016/3/17.
  */
 public class AlumniQuestion implements Parcelable {
+
+    private int id;
+    private String date;
+    private String problem;
+    private String description;
+    private String imgPaths;
+    private AuthorInfo author;
+    private int replayCount;
+    private boolean isSolved;
+    private int whoScan;
+    private String label;
+
+    public AlumniQuestion() {
+    }
+
+
+    protected AlumniQuestion(Parcel in) {
+        id = in.readInt();
+        date = in.readString();
+        problem = in.readString();
+        description = in.readString();
+        imgPaths = in.readString();
+        author = in.readParcelable(AuthorInfo.class.getClassLoader());
+        replayCount = in.readInt();
+        whoScan = in.readInt();
+        label = in.readString();
+    }
+
     public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
         @Override
         public AlumniQuestion createFromParcel(Parcel in) {
@@ -18,34 +46,6 @@ public class AlumniQuestion implements Parcelable {
             return new AlumniQuestion[size];
         }
     };
-    private int id;
-    private String date;
-    private String problem;
-    private String description;
-    private String imgPaths;
-    private AuthorInfo author;
-    private int replayCount;
-    private boolean isSolved;
-    private int whoScan;
-
-
-    public AlumniQuestion() {
-    }
-
-    protected AlumniQuestion(Parcel in) {
-        id = in.readInt();
-        date = in.readString();
-        problem = in.readString();
-        description = in.readString();
-        imgPaths = in.readString();
-        author = in.readParcelable(AuthorInfo.class.getClassLoader());
-        replayCount = in.readInt();
-        whoScan = in.readInt();
-    }
-
-    public static Creator<AlumniQuestion> getCREATOR() {
-        return CREATOR;
-    }
 
     @Override
     public int describeContents() {
@@ -62,6 +62,7 @@ public class AlumniQuestion implements Parcelable {
         dest.writeParcelable(author, flags);
         dest.writeInt(replayCount);
         dest.writeInt(whoScan);
+        dest.writeString(label);
     }
 
     public int getId() {
@@ -134,5 +135,29 @@ public class AlumniQuestion implements Parcelable {
 
     public void setWhoScan(int whoScan) {
         this.whoScan = whoScan;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public static Creator<AlumniQuestion> getCREATOR() {
+        return CREATOR;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        AlumniQuestion that = (AlumniQuestion) o;
+        int thisId = this.getId();
+        int thatId = that.getId();
+        if (thisId == thatId) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

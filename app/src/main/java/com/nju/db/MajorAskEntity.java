@@ -9,4 +9,6 @@ public class MajorAskEntity implements BaseColumns {
     public static final String TABLE_NAME = "MajorAskEntity";
     public static final String ID = "id";
     public static final String CONTENT = "content";
+    public static final String DEGREE = "degree";
+    public static final String LABEL = "label";
 }

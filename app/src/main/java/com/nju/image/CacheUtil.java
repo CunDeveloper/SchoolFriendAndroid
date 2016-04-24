@@ -74,7 +74,7 @@ public class CacheUtil {
             }
         }
         synchronized (mDiskCacheLock) {
-            if (diskLruImageCache != null && diskLruImageCache.getBitmap(key) == null) {
+            if (diskLruImageCache != null && diskLruImageCache.getBitmap(key) != null) {
                 diskLruImageCache.put(key, bitmap);
             }
         }

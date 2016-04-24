@@ -36,7 +36,17 @@ public class AlumniVoiceService {
         return mRequestQueryJson;
     }
     public static PostRequestJson queryVoices(BaseFragment fragment,Callback callback,final String level,String dir){
-        final String json = QueryJson.queryLimitToString(fragment,dir);
+        final String json = QueryJson.queryLimitToString(fragment, dir);
+        Log.i(TAG,json);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level="+level;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.i(TAG,url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
+    public static PostRequestJson queryVoices(BaseFragment fragment,Callback callback,final String level,String dir,int rowId){
+        final String json = QueryJson.queryLimitToString(fragment,rowId, dir);
         Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
@@ -98,12 +108,23 @@ public class AlumniVoiceService {
     }
 
     public static PostRequestJson queryMyVoices(BaseFragment fragment,Callback callback,String level,String dir){
-        final String json = QueryJson.queryLimitToString(fragment,dir);
+        final String json = QueryJson.queryLimitToString(fragment, dir);
         Log.e(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_OWN_VOICE+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG,url);
         HttpManager.getInstance().exeRequest(mRequestJson);
         return  mRequestJson;
+    }
+
+    public static PostRequestJson deleteVoice(BaseFragment fragment,int commentId,Callback callback){
+        IdParam idParam = new IdParam(commentId);
+        final String json = QueryJson.deleteContentById(fragment, idParam);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_CANCEL;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.i(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
     }
 }

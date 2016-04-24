@@ -74,7 +74,9 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_MAJOR_ASK=
             CREATE_TABLE + MajorAskEntity.TABLE_NAME + " (" +
                     MajorAskEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    MajorAskEntity.CONTENT +TEXT_TYPE +
+                    MajorAskEntity.CONTENT +TEXT_TYPE + COMMA_SEP+
+                    MajorAskEntity.DEGREE + TEXT_TYPE  + COMMA_SEP +
+                    MajorAskEntity.LABEL + TEXT_TYPE +
                     " )";
 
     private static final String SQL_CREATE_ALUMNI_DYNAMIC =

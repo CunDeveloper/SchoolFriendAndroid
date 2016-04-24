@@ -147,4 +147,13 @@ public class AlumniVoice implements Parcelable {
         dest.writeString(date);
         dest.writeParcelable(author, flags);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        AlumniVoice that = (AlumniVoice) o;
+        if (this.getId() == that.getId()){
+            return true;
+        }
+        return false;
+    }
 }

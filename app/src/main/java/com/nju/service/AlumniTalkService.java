@@ -137,6 +137,8 @@ public class AlumniTalkService {
         return mRequestJson;
     }
 
+
+
     public static PostRequestJson queryComment(BaseFragment fragment,ArrayList<AlumniTalk> alumniTalks,Callback callback){
         ArrayList<IdParam> idParams = new ArrayList<>();
         IdParam idParam;

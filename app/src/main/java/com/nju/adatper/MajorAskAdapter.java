@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
@@ -18,6 +19,8 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,10 +63,23 @@ public class MajorAskAdapter extends BaseAdapter {
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
             holder.replayCountTV = (TextView) convertView.findViewById(R.id.count_tv);
             holder.gridView = (GridView) convertView.findViewById(R.id.question_gridview);
+            holder.deleteTV = (TextView) convertView.findViewById(R.id.delete_tv);
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
         final AlumniQuestion alumniQuestion = mQuestions.get(position);
+        int author_id = alumniQuestion.getAuthor().getAuthorId();
+        if (author_id == mFragment.getHostActivity().userId()){
+            holder.deleteTV.setText(Constant.DELETE);
+        }else {
+            holder.deleteTV.setText("");
+        }
+        holder.deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new MessageContentIdEvent(alumniQuestion.getId()));
+            }
+        });
         try{
             holder.problemTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
         }catch (IllegalArgumentException e){
@@ -98,7 +114,7 @@ public class MajorAskAdapter extends BaseAdapter {
     private class ViewHolder {
         private TextView problemTV;
         private TextView dateTV;
-        private TextView nameTV;
+        private TextView nameTV,deleteTV;
         private TextView replayCountTV;
         private GridView gridView;
     }

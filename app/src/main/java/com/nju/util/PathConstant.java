@@ -81,6 +81,7 @@ public interface PathConstant {
     String ALUMNIS_QUESTION_SUB_PATH_VIEW_OWN = "viewOwnAlumniQuestions";
     String ALUMNIS_QUESTION_SUB_PATH_VIEW_COLLEGE = "viewAlumniQuestionsByCollege";
     String ALUMNIS_QUESTION_SUB_PATH_VIEW_YEAR = "viewAlumniQuestionsByYear";
+    String ALUMNIS_QUESTION_SUB_PATH_VIEW_LABEL = "viewAlumniQuestionsByLabel";
     String ALUMNIS_QUESTION_SUB_PATH_GET_COMMENTS = "getQuestionAnswers";
     String ALUMNIS_QUESTION_SUB_PATH_GET_LABELS = "getLabels";
 
@@ -96,6 +97,7 @@ public interface PathConstant {
     String ALUMNI_QUESTION_IMG_PATH = "alumniQuestion/";
     String ALUMNI_VOICE_IMG_PATH = "alumnusVoice/";
     String ALUMNI_RECOMMEND_IMG_PATH ="recommendWork/";
+    String HEAD_ICON_IMG = "headIconImgPath/";
 
     String REGISTER_PATH = "register";
     String REGISTER_SUB_PATH_PHONE = "phoneNumber";

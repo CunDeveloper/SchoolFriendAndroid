@@ -133,8 +133,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
         });
         holder.labelTV.setText(alumniTalk.getAuthorInfo().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniTalk.getDate()));
-        final String url =PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_TALK_IMG_PATH+"cb54bd60f20942f9a340a027c3e018afIMG_20160330_183310.jpg";
-         ImageDownloader.with(mContext.getContext()).download(url, holder.headImg);
+
         if (alumniTalk.getImagePaths() == null){
             holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),PathConstant.ALUMNI_TALK_IMG_PATH,empty));
         }

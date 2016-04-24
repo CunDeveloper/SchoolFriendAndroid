@@ -17,6 +17,7 @@ import com.nju.http.request.CommentParamId;
 import com.nju.http.request.ContentIdParam;
 import com.nju.http.request.IdParam;
 import com.nju.http.request.QueryLimit;
+import com.nju.http.request.QueryLimitLabel;
 import com.nju.http.request.QueryLimitType;
 import com.nju.http.request.RequestBodyJson;
 import com.nju.test.TestToken;
@@ -45,6 +46,19 @@ public class QueryJson {
         limit.setLimit(Constant.LIMIT);
         limit.setRowId(rowId);
         limit.setDir(dir);
+        bodyJson.setBody(limit);
+        return gson.toJson(bodyJson);
+    }
+
+
+    public static String queryLimitLabelToString(final BaseFragment fragment,int rowId,String dir,String label){
+        RequestBodyJson<QueryLimitLabel> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        QueryLimitLabel limit = new QueryLimitLabel();
+        limit.setLimit(Constant.LIMIT);
+        limit.setRowId(rowId);
+        limit.setDir(dir);
+        limit.setLabel(label);
         bodyJson.setBody(limit);
         return gson.toJson(bodyJson);
     }

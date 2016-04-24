@@ -20,17 +20,31 @@
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
         android:layout_height="310dp">
-        <GridView
-            android:id="@+id/mGridView"
-            android:layout_above="@+id/college_choose_dialog_choose_layout"
-            android:visibility="gone"
-            android:numColumns="5"
-            android:padding="@dimen/phone_apadding"
-            android:verticalSpacing="@dimen/FIVE_DP"
-            android:horizontalSpacing="@dimen/FIVE_DP"
-            android:background="@drawable/gray_line_deep_bg"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+            android:orientation="vertical"
+            android:background="@color/ligher_gray"
+            android:layout_above="@+id/college_choose_dialog_choose_layout"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/mSchoolSpinner"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:paddingStart="@dimen/phone_apadding"
+                android:paddingEnd="@dimen/phone_apadding"
+                android:layout_height="50dp"/>
+            <GridView
+                android:id="@+id/mGridView"
+                android:visibility="gone"
+                android:numColumns="5"
+                android:padding="@dimen/phone_apadding"
+                android:verticalSpacing="@dimen/FIVE_DP"
+                android:horizontalSpacing="@dimen/FIVE_DP"
+                android:background="@drawable/gray_line_deep_bg"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+        </LinearLayout>
+
         <ListView
             android:layout_width="match_parent"
             android:id="@+id/college_choose_dialog_listview"
@@ -60,6 +74,46 @@
                 android:paddingEnd="@dimen/phone_apadding"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/light_gray"
+                android:layout_height="1dp"/>
+            <LinearLayout
+                android:id="@+id/recommendType"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/phone_apadding"
+                    android:paddingEnd="@dimen/phone_apadding"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/shezhao"
+                        android:padding="@dimen/phone_apadding"
+                        android:id="@+id/rBn1" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xiaozhao"
+                        android:padding="@dimen/phone_apadding"
+                        android:id="@+id/rBn2" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/phone_apadding"
+                        android:text="@string/shixi"
+                        android:id="@+id/rBn3" />
+                </RadioGroup>
+
+
+            </LinearLayout>
             <ListView
                 android:layout_width="match_parent"
                 android:id="@+id/mListview"

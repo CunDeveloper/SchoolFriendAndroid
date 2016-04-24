@@ -20,6 +20,6 @@
         </android.support.v4.widget.SwipeRefreshLayout>
         <include layout="@layout/hand_touch_bn"/>
     </FrameLayout>
-    <include layout="@layout/college_choose_dialog_level"/>
+    <include layout="@layout/college_choose_dialog"/>
     <include layout="@layout/search"/>
 </RelativeLayout>
