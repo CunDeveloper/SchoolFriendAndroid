@@ -195,5 +195,6 @@
     <string name="ask_label">专业标签</string>
     <string name="search">搜索</string>
     <string name="input_key_search">输入关键字进行搜索</string>
+    <string name="changePhotoPage">更换相册封面</string>
 
 </resources>

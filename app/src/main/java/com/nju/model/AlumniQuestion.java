@@ -19,6 +19,8 @@ public class AlumniQuestion implements Parcelable {
     private int whoScan;
     private String label;
 
+    private int check = 0;
+
     public AlumniQuestion() {
     }
 
@@ -159,5 +161,13 @@ public class AlumniQuestion implements Parcelable {
         }else {
             return false;
         }
+    }
+
+    public int getCheck() {
+        return check;
+    }
+
+    public void setCheck(int check) {
+        this.check = check;
     }
 }

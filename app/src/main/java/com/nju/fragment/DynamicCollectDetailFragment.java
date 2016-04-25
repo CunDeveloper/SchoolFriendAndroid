@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.model.DynamicCollect;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.StringBase64;
 
 
 public class DynamicCollectDetailFragment extends BaseFragment {
@@ -52,12 +54,18 @@ public class DynamicCollectDetailFragment extends BaseFragment {
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
         labelTV.setText(mDynamicCollect.getAuthorInfo().getLabel());
         TextView contentTV = (TextView) view.findViewById(R.id.content_tv);
-        contentTV.setText(mDynamicCollect.getContent());
+
         ImageView contentImg = (ImageView) view.findViewById(R.id.collect_img);
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(getString(R.string.collect_with)+" "+mDynamicCollect.getDate());
         if (mDynamicCollect.getContent()!=null){
-             contentTV.setText(mDynamicCollect.getContent());
+            try {
+                contentTV.setText(StringBase64.decode(mDynamicCollect.getContent()));
+            }catch (IllegalArgumentException e){
+                e.printStackTrace();
+                contentTV.setText(Constant.UNKNOWN_CHARACTER);
+            }
+
         }else {
             contentImg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cheese_2));
         }

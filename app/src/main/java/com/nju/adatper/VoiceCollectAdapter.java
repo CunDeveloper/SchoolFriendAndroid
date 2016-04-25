@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,7 @@ public class VoiceCollectAdapter extends BaseAdapter {
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.titleTV = (TextView) convertView.findViewById(R.id.title_tv);
             holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon);
+            holder.checkBox = (CheckBox) convertView.findViewById(R.id.chooseCB);
             convertView.setTag(holder);
         }
         AlumniVoice alumniVoice = mAlumniVoices.get(position);
@@ -72,11 +74,22 @@ public class VoiceCollectAdapter extends BaseAdapter {
         }catch (IllegalArgumentException e){
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+
+        if (alumniVoice.getCheck() == 0){
+            holder.checkBox.setVisibility(View.GONE);
+        }else if (alumniVoice.getCheck() == 1){
+            holder.checkBox.setVisibility(View.VISIBLE);
+        }else if (alumniVoice.getCheck() == 2){
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.checkBox.setChecked(true);
+        }
+
         return convertView;
     }
 
     private class ViewHolder {
         private ImageView headImg, contentImg;
         private TextView nameTV, labelTV, dateTV, contentTV, titleTV;
+        private CheckBox checkBox;
     }
 }

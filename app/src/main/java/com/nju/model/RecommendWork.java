@@ -17,6 +17,7 @@ public class RecommendWork  implements Parcelable {
     private String email;
     private int type;
     private ArrayList<ContentComment> comments;
+    private int check = 0;
 
 
     public RecommendWork() {
@@ -153,5 +154,22 @@ public class RecommendWork  implements Parcelable {
         dest.writeString(email);
         dest.writeInt(type);
         dest.writeTypedList(comments);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        RecommendWork that = (RecommendWork) o;
+        if (this.getId() == that.getId()){
+            return true;
+        }
+        return false;
+    }
+
+    public int getCheck() {
+        return check;
+    }
+
+    public void setCheck(int check) {
+        this.check = check;
     }
 }

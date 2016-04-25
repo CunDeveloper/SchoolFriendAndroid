@@ -46,7 +46,7 @@ import java.util.HashMap;
 public class MyDynamicFragment extends BaseFragment {
     private static final String TAG = MyDynamicFragment.class.getSimpleName();
     private static final String TITLE_PARAM = "titleParam";
-    private String mTitle;
+    private static CharSequence mTitle;
     private ListView mListView;
     private RelativeLayout mFootView;
     private HashMap<EntryDate,ArrayList<AlumniTalk>> mAlumniTalkMap = new HashMap<>();
@@ -79,19 +79,22 @@ public class MyDynamicFragment extends BaseFragment {
                             for (Object obj : majorAsks) {
                                 AlumniTalk alumniTalk = (AlumniTalk) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
-                                mAlumniTalks.add(alumniTalk);
+                                if (!mAlumniTalks.contains(alumniTalk)){
+                                    mAlumniTalks.add(alumniTalk);
+                                }
                             }
                             int length = mAlumniTalks.size();
-                            if (length > 10) {
-                                for (int i = length - 1; i > 10; i--) {
+                            if (length > Constant.MAX_ROW) {
+                                for (int i = length - 1; i > Constant.MAX_ROW; i--) {
                                     mAlumniTalks.remove(mAlumniTalks.get(i));
                                 }
                             }
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.MY_DYNAMIC_PRE_ID, mAlumniTalks.get(0).getId()).apply();
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.MY_DYNAMIC_NEXT_ID, mAlumniTalks.get(mAlumniTalks.size() - 1).getId()).apply();
+//                            getHostActivity().getSharedPreferences().edit()
+//                                    .putInt(Constant.MY_DYNAMIC_PRE_ID, mAlumniTalks.get(0).getId()).apply();
+//                            getHostActivity().getSharedPreferences().edit()
+//                                    .putInt(Constant.MY_DYNAMIC_NEXT_ID, mAlumniTalks.get(mAlumniTalks.size() - 1).getId()).apply();
                             initMap();
+                            //mDynamiceAdapter.notifyDataSetChanged();
                             mListView.setAdapter(new PersonDynamicAdapter(MyDynamicFragment.this, mAlumniTalkMap));
                         }
                     }
@@ -196,13 +199,13 @@ public class MyDynamicFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE);
+                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE);
+                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
             }
         });
     }
@@ -210,7 +213,7 @@ public class MyDynamicFragment extends BaseFragment {
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE);
+            mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
         }
     }
 
@@ -220,12 +223,13 @@ public class MyDynamicFragment extends BaseFragment {
             final long time = DateUtil.getTime(alumniTalk.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
-            String key = day+";"+month;
             entryDate = new EntryDate(month,day);
             if (mAlumniTalkMap.containsKey(entryDate)){
                 ArrayList<AlumniTalk> tempList = mAlumniTalkMap.get(entryDate);
-                tempList.add(alumniTalk);
-                mAlumniTalkMap.put(entryDate,tempList);
+                if (!tempList.contains(alumniTalk)){
+                    tempList.add(alumniTalk);
+                    mAlumniTalkMap.put(entryDate,tempList);
+                }
             }else {
                 ArrayList<AlumniTalk> tempList = new ArrayList<>();
                 tempList.add(alumniTalk);

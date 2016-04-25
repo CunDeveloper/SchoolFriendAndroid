@@ -58,27 +58,39 @@
         android:id="@+id/title_tv"
         />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
+
         android:layout_width="match_parent"
-        android:layout_height="@dimen/phone_item_height"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/phone_apadding"
         android:layout_below="@+id/title_tv"
         android:layout_alignStart="@+id/title_tv">
         <com.nju.View.SchoolFriendTextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/phone_apadding"
+            android:paddingBottom="@dimen/phone_apadding"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:textColor="@android:color/black"
             android:gravity="left|center"
             android:maxLines="2"
             android:ellipsize="end"
+            android:layout_marginEnd="@dimen/phone_apadding"
             android:background="@color/light_gray"
             android:id="@+id/content_tv"
-             />
-    </LinearLayout>
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/chooseCB" />
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/phone_apadding"
+            android:id="@+id/chooseCB"
+            android:visibility="gone"
+            android:layout_alignBottom="@+id/content_tv"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

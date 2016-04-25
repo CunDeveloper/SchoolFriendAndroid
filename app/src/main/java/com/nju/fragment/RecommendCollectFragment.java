@@ -4,34 +4,40 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkCollectAdapter;
-import com.nju.adatper.VoiceCollectAdapter;
-import com.nju.db.db.service.MajorAskCollectDbService;
 import com.nju.db.db.service.RecommendWorkCollectDbService;
-import com.nju.model.AlumniQuestion;
-import com.nju.model.AlumniVoice;
+import com.nju.event.MessageEventMore;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 
 public class RecommendCollectFragment extends BaseFragment {
-
+    private static final String TAG = RecommendCollectFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
-    private static String mTitle;
+    private static CharSequence mTitle;
     private ArrayList<RecommendWork>  mRecommendWorks;
     private RecommendWorkCollectAdapter mRecommendWorkCollectAdapter;
+    private int mChoosePosition;
+    private boolean mIsMore = false;
+    private RelativeLayout mCollectToolLayout;
     public static RecommendCollectFragment newInstance(String title) {
         RecommendCollectFragment fragment = new RecommendCollectFragment();
         Bundle args = new Bundle();
@@ -50,6 +56,12 @@ public class RecommendCollectFragment extends BaseFragment {
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
         }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -77,10 +89,43 @@ public class RecommendCollectFragment extends BaseFragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem), null).show();
+                mChoosePosition = mRecommendWorks.get(position).getId();
+                SchoolFriendDialog.listDialog(getContext(), getResources().getStringArray(R.array.collectItem)).show();
                 return true;
             }
         });
+        mCollectToolLayout = (RelativeLayout) view.findViewById(R.id.collectToolLayout);
+    }
+
+    @Subscribe
+    public void onMessageChoose(MessageEvent event){
+        Log.i(TAG, event.getMessage());
+        if (event.getMessage().equals(getString(R.string.more))){
+            mIsMore = true;
+            for (RecommendWork recommendWork:mRecommendWorks){
+                if (recommendWork.getId() == mChoosePosition){
+                    recommendWork.setCheck(2);
+                }else {
+                    recommendWork.setCheck(1);
+                }
+            }
+            mCollectToolLayout.setVisibility(View.VISIBLE);
+            mRecommendWorkCollectAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Subscribe
+    public void onMessageEventMore(MessageEventMore eventMore){
+        for (RecommendWork recommendWork:mRecommendWorks){
+            recommendWork.setCheck(0);
+        }
+        mCollectToolLayout.setVisibility(View.GONE);
+        mRecommendWorkCollectAdapter.notifyDataSetChanged();
+        mIsMore = false;
+    }
+
+    public boolean isMore(){
+        return mIsMore;
     }
 
     @Override
@@ -93,6 +138,12 @@ public class RecommendCollectFragment extends BaseFragment {
             actionBar.setTitle(mTitle);
         }
         getHostActivity().display(6);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private static class ExeCollectTask extends AsyncTask<Void,Void,ArrayList<RecommendWork>>

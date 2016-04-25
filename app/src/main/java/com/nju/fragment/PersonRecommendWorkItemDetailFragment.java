@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
+import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.event.MessageEventId;
 import com.nju.http.ResponseCallback;
@@ -34,6 +35,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
@@ -179,9 +181,19 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.shixi);
+            actionBar.setTitle(getType(mRecommendWork.getType()));
         }
         getHostActivity().display(6);
+    }
+
+    private String getType(int type){
+        if (type == 0)
+            return getString(R.string.shixi);
+        if (type == 1)
+            return getString(R.string.xiaozhao);
+        if (type == 2)
+            return getString(R.string.shezhao);
+        return getString(R.string.recommend_work);
     }
 
     @Override
@@ -272,6 +284,12 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
                 CommentUtil.closeSoftKey(getContext(),view);
             }
         });
+
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        if (mRecommendWork.getImgPaths() != null){
+            Log.e(TAG,mRecommendWork.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH,mRecommendWork.getImgPaths().split(",")));
+        }
     }
 
     @Subscribe

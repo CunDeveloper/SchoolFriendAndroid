@@ -32,6 +32,8 @@ public class AlumniVoice implements Parcelable {
     private ArrayList<AuthorInfo> praiseAuthors;
     private ArrayList<ContentComment> contentComments;
 
+    private int check = 0;
+
     public AlumniVoice() {
 
     }
@@ -155,5 +157,13 @@ public class AlumniVoice implements Parcelable {
             return true;
         }
         return false;
+    }
+
+    public int getCheck() {
+        return check;
+    }
+
+    public void setCheck(int check) {
+        this.check = check;
     }
 }

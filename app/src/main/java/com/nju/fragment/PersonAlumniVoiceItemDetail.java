@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
+import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
 import com.nju.event.MessageEventId;
@@ -35,6 +36,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
@@ -257,6 +259,12 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         });
         mRequestQueryJson = AlumniVoiceService.queryComment(this,mVoice.getId(),queryCommentCallback);
         mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this,mVoice.getId(),queryPraiseCallback);
+
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        if (mVoice.getImgPaths() != null){
+            Log.e(TAG,mVoice.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH,mVoice.getImgPaths().split(",")));
+        }
     }
 
     @Subscribe

@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.View.RoundedTransformation;
 import com.nju.activity.R;
 import com.nju.model.DynamicCollect;
+import com.nju.util.StringBase64;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -55,28 +57,39 @@ public class DynamicCollectAdapter extends BaseAdapter {
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon);
             holder.contentImg = (ImageView) convertView.findViewById(R.id.collect_img);
+            holder.checkBox = (CheckBox) convertView.findViewById(R.id.mCheckBox);
             convertView.setTag(holder);
         }
         DynamicCollect dynamicCollect = mDynamicCollects.get(position);
         holder = (ViewHolder) convertView.getTag();
-        Picasso.with(mContext).load(R.drawable.head2)
-                .transform(new RoundedTransformation(30, 4))
-                .resizeDimen(30, 30).centerCrop()
-                .into(holder.headImg);
+//        Picasso.with(mContext).load(R.drawable.head2)
+//                .transform(new RoundedTransformation(30, 4))
+//                .resizeDimen(30, 30).centerCrop()
+//                .into(holder.headImg);
         holder.nameTV.setText(dynamicCollect.getAuthorInfo().getAuthorName());
         holder.labelTV.setText(dynamicCollect.getAuthorInfo().getLabel());
         if (dynamicCollect.getContent() != null) {
-            holder.contentTV.setText(dynamicCollect.getContent());
+            holder.contentTV.setText(StringBase64.decode(dynamicCollect.getContent()));
         } else {
             holder.contentImg.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.cheese_2));
         }
-
         holder.dateTV.setText(dynamicCollect.getDate());
+
+        if (dynamicCollect.getCheck() == 0){
+            holder.checkBox.setVisibility(View.GONE);
+        }else if (dynamicCollect.getCheck() == 1){
+            holder.checkBox.setVisibility(View.VISIBLE);
+        }else if (dynamicCollect.getCheck() == 2){
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.checkBox.setChecked(true);
+        }
+
         return convertView;
     }
 
     private class ViewHolder {
         private ImageView headImg, contentImg;
         private TextView nameTV, labelTV, dateTV, contentTV;
+        private CheckBox checkBox;
     }
 }

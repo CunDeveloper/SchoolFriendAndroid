@@ -45,11 +45,11 @@ public class RecommendPublishFragment extends BaseFragment {
     private static final String PARAM_TITLE = "paramTitle";
     private static final String PARAM_UPLOAD_IMAGES = "paramUploadImage";
     private ArrayList<ImageWrapper> mUploadImgPaths;
-    private static String mTitle;
+    private static CharSequence mTitle;
     private EditText mTitleET;
     private EditText mContentET;
     private EditText mEmailET;
-    private String mType =1+"";
+    private CharSequence mType =1+"";
     private SchoolFriendDialog mDialog;
     private SyncChoosePublish choosePublish;
     public static RecommendPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
@@ -308,7 +308,7 @@ public class RecommendPublishFragment extends BaseFragment {
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
                 params.put(Constant.TITLE,StringBase64.encode(title));
-                params.put(Constant.TYPE,mType);
+                params.put(Constant.TYPE,mType.toString());
                 params.put(Constant.EMAIL,email);
                 params.put(Constant.AUTHORIZATION, RecommendPublishFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();

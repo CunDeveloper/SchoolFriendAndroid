@@ -15,6 +15,7 @@ import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniTalk;
 import com.nju.model.EntryDate;
 import com.nju.util.DateUtil;
+import com.nju.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,6 +74,7 @@ public class PersonDynamicAdapter extends BaseAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // mFragment.getHostActivity().open(PersonAskDetailFragment.newInstance(alumniQuestions.get(position)));
+                ToastUtil.showShortText(mFragment.getContext(),"hello");
             }
         });
 

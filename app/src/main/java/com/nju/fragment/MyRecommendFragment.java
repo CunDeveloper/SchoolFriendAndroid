@@ -39,14 +39,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class MyRecommendFragment extends BaseFragment {
     private static final String TAG = MyRecommendFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
-    private static String mTitle;
+    private static CharSequence mTitle;
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
-    private final static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private ArrayList<RecommendWork> mRecommendWorks;
     private HashMap<EntryDate,ArrayList<RecommendWork>> mRecommendWorkMap = new HashMap<>();
     private ListView listView;
@@ -75,22 +73,19 @@ public class MyRecommendFragment extends BaseFragment {
                         ArrayList majorAsks = (ArrayList) object;
                         if (majorAsks.size()>0){
                             for (Object obj :majorAsks){
-                                RecommendWork   recommendWork = (RecommendWork) obj;
+                                RecommendWork  recommendWork = (RecommendWork) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
-                                mRecommendWorks.add(recommendWork);
+                                if (!mRecommendWorks.contains(recommendWork))
+                                    mRecommendWorks.add(recommendWork);
                             }
                             int length = mRecommendWorks.size();
-                            if (length>10){
-                                for (int i = length-1;i>10;i--){
+                            if (length>Constant.MAX_ROW){
+                                for (int i = length-1;i>Constant.MAX_ROW;i--){
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.MY_RECOMMEND_PRE_ID,mRecommendWorks.get(0).getId()).apply();
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.MY_RECOMMEND_NEXT_ID,mRecommendWorks.get(mRecommendWorks.size()-1).getId()).apply();
-
                             initMap();
+                            //mPersonRecommendAdapter.notifyDataSetChanged();
                             listView.setAdapter(new PersonRecommendAdapter(MyRecommendFragment.this, mRecommendWorkMap));
                         }
                     }
@@ -148,9 +143,10 @@ public class MyRecommendFragment extends BaseFragment {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == (mPersonRecommendAdapter.getCount())) {
+                if (view.getLastVisiblePosition() == (mPersonRecommendAdapter.getCount())
+                        && view.getLastVisiblePosition() == Constant.MAX_ROW) {
                     mFootView.setVisibility(View.VISIBLE);
-                    //mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL);
+                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE,0);
                 }
             }
 
@@ -170,8 +166,10 @@ public class MyRecommendFragment extends BaseFragment {
             entryDate = new EntryDate(month,day);
             if (mRecommendWorkMap.containsKey(entryDate)){
                 ArrayList<RecommendWork> tempList = mRecommendWorkMap.get(entryDate);
-                tempList.add(recommendWork);
-                mRecommendWorkMap.put(entryDate,tempList);
+                if (!tempList.contains(recommendWork)){
+                    tempList.add(recommendWork);
+                    mRecommendWorkMap.put(entryDate,tempList);
+                }
             }else {
                 ArrayList<RecommendWork> tempList = new ArrayList<>();
                 tempList.add(recommendWork);
@@ -187,13 +185,13 @@ public class MyRecommendFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE,0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE,0);
             }
         });
     }

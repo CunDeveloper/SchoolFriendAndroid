@@ -51,7 +51,7 @@ public class AskPublishFragment extends BaseFragment {
     private static final String PARAM_TITLE = "paramTitle";
     private static final String PARAM_UPLOAD_IMAGES = "paramUploadImage";
     private ArrayList<ImageWrapper> mUploadImgPaths;
-    private static String mTitle;
+    private static CharSequence mTitle;
     private EditText mDescriptionET;
     private EditText mProblemET;
     private SchoolFriendDialog mDialog;

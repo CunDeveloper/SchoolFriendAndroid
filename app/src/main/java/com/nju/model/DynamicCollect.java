@@ -25,6 +25,8 @@ public class DynamicCollect implements Parcelable {
     private AuthorInfo authorInfo;
     private String date;
 
+    private int check = 0;
+
     public DynamicCollect() {
 
     }
@@ -89,5 +91,13 @@ public class DynamicCollect implements Parcelable {
         dest.writeString(imgPath);
         dest.writeParcelable(authorInfo, flags);
         dest.writeString(date);
+    }
+
+    public int getCheck() {
+        return check;
+    }
+
+    public void setCheck(int check) {
+        this.check = check;
     }
 }

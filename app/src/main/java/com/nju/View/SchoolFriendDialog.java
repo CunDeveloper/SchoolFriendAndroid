@@ -34,8 +34,8 @@ public class SchoolFriendDialog extends MaterialDialog {
 
     public static SchoolFriendDialog exitReminderDialog(final Activity context, String title) {
         Builder builder = new Builder(context).title(title);
-        builder.positiveText(context.getString(R.string.cancle))
-                .negativeText(context.getString(R.string.exit));
+        builder.positiveText(context.getString(R.string.exit))
+                .negativeText(context.getString(R.string.cancle));
 
         return new SchoolFriendDialog(builder);
     }
@@ -47,10 +47,15 @@ public class SchoolFriendDialog extends MaterialDialog {
         return new SchoolFriendDialog(builder);
     }
 
-    public static SchoolFriendDialog listDialog(final Context context, final String[] itmes, final ListItemCallback listCallback) {
+    public static SchoolFriendDialog listDialog(final Context context, final String[] itmes) {
         Builder builder = new Builder(context)
                 .items(itmes).contentColor(ContextCompat.getColor(context, android.R.color.black))
-                .itemsCallback(listCallback);
+                .itemsCallback(new ListItemCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        EventBus.getDefault().post(new MessageEvent(charSequence.toString()));
+                    }
+                });
         return new SchoolFriendDialog(builder);
     }
 
@@ -66,6 +71,8 @@ public class SchoolFriendDialog extends MaterialDialog {
         return new SchoolFriendDialog(builder);
     }
 
+
+
     public static SchoolFriendDialog singleChoiceListDialog(final Context context, final String title, final String[] itmes, final ListCallbackSingleChoice listCallback) {
         final Builder builder = new Builder(context)
                 .title(title)
@@ -80,13 +87,18 @@ public class SchoolFriendDialog extends MaterialDialog {
                 .title(title)
                 .content(content)
                 .inputType(InputType.TYPE_CLASS_TEXT)
-                .input(null,null,new MaterialDialog.InputCallback()
-                {
+                .input(null, null, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
                         EventBus.getDefault().post(new MessageEvent(charSequence.toString()));
                     }
                 });
+        return new SchoolFriendDialog((builder));
+    }
+
+    public static SchoolFriendDialog changeBgDialog(final Context context, final String content) {
+        final Builder builder = new Builder(context)
+                .content(content);
         return new SchoolFriendDialog((builder));
     }
 

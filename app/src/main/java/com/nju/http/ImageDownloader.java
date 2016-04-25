@@ -140,6 +140,7 @@ public class ImageDownloader {
             try {
                 InputStream stream = SchoolFriendHttp.getInstance().SynGetStream(params[0]);
                 Bitmap bitmap = BitmapFactory.decodeStream(stream);
+
                 //may be leak
                 cacheUtil.addBitmapToMemoryCache(params[0], bitmap);
                 return bitmap;
@@ -157,6 +158,7 @@ public class ImageDownloader {
             BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
             // Change bitmap only if this process is still associated with it
             if (this == bitmapDownloaderTask) {
+                Log.i(TAG,"WIDTH = "+bitmap.getWidth()+"HEIGHT = "+bitmap.getHeight());
                 imageView.setImageBitmap(bitmap);
             }
         }

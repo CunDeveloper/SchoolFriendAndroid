@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
+import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.event.MessageEventId;
 import com.nju.http.ResponseCallback;
@@ -31,6 +32,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
@@ -209,6 +211,11 @@ public class PersonAskDetailFragment extends BaseFragment {
             }
         });
         mRequestQueryJson = MajorAskService.queryComment(PersonAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        if (mAlumniQuestion.getImgPaths() != null){
+            Log.e(TAG,mAlumniQuestion.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH,mAlumniQuestion.getImgPaths().split(",")));
+        }
     }
 
     public void inputEmotion(String text) {

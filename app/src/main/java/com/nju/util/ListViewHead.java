@@ -6,10 +6,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.DetailPersonInfo;
-import com.nju.fragment.MultiChoosePicFragment;
 
 /**
  * Created by cun on 2016/4/5.
@@ -29,7 +29,9 @@ public class ListViewHead {
         bgImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.getHostActivity().open(MultiChoosePicFragment.newInstance(""));
+                SchoolFriendDialog.changeBgDialog(fragment.getContext(),fragment.getString(R.string.changePhotoPage))
+                .show();
+                //fragment.getHostActivity().open(MultiChoosePicFragment.newInstance(""));
             }
         });
         listView.addHeaderView(head);

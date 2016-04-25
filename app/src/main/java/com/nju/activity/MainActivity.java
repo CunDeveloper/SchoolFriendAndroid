@@ -24,20 +24,25 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
+import com.nju.event.MessageEventMore;
 import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.AlumniDynamicFragment;
 import com.nju.fragment.AlumniVoiceFragment;
+import com.nju.fragment.AskCollectFragment;
 import com.nju.fragment.AskPublishFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
+import com.nju.fragment.DynamicCollectFragment;
 import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.MyCircleFragment;
 import com.nju.fragment.PublishDynamicFragment;
 import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.PublishVoiceFragment;
+import com.nju.fragment.RecommendCollectFragment;
 import com.nju.fragment.RecommendPublishFragment;
 import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SettingFragment;
+import com.nju.fragment.VoiceCollectFragment;
 import com.nju.fragment.XueXinAuthFragment;
 import com.nju.test.TestData;
 import com.nju.test.TestToken;
@@ -320,20 +325,58 @@ public class MainActivity extends BaseActivity {
         }
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (mLocalBackStack.size() >=2) {
-            BaseFragment fragment = mLocalBackStack.pop();
+            BaseFragment fragment = mLocalBackStack.peek();
             if (fragment instanceof PublishDynamicFragment || fragment instanceof AskPublishFragment
                     || fragment instanceof PublishVoiceFragment || fragment instanceof RecommendPublishFragment) {
                 SchoolFriendDialog dialog = SchoolFriendDialog.exitReminderDialog(this,getString(R.string.are_you_sure_exit_this_eidt));
                 dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        ft.replace(R.id.container,mLocalBackStack.peek());
+                        mLocalBackStack.pop();
+                        ft.replace(R.id.container, mLocalBackStack.peek());
                         ft.commit();
                     }
                 });
                 dialog.show();
+            } else if (fragment instanceof RecommendCollectFragment){
+                RecommendCollectFragment collectFragment = (RecommendCollectFragment) fragment;
+                if (collectFragment.isMore()){
+                    EventBus.getDefault().post(new MessageEventMore(""));
+                }else {
+                    mLocalBackStack.pop();
+                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.commit();
+                }
+            }else if (fragment instanceof AskCollectFragment){
+                AskCollectFragment collectFragment = (AskCollectFragment) fragment;
+                if (collectFragment.isMore()){
+                    EventBus.getDefault().post(new MessageEventMore(""));
+                }else {
+                    mLocalBackStack.pop();
+                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.commit();
+                }
+            }else if (fragment instanceof VoiceCollectFragment){
+                VoiceCollectFragment collectFragment = (VoiceCollectFragment) fragment;
+                if (collectFragment.isMore()){
+                    EventBus.getDefault().post(new MessageEventMore(""));
+                }else {
+                    mLocalBackStack.pop();
+                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.commit();
+                }
+            }else if (fragment instanceof DynamicCollectFragment){
+                DynamicCollectFragment collectFragment = (DynamicCollectFragment) fragment;
+                if (collectFragment.isMore()){
+                    EventBus.getDefault().post(new MessageEventMore(""));
+                }else {
+                    mLocalBackStack.pop();
+                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.commit();
+                }
             }
             else {
+                mLocalBackStack.pop();
                 ft.replace(R.id.container,mLocalBackStack.peek());
                 ft.commit();
             }

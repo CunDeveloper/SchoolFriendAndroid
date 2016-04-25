@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/FIVE_DP"
         android:id="@+id/content_tv"
         android:background="@color/light_gray"
         android:textColor="@android:color/black"

@@ -53,12 +53,12 @@ public class PublishVoiceFragment extends BaseFragment {
     private static final String PARAM_TITLE = "paramTitle";
     private static final String PARAM_UPLOAD_IMAGES = "paramUploadImage";
     private ArrayList<ImageWrapper> mUploadImgPaths;
-    private String mTitle;
+    private static CharSequence mTitle;
     private EditText mTitleET;
     private EditText mContentET;
     private TextView mWhoScanTV;
     private SchoolFriendDialog mDialog;
-    private String mWhoScan;
+    private CharSequence mWhoScan;
     private SyncChoosePublish mChoosePublish;
     private CharSequence mVoiceLabel;
     private Spinner mLabelSpinner;

@@ -122,6 +122,8 @@ public class MyCircleFragment extends BaseFragment {
                 getHostActivity().open(AskPublishFragment.newInstance(getString(R.string.publsh_ask),null));
             }
         });
+
+
         RelativeLayout mRecommendLay = (RelativeLayout) view.findViewById(R.id.my_recommend);
         mRecommendLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +131,6 @@ public class MyCircleFragment extends BaseFragment {
                 getHostActivity().open(MyRecommendFragment.newInstance(getString(R.string.my_recommend)));
             }
         });
-
         RelativeLayout mRecommendCollect = (RelativeLayout) view.findViewById(R.id.recommend_collect);
         mRecommendCollect.setOnClickListener(new View.OnClickListener() {
             @Override

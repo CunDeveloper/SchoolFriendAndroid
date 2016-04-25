@@ -117,6 +117,16 @@ public class AlumniVoiceService {
         return  mRequestJson;
     }
 
+    public static PostRequestJson queryMyVoices(BaseFragment fragment,Callback callback,String level,String dir,int rowId){
+        final String json = QueryJson.queryLimitToString(fragment,rowId,dir);
+        Log.e(TAG,json);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNS_VOICE_PATH+PathConstant.ALUMNS_VOICE_SUB_PATH_VIEW_OWN_VOICE+"?level="+level;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG,url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return  mRequestJson;
+    }
+
     public static PostRequestJson deleteVoice(BaseFragment fragment,int commentId,Callback callback){
         IdParam idParam = new IdParam(commentId);
         final String json = QueryJson.deleteContentById(fragment, idParam);

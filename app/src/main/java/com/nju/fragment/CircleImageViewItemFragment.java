@@ -82,7 +82,7 @@ public class CircleImageViewItemFragment extends BaseFragment {
         mCustomImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                SchoolFriendDialog dialog = SchoolFriendDialog.listDialog(getContext(), dialog_items, callback);
+                SchoolFriendDialog dialog = SchoolFriendDialog.listDialog(getContext(), dialog_items);
                 dialog.show();
                 return false;
             }

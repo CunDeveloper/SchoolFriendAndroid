@@ -75,6 +75,15 @@ public class MajorAskService {
         return  mRequestJson;
     }
 
+    public static PostRequestJson  queryMyAsk(BaseFragment fragment,Callback callback,final String level,String dir,int rowId){
+        final String json = QueryJson.queryLimitToString(fragment,rowId,dir);
+        String url = PathConstant.BASE_URL+PathConstant.ALUMNIS_QUESTION_PATH+PathConstant.ALUMNIS_QUESTION_SUB_PATH_VIEW_OWN+"?level="+level;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG, url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return  mRequestJson;
+    }
+
     public static  PostRequestJson  queryMajorAsk(BaseFragment fragment,Callback callback,final String level,String dir) {
         final String json = QueryJson.queryLimitToString(fragment,dir);
         Log.i(TAG,json);

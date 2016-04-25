@@ -49,10 +49,9 @@ public class MyAskFragment extends BaseFragment {
 
     private static final String TAG = MyAskFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
-    private static String mTitle;
+    private static CharSequence mTitle;
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
-    private final static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private ArrayList<AlumniQuestion> alumniQuestions;
     private PersonAskAdapter askAdapter;
     private RelativeLayout mFootView;
@@ -83,19 +82,20 @@ public class MyAskFragment extends BaseFragment {
                             for (Object obj :majorAsks){
                                 AlumniQuestion  majorAsk = (AlumniQuestion) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(majorAsk));
-                                alumniQuestions.add(majorAsk);
+                                if (!alumniQuestions.contains(majorAsk))
+                                    alumniQuestions.add(majorAsk);
                             }
 
                             int length = alumniQuestions.size();
-                            if (length>10){
-                                for (int i = length-1;i>10;i--){
+                            if (length>Constant.MAX_ROW){
+                                for (int i = length-1;i>Constant.MAX_ROW;i--){
                                     alumniQuestions.remove(alumniQuestions.get(i));
                                 }
                             }
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.MY_ASK_PRE_ID,alumniQuestions.get(0).getId()).apply();
-                            getHostActivity().getSharedPreferences().edit()
-                                    .putInt(Constant.MY_ASK_NEXT_ID,alumniQuestions.get(alumniQuestions.size()-1).getId()).apply();
+//                            getHostActivity().getSharedPreferences().edit()
+//                                    .putInt(Constant.MY_ASK_PRE_ID,alumniQuestions.get(0).getId()).apply();
+//                            getHostActivity().getSharedPreferences().edit()
+//                                    .putInt(Constant.MY_ASK_NEXT_ID,alumniQuestions.get(alumniQuestions.size()-1).getId()).apply();
                             initMap();
                             mListView.setAdapter(new PersonAskAdapter(MyAskFragment.this, mAlumniQuestionMap));
                         }
@@ -147,13 +147,13 @@ public class MyAskFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE,0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL,Constant.PRE,0);
             }
         });
     }
@@ -164,12 +164,13 @@ public class MyAskFragment extends BaseFragment {
             final long time = DateUtil.getTime(alumniQuestion.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
-            String key = day+";"+month;
             entryDate = new EntryDate(month,day);
             if (mAlumniQuestionMap.containsKey(entryDate)){
                 ArrayList<AlumniQuestion> tempList = mAlumniQuestionMap.get(entryDate);
-                tempList.add(alumniQuestion);
-                mAlumniQuestionMap.put(entryDate,tempList);
+                if (!tempList.contains(alumniQuestion)){
+                    tempList.add(alumniQuestion);
+                    mAlumniQuestionMap.put(entryDate,tempList);
+                }
             }else {
                 ArrayList<AlumniQuestion> tempList = new ArrayList<>();
                 tempList.add(alumniQuestion);

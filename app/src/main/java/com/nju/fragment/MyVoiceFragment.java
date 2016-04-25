@@ -47,7 +47,7 @@ import java.util.HashMap;
 public class MyVoiceFragment extends BaseFragment {
     private static final String TAG = MyVoiceFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
-    private static String mTitle;
+    private static CharSequence mTitle;
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private ArrayList<AlumniVoice> mAlumniVoices;
@@ -81,13 +81,15 @@ public class MyVoiceFragment extends BaseFragment {
                         if (alumniVoices.size()>0){
                             for (Object obj :alumniVoices){
                                 AlumniVoice alumniVoice = (AlumniVoice) obj;
-                                Log.i(TAG,SchoolFriendGson.newInstance().toJson(alumniVoice));
-                                mAlumniVoices.add(alumniVoice);
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoice));
+                                if (!mAlumniVoices.contains(alumniVoice)){
+                                    mAlumniVoices.add(alumniVoice);
+                                }
                             }
 
                             int length = mAlumniVoices.size();
-                            if (length>10){
-                                for (int i = length-1;i>10;i--){
+                            if (length>Constant.MAX_ROW){
+                                for (int i = length-1;i>Constant.MAX_ROW;i--){
                                     mAlumniVoices.remove(mAlumniVoices.get(i));
                                 }
                             }
@@ -155,13 +157,13 @@ public class MyVoiceFragment extends BaseFragment {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL,Constant.PRE,0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL,Constant.PRE);
+                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL,Constant.PRE,0);
             }
         });
     }
@@ -175,13 +177,14 @@ public class MyVoiceFragment extends BaseFragment {
             entryDate = new EntryDate(month,day);
             if (mAlumniVoiceMap.containsKey(entryDate)){
                 ArrayList<AlumniVoice> tempList = mAlumniVoiceMap.get(entryDate);
-                tempList.add(alumniVoice);
-                mAlumniVoiceMap.put(entryDate,tempList);
+                if (!tempList.contains(alumniVoice)){
+                    tempList.add(alumniVoice);
+                    mAlumniVoiceMap.put(entryDate,tempList);
+                }
             }else {
                 ArrayList<AlumniVoice> tempList = new ArrayList<>();
                 tempList.add(alumniVoice);
                 mAlumniVoiceMap.put(entryDate,tempList);
-
             }
         }
     }

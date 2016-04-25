@@ -101,7 +101,16 @@ public class RecommendWorkService {
     }
 
     public static PostRequestJson queryMyRecommendWork(BaseFragment fragment,Callback callback,final String level,String dir){
-        final String json = QueryJson.queryLimitToString(fragment,dir);
+        final String json = QueryJson.queryLimitToString(fragment, dir);
+        String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level="+level;
+        PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG, url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
+    public static PostRequestJson queryMyRecommendWork(BaseFragment fragment,Callback callback,final String level,String dir,int rowId){
+        final String json = QueryJson.queryLimitToString(fragment,rowId,dir);
         String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH+PathConstant.RECOMMEND_WORK_SUB_PATH_VIEW_OWN+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);
         Log.e(TAG, url);

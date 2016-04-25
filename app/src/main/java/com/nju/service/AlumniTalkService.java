@@ -47,8 +47,8 @@ public class AlumniTalkService {
         return mRequestJson;
     }
 
-    public static PostRequestJson queryOwnAlumniTalks(BaseFragment fragment,Callback callback,final String level,String dir){
-        final String json = QueryJson.queryLimitToString(fragment,dir);
+    public static PostRequestJson queryOwnAlumniTalks(BaseFragment fragment,Callback callback,final String level,String dir,int rowId){
+        final String json = QueryJson.queryLimitToString(fragment,rowId,dir);
         Log.i(TAG,json);
         String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH+PathConstant.ALUMNI_TALK_SUB_PATH_VIEW_OWN_TALKS+"?level="+level;
         PostRequestJson mRequestJson = new PostRequestJson(url,json,callback);

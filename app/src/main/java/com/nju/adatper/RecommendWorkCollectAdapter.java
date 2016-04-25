@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
@@ -55,6 +57,7 @@ public class RecommendWorkCollectAdapter extends BaseAdapter {
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.titleTV = (TextView) convertView.findViewById(R.id.title_tv);
             holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon);
+            holder.chooseBox = (CheckBox) convertView.findViewById(R.id.chooseCB);
             convertView.setTag(holder);
         }
         RecommendWork recommendWork = mRecommendWorks.get(position);
@@ -72,11 +75,21 @@ public class RecommendWorkCollectAdapter extends BaseAdapter {
         }catch (IllegalArgumentException e){
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+        if (recommendWork.getCheck()==1){
+            holder.chooseBox.setVisibility(View.VISIBLE);
+        }else if (recommendWork.getCheck() == 2){
+            holder.chooseBox.setChecked(true);
+            holder.chooseBox.setVisibility(View.VISIBLE);
+        }else if (recommendWork.getCheck() == 0){
+            holder.chooseBox.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
     private class ViewHolder {
         private ImageView headImg, contentImg;
         private TextView nameTV, labelTV, dateTV, contentTV, titleTV;
+        private CheckBox chooseBox;
+        private RelativeLayout collectToolLayout;
     }
 }
