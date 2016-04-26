@@ -24,7 +24,9 @@ import com.nju.db.db.service.RecommendDbService;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
+import com.nju.model.AlumniTalk;
 import com.nju.model.RecommendWork;
+import com.nju.service.AlumniTalkService;
 import com.nju.service.CacheIntentService;
 import com.nju.service.RecommendWorkService;
 import com.nju.util.BottomToolBar;
@@ -45,15 +47,18 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class RecommendWorkFragment extends BaseFragment {
     private static final String TAG = RecommendWorkFragment.class.getSimpleName();
     private  ArrayList<RecommendWork>  mRecommendWorks = new ArrayList<>();
-    private PostRequestJson mRequestJson;
+    private PostRequestJson mRequestJson,deleteContentJson;
     private SwipeRefreshLayout mRefreshLayout;
     private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
     private RelativeLayout mFootView;
     private static CharSequence mDegree = Constant.ALL;
     private static CharSequence mType;
+    private AtomicInteger mRecommendId;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -99,6 +104,37 @@ public class RecommendWorkFragment extends BaseFragment {
                 } finally {
                     mRefreshLayout.setRefreshing(false);
                     mFootView.setVisibility(View.GONE);
+                }
+            }
+        }
+    };
+
+    private ResponseCallback deleteContentCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            Log.i(TAG, responseBody);
+            if (FragmentUtil.isAttachedToActivity(RecommendWorkFragment.this)) {
+                Log.i(TAG, responseBody);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    String str = parseResponse.getInfo(responseBody);
+                    if (str.equals(Constant.OK_MSG)) {
+                        int id = mRecommendId.get();
+                        for (RecommendWork recommendWork : mRecommendWorks) {
+                            if (id == recommendWork.getId()) {
+                                mRecommendWorks.remove(recommendWork);
+                                mRecommendWorkItemAdapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -208,11 +244,6 @@ public class RecommendWorkFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageDeleteContent(MessageContentIdEvent event){
-        Log.i(TAG, "DELETE ID = " + event.getId());
-    }
-
-    @Subscribe
     public void onMessageDegree(MessageEvent event){
         Log.i(TAG,"DEGREE = " + event.getMessage());
         mDegree = event.getMessage();
@@ -223,6 +254,13 @@ public class RecommendWorkFragment extends BaseFragment {
     public void onMessageType(RecommendWorkTypeEvent event){
         setTitle(event.getType());
         ToastUtil.showShortText(getContext(),"TYPE ="+event.getType());
+    }
+
+    @Subscribe
+    public void onMessageDeleteContent(MessageContentIdEvent event){
+        mRecommendId = new AtomicInteger();
+        mRecommendId.set(event.getId());
+        deleteContentJson = RecommendWorkService.deleteMyRecommend(this,event.getId(),deleteContentCallback);
     }
 
     @Override

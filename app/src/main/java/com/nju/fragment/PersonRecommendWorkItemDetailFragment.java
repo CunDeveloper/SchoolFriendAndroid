@@ -64,24 +64,35 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     private ResponseCallback deleteCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
-               Log.e(TAG,error.getMessage());
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
+            Log.i(TAG, responseBody);
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
-                if (getHostActivity().getBackStack().size()>1){
-                    getHostActivity().getBackStack().pop();
-                }
-                BaseFragment fragment = getHostActivity().getBackStack().peek();
-                if (fragment instanceof MyRecommendFragment){
-                    getHostActivity().open(fragment);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    String str = parseResponse.getInfo(responseBody);
+                    if (str.equals(Constant.OK_MSG)) {
+                        if(getHostActivity().getBackStack().size()>1){
+                            getHostActivity().getBackStack().pop();
+                            BaseFragment fragment = getHostActivity().getBackStack().peek();
+                            if (fragment instanceof MyRecommendFragment){
+                                getHostActivity().open(fragment);
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
     };
+
 
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
@@ -212,7 +223,6 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        EventBus.getDefault().unregister(this);
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -259,7 +269,7 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
             detailTv.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView emailTV = (TextView) view.findViewById(R.id.email_tv);
-        //emailTV.setText(mRecommendWork.getEmail());
+        emailTV.setText(mRecommendWork.getEmail());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mRecommendWork.getDate()));
         mCommentNumberTV  = (TextView) view.findViewById(R.id.comment_number_tv);

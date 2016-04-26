@@ -1,5 +1,8 @@
 package com.nju.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -8,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,6 +19,9 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.CommentOtherEvent;
+import com.nju.activity.DeleteCommentEvent;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
@@ -42,6 +49,10 @@ import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
+import com.nju.util.WeiXinShare;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -212,8 +223,30 @@ public class MajorAskDetailFragment extends BaseFragment {
         nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mAlumniQuestion.getDate()));
-        final ListView commentListView = (ListView) view.findViewById(R.id.new_comment_listview);
         mContentComments = TestData.getComments();
+        final ListView commentListView = (ListView) view.findViewById(R.id.new_comment_listview);
+        commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    ContentComment comment = mContentComments.get(position);
+                    //commentId = comment.getId();
+                    mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                    SoftInput.open(getContext());
+                    CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
+            }
+        });
+        commentListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ContentComment comment = mContentComments.get(position);
+                if (comment.getCommentAuthor().getAuthorId() == getHostActivity().userId()){
+                    String[] strings = {getString(R.string.delete)};
+                    SchoolFriendDialog.listItemDialog(getContext(), strings).show();
+                }
+                return true;
+            }
+        });
+
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         commentListView.setAdapter(mCommentAdapter);
         Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);
@@ -227,6 +260,17 @@ public class MajorAskDetailFragment extends BaseFragment {
                     commentType = 0;
                 }
                 CommentUtil.closeSoftKey(getContext(), view);
+            }
+        });
+
+        TextView deleteTV = (TextView) view.findViewById(R.id.delete_tv);
+        if (mAlumniQuestion.getAuthor().getAuthorId() == this.getHostActivity().userId()){
+            deleteTV.setText(Constant.DELETE);
+        }
+        deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
@@ -248,7 +292,7 @@ public class MajorAskDetailFragment extends BaseFragment {
         commentTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollView.scrollTo(0,commentListView.getBottom());
+                scrollView.scrollTo(0, commentListView.getBottom());
                 SoftInput.open(getContext());
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
@@ -267,11 +311,22 @@ public class MajorAskDetailFragment extends BaseFragment {
         shareTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareUtil.share(getContext());
+//                ToastUtil.showShortText(getContext(),"hell");
+                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.head1);
+//                WeiXinShare.pic(bitmap,SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
+                String url = "http://115.159.186.158:8080/school-friend-service-webapp/SchoolFriendHtml/html/recommedShare.html";
+                String title = "上海SAP云计算招聘";
+                String description = "要求会用java";
+                WeiXinShare.webPage(url,title,description,bitmap,SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
             }
         });
 
+        TextView parise = (TextView) view.findViewById(R.id.praise);
+        parise.setVisibility(View.GONE);
+
     }
+
+
 
     @Override
     public void onStop(){

@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.MyAskFragment;
+import com.nju.fragment.MyDynamicFragment;
 import com.nju.fragment.MyRecommendFragment;
 import com.nju.fragment.MyVoiceFragment;
 import com.nju.fragment.PersonCircleFragment;
@@ -18,7 +19,7 @@ import com.nju.fragment.PersonCircleFragment;
 public class CirclePager extends FragmentStatePagerAdapter {
 
     private BaseFragment[] baseFragments = {
-            PersonCircleFragment.newInstance(""),
+            MyDynamicFragment.newInstance(""),
             MyAskFragment.newInstance(""),
             MyVoiceFragment.newInstance(""),
             MyRecommendFragment.newInstance("")
@@ -37,4 +38,9 @@ public class CirclePager extends FragmentStatePagerAdapter {
     public int getCount() {
         return 4;
     }
+
+//    @Override
+//    public int getItemPosition(Object object) {
+//        return POSITION_NONE;
+//    }
 }

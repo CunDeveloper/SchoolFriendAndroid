@@ -24,6 +24,8 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.EntryDate;
+import com.nju.model.MyAsk;
+import com.nju.model.MyRecommend;
 import com.nju.model.RecommendWork;
 import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
@@ -55,7 +57,7 @@ public class MyAskFragment extends BaseFragment {
     private ArrayList<AlumniQuestion> alumniQuestions;
     private PersonAskAdapter askAdapter;
     private RelativeLayout mFootView;
-    private HashMap<EntryDate,ArrayList<AlumniQuestion>> mAlumniQuestionMap = new HashMap<>();
+    private ArrayList<MyAsk>  mMyAsks = new ArrayList<>();
     private ListView mListView;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
@@ -92,12 +94,9 @@ public class MyAskFragment extends BaseFragment {
                                     alumniQuestions.remove(alumniQuestions.get(i));
                                 }
                             }
-//                            getHostActivity().getSharedPreferences().edit()
-//                                    .putInt(Constant.MY_ASK_PRE_ID,alumniQuestions.get(0).getId()).apply();
-//                            getHostActivity().getSharedPreferences().edit()
-//                                    .putInt(Constant.MY_ASK_NEXT_ID,alumniQuestions.get(alumniQuestions.size()-1).getId()).apply();
+
                             initMap();
-                            mListView.setAdapter(new PersonAskAdapter(MyAskFragment.this, mAlumniQuestionMap));
+                            askAdapter.notifyDataSetChanged();
                         }
                     }
 
@@ -159,26 +158,38 @@ public class MyAskFragment extends BaseFragment {
     }
 
     private void initMap(){
+        MyAsk myAsk;
         EntryDate entryDate;
         for (AlumniQuestion alumniQuestion:alumniQuestions){
+            boolean isContain = true;
+            myAsk = new MyAsk();
             final long time = DateUtil.getTime(alumniQuestion.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
             entryDate = new EntryDate(month,day);
-            if (mAlumniQuestionMap.containsKey(entryDate)){
-                ArrayList<AlumniQuestion> tempList = mAlumniQuestionMap.get(entryDate);
-                if (!tempList.contains(alumniQuestion)){
-                    tempList.add(alumniQuestion);
-                    mAlumniQuestionMap.put(entryDate,tempList);
+            for (MyAsk ask:mMyAsks){
+                if (entryDate.equals(ask.getEntryDate())){
+                    isContain = false;
+                    ArrayList<AlumniQuestion> tempList = ask.getAlumniQuestions();
+                    if (!tempList.contains(alumniQuestion)){
+                        tempList.add(alumniQuestion);
+                        ask.setAlumniQuestions(tempList);
+                        break;
+                    }
                 }
-            }else {
-                ArrayList<AlumniQuestion> tempList = new ArrayList<>();
-                tempList.add(alumniQuestion);
-                mAlumniQuestionMap.put(entryDate,tempList);
-
+            }
+            if (isContain){
+                Log.i(TAG, "DAY=" + entryDate.getDay() + "==MONTH=" + entryDate.getMonth());
+                myAsk.setEntryDate(entryDate);
+                ArrayList<AlumniQuestion> alumniQuestions = new ArrayList<>();
+                alumniQuestions.add(alumniQuestion);
+                myAsk.setAlumniQuestions(alumniQuestions);
+                mMyAsks.add(myAsk);
             }
         }
+        Collections.sort(mMyAsks,Collections.reverseOrder());
     }
+
 
     private void initListView(View view) {
         alumniQuestions = TestData.getQlumniQuestions();
@@ -188,7 +199,7 @@ public class MyAskFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        askAdapter = new PersonAskAdapter(this, mAlumniQuestionMap);
+        askAdapter = new PersonAskAdapter(this,mMyAsks);
         mListView.setAdapter(askAdapter);
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {

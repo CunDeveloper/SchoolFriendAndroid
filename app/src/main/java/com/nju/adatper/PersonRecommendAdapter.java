@@ -14,6 +14,7 @@ import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.PersonRecommendWorkItemDetailFragment;
 import com.nju.model.EntryDate;
+import com.nju.model.MyRecommend;
 import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -31,26 +32,23 @@ import java.util.Set;
  */
 public class PersonRecommendAdapter extends BaseAdapter {
     private BaseFragment mFragment;
-    private HashMap<EntryDate,ArrayList<RecommendWork>> mRecommendWorkMap;
-    private EntryDate[] arrayKeys;
+    private ArrayList<MyRecommend> mMyRecommends;
 
-    public PersonRecommendAdapter(BaseFragment fragment, HashMap<EntryDate,ArrayList<RecommendWork>> arrayListHashMap) {
+    public PersonRecommendAdapter(BaseFragment fragment,ArrayList<MyRecommend> recommends){
         mFragment = fragment;
-        mRecommendWorkMap = arrayListHashMap;
-        Set<EntryDate> keys = mRecommendWorkMap.keySet();
-         arrayKeys=  keys.toArray(new EntryDate[keys.size()]);
-        Arrays.sort(arrayKeys, Collections.reverseOrder());
+        mMyRecommends = recommends;
     }
 
     @Override
     public int getCount() {
-        return arrayKeys.length;
+        return mMyRecommends.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mRecommendWorkMap.get(arrayKeys[position]);
+       // return mRecommendWorkMap.get(arrayKeys[position]);
        // return mRecommendWorks.get(position);
+        return mMyRecommends.get(position);
     }
 
     @Override
@@ -70,8 +68,10 @@ public class PersonRecommendAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        EntryDate entryDate= arrayKeys[position];
-        final ArrayList<RecommendWork> recommendWorks =  mRecommendWorkMap.get(entryDate);
+        MyRecommend myRecommend = mMyRecommends.get(position);
+        EntryDate entryDate = myRecommend.getEntryDate();
+        final ArrayList<RecommendWork> recommendWorks = myRecommend.getRecommendWorks();
+
         holder.listView.setAdapter(new PersonRecommendListItemAdapter(mFragment.getContext(), recommendWorks));
         holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,8 +79,10 @@ public class PersonRecommendAdapter extends BaseAdapter {
                 mFragment.getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
             }
         });
+
         holder.dayTV.setText(entryDate.getDay());
         holder.monthTV.setText(DateUtil.getNoZeroMonth(entryDate.getMonth()));
+
         return convertView;
     }
 

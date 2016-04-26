@@ -3,7 +3,6 @@ package com.nju.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,7 @@ public class AlumniVoiceItemFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetail.newInstance(voices.get(position)));
+                getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(voices.get(position)));
             }
         });
     }

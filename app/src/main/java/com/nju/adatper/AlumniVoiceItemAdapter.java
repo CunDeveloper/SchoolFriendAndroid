@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
-import com.nju.fragment.AlumniVoiceItemDetail;
+import com.nju.fragment.AlumniVoiceItemDetailFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.model.AlumniVoice;
@@ -99,7 +99,7 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         holder.titleTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFragment.getHostActivity().open(AlumniVoiceItemDetail.newInstance(voice));
+                mFragment.getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(voice));
             }
         });
         final long time = DateUtil.getTime(voice.getDate());

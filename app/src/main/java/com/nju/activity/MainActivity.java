@@ -54,6 +54,8 @@ import com.nju.util.LoadData;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,7 +70,8 @@ import javax.mail.event.MessageChangedEvent;
 
 
 public class MainActivity extends BaseActivity {
-
+    private static final String WX_APPID = "wx0e7d0e1f21f36288";
+    private static final String WX_APP_SECRET = "0fb14de9a1832a7741f2caee321e89a1";
     private static final String TAG = MainActivity.class.getSimpleName() ;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
@@ -83,15 +86,23 @@ public class MainActivity extends BaseActivity {
     int fragmentIndex = 0;
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private static String token = null;
+    private IWXAPI api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Mint.setApplicationEnvironment(Mint.appEnvironmentStaging);
-
         Mint.initAndStartSession(MainActivity.this, "378226b0");
-
+        api = WXAPIFactory.createWXAPI(this,WX_APPID,true);
+        api.registerApp(WX_APPID);
         setContentView(R.layout.activity_main);
+        initView();
+        initNavigationViewListener();
+        XueXinAuthFragment fragment = XueXinAuthFragment.newInstance();
+        open(fragment, true, fragment);
+        initDataBase();
+    }
+
+    private void initView(){
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -115,10 +126,6 @@ public class MainActivity extends BaseActivity {
         View headerView = mNavigationView.inflateHeaderView(R.layout.nav_header);
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
-        initNavigationViewListener();
-        XueXinAuthFragment fragment = XueXinAuthFragment.newInstance();
-        open(fragment, true, fragment);
-        initDataBase();
     }
 
     @Override
@@ -314,6 +321,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public int userId() {
         return getSharedPreferences().getInt(Constant.USER_ID,0);
+    }
+
+    @Override
+    public IWXAPI wxApi() {
+        return api;
     }
 
 

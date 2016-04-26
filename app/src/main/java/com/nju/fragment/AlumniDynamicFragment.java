@@ -426,7 +426,6 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
     @Subscribe
     public void onMessageDeleteContent(MessageContentIdEvent event){
-        ToastUtil.showShortText(getContext(),"ID="+event.getId());
         dynamicId = new AtomicInteger();
         dynamicId.set(event.getId());
         deleteContentJson = AlumniTalkService.deleteDynamci(this,event.getId(),deleteContentCallback);

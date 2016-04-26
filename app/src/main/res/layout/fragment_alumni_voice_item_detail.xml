@@ -150,6 +150,15 @@
                         android:id="@+id/textView39"
                         android:layout_alignTop="@+id/praise_number_tv"
                         android:layout_toStartOf="@+id/praise_number_tv" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/phone_apadding"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/delete_tv"
+                        android:layout_alignBottom="@+id/alumni_vo_date"
+                        android:layout_toEndOf="@+id/alumni_vo_date" />
                 </RelativeLayout>
             </ScrollView>
             <include layout="@layout/tool_bar"/>

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
@@ -230,8 +232,49 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         ListView hotListView = (ListView) view.findViewById(R.id.hot_listview);
         hotListView.setAdapter(mCommentAdapter);
+        hotListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                ContentComment comment = mContentComments.get(position);
+                //commentId = comment.getId();
+                mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                SoftInput.open(getContext());
+                CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
+            }
+        });
+        hotListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mRecommendWork.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
+                    String[] strings = {getString(R.string.delete)};
+                    SchoolFriendDialog.listItemDialog(getContext(), strings).show();
+                }
+                return true;
+            }
+        });
+
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         newListView.setAdapter(mCommentAdapter);
+        newListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                ContentComment comment = mContentComments.get(position);
+                //commentId = comment.getId();
+                mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                SoftInput.open(getContext());
+                CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
+            }
+        });
+        newListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mRecommendWork.getAuthorInfo().getAuthorId() == getHostActivity().userId()){
+                    String[] strings = {getString(R.string.delete)};
+                    SchoolFriendDialog.listItemDialog(getContext(), strings).show();
+                }
+                return true;
+            }
+        });
         Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,6 +292,18 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         if (mRecommendWork.getImgPaths()!=null){
             Log.e(TAG,mRecommendWork.getImgPaths());
             listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH,mRecommendWork.getImgPaths().split(",")));
+        }
+
+        TextView deleteTV = (TextView) view.findViewById(R.id.delete_tv);
+        deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        if (mRecommendWork.getAuthorInfo().getAuthorId() == getHostActivity().userId()){
+            deleteTV.setText(Constant.DELETE);
         }
 
     }

@@ -1,0 +1,84 @@
+p,h1,h2,h3,h4,h5,h6,div,body,hr{
+	padding: 0;
+	margin: 0
+}
+ body{
+ 	background: white;
+ 	margin-bottom: 300px;
+ }
+ img{
+ 	width: 100%;
+ 	height: auto;
+ }
+ .light_blue{
+ 	color: blue
+ }
+ .padding{
+ 	padding-top: 10px;
+ 	padding-bottom:10px 
+ }
+ .padding_five{
+ 	padding-top: 5px;
+ 	padding-bottom:5px 
+ }
+ .balck_font{
+ 	color: black;
+ 	font-size: 1em
+ }
+ .date{
+ 	float: left;
+ }
+ .comment{
+ 	float: right;
+ }
+ .gray{
+ 	color: gray;
+ }
+ .content{
+ 	padding-bottom: 20px;
+ 	padding-left: 10px;
+ 	padding-right: 10px;
+ }
+ .label{
+ 	background: #E6E6E6;
+ 	height: 20px;
+ 	width: 100%;
+ }
+
+ .hot_comment{
+ 	padding-top: 20px;
+ 	padding-bottom: 20px;
+ }
+ .new_comment{
+ 	padding-top: 20px;
+ 	padding-bottom: 20px;
+ }
+ .red_label{
+ 	background: red;
+ 	display: inline-block;
+ 	width: 10px;
+ 	height: 15px;
+ }
+
+ .hot_comment_title{
+
+ 	font-size: 15px;
+ 	color: black;
+ }
+
+ .head_icon{
+ 	margin-left: 20px;
+ 	margin-right: 20px;
+ 	 
+ 	width: 50px;
+ 	height: 50px;
+ 	align:left;
+ }
+ .comment_item{
+ 	float: left;
+ }
+ .split_line{
+ 	margin-left: 20px;
+ 	margin-right: 10px;
+ 	border-color: #FEFEFE;
+ 	 }

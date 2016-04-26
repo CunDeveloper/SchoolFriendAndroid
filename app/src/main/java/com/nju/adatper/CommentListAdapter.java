@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleFragment;
 import com.nju.model.ContentComment;
 import com.nju.util.Constant;
 import com.nju.util.StringBase64;
@@ -19,10 +21,10 @@ import java.util.ArrayList;
  * Created by cun on 2016/4/13.
  */
 public class CommentListAdapter extends BaseAdapter {
-    private Context mContext;
+    private BaseFragment mFragment;
     private ArrayList<ContentComment> mComments;
-    public CommentListAdapter(Context context,ArrayList<ContentComment> comments){
-        mContext = context;
+    public CommentListAdapter(BaseFragment fragment,ArrayList<ContentComment> comments){
+        mFragment = fragment;
         mComments = comments;
     }
     @Override
@@ -44,7 +46,7 @@ public class CommentListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.comment_list_item,parent,false);
+            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.comment_list_item,parent,false);
             holder = new ViewHolder();
             holder.commentTV = (TextView) convertView.findViewById(R.id.comment_tv);
             holder.commentedTV = (TextView) convertView.findViewById(R.id.commented_tv);
@@ -54,8 +56,14 @@ public class CommentListAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        ContentComment contentComment = mComments.get(position);
+        final ContentComment contentComment = mComments.get(position);
         holder.commentTV.setText(contentComment.getCommentAuthor().getAuthorName());
+        holder.commentTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.getHostActivity().open(CircleFragment.newInstance(contentComment.getCommentAuthor()));
+            }
+        });
         String commentedName = contentComment.getCommentedAuthor().getAuthorName();
         if (commentedName == null || commentedName.equals("")){
             holder.commentedTV.setText("");

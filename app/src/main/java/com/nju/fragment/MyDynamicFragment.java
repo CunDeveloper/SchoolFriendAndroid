@@ -23,6 +23,8 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniTalk;
 import com.nju.model.EntryDate;
+import com.nju.model.MyAsk;
+import com.nju.model.MyDynamic;
 import com.nju.service.AlumniTalkService;
 import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
@@ -40,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -49,10 +52,10 @@ public class MyDynamicFragment extends BaseFragment {
     private static CharSequence mTitle;
     private ListView mListView;
     private RelativeLayout mFootView;
-    private HashMap<EntryDate,ArrayList<AlumniTalk>> mAlumniTalkMap = new HashMap<>();
     private PersonDynamicAdapter mDynamiceAdapter;
     private SwipeRefreshLayout mRefreshLayout;
     private PostRequestJson mRequestJson;
+    private ArrayList<MyDynamic> mMyDynamics = new ArrayList<>();
     private ArrayList<AlumniTalk> mAlumniTalks = new ArrayList<>();
     private ResponseCallback callback = new ResponseCallback() {
         @Override
@@ -94,8 +97,7 @@ public class MyDynamicFragment extends BaseFragment {
 //                            getHostActivity().getSharedPreferences().edit()
 //                                    .putInt(Constant.MY_DYNAMIC_NEXT_ID, mAlumniTalks.get(mAlumniTalks.size() - 1).getId()).apply();
                             initMap();
-                            //mDynamiceAdapter.notifyDataSetChanged();
-                            mListView.setAdapter(new PersonDynamicAdapter(MyDynamicFragment.this, mAlumniTalkMap));
+                            mDynamiceAdapter.notifyDataSetChanged();
                         }
                     }
 
@@ -175,7 +177,7 @@ public class MyDynamicFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        mDynamiceAdapter = new PersonDynamicAdapter(this, mAlumniTalkMap);
+        mDynamiceAdapter = new PersonDynamicAdapter(this,mMyDynamics);
         mListView.setAdapter(mDynamiceAdapter);
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -218,24 +220,36 @@ public class MyDynamicFragment extends BaseFragment {
     }
 
     private void initMap(){
+        MyDynamic myDynamic;
         EntryDate entryDate;
         for (AlumniTalk alumniTalk:mAlumniTalks){
+            boolean isContain = true;
+            myDynamic = new MyDynamic();
             final long time = DateUtil.getTime(alumniTalk.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
             entryDate = new EntryDate(month,day);
-            if (mAlumniTalkMap.containsKey(entryDate)){
-                ArrayList<AlumniTalk> tempList = mAlumniTalkMap.get(entryDate);
-                if (!tempList.contains(alumniTalk)){
-                    tempList.add(alumniTalk);
-                    mAlumniTalkMap.put(entryDate,tempList);
+            for (MyDynamic dynamic:mMyDynamics){
+                if (entryDate.equals(dynamic.getEntryDate())){
+                    isContain = false;
+                    ArrayList<AlumniTalk> tempList = dynamic.getAlumniTalks();
+                    if (!tempList.contains(alumniTalk)){
+                        tempList.add(alumniTalk);
+                        dynamic.setAlumniTalks(tempList);
+                        break;
+                    }
                 }
-            }else {
-                ArrayList<AlumniTalk> tempList = new ArrayList<>();
-                tempList.add(alumniTalk);
-                mAlumniTalkMap.put(entryDate,tempList);
+            }
+            if (isContain){
+                Log.i(TAG, "DAY=" + entryDate.getDay() + "==MONTH=" + entryDate.getMonth());
+                myDynamic.setEntryDate(entryDate);
+                ArrayList<AlumniTalk> alumniTalks = new ArrayList<>();
+                alumniTalks.add(alumniTalk);
+                myDynamic.setAlumniTalks(alumniTalks);
+                mMyDynamics.add(myDynamic);
             }
         }
+        Collections.sort(mMyDynamics, Collections.reverseOrder());
     }
 
 }

@@ -2,8 +2,6 @@ package com.nju.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,20 +22,16 @@ import com.nju.activity.MessageEvent;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniVoiceItemAdapter;
-import com.nju.adatper.CollageAdapter;
 import com.nju.db.db.service.AlumniVoiceDbService;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniVoice;
 import com.nju.service.AlumniVoiceService;
 import com.nju.service.CacheIntentService;
-import com.nju.service.MajorAskService;
 import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
-import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
@@ -54,8 +47,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AlumniVoiceFragment extends BaseFragment {
@@ -192,7 +183,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetail.newInstance(mVoices.get(position)));
+                getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(mVoices.get(position)));
             }
         });
         mFootView.setOnClickListener(new View.OnClickListener() {

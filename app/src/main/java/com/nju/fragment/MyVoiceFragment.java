@@ -21,8 +21,11 @@ import com.nju.adatper.PersonVoiceAdapter;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
+import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniVoice;
 import com.nju.model.EntryDate;
+import com.nju.model.MyAsk;
+import com.nju.model.MyVoice;
 import com.nju.model.RecommendWork;
 import com.nju.service.AlumniVoiceService;
 import com.nju.test.TestData;
@@ -53,8 +56,7 @@ public class MyVoiceFragment extends BaseFragment {
     private ArrayList<AlumniVoice> mAlumniVoices;
     private PersonVoiceAdapter mPersonVoiceAdapter;
     private RelativeLayout mFootView;
-    private HashMap<EntryDate,ArrayList<AlumniVoice>> mAlumniVoiceMap = new HashMap<>();
-    private final static SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private ArrayList<MyVoice> mMyVoices = new ArrayList<>();
     private ListView mListView;
 
     private ResponseCallback callback = new ResponseCallback() {
@@ -99,7 +101,7 @@ public class MyVoiceFragment extends BaseFragment {
                                     .putInt(Constant.MY_VOICE_NEXT_ID,mAlumniVoices.get(mAlumniVoices.size()-1).getId()).apply();
 
                             initMap();
-                            mListView.setAdapter(new PersonVoiceAdapter(MyVoiceFragment.this, mAlumniVoiceMap));
+                            mPersonVoiceAdapter.notifyDataSetChanged();
                         }
                     }
 
@@ -169,25 +171,38 @@ public class MyVoiceFragment extends BaseFragment {
     }
 
     private void initMap(){
+        MyVoice myVoice;
         EntryDate entryDate;
         for (AlumniVoice alumniVoice:mAlumniVoices){
+            boolean isContain = true;
+            myVoice = new MyVoice();
             final long time = DateUtil.getTime(alumniVoice.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
-            String month = DateFormat.format(Constant.MM, time) + Constant.MONTH;
+            String month = DateFormat.format(Constant.MM, time).toString();
             entryDate = new EntryDate(month,day);
-            if (mAlumniVoiceMap.containsKey(entryDate)){
-                ArrayList<AlumniVoice> tempList = mAlumniVoiceMap.get(entryDate);
-                if (!tempList.contains(alumniVoice)){
-                    tempList.add(alumniVoice);
-                    mAlumniVoiceMap.put(entryDate,tempList);
+            for (MyVoice voice:mMyVoices){
+                if (entryDate.equals(voice.getEntryDate())){
+                    isContain = false;
+                    ArrayList<AlumniVoice> tempList = voice.getAlumniVoices();
+                    if (!tempList.contains(alumniVoice)){
+                        tempList.add(alumniVoice);
+                        voice.setAlumniVoices(tempList);
+                        break;
+                    }
                 }
-            }else {
-                ArrayList<AlumniVoice> tempList = new ArrayList<>();
-                tempList.add(alumniVoice);
-                mAlumniVoiceMap.put(entryDate,tempList);
+            }
+            if (isContain){
+                Log.i(TAG, "DAY=" + entryDate.getDay() + "==MONTH=" + entryDate.getMonth());
+                myVoice.setEntryDate(entryDate);
+                ArrayList<AlumniVoice> alumniVoices = new ArrayList<>();
+                alumniVoices.add(alumniVoice);
+                myVoice.setAlumniVoices(alumniVoices);
+                mMyVoices.add(myVoice);
             }
         }
+        Collections.sort(mMyVoices,Collections.reverseOrder());
     }
+
 
     private void initListView(View view){
         mAlumniVoices = TestData.getVoicesData();
@@ -196,7 +211,7 @@ public class MyVoiceFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        mPersonVoiceAdapter = new PersonVoiceAdapter(this,mAlumniVoiceMap);
+        mPersonVoiceAdapter = new PersonVoiceAdapter(this,mMyVoices);
         mListView.setAdapter(mPersonVoiceAdapter);
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {

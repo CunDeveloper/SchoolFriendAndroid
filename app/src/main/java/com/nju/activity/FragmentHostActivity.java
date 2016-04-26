@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nju.fragment.BaseFragment;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 
 import java.util.ArrayList;
@@ -36,4 +37,5 @@ public interface FragmentHostActivity {
     boolean isPhone();
     String token();
     int userId();
+    IWXAPI wxApi();
 }

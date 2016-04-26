@@ -14,6 +14,7 @@ import com.nju.fragment.PersonAskDetailFragment;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniTalk;
 import com.nju.model.EntryDate;
+import com.nju.model.MyDynamic;
 import com.nju.util.DateUtil;
 import com.nju.util.ToastUtil;
 
@@ -28,26 +29,20 @@ import java.util.Set;
  */
 public class PersonDynamicAdapter extends BaseAdapter {
     private BaseFragment mFragment;
-    private HashMap<EntryDate,ArrayList<AlumniTalk>> mAlumniTalkMap;
-    private EntryDate[] arrayKeys;
-
-    public PersonDynamicAdapter(BaseFragment fragment, HashMap<EntryDate, ArrayList<AlumniTalk>> arrayListHashMap) {
+    private ArrayList<MyDynamic> mMyDynamics;
+    public PersonDynamicAdapter(BaseFragment fragment, ArrayList<MyDynamic> dynamics) {
         mFragment = fragment;
-        mAlumniTalkMap = arrayListHashMap;
-        Set<EntryDate> keys = mAlumniTalkMap.keySet();
-        arrayKeys=  keys.toArray(new EntryDate[keys.size()]);
-        Arrays.sort(arrayKeys, Collections.reverseOrder());
+        mMyDynamics = dynamics;
     }
 
     @Override
     public int getCount() {
-        return arrayKeys.length;
+        return mMyDynamics.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mAlumniTalkMap.get(arrayKeys[position]);
-        // return mRecommendWorks.get(position);
+        return mMyDynamics.get(position);
     }
 
     @Override
@@ -67,8 +62,9 @@ public class PersonDynamicAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        EntryDate entryDate = arrayKeys[position];
-        final ArrayList<AlumniTalk> alumniQuestions = mAlumniTalkMap.get(entryDate);
+        MyDynamic dynamic = mMyDynamics.get(position);
+        EntryDate entryDate = dynamic.getEntryDate();
+        final ArrayList<AlumniTalk> alumniQuestions = dynamic.getAlumniTalks();
         holder.listView.setAdapter(new PersonDynamicListItemAdapter(mFragment.getContext(),alumniQuestions ));
         holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

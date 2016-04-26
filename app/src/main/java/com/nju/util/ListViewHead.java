@@ -29,9 +29,8 @@ public class ListViewHead {
         bgImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SchoolFriendDialog.changeBgDialog(fragment.getContext(),fragment.getString(R.string.changePhotoPage))
-                .show();
-                //fragment.getHostActivity().open(MultiChoosePicFragment.newInstance(""));
+                String[] strings = {fragment.getString(R.string.changePhotoPage)};
+                SchoolFriendDialog.listItemDialog(fragment.getContext(),strings).show();
             }
         });
         listView.addHeaderView(head);

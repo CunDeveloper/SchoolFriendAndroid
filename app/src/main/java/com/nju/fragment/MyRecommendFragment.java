@@ -20,9 +20,9 @@ import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.EntryDate;
+import com.nju.model.MyRecommend;
 import com.nju.model.RecommendWork;
 import com.nju.service.RecommendWorkService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -37,7 +37,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 
 public class MyRecommendFragment extends BaseFragment {
     private static final String TAG = MyRecommendFragment.class.getSimpleName();
@@ -46,7 +46,7 @@ public class MyRecommendFragment extends BaseFragment {
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private ArrayList<RecommendWork> mRecommendWorks;
-    private HashMap<EntryDate,ArrayList<RecommendWork>> mRecommendWorkMap = new HashMap<>();
+    private ArrayList<MyRecommend> mMyRecommends = new ArrayList<>();
     private ListView listView;
     private PersonRecommendAdapter mPersonRecommendAdapter;
     private RelativeLayout mFootView;
@@ -85,8 +85,7 @@ public class MyRecommendFragment extends BaseFragment {
                                 }
                             }
                             initMap();
-                            //mPersonRecommendAdapter.notifyDataSetChanged();
-                            listView.setAdapter(new PersonRecommendAdapter(MyRecommendFragment.this, mRecommendWorkMap));
+                            mPersonRecommendAdapter.notifyDataSetChanged();
                         }
                     }
                 } catch (IOException e) {
@@ -130,16 +129,15 @@ public class MyRecommendFragment extends BaseFragment {
     }
 
     private void initListView(View view){
-        mRecommendWorks = TestData.getRecommendWorks();
+        mRecommendWorks = new ArrayList<>();
         initMap();
         listView = (ListView) view.findViewById(R.id.listView);
         ListViewHead.setUp(this, view, listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mPersonRecommendAdapter = new PersonRecommendAdapter(this,mRecommendWorkMap);
+        mPersonRecommendAdapter = new PersonRecommendAdapter(this,mMyRecommends);
         listView.setAdapter(mPersonRecommendAdapter);
-
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -158,25 +156,36 @@ public class MyRecommendFragment extends BaseFragment {
     }
 
     private void initMap(){
+        MyRecommend myRecommend;
         EntryDate entryDate;
         for (RecommendWork recommendWork:mRecommendWorks){
+            boolean isContain = true;
+            myRecommend = new MyRecommend();
             final long time = DateUtil.getTime(recommendWork.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
             entryDate = new EntryDate(month,day);
-            if (mRecommendWorkMap.containsKey(entryDate)){
-                ArrayList<RecommendWork> tempList = mRecommendWorkMap.get(entryDate);
-                if (!tempList.contains(recommendWork)){
-                    tempList.add(recommendWork);
-                    mRecommendWorkMap.put(entryDate,tempList);
+            for (MyRecommend recommend:mMyRecommends){
+                if (entryDate.equals(recommend.getEntryDate())){
+                    isContain = false;
+                    ArrayList<RecommendWork> tempList = recommend.getRecommendWorks();
+                    if (!tempList.contains(recommendWork)){
+                        tempList.add(recommendWork);
+                        recommend.setRecommendWorks(tempList);
+                        break;
+                    }
                 }
-            }else {
-                ArrayList<RecommendWork> tempList = new ArrayList<>();
-                tempList.add(recommendWork);
-                mRecommendWorkMap.put(entryDate,tempList);
-
+            }
+            if (isContain){
+                Log.i(TAG,"DAY="+entryDate.getDay()+"==MONTH="+entryDate.getMonth());
+                myRecommend.setEntryDate(entryDate);
+                ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
+                recommendWorks.add(recommendWork);
+                myRecommend.setRecommendWorks(recommendWorks);
+                mMyRecommends.add(myRecommend);
             }
         }
+        Collections.sort(mMyRecommends,Collections.reverseOrder());
     }
 
     private void setUpOnRefreshListener(View view){
@@ -213,7 +222,7 @@ public class MyRecommendFragment extends BaseFragment {
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event){
         if (event.isConnected()){
-            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE);
+            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback,Constant.ALL,Constant.PRE,0);
         }
     }
 

@@ -14,6 +14,7 @@ import com.nju.fragment.BaseFragment;
 import com.nju.fragment.PersonAlumniVoiceItemDetail;
 import com.nju.model.AlumniVoice;
 import com.nju.model.EntryDate;
+import com.nju.model.MyVoice;
 import com.nju.util.DateUtil;
 
 import java.util.ArrayList;
@@ -27,26 +28,20 @@ import java.util.Set;
  */
 public class PersonVoiceAdapter extends BaseAdapter {
     private BaseFragment mFragment;
-    private HashMap<EntryDate,ArrayList<AlumniVoice>> mAluminVoiceMap;
-    private EntryDate[] arrayKeys;
-
-    public PersonVoiceAdapter(BaseFragment fragment, HashMap<EntryDate,ArrayList<AlumniVoice>> arrayListHashMap) {
+    private ArrayList<MyVoice> mMyVoices;
+    public PersonVoiceAdapter(BaseFragment fragment, ArrayList<MyVoice> voices) {
         mFragment = fragment;
-        mAluminVoiceMap = arrayListHashMap;
-        Set<EntryDate> keys = mAluminVoiceMap.keySet();
-        arrayKeys=  keys.toArray(new EntryDate[keys.size()]);
-        Arrays.sort(arrayKeys, Collections.reverseOrder());
+        mMyVoices = voices;
     }
 
     @Override
     public int getCount() {
-        return arrayKeys.length;
+        return mMyVoices.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mAluminVoiceMap.get(arrayKeys[position]);
-        // return mRecommendWorks.get(position);
+        return  mMyVoices.get(position);
     }
 
     @Override
@@ -66,8 +61,9 @@ public class PersonVoiceAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        EntryDate entryDate = arrayKeys[position];
-        final ArrayList<AlumniVoice> alumniVoices = mAluminVoiceMap.get(entryDate);
+        MyVoice voice = mMyVoices.get(position);
+        EntryDate entryDate = voice.getEntryDate();
+        final ArrayList<AlumniVoice> alumniVoices = voice.getAlumniVoices();
         holder.listView.setAdapter(new PersonVoiceListItemAdapter(mFragment.getContext(), alumniVoices));
         holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -19,6 +19,7 @@ import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.http.ImageDownloader;
 import com.nju.model.AlumniTalk;
@@ -147,10 +148,17 @@ public class AlumniTalkAdapter extends BaseAdapter {
             }
         });
         holder.listViewHead.removeAllViews();
-        ArrayList<AlumnicTalkPraise> alumnicTalkPraises = alumniTalk.getTalkPraises();
+        final ArrayList<AlumnicTalkPraise> alumnicTalkPraises = alumniTalk.getTalkPraises();
         for (int i = 0;i<alumnicTalkPraises.size();i++){
             TextView textView = (TextView) LayoutInflater.from(mContext.getContext()).inflate(R.layout.dynamic_praise_item,parent,false);
-            textView.setText(alumnicTalkPraises.get(i).getPraiseAuthor().getAuthorName());
+            final AlumnicTalkPraise talkPraise = alumnicTalkPraises.get(i);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.getHostActivity().open(CircleFragment.newInstance(talkPraise.getPraiseAuthor()));
+                }
+            });
+            textView.setText(talkPraise.getPraiseAuthor().getAuthorName());
             holder.listViewHead.addView(textView,i);
         }
         final ArrayList<ContentComment> comments = alumniTalk.getComments();
@@ -160,7 +168,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
 
             }
         });
-        holder.commentListView.setAdapter(new CommentListAdapter(mContext.getContext(), comments));
+        holder.commentListView.setAdapter(new CommentListAdapter(mContext, comments));
         holder.commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

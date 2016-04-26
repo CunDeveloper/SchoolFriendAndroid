@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.xiaojuzhang.test1"
+        applicationId "com.nju.edu.software.alumniGroup"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
@@ -42,7 +42,7 @@ dependencies {
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
-    compile "com.splunk.mint:mint:5.0.0"
+    compile 'com.splunk.mint:mint:5.0.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.0@aar') {
@@ -51,7 +51,7 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:commons:0.8.5.0@aar') {
         transitive = true
     }
-    compile ('com.vincentbrison.openlibraries.android:dualcache:2.2.2@jar') {
+    compile('com.vincentbrison.openlibraries.android:dualcache:2.2.2@jar') {
         transitive = true
     }
     compile files('libs/TencentLocationSDK_v4.3.0_r196568_151014_1433.jar')
@@ -59,5 +59,5 @@ dependencies {
     compile files('libs/mail.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/activation.jar')
-
+    compile files('libs/libammsdk.jar')
 }

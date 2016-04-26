@@ -84,7 +84,7 @@ public class VoiceCollectFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetail.newInstance(mCollectVoices.get(position)));
+                getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(mCollectVoices.get(position)));
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

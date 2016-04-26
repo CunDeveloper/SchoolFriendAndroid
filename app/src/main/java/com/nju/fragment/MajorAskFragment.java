@@ -86,10 +86,9 @@ public class MajorAskFragment extends BaseFragment {
                             for (Object obj :majorAsks){
                                 AlumniQuestion   alumniQuestion = (AlumniQuestion) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestion));
-                                mAlumniQuestions.add(alumniQuestion);
-//                                if (!mAlumniQuestions.contains(alumniQuestion)){
-//
-//                                }
+                                if (!mAlumniQuestions.contains(alumniQuestion)){
+                                    mAlumniQuestions.add(alumniQuestion);
+                                }
                             }
                             Collections.sort(mAlumniQuestions,new MajorAskSort());
                             int length = mAlumniQuestions.size();

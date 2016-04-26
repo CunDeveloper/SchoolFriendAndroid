@@ -62,7 +62,7 @@ public class SettingFragment extends BaseFragment  {
         functionTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(WebViewFragment.newInstance("file:///android_asset/html/function_desc.html"));
+                getHostActivity().open(WebViewFragment.newInstance("file:///android_asset/SchoolFriendHtml/html/recommedShare.html"));
             }
         });
         TextView sysNoticeTV = (TextView) view.findViewById(R.id.sys_notice);
