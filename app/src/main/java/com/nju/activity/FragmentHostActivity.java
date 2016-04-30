@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.nju.fragment.BaseFragment;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 
-import java.util.ArrayList;
 
 /**
  * Created by xiaojuzhang on 2015/12/8.

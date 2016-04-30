@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
+import com.nju.View.ShareView;
 import com.nju.activity.CommentOtherEvent;
 import com.nju.activity.DeleteCommentEvent;
 import com.nju.activity.NetworkInfoEvent;
@@ -29,6 +30,8 @@ import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.db.db.service.MajorAskCollectDbService;
 import com.nju.event.MessageEventId;
+import com.nju.event.MessageShareEventId;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -199,6 +202,46 @@ public class MajorAskDetailFragment extends BaseFragment {
         getHostActivity().open(CircleFragment.newInstance(event.getAuthorInfo()));
     }
 
+    @Subscribe
+    public void onMessageShareEvent(MessageShareEventId eventId){
+        AlumniQuestion test = new AlumniQuestion();
+        test.setId(mAlumniQuestion.getId());
+        test.setDescription(StringBase64.decode(mAlumniQuestion.getDescription()));
+        test.setProblem(StringBase64.decode(mAlumniQuestion.getProblem()));
+        test.setAuthor(mAlumniQuestion.getAuthor());
+        test.setImgPaths(mAlumniQuestion.getImgPaths());
+        Log.i(TAG,SchoolFriendGson.newInstance().toJson(test));
+        String pageUrl = "http://115.159.186.158:8080/school-friend-service-webapp/SchoolFriendHtml/html/recommedShare.html?content="+SchoolFriendGson.newInstance().toJson(test);
+        Log.i(TAG,pageUrl);
+        CharSequence title,description;
+        try{
+            title = StringBase64.decode(mAlumniQuestion.getProblem());
+            description = StringBase64.decode(mAlumniQuestion.getDescription());
+        }catch (IllegalArgumentException e){
+            title = Constant.UNKNOWN_CHARACTER;
+            description = Constant.UNKNOWN_CHARACTER;
+        }
+
+        if (mAlumniQuestion.getImgPaths() != null && !mAlumniQuestion.getImgPaths().equals("")){
+            String url = PathConstant.IMAGE_PATH_SMALL+PathConstant.ALUMNI_QUESTION_IMG_PATH+mAlumniQuestion.getImgPaths().split(",")[0];
+            Bitmap bitmap = ImageDownloader.with(getContext()).download(url).bitmap();
+
+            if (eventId.getId()== 0){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
+            }else if (eventId.getId() == 1){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            }
+        }else {
+            if (eventId.getId()== 0){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
+            }else if (eventId.getId() == 1){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            }
+        }
+
+
+    }
+
     private void initView(final View view){
         TextView problemTV = (TextView) view.findViewById(R.id.problem_tv);
         try{
@@ -285,7 +328,7 @@ public class MajorAskDetailFragment extends BaseFragment {
 
     }
 
-    private void initToolBar(final View view){
+    private void initToolBar(final View view) {
         TextView commentTV = (TextView) view.findViewById(R.id.comment);
         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.myScrollView);
         final ListView commentListView = (ListView) view.findViewById(R.id.new_comment_listview);
@@ -303,38 +346,54 @@ public class MajorAskDetailFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 new MajorAskCollectDbService(getContext()).save(mAlumniQuestion);
-                ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
-                collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                MajorAskService.saveCollect(MajorAskDetailFragment.this, mAlumniQuestion.getId(), new ResponseCallback() {
+                    @Override
+                    public void onFail(Exception error) {
+                        Log.e(TAG, error.getMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(String responseBody) {
+                        Log.i(TAG, responseBody);
+                        if (FragmentUtil.isAttachedToActivity(MajorAskDetailFragment.this)) {
+                            Log.i(TAG, responseBody);
+                            ParseResponse parseResponse = new ParseResponse();
+                            try {
+                                String str = parseResponse.getInfo(responseBody);
+                                if (str != null && str.equals(Constant.OK_MSG)) {
+                                    ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
+                                    collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                });
             }
         });
+
         TextView shareTV = (TextView) view.findViewById(R.id.share);
-        shareTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ToastUtil.showShortText(getContext(),"hell");
-                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.head1);
-//                WeiXinShare.pic(bitmap,SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
-                String url = "http://115.159.186.158:8080/school-friend-service-webapp/SchoolFriendHtml/html/recommedShare.html";
-                String title = "上海SAP云计算招聘";
-                String description = "要求会用java";
-                WeiXinShare.webPage(url,title,description,bitmap,SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
-            }
-        });
+         shareTV.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 ShareView.init(MajorAskDetailFragment.this, view);
+             }
+         });
 
-        TextView parise = (TextView) view.findViewById(R.id.praise);
-        parise.setVisibility(View.GONE);
-
+         final TextView parise = (TextView) view.findViewById(R.id.praise);
+         parise.setVisibility(View.GONE);
     }
 
 
-
-    @Override
-    public void onStop(){
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-        if (mRequestSaveJson != null)
-            CloseRequestUtil.close(mRequestSaveJson);
-        if (mRequestQueryJson != null)
-            CloseRequestUtil.close(mRequestQueryJson);
-    }
-}
+         @Override
+         public void onStop() {
+             EventBus.getDefault().unregister(this);
+             super.onStop();
+             if (mRequestSaveJson != null)
+                 CloseRequestUtil.close(mRequestSaveJson);
+             if (mRequestQueryJson != null)
+                 CloseRequestUtil.close(mRequestQueryJson);
+         }
+     }

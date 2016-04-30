@@ -207,7 +207,7 @@ public class MyVoiceFragment extends BaseFragment {
     private void initListView(View view){
         mAlumniVoices = TestData.getVoicesData();
         mListView = (ListView) view.findViewById(R.id.listView);
-        ListViewHead.setUp(this, view, mListView);
+        new ListViewHead(this).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);

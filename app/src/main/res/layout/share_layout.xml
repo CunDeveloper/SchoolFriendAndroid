@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shareLayout"
+    android:visibility="gone"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <View
+        android:id="@+id/top_transparent"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/mGridView"
+        android:layout_height="match_parent"/>
+    <GridView
+        android:id="@+id/mGridView"
+        android:padding="@dimen/padding_left"
+        android:layout_width="match_parent"
+        android:numColumns="4"
+        android:background="@drawable/input_dialog_bg"
+        android:layout_above="@+id/bottom_transparent"
+        android:layout_height="250dp"/>
+    <View
+        android:id="@+id/bottom_transparent"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/phone_item_height"/>
+</RelativeLayout>

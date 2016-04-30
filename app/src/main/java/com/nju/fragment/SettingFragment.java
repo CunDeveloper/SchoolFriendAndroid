@@ -44,7 +44,7 @@ public class SettingFragment extends BaseFragment  {
             actionBar.setHomeAsUpIndicator(R.drawable.arrows);
             actionBar.setTitle(R.string.setting);
         }
-        getHostActivity().display(6);
+        getHostActivity().display(7);
     }
 
     @Override

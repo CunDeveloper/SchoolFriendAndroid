@@ -27,7 +27,7 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="@dimen/phone_apadding"
                         android:id="@+id/alumni_vo_imageView"
-                        android:src="@drawable/cheese_1"
+
                         android:layout_marginEnd="@dimen/phone_apadding"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true" />
@@ -165,4 +165,5 @@
         </RelativeLayout>
     </FrameLayout>
     <include layout="@layout/comment_input"/>
+    <include layout="@layout/share_layout"/>
 </RelativeLayout>

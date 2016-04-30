@@ -8,6 +8,7 @@ public interface PathConstant {
     String AUTHOR_SUB_PATH_UPDATE_HEAD_ICON = "updateHeadIcon";
     String AUTHOR_SUB_PATH_GET_AUTHOR_BY_ID = "getAuthorById";
     String AUTHOR_SUB_PATH_GET_AUTHOR_BY_USER_PASS = "getAuthorByNameAndPass";
+    String AUTHOR_SUB_PATH_GET_IMAGE = "getAuthorImage";
 
     String ALUMNI_TALK_PATH = "alumniTalk/";
     String ALUMNI_TALK_SUB_PATH_SAVE = "save";
@@ -98,6 +99,7 @@ public interface PathConstant {
     String ALUMNI_VOICE_IMG_PATH = "alumnusVoice/";
     String ALUMNI_RECOMMEND_IMG_PATH ="recommendWork/";
     String HEAD_ICON_IMG = "headIconImgPath/";
+    String BG_IMAGE = "bgImgPath/";
 
     String REGISTER_PATH = "register";
     String REGISTER_SUB_PATH_PHONE = "phoneNumber";
@@ -105,5 +107,25 @@ public interface PathConstant {
 
     String COLLEGES_PATH = "college/";
     String GET_SCHOOL = "getSchools";
+
+    String DYNAMIC_COLLECT = "dynamicCollect/";
+    String SAVE_DYNAMIC_COLLECT = "save";
+    String DELETE_DYNAMIC_COLLECT = "delete";
+    String GET_DYNAMIC_COLLECT = "getDynamicCollects";
+
+    String VOICE_COLLECT = "voiceCollect/";
+    String SAVE_VOICE_COLLECT = "save";
+    String DELETE_VOICE_COLLECT = "delete";
+    String GET_VOICE_COLLECT = "getVoiceCollects";
+
+    String QUESTION_COLLECT = "questionCollect/";
+    String SAVE_QUESTION_COLLECT = "save";
+    String DELETE_QUESTION_COLLECT = "delete";
+    String GET_QUESTION_COLLECT = "getQuestionCollects";
+
+    String RECOMMEND_COLLECT = "recommendCollect/";
+    String SAVE_RECOMMEND_COLLECT = "save";
+    String DELETE_RECOMMEND_COLLECT = "delete";
+    String GET_RECOMMEND_COLLECT = "getRecommendCollects";
 
 }

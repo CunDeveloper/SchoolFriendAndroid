@@ -12,7 +12,6 @@ import com.nju.activity.BuildConfig;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -52,9 +51,6 @@ public class DiskLruImageCache {
     }
 
     private File getDiskCacheDir(Context context, String uniqueName) {
-
-        // Check if media is mounted or storage is built-in, if so, try and use external cache dir
-        // otherwise use internal cache dir
         final String cachePath =
                 Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
                         !Utils.isExternalStorageRemovable() ?

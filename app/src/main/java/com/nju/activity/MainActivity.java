@@ -1,7 +1,6 @@
 package com.nju.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,7 +24,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.event.MessageEventMore;
-import com.nju.fragment.AlumniCircleFragment;
 import com.nju.fragment.AlumniDynamicFragment;
 import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.AskCollectFragment;
@@ -36,7 +34,6 @@ import com.nju.fragment.DynamicCollectFragment;
 import com.nju.fragment.MajorAskFragment;
 import com.nju.fragment.MyCircleFragment;
 import com.nju.fragment.PublishDynamicFragment;
-import com.nju.fragment.PublishTextWithPicsFragment;
 import com.nju.fragment.PublishVoiceFragment;
 import com.nju.fragment.RecommendCollectFragment;
 import com.nju.fragment.RecommendPublishFragment;
@@ -44,9 +41,9 @@ import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SettingFragment;
 import com.nju.fragment.VoiceCollectFragment;
 import com.nju.fragment.XueXinAuthFragment;
+import com.nju.jersey.JerseyClient;
 import com.nju.test.TestData;
 import com.nju.test.TestToken;
-import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.CryptUtil;
 import com.nju.util.Divice;
@@ -56,17 +53,13 @@ import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.mail.event.MessageChangedEvent;
 
 
 public class MainActivity extends BaseActivity {
@@ -126,6 +119,7 @@ public class MainActivity extends BaseActivity {
         View headerView = mNavigationView.inflateHeaderView(R.layout.nav_header);
         TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
         textView.setText(username);
+
     }
 
     @Override

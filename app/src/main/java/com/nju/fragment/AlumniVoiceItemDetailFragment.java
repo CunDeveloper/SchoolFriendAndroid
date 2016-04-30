@@ -1,5 +1,6 @@
 package com.nju.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -12,19 +13,24 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
+import com.nju.View.ShareView;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
 import com.nju.db.db.service.AlumniVoiceCollectDbService;
+import com.nju.db.db.service.MajorAskCollectDbService;
 import com.nju.event.MessageEventId;
+import com.nju.event.MessageShareEventId;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -32,6 +38,7 @@ import com.nju.model.AlumniVoice;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
+import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -39,6 +46,7 @@ import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ShareUtil;
@@ -46,6 +54,8 @@ import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
+import com.nju.util.WeiXinShare;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -228,6 +238,8 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
     private void initView(final View view){
         mCommentNumberTV = (TextView) view.findViewById(R.id.comment_number_tv);
         mPraiseNumberTV = (TextView) view.findViewById(R.id.praise_number_tv);
+        ImageView headImg = (ImageView) view.findViewById(R.id.alumni_vo_imageView);
+        HeadIcon.setUp(headImg,mVoice.getAuthorInfo());
         TextView nameTV = (TextView) view.findViewById(R.id.alumni_vo_name);
         nameTV.setText(mVoice.getAuthorInfo().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.alumni_vo_label);
@@ -342,12 +354,45 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             }
         });
 
+        collectTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlumniVoiceCollectDbService(getContext()).save(mVoice);
+                AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this,mVoice.getId(), new ResponseCallback() {
+                    @Override
+                    public void onFail(Exception error) {
+                        Log.e(TAG, error.getMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(String responseBody) {
+                        Log.i(TAG, responseBody);
+                        if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                            Log.i(TAG, responseBody);
+                            ParseResponse parseResponse = new ParseResponse();
+                            try {
+                                String str = parseResponse.getInfo(responseBody);
+                                if (str != null && str.equals(Constant.OK_MSG)) {
+                                    ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
+                                    collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                });
+            }
+        });
+
+
 
         TextView shareTV = (TextView) view.findViewById(R.id.share);
         shareTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ShareUtil.share(getContext());
+                ShareView.init(AlumniVoiceItemDetailFragment.this,view);
             }
         });
     }
@@ -379,6 +424,36 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         CommentUtil.getHideLayout(mMainView).setVisibility(View.VISIBLE);
         SoftInput.open(getContext());
         scrollView.scrollTo(0, linearLayout.getBottom());
+    }
+
+    @Subscribe
+    public void onMessageShareEvent(MessageShareEventId eventId){
+        String pageUrl = "http://115.159.186.158:8080/school-friend-service-webapp/SchoolFriendHtml/html/recommedShare.html";
+        CharSequence title,description;
+        try{
+            title = StringBase64.decode(mVoice.getTitle());
+            description = StringBase64.decode(mVoice.getContent());
+        }catch (IllegalArgumentException e){
+            title = Constant.UNKNOWN_CHARACTER;
+            description = Constant.UNKNOWN_CHARACTER;
+        }
+
+        if (mVoice.getImgPaths() != null && !mVoice.getImgPaths().equals("")){
+            String url = PathConstant.IMAGE_PATH_SMALL + PathConstant.ALUMNI_VOICE_IMG_PATH + mVoice.getImgPaths().split(",")[0];
+            Bitmap bitmap = ImageDownloader.with(getContext()).download(url).bitmap();
+
+            if (eventId.getId()== 0){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneSession, getHostActivity().wxApi());
+            }else if (eventId.getId() == 1){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            }
+        }else {
+            if (eventId.getId()== 0){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
+            }else if (eventId.getId() == 1){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            }
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.widget.EditText;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.http.HttpManager;
+import com.nju.http.request.CollectParam;
 import com.nju.http.request.CommentParam;
 import com.nju.http.request.CommentParamId;
 import com.nju.http.request.IdParam;
@@ -128,5 +129,16 @@ public class RecommendWorkService {
         Log.i(TAG, json);
         HttpManager.getInstance().exeRequest(mRequestQueryJson);
         return  mRequestQueryJson;
+    }
+
+    public static PostRequestJson saveCollect(BaseFragment fragment,int id,Callback callback){
+        CollectParam param = new CollectParam(id);
+        final String json = QueryJson.collectToString(fragment, param);
+        String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_COLLECT + PathConstant.SAVE_RECOMMEND_COLLECT;
+        PostRequestJson mRequestQueryJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestQueryJson);
+        return mRequestQueryJson;
     }
 }

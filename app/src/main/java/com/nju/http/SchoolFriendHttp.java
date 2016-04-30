@@ -1,8 +1,11 @@
 package com.nju.http;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.util.Log;
 
+import com.nju.image.Utils;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.Image;
 import com.squareup.okhttp.Call;
@@ -48,6 +51,7 @@ public class SchoolFriendHttp {
     private static SchoolFriendHttp mInstance;
     private static OkHttpClient mClient;
     private static BlockingDeque<Request> requestQueue;
+    private static final String FILENAME = "schoolFriendCahce";
 
     private SchoolFriendHttp() {
         if (mClient == null) {
@@ -61,6 +65,8 @@ public class SchoolFriendHttp {
             mClient.setCookieHandler(cookieManager);
         }
     }
+
+
 
     public static SchoolFriendHttp getInstance() {
         if (mInstance == null) {

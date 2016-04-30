@@ -3,6 +3,7 @@ package com.nju.util;
 import android.graphics.Bitmap;
 
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXFileObject;
 import com.tencent.mm.sdk.modelmsg.WXImageObject;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXMusicObject;
@@ -105,6 +106,40 @@ public class WeiXinShare {
 
         api.sendReq(req);
     }
+
+    public static void webPage(String url,String title,String description,int ascene,IWXAPI api){
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = url;
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = title;
+        msg.description = description;
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webpage");
+        req.message = msg;
+        req.scene = ascene;
+
+        api.sendReq(req);
+    }
+
+    public static void localFile(String url,String title,String description,Bitmap thumb,int ascene,IWXAPI api){
+        WXFileObject localFile = new WXFileObject();
+        localFile.filePath = url;
+
+        WXMediaMessage msg = new WXMediaMessage(localFile);
+        msg.title = title;
+        msg.description = description;
+
+        Bitmap aThumb = thumb;
+        msg.thumbData = ShareUtil.bmpToByteArray(aThumb, true);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("localFile");
+        req.message = msg;
+        req.scene = ascene;
+
+        api.sendReq(req);
+    }
+
 
 
 

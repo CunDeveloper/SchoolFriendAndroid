@@ -208,7 +208,7 @@ public class RecommendWorkFragment extends BaseFragment {
     private void  setListView(View view){
         //mRecommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        ListViewHead.setUp(this, view, listView);
+        new ListViewHead(this).setUp(listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);

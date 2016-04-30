@@ -12,6 +12,7 @@ import com.nju.fragment.MyDynamicFragment;
 import com.nju.fragment.MyRecommendFragment;
 import com.nju.fragment.MyVoiceFragment;
 import com.nju.fragment.RecommendWorkFragment;
+import com.nju.http.request.CollectParam;
 import com.nju.http.request.CommentParam;
 import com.nju.http.request.CommentParamId;
 import com.nju.http.request.ContentIdParam;
@@ -83,10 +84,24 @@ public class QueryJson {
         return gson.toJson(bodyJson);
     }
 
+    public static String emptyBodyToString(final BaseFragment fragment){
+        RequestBodyJson<String> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody("");
+        return gson.toJson(bodyJson);
+    }
+
     public static String commentAuthorToString(final BaseFragment fragment,final CommentParam commentParam){
         RequestBodyJson<CommentParam> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(commentParam);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String collectToString(final BaseFragment fragment,final CollectParam collectParam){
+        RequestBodyJson<CollectParam> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        bodyJson.setBody(collectParam);
         return gson.toJson(bodyJson);
     }
 

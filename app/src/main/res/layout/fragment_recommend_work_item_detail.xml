@@ -207,8 +207,19 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/collect"
                 android:id="@+id/collect_tv" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_height="match_parent"
+                android:background="@drawable/item_toggle_bg"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/share"
+                android:id="@+id/share_tv" />
         </LinearLayout>
     </RelativeLayout>
     </FrameLayout>
     <include layout="@layout/comment_input"/>
+    <include layout="@layout/share_layout"/>
 </RelativeLayout>

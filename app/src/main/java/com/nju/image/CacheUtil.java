@@ -3,17 +3,10 @@ package com.nju.image;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 import android.util.LruCache;
 
-import com.jakewharton.disklrucache.DiskLruCache;
 import com.nju.util.PathConstant;
-
-import java.io.File;
-import java.io.IOException;
-
-import javax.security.auth.callback.CallbackHandler;
 
 
 /**

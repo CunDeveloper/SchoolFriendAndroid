@@ -44,7 +44,7 @@ public class ParseResponse {
             if (jInfoNode.isArray()){
                 return gson.fromJsonToList(jInfoNode.toString(),aClass);
             } else if (jInfoNode.isObject()){
-                return jInfoNode.asText();
+                return gson.fromJson(jInfoNode.toString(),aClass);
             }
         }
         return null;

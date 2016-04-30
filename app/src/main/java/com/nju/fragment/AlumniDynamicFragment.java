@@ -408,7 +408,6 @@ public class AlumniDynamicFragment extends BaseFragment {
     public void onMessageDegree(MessageEvent event){
         mDegree = event.getMessage();
         mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback,mDegree, Constant.PRE,0);
-        //new ExeCacheTask(this).execute(event.getMessage());
     }
     @Subscribe
     public void onMessageDeleteComment(DeleteCommentEvent event){
@@ -433,7 +432,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private void initListView(final View view){
         mContentEditText = CommentUtil.getCommentEdit(this,view);
         mListView = (ListView) view.findViewById(R.id.listView);
-        ListViewHead.setUp(this,view,mListView);
+        new ListViewHead(this).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);

@@ -1,8 +1,10 @@
 package com.nju.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,18 +20,23 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
+import com.nju.View.ShareView;
 import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
+import com.nju.db.db.service.AlumniVoiceCollectDbService;
 import com.nju.db.db.service.RecommendWorkCollectDbService;
 import com.nju.event.MessageEventId;
+import com.nju.event.MessageShareEventId;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
 import com.nju.model.RecommendWork;
+import com.nju.service.AlumniVoiceService;
 import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -44,6 +51,8 @@ import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
+import com.nju.util.WeiXinShare;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -219,12 +228,45 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
                 sendEmail();
             }
         });
-        TextView collectTV = (TextView) view.findViewById(R.id.collect_tv);
+        final TextView collectTV = (TextView) view.findViewById(R.id.collect_tv);
+
         collectTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new RecommendWorkCollectDbService(getContext()).save(mRecommendWork);
-                ToastUtil.ShowText(getContext(),getString(R.string.collect_ok));
+                 RecommendWorkService.saveCollect(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(), new ResponseCallback() {
+                     @Override
+                     public void onFail(Exception error) {
+                         Log.e(TAG, error.getMessage());
+                     }
+
+                     @Override
+                     public void onSuccess(String responseBody) {
+                         Log.i(TAG, responseBody);
+                         if (FragmentUtil.isAttachedToActivity(RecommendWorkItemDetailFragment.this)) {
+                             Log.i(TAG, responseBody);
+                             ParseResponse parseResponse = new ParseResponse();
+                             try {
+                                 String str = parseResponse.getInfo(responseBody);
+                                 if (str != null && str.equals(Constant.OK_MSG)) {
+                                     ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
+                                     collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                                 }
+                             } catch (IOException e) {
+                                 e.printStackTrace();
+                             }
+                         }
+
+                     }
+                 });
+            }
+        });
+
+        TextView shareView = (TextView) view.findViewById(R.id.share_tv);
+        shareView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareView.init(RecommendWorkItemDetailFragment.this,view);
             }
         });
 
@@ -372,6 +414,38 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         CommentUtil.getHideLayout(mMainView).setVisibility(View.VISIBLE);
         SoftInput.open(getContext());
         scrollView.scrollTo(0, linearLayout.getBottom());
+    }
+
+    @Subscribe
+    public void onMessageShareEvent(MessageShareEventId eventId){
+        String pageUrl = "http://115.159.186.158:8080/school-friend-service-webapp/SchoolFriendHtml/html/recommedShare.html";
+        CharSequence title,description;
+        try{
+            title = StringBase64.decode(mRecommendWork.getTitle());
+            description = StringBase64.decode(mRecommendWork.getContent());
+        }catch (IllegalArgumentException e){
+            title = Constant.UNKNOWN_CHARACTER;
+            description = Constant.UNKNOWN_CHARACTER;
+        }
+
+        if (mRecommendWork.getImgPaths() != null && !mRecommendWork.getImgPaths().equals("")){
+            String url = PathConstant.IMAGE_PATH_SMALL + PathConstant.ALUMNI_RECOMMEND_IMG_PATH + mRecommendWork.getImgPaths().split(",")[0];
+            Bitmap bitmap = ImageDownloader.with(getContext()).download(url).bitmap();
+
+            if (eventId.getId()== 0){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneSession, getHostActivity().wxApi());
+            }else if (eventId.getId() == 1){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            }
+        }else {
+            if (eventId.getId()== 0){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
+            }else if (eventId.getId() == 1){
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            }
+        }
+
+
     }
 
     @Override

@@ -32,6 +32,7 @@ public class ImageDownloader {
     private static final String TAG = ImageDownloader.class.getSimpleName();
     private  static ImageDownloader imageDownloader;
     private static CacheUtil cacheUtil;
+    private Bitmap mBitmap;
     public static ImageDownloader with(Context context){
         if (imageDownloader == null){
             imageDownloader = new ImageDownloader(context);
@@ -44,7 +45,7 @@ public class ImageDownloader {
     }
 
 
-    public BitmapDownloaderTask download(String url,ImageView imageView) {
+    public synchronized BitmapDownloaderTask download(String url,ImageView imageView) {
         if (cancelPotentialDownload(url, imageView)) {
             Bitmap bitmap;
             if ((bitmap=cacheUtil.getBitmapFromMemCache(url))!= null){
@@ -62,6 +63,37 @@ public class ImageDownloader {
             }
         }
         return null;
+    }
+
+    public synchronized ImageDownloader download(String url) {
+            Bitmap bitmap;
+            if ((bitmap=cacheUtil.getBitmapFromMemCache(url))!= null){
+                mBitmap = bitmap;
+                notify();
+                return this;
+            } else {
+                if ((bitmap = cacheUtil.getBitmapFromDiskCache(url)) != null){
+                    mBitmap = bitmap;
+                    notify();
+                    return this;
+                }else {
+                    BitmapDownloaderTask task = new BitmapDownloaderTask(null);
+                    DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
+                    task.execute(url);
+                }
+        }
+        return this;
+    }
+
+    public synchronized Bitmap bitmap(){
+        while (mBitmap == null){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return mBitmap;
     }
 
     private static BitmapDownloaderTask getBitmapDownloaderTask(ImageView imageView) {
@@ -102,37 +134,14 @@ public class ImageDownloader {
         }
     }
 
-   public   static class BitmapDownloaderTask extends AsyncTask<String,Void,Bitmap>{
+   public   class BitmapDownloaderTask extends AsyncTask<String,Void,Bitmap>{
         private String url;
         private final WeakReference<ImageView> imageViewReference;
 
         public BitmapDownloaderTask(ImageView imageView ) {
             imageViewReference = new WeakReference<>(imageView);
-        }
 
-//       Callback callback = new Callback() {
-//           @Override
-//           public void onFailure(Request request, IOException e) {
-//
-//           }
-//
-//           @Override
-//           public void onResponse(Response response) throws IOException {
-//               InputStream inputStream = response.body().byteStream();
-//               Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//               CacheUtil.getInstance().addBitmapToMemoryCache(url,bitmap);
-//               ImageView imageView = imageViewReference.get();
-//               BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
-//               //Change bitmap only if this process is still associated with it
-//              if (BitmapDownloaderTask.this == bitmapDownloaderTask) {
-//                imageView.setImageBitmap(bitmap);
-//              }
-//           }
-//       };
-//       RequestImage requestImage = new RequestImage(mUrl,callback);
-//       public void exe(){
-//           HttpManager.getInstance().exeRequest(requestImage);
-//       }
+        }
 
         @Override
         // Actual download method, run in the task thread
@@ -155,12 +164,15 @@ public class ImageDownloader {
         // Once the image is downloaded, associates it to the imageView
         protected void onPostExecute(Bitmap bitmap) {
             ImageView imageView = imageViewReference.get();
-            BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
-            // Change bitmap only if this process is still associated with it
-            if (this == bitmapDownloaderTask) {
-                Log.i(TAG,"WIDTH = "+bitmap.getWidth()+"HEIGHT = "+bitmap.getHeight());
-                imageView.setImageBitmap(bitmap);
-            }
+            mBitmap = bitmap;
+           if (imageView != null){
+               BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
+               // Change bitmap only if this process is still associated with it
+               if (this == bitmapDownloaderTask) {
+                   Log.i(TAG,"WIDTH = "+bitmap.getWidth()+"HEIGHT = "+bitmap.getHeight());
+                   imageView.setImageBitmap(bitmap);
+               }
+           }
         }
     }
 }

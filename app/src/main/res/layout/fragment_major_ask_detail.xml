@@ -107,4 +107,5 @@
         </RelativeLayout>
     </FrameLayout>
     <include layout="@layout/comment_input"/>
+    <include layout="@layout/share_layout"/>
 </RelativeLayout>
