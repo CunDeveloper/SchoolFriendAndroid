@@ -28,6 +28,7 @@ import com.nju.activity.PraiseEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniTalkAdapter;
 import com.nju.db.db.service.AlumniDynamicDbService;
+import com.nju.event.MessageComplainEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -407,7 +408,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     @Subscribe
     public void onMessageDegree(MessageEvent event){
         mDegree = event.getMessage();
-        mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback,mDegree, Constant.PRE,0);
+        mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, mDegree, Constant.PRE, 0);
     }
     @Subscribe
     public void onMessageDeleteComment(DeleteCommentEvent event){
@@ -429,6 +430,14 @@ public class AlumniDynamicFragment extends BaseFragment {
         dynamicId.set(event.getId());
         deleteContentJson = AlumniTalkService.deleteDynamci(this,event.getId(),deleteContentCallback);
     }
+
+    @Subscribe
+    public void onMessageComplainEvent(MessageComplainEvent event){
+        if (event.getMessage().equals(getString(R.string.complain))){
+            getHostActivity().open(ComplainFragment.newInstance());
+        }
+    }
+
     private void initListView(final View view){
         mContentEditText = CommentUtil.getCommentEdit(this,view);
         mListView = (ListView) view.findViewById(R.id.listView);

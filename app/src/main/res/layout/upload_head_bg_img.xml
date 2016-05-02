@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/black100"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <View
+            android:layout_marginStart="@dimen/padding_left"
+            android:layout_marginRight="@dimen/padding_left"
+            android:layout_width="match_parent"
+
+
+            android:layout_height="@dimen/dp300"
+            android:scaleType="matrix"
+            android:clickable="true"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/line_write_recantale_bg"
+            android:padding="2dp"
+            android:layout_marginStart="@dimen/padding_left"
+            android:layout_marginRight="@dimen/padding_left"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <com.nju.View.CustomImageVIew
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp300"
+                android:scaleType="matrix"
+                android:clickable="true"
+                android:id="@+id/mImageView"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,7 +1,6 @@
 package com.nju.fragment;
 
-import android.app.Activity;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -9,22 +8,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.nju.activity.R;
+import com.nju.adatper.ComplainAdapter;
 import com.nju.util.Divice;
 
 
-public class DetailPersonInfo extends BaseFragment {
+public class ComplainFragment extends BaseFragment {
 
-    public static DetailPersonInfo newInstance( ) {
-        DetailPersonInfo fragment = new DetailPersonInfo();
+    public static ComplainFragment newInstance( ) {
+        ComplainFragment fragment = new ComplainFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
         return fragment;
     }
 
-    public DetailPersonInfo() {
+    public ComplainFragment() {
         // Required empty public constructor
     }
 
@@ -40,8 +43,13 @@ public class DetailPersonInfo extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_detail_person_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_complain, container, false);
+
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
+        ListView listView = (ListView) view.findViewById(R.id.mListview);
+        LinearLayout head = (LinearLayout) inflater.inflate(R.layout.complain_fragment_listhead,listView,false);
+        listView.addHeaderView(head);
+        listView.setAdapter(new ComplainAdapter(getContext()));
         return view;
     }
 
@@ -52,9 +60,14 @@ public class DetailPersonInfo extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.detail_info);
+            actionBar.setTitle(getString(R.string.choose_reason));
         }
-        getHostActivity().display(8);
+        getHostActivity().display(0);
+        getHostActivity().display(0);
+        final Button sendBn =  getHostActivity().getMenuBn();
+        sendBn.setText(getString(R.string.commit));
+        sendBn.setEnabled(false);sendBn.setAlpha(0.8f);
     }
+
 
 }

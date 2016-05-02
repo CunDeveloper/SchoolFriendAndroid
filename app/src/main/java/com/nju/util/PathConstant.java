@@ -5,7 +5,9 @@ public interface PathConstant {
     String BASE_URL = "http://115.159.186.158:8080/school-friend-service-webapp/service/api/";
     String AUTHOR_PATH = "author/";
     String AUTHOR_SUB_PATH_REGISTER = "register";
+    String AUTHOR_SUB_PATH_LOGIN = "login";
     String AUTHOR_SUB_PATH_UPDATE_HEAD_ICON = "updateHeadIcon";
+    String AUTHOR_SUB_PATH_UPDATE_BG_ICON = "updateBgImg";
     String AUTHOR_SUB_PATH_GET_AUTHOR_BY_ID = "getAuthorById";
     String AUTHOR_SUB_PATH_GET_AUTHOR_BY_USER_PASS = "getAuthorByNameAndPass";
     String AUTHOR_SUB_PATH_GET_IMAGE = "getAuthorImage";
@@ -32,6 +34,7 @@ public interface PathConstant {
 
     String USER_DEGREE_INFO_PATH = "userDegreeInfo/";
     String USER_DEGREE_INFO_SUB_PATH_SAVE = "save";
+    String USER_DEGREE_IS_AUTHORIZATION = "isAuthorization";
 
     String AUTHORIZATION_PATH = "authorization/";
     String AUTHORIZATION_SUB_PATH_XUE_XIN_NET = "xueXinNet";

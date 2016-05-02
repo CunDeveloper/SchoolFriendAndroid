@@ -20,4 +20,6 @@
     <dimen name="small_circle">50dp</dimen>
     <dimen name="bottom_margin">120dp</dimen>
     <dimen name="FIVE_DP">5dp</dimen>
+    <dimen name="dp50">50dp</dimen>
+    <dimen name="dp300">300dp</dimen>
 </resources>

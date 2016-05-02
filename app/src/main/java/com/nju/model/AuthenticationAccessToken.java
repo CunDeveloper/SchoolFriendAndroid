@@ -4,7 +4,6 @@ public class AuthenticationAccessToken {
 
     private String tokenId;
     private int userId;
-    private String userName;
     private String diviceId;
     private String appId;
 
@@ -16,13 +15,6 @@ public class AuthenticationAccessToken {
         this.tokenId = tokenId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getDiviceId() {
         return diviceId;

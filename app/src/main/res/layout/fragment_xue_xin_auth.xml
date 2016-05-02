@@ -11,7 +11,11 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/holo_red_light"
             android:id="@+id/fragment_xue_xin_tip_textView" />
-
+    <LinearLayout
+        android:id="@+id/authorizationLayout"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
         <android.support.design.widget.TextInputLayout
             android:id="@+id/username_text_input_layout"
             android:layout_width="match_parent"
@@ -42,35 +46,129 @@
                 android:inputType="textPassword"
                 android:hint="密码" />
         </android.support.design.widget.TextInputLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:gravity="center"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/fragment_xue_xin_captcha_layout"
+             android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/password_text_input_captcha"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentStart="true"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/etCaptcha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:hint="@string/captcha" />
+            </android.support.design.widget.TextInputLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:foreground="@color/colorPrimaryDark"
+                android:layout_toEndOf="@+id/password_text_input_captcha"
+                android:id="@+id/fragment_xue_xin_auth_image"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/loginLayout"
         android:visibility="gone"
-        android:id="@+id/fragment_xue_xin_captcha_layout"
-         android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/password_text_input_captcha"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentStart="true"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
             <EditText
-                android:id="@+id/etCaptcha"
+                android:id="@+id/etLoginname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:ems="10"
-                android:hint="@string/captcha" />
+                android:ems="15"
+                android:hint="@string/please_input_username" />
         </android.support.design.widget.TextInputLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:foreground="@color/colorPrimaryDark"
-            android:layout_toEndOf="@+id/password_text_input_captcha"
-            android:id="@+id/fragment_xue_xin_auth_image"
-            />
-    </RelativeLayout>
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etLoginpass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:ems="15"
+                android:inputType="textPassword"
+                android:hint="密码" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/register_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etReUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:ems="15"
+                android:hint="@string/please_input_username" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etRePassword"
+                android:layout_width="wrap_content"
+                android:inputType="textPassword"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:ems="15"
+                android:hint="@string/please_input_password" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etReSurePassword"
+                android:layout_width="wrap_content"
+                android:inputType="textPassword"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:ems="15"
+                android:hint="@string/please_re_input_password" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
@@ -87,6 +185,25 @@
             android:elevation="2dp"
             android:id="@+id/fragment_xue_xin_auth_bn"
             android:layout_gravity="center_horizontal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/phone_apadding"
+        android:paddingStart="@dimen/padding_left"
+        android:paddingEnd="@dimen/padding_left"
+        android:layout_height="@dimen/phone_item_height">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/more"
+            android:textColor="@color/light_blue"
+            android:id="@+id/moreTV"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="27dp" />
+    </RelativeLayout>
 
     </LinearLayout>
 

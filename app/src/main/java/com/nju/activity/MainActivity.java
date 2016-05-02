@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity {
         getSharedPreferences().edit().putInt(Constant.USER_ID,1).commit();
         getSharedPreferences().edit().putInt(getString(R.string.authorId), 1).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
-        getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(gson.toJson(TestToken.getToken()))).commit();
+
         //设置推荐工作的默认查询参数
         setRecommendWorkDefaultQueryParam();
     }
@@ -306,10 +306,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public String token() {
-        if (token == null) {
-            token = getSharedPreferences().getString(Constant.AUTHORIZATION,"");
-        }
-        return token;
+        return getSharedPreferences().getString(Constant.AUTHORIZATION,"");
     }
 
     @Override

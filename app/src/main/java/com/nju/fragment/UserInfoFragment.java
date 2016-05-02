@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
@@ -49,11 +51,18 @@ public class UserInfoFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
-        mListView = (ListView) view;
+        mListView = (ListView) view.findViewById(R.id.mListview);
         View headView = inflater.inflate(R.layout.fragment_user_info_listview_header,mListView,false);
         mListView.addHeaderView(headView);
         initHeaderText(headView);
-        mListView.setAdapter(new UserInfoAdapter(getContext(),mUserInfos));
+        mListView.setAdapter(new UserInfoAdapter(getContext(), mUserInfos));
+        LinearLayout footLayout = (LinearLayout) view.findViewById(R.id.bottom_foot);
+        footLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(AuthorRegisterFragment.newInstance());
+            }
+        });
         return view;
     }
 

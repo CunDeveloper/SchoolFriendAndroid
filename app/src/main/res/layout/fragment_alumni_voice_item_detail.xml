@@ -25,6 +25,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:scaleType="fitXY"
                         android:layout_marginStart="@dimen/phone_apadding"
                         android:id="@+id/alumni_vo_imageView"
 

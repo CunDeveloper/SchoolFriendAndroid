@@ -7,7 +7,7 @@ public class Constant {
 
     public static final String DB_NAME = "school_friend";
     public static final int MAX_BUFFER = 16384;
-    public static final String BASE_URL = "http://114.215.105.94:8080/SchoolFriend";
+    public static final String BASE_URL = "http://115.159.186.158:8080/SchoolFriend";
     public static final String XUE_AUTH = BASE_URL + "/XueXinAuthController";
     public static final String XUE_XIN_USERNAME = "username";
     public static final String XUE_XIN_PASSWORD = "password";

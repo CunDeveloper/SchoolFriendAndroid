@@ -21,6 +21,9 @@ import com.nju.http.request.QueryLimit;
 import com.nju.http.request.QueryLimitLabel;
 import com.nju.http.request.QueryLimitType;
 import com.nju.http.request.RequestBodyJson;
+import com.nju.model.AuthenticationAccessToken;
+import com.nju.model.Author;
+import com.nju.model.AuthorInfo;
 import com.nju.test.TestToken;
 import com.nju.util.Constant;
 import com.nju.util.CryptUtil;
@@ -33,6 +36,8 @@ import java.util.ArrayList;
  */
 public class QueryJson {
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private static final String TAG = QueryJson.class.getSimpleName();
+
     public static String queryLimitToString(final BaseFragment fragment,String dir){
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
@@ -48,6 +53,13 @@ public class QueryJson {
         limit.setRowId(rowId);
         limit.setDir(dir);
         bodyJson.setBody(limit);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String saveAuthorToString(final BaseFragment fragment,Author authorInfo){
+        RequestBodyJson<Author> bodyJson = new RequestBodyJson<>();
+        bodyJson.setAuthorization("");
+        bodyJson.setBody(authorInfo);
         return gson.toJson(bodyJson);
     }
 
@@ -87,6 +99,8 @@ public class QueryJson {
     public static String emptyBodyToString(final BaseFragment fragment){
         RequestBodyJson<String> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization(fragment.getHostActivity().token());
+        String token = CryptUtil.dataDecryption(fragment.getHostActivity().token());
+        Log.i(TAG,token);
         bodyJson.setBody("");
         return gson.toJson(bodyJson);
     }

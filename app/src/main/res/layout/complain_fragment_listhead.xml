@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/light_gray"
+    android:paddingStart="@dimen/phone_apadding"
+    android:paddingEnd="@dimen/phone_apadding"
+    android:gravity="bottom"
+    android:layout_height="@dimen/phone_item_height">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/please_complain_reason"
+        android:id="@+id/textView50" />
+</LinearLayout>

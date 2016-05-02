@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.CommentOtherEvent;
 import com.nju.activity.DeleteCommentEvent;
 import com.nju.activity.MessageContentIdEvent;
@@ -31,6 +32,7 @@ import com.nju.util.DateUtil;
 import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
+import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -83,6 +85,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
             holder.commentListView.addHeaderView(holder.listViewHead);
             holder.mPicGridView = (GridView) convertView.findViewById(R.id.pics_gridview);
+
             convertView.setTag(holder);
 
         }
@@ -173,6 +176,14 @@ public class AlumniTalkAdapter extends BaseAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 EventBus.getDefault().post(new CommentOtherEvent(comments.get(position - 1)));
+            }
+        });
+
+        holder.mPicGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listItemDialog(mContext.getContext()).show();
+                return true;
             }
         });
 

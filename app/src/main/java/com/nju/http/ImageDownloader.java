@@ -169,7 +169,6 @@ public class ImageDownloader {
                BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
                // Change bitmap only if this process is still associated with it
                if (this == bitmapDownloaderTask) {
-                   Log.i(TAG,"WIDTH = "+bitmap.getWidth()+"HEIGHT = "+bitmap.getHeight());
                    imageView.setImageBitmap(bitmap);
                }
            }

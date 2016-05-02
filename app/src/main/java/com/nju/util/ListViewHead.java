@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.DetailPersonInfo;
+import com.nju.fragment.SingleChoosePicFragment;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.response.ParseResponse;
@@ -52,6 +54,8 @@ public class ListViewHead {
                         if (object instanceof AuthorImage){
                             AuthorImage authorImage = (AuthorImage) object;
                             String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + authorImage.getHeadIconUrl();
+                            mFragment.getHostActivity().getSharedPreferences().edit()
+                                    .putString(mFragment.getString(R.string.head_url),headUrl).commit();
                             Log.i(TAG,headUrl);
                             ImageDownloader.with(mFragment.getContext()).download(headUrl, mHeadImage);
 
@@ -81,7 +85,13 @@ public class ListViewHead {
             @Override
             public void onClick(View v) {
                 String[] strings = {mFragment.getString(R.string.changePhotoPage)};
-                SchoolFriendDialog.listItemDialog(mFragment.getContext(),strings).show();
+                SchoolFriendDialog.listItemDialog(mFragment.getContext(), strings, new SchoolFriendDialog.ListItemCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                       SingleChoosePicFragment fragment = SingleChoosePicFragment.newInstance(mFragment.getString(R.string.update_bg));
+                        mFragment.getHostActivity().open(fragment,fragment);
+                    }
+                }).show();
             }
         });
         listView.addHeaderView(head);

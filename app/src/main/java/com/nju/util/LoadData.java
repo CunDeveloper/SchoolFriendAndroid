@@ -43,16 +43,18 @@ public class LoadData {
             ParseResponse parseResponse = new ParseResponse();
             try{
                 String info = parseResponse.getInfo(responseBody);
-                Log.i(TAG,info);
-                Map<String,ArrayList<String>> colleges = gson.fromJsonToMap(info);
-                for (Map.Entry<String,ArrayList<String>> entry:colleges.entrySet()){
-                    Log.i(TAG,entry.getKey());
-                    for (String str:entry.getValue()){
-                        Log.i(TAG,str);
+                if (info != null){
+                    Log.i(TAG,info+"info");
+                    Map<String,ArrayList<String>> colleges = gson.fromJsonToMap(info);
+                    for (Map.Entry<String,ArrayList<String>> entry:colleges.entrySet()){
+                        Log.i(TAG,entry.getKey());
+                        for (String str:entry.getValue()){
+                            Log.i(TAG,str);
+                        }
                     }
+                    mBaseActivity.getSharedPreferences().edit()
+                            .putString(Constant.COLLEGES,info).commit();
                 }
-                mBaseActivity.getSharedPreferences().edit()
-                        .putString(Constant.COLLEGES,info).commit();
             }catch (IOException e){
 
             }

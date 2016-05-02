@@ -29,6 +29,7 @@
             android:layout_marginEnd="10dp"
             android:id="@+id/head_icon_img"
             android:src="@drawable/head2"
+            android:scaleType="fitXY"
             android:background="@drawable/head_icon_bg"
             android:layout_gravity="right"
             android:layout_alignParentTop="true"

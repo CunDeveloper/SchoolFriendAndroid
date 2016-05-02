@@ -20,6 +20,28 @@ public class AuthorInfo implements Parcelable {
     private String authorName;
     private String headUrl;
     private String label;
+    private String username;
+    private String password;
+
+    public static Creator<AuthorInfo> getCREATOR() {
+        return CREATOR;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public AuthorInfo(int authorId, String authorName) {
         this.authorId = authorId;

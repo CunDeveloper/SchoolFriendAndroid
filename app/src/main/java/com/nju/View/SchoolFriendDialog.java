@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.activity.MessageDeleteEvent;
 import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
+import com.nju.event.MessageComplainEvent;
 import com.nju.util.Constant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,6 +72,28 @@ public class SchoolFriendDialog extends MaterialDialog {
         return new SchoolFriendDialog(builder);
     }
 
+    public static SchoolFriendDialog listItemDialog(final Context context, final String[] itmes,ListItemCallback callback) {
+        Builder builder = new Builder(context)
+                .items(itmes).contentColor(ContextCompat.getColor(context, android.R.color.black))
+                .itemsCallback(callback);
+        return new SchoolFriendDialog(builder);
+    }
+
+    public static SchoolFriendDialog listItemDialog(final Context context) {
+        String[] items = {
+                "收藏",
+                "投诉"
+        };
+        Builder builder = new Builder(context)
+                .items(items).contentColor(ContextCompat.getColor(context, android.R.color.black))
+                .itemsCallback(new ListItemCallback(){
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        EventBus.getDefault().post(new MessageComplainEvent(charSequence.toString()));
+                    }
+                });
+        return new SchoolFriendDialog(builder);
+    }
 
 
     public static SchoolFriendDialog singleChoiceListDialog(final Context context, final String title, final String[] itmes, final ListCallbackSingleChoice listCallback) {

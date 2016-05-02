@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.http.ImageDownloader;
 import com.nju.util.Divice;
 import com.nju.util.ToastUtil;
 
@@ -58,6 +61,12 @@ public class SettingFragment extends BaseFragment  {
     }
 
     private void addViewEvent(View view){
+        ImageView headImg = (ImageView) view.findViewById(R.id.headIconImg);
+        String headUrl = getHostActivity().getSharedPreferences().
+                getString(getString(R.string.head_url),"");
+        if (! headUrl.equals("")){
+            ImageDownloader.with(getContext()).download(headUrl,headImg);
+        }
         TextView functionTV = (TextView) view.findViewById(R.id.function_desc);
         functionTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +116,14 @@ public class SettingFragment extends BaseFragment  {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        RelativeLayout headLayout = (RelativeLayout) view.findViewById(R.id.setHeadLayout);
+        headLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(SingleChoosePicFragment.newInstance(getString(R.string.update_head)));
             }
         });
     }
