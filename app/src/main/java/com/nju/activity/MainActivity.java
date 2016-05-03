@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.nju.View.RoundedTransformation;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.event.MessageEventMore;
@@ -41,16 +42,13 @@ import com.nju.fragment.RecommendWorkFragment;
 import com.nju.fragment.SettingFragment;
 import com.nju.fragment.VoiceCollectFragment;
 import com.nju.fragment.XueXinAuthFragment;
-import com.nju.jersey.JerseyClient;
-import com.nju.test.TestData;
-import com.nju.test.TestToken;
 import com.nju.util.Constant;
-import com.nju.util.CryptUtil;
 import com.nju.util.Divice;
 import com.nju.util.LoadData;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
+import com.squareup.picasso.Picasso;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -70,8 +68,9 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolBar;
     private Button mMenuBn;
-    private ImageView mMenuCameraView;
-    private TextView mMenuDeleteView;
+    private ImageView mMenuCameraView,mNavHeadImg;
+    private TextView mMenuDeleteView,mNavNameTV;
+
     private LinearLayout mNoActionBarLinearLayout,mNoActionBarRecommendWorkLinearLayout;
     private static boolean isPhone;
     private static final String FINAL_TAG = "final_tag";
@@ -90,15 +89,24 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initView();
         initNavigationViewListener();
-        XueXinAuthFragment fragment = XueXinAuthFragment.newInstance();
-        open(fragment, true, fragment);
         initDataBase();
+        int isAuthorization = getSharedPreferences().getInt(getString(R.string.is_authorization),0);
+        if (token().equals("")){
+            XueXinAuthFragment fragment = XueXinAuthFragment.newInstance(getString(R.string.noToken));
+            open(fragment, true, fragment);
+        } else if (isAuthorization == 0){
+            XueXinAuthFragment fragment = XueXinAuthFragment.newInstance(getString(R.string.hasToken));
+            open(fragment, true, fragment);
+        } else if (isAuthorization == 1){
+            open(AlumniDynamicFragment.newInstance());
+        }
     }
 
     private void initView(){
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mMenuBn = (Button) findViewById(R.id.main_viewpager_menu_bn);
         mMenuDeleteView = (TextView) findViewById(R.id.main_viewpager_menu_delete_img);
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
@@ -117,9 +125,13 @@ public class MainActivity extends BaseActivity {
         String username = getSharedPreferences(getString(R.string.shared_file_name), Context.MODE_PRIVATE).
                 getString(getString(R.string.username), getString(R.string.visitor));
         View headerView = mNavigationView.inflateHeaderView(R.layout.nav_header);
-        TextView textView = (TextView) headerView.findViewById(R.id.nav_header_username);
-        textView.setText(username);
-
+        mNavNameTV = (TextView) headerView.findViewById(R.id.nav_header_username);
+        mNavNameTV.setText(username);
+        mNavHeadImg = (ImageView) headerView.findViewById(R.id.headIMG);
+        Picasso.with(getBaseContext()).load(R.drawable.cheese_3)
+                .transform(new RoundedTransformation(R.dimen.bottom_choose_height, 4))
+                .resizeDimen(R.dimen.bottom_choose_height, R.dimen.bottom_choose_height).centerCrop()
+                .into(mNavHeadImg);
     }
 
     @Override
@@ -175,11 +187,8 @@ public class MainActivity extends BaseActivity {
         Set<String> levels = new HashSet<>();levels.add("本科");levels.add("所有");levels.add("硕士");
         Set<String> degrees = new HashSet<>();
         degrees.add("本科;2010");degrees.add("硕士;2014");
-        getSharedPreferences().edit().putStringSet(Constant.DEGREES,degrees).commit();
+        getSharedPreferences().edit().putStringSet(Constant.DEGREES, degrees).commit();
         getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
-        getSharedPreferences().edit().putInt(Constant.USER_ID,1).commit();
-        getSharedPreferences().edit().putInt(getString(R.string.authorId), 1).commit();
-        getSharedPreferences().edit().putStringSet(getString(R.string.undergraduateCollege), TestData.getUndergraduateCollege()).commit();
 
         //设置推荐工作的默认查询参数
         setRecommendWorkDefaultQueryParam();
@@ -306,12 +315,32 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public String token() {
-        return getSharedPreferences().getString(Constant.AUTHORIZATION,"");
+        return getSharedPreferences().getString(Constant.AUTHORIZATION,"").trim();
     }
 
     @Override
     public int userId() {
         return getSharedPreferences().getInt(Constant.USER_ID,0);
+    }
+
+    @Override
+    public void closeDrawLayout() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void openDrawLayout() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    @Override
+    public TextView navNameTV() {
+        return mNavNameTV;
+    }
+
+    @Override
+    public ImageView navHeadImg() {
+        return mNavHeadImg;
     }
 
     @Override

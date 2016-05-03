@@ -36,4 +36,8 @@ public interface FragmentHostActivity {
     String token();
     int userId();
     IWXAPI wxApi();
+    void closeDrawLayout();
+    void openDrawLayout();
+    TextView navNameTV();
+    ImageView navHeadImg();
 }

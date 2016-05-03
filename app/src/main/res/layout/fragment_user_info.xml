@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/click_step_finish_register"
+            android:text="@string/congruation_ok_click_continue"
             android:id="@+id/textView48" />
     </LinearLayout>
 </RelativeLayout>

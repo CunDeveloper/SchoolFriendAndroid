@@ -222,6 +222,17 @@
     <string name="update_bg">update_bg</string>
     <string name="update_ok">更新成功</string>
     <string name="login_error">登录失败</string>
-    <string name="logining">正在登录</string>
+    <string name="logining">正在登录...</string>
+    <string name="registering">正在注册...</string>
+    <string name="xuexin_title">中国高等教育学生信息网</string>
+    <string name="xuexin_detail">教育部制定的唯一学历查询网站</string>
+    <string name="congruation_ok_click_continue">授权成功,点击使用</string>
+    <string name="degree_info">学位信息</string>
+    <string name="is_authorization">isAuthorization</string>
+    <string name="noToken">noToken</string>
+    <string name="hasToken">hasToken</string>
+    <string name="tip">提示</string>
+    <string name="sure_exit_alumnus_group">确定退出校友圈</string>
+    <string name="person_info">person_info</string>
 
 </resources>

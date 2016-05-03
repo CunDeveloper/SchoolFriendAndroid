@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.nju.View.RoundedTransformation;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.CommentEvent;
 import com.nju.activity.CommentOtherEvent;
@@ -44,9 +46,11 @@ import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
+import com.nju.util.LoadData;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.ToastUtil;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -308,7 +312,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        new LoadData(this).loadPersonInfo();
     }
 
     @Override
@@ -325,8 +329,25 @@ public class AlumniDynamicFragment extends BaseFragment {
         mainView = view;
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getBottom());
         initListView(view);
+        getHostActivity().openDrawLayout();
         setUpOnRefreshListener(view);
         BottomToolBar.show(this, view);
+        TextView navNameTv = getHostActivity().navNameTV();
+        String username = getHostActivity().getSharedPreferences().getString(getString(R.string.username),"");
+        if (!username.equals("")){
+            navNameTv.setText(username);
+        }else {
+            navNameTv.setText("访客");
+        }
+
+        ImageView navImg = getHostActivity().navHeadImg();
+        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url),"");
+        if (!headUrl.equals("")){
+            Picasso.with(getContext()).load(R.drawable.cheese_3)
+                    .transform(new RoundedTransformation(R.dimen.bottom_choose_height, 4))
+                    .resizeDimen(R.dimen.bottom_choose_height, R.dimen.bottom_choose_height).centerCrop()
+                    .into(navImg);
+        }
         return view;
     }
     @Override

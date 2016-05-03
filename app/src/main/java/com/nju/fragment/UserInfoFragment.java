@@ -2,6 +2,8 @@ package com.nju.fragment;
 
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +24,24 @@ import java.util.ArrayList;
 public class UserInfoFragment extends BaseFragment {
 
     public static final String TAG = UserInfoFragment.class.getSimpleName() ;
+    private static final String LABEL_PARAM = "labelParam";
+    private CharSequence mLabel ="";
     private static final String USER_INFO = "user_info";
     private ArrayList<UserInfo> mUserInfos = null;
     private ListView mListView;
-    public static UserInfoFragment newInstance(ArrayList<UserInfo> userInfos ) {
+    public static UserInfoFragment newInstance(ArrayList<UserInfo> userInfos,String label) {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(USER_INFO,userInfos);
+        args.putString(LABEL_PARAM,label);
+        fragment.setArguments(args );
+        return fragment;
+    }
+
+    public static UserInfoFragment newInstance(ArrayList<UserInfo> userInfos) {
+        UserInfoFragment fragment = new UserInfoFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(USER_INFO, userInfos);
         fragment.setArguments(args );
         return fragment;
     }
@@ -42,6 +55,7 @@ public class UserInfoFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if(getArguments()!=null) {
             mUserInfos = getArguments().getParcelableArrayList(USER_INFO);
+            mLabel = getArguments().getString(LABEL_PARAM);
         }
     }
 
@@ -57,13 +71,28 @@ public class UserInfoFragment extends BaseFragment {
         initHeaderText(headView);
         mListView.setAdapter(new UserInfoAdapter(getContext(), mUserInfos));
         LinearLayout footLayout = (LinearLayout) view.findViewById(R.id.bottom_foot);
+        if (mLabel.toString().equals(getString(R.string.person_info))){
+            footLayout.setVisibility(View.GONE);
+        }
         footLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(AuthorRegisterFragment.newInstance());
+                getHostActivity().open(AlumniDynamicFragment.newInstance());
             }
         });
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar!=null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle(R.string.degree_info);
+        }
+        getHostActivity().display(9);
     }
 
     private void initHeaderText(View view){

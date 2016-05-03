@@ -25,4 +25,15 @@ public class UserDegreeInfoService {
         HttpManager.getInstance().exeRequest(mRequestQueryJson);
         return mRequestQueryJson;
     }
+
+    public static PostRequestJson query(BaseFragment fragment,Callback callback){
+        final String json = QueryJson.emptyBodyToString(fragment);
+        String url = PathConstant.BASE_URL+PathConstant.USER_DEGREE_INFO_PATH + PathConstant.USER_DEGREE_QUERY;
+        PostRequestJson mRequestQueryJson = new PostRequestJson(url,json,callback);
+        Log.e(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestQueryJson);
+        return mRequestQueryJson;
+    }
+
 }

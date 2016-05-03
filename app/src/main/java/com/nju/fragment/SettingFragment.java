@@ -10,8 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
+import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.ToastUtil;
 
@@ -115,7 +119,21 @@ public class SettingFragment extends BaseFragment  {
         exitTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final SchoolFriendDialog dialog = SchoolFriendDialog.remindDialog(getContext(), getString(R.string.tip), getString(R.string.sure_exit_alumnus_group));
+                dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION,"").commit();
+                        getActivity().finish();
+                    }
+                });
+                dialog.getBuilder().onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
 
@@ -126,6 +144,7 @@ public class SettingFragment extends BaseFragment  {
                 getHostActivity().open(SingleChoosePicFragment.newInstance(getString(R.string.update_head)));
             }
         });
+
     }
 
 

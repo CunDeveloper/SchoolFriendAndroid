@@ -3,12 +3,21 @@ package com.nju.util;
 import android.util.Log;
 
 import com.nju.activity.BaseActivity;
+import com.nju.activity.FragmentHostActivity;
+import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.GetRequest;
 import com.nju.http.request.PostRequestJson;
+import com.nju.http.request.RequestBodyJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
+import com.nju.model.AlumniTalk;
+import com.nju.model.ContentComment;
+import com.nju.model.DegreeInfo;
+import com.nju.model.UserInfo;
+import com.nju.service.UserDegreeInfoService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,15 +31,25 @@ import java.util.Set;
 public class LoadData {
     private static final String TAG = LoadData.class.getSimpleName();
     private BaseActivity mBaseActivity;
+    private BaseFragment mFragment;
     private GetRequest voiceRequest,askRequest;
     private PostRequestJson collegeRequestJson;
     private static SchoolFriendGson gson;
+
     public LoadData(BaseActivity baseActivity){
         mBaseActivity = baseActivity;
         if (gson == null){
             gson = SchoolFriendGson.newInstance();
         }
     }
+
+    public LoadData(BaseFragment fragment){
+         mFragment = fragment;
+        if (gson == null){
+            gson = SchoolFriendGson.newInstance();
+        }
+    }
+
     private ResponseCallback getCollegesCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -126,12 +145,15 @@ public class LoadData {
     };
 
     public LoadData loadCollege(){
-        final String url = PathConstant.BASE_URL+PathConstant.COLLEGES_PATH+PathConstant.GET_SCHOOL;
-        Log.i(TAG,url);
-        String json = QueryJson.emptyBodyToString(mBaseActivity);
-        Log.i(TAG,json);
-        collegeRequestJson = new PostRequestJson(url,json,getCollegesCallback);
-        HttpManager.getInstance().exeRequest(collegeRequestJson);
+        String colleges = mBaseActivity.getSharedPreferences().getString(Constant.COLLEGES, "");
+        if (colleges.equals("")){
+            final String url = PathConstant.BASE_URL+PathConstant.COLLEGES_PATH+PathConstant.GET_SCHOOL;
+            Log.i(TAG,url);
+            String json = QueryJson.emptyBodyToString(mBaseActivity);
+            Log.i(TAG,json);
+            collegeRequestJson = new PostRequestJson(url,json,getCollegesCallback);
+            HttpManager.getInstance().exeRequest(collegeRequestJson);
+        }
         return this;
     }
 
@@ -148,5 +170,52 @@ public class LoadData {
         HttpManager.getInstance().exeRequest(askRequest);
         return this;
     }
+
+    public  LoadData loadPersonInfo(){
+        final FragmentHostActivity activity = mFragment.getHostActivity();
+        String personInfo = activity.getSharedPreferences().getString(mFragment.getString(R.string.person_info),"");
+        if (personInfo.equals("")){
+            RequestBodyJson<String> bodyJson = new RequestBodyJson<>();
+            bodyJson.setAuthorization(activity.token());
+            bodyJson.setBody("");
+            String body = gson.toJson(bodyJson);
+            String url = PathConstant.BASE_URL+PathConstant.USER_DEGREE_INFO_PATH + PathConstant.USER_DEGREE_QUERY;
+            PostRequestJson mRequestQueryJson = new PostRequestJson(url, body, new ResponseCallback() {
+                @Override
+                public void onFail(Exception error) {
+                    Log.e(TAG,error.getMessage());
+                }
+
+                @Override
+                public void onSuccess(String responseBody) {
+                    Log.i(TAG,responseBody);
+                    ArrayList<DegreeInfo> infos = new ArrayList<>();
+                    ParseResponse parseResponse = new ParseResponse();
+                    try {
+                        Object object = parseResponse.getInfo(responseBody,DegreeInfo.class);
+                        if (object != null) {
+                            ArrayList list = (ArrayList) object;
+                            if (list.size() > 0) {
+                                for (Object obj:list){
+                                    DegreeInfo info = (DegreeInfo) obj;
+                                    infos.add(info);
+                                }
+                                activity.getSharedPreferences().edit().putString(mFragment.
+                                        getString(R.string.person_info),gson.toJson(infos)).commit();
+                                activity.getSharedPreferences().edit().putString(mFragment.getString(R.string.username),infos.get(0).getRealName()).commit();
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            Log.e(TAG, url);
+            Log.i(TAG, body);
+            HttpManager.getInstance().exeRequest(mRequestQueryJson);
+        }
+        return this;
+    }
+
 
 }

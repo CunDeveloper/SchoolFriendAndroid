@@ -136,4 +136,5 @@ public class Constant {
     public static final String COMMENT_OK = "评论成功";
     public static final String DELETE = "删除" ;
     public static final int MAX_ROW = 20;
+    public static final String AUTHOR_ID = "authorId";
 }

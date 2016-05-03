@@ -6,13 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <include layout="@layout/main_viewpager"/>
+    <!--app:headerLayout="@layout/nav_header"-->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
-
         app:menu="@menu/drawer_view"/>
 </android.support.v4.widget.DrawerLayout>

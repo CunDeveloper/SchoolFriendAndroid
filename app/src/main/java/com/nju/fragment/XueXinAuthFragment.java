@@ -57,25 +57,28 @@ public class XueXinAuthFragment extends BaseFragment {
     private static final int ERROR_USER_PASS = 0;
     private static final int USERNAME_EMPTY = 1;
     private static final int PASSWORD_EMPTY = 2;
+    private static final String LABEL_PARAM = "labelParam";
+    private String mLabel;
     private EditText mUserNameEditText;
     private EditText mPassEditText;
     private EditText mCaptchaEditText;
     private TextView mTipTV;
     private ImageView mCaptchaImg;
-    private SchoolFriendDialog mDialog,mLoginDialog,mRegisterDialog;
+    private SchoolFriendDialog mDialog;
     private RelativeLayout mCaptchaLayout;
     private boolean isNeedCaptcha = false;
-    private CharSequence mTitleChar = "授权";
+    private CharSequence mTitleChar = "登录";
     private PostRequest request = new PostRequest();
     private Button mAuthBn;
+    private ArrayList<LinearLayout> mLayouts;
+    private RelativeLayout mXueXinIconLayout;
     private  Handler handler = new MyHandler(this);
 
-
-
-    private ResponseCallback callback = new ResponseCallback() {
+    private ResponseCallback loginCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
             Log.e(TAG,error.getMessage());
+            mDialog.dismiss();
         }
 
         @Override
@@ -83,15 +86,26 @@ public class XueXinAuthFragment extends BaseFragment {
             Log.i(TAG, responseBody);
             if (FragmentUtil.isAttachedToActivity(XueXinAuthFragment.this)) {
                 Log.i(TAG, responseBody);
+                mDialog.dismiss();
                 ParseResponse parseResponse = new ParseResponse();
                 try {
                     String str = parseResponse.getInfo(responseBody);
                     try{
                         int count = Integer.valueOf(str);
                         if (count>0){
+                            getHostActivity().getSharedPreferences().edit().putInt(getString(R.string.is_authorization),1).commit();
                             getHostActivity().open(AlumniDynamicFragment.newInstance(), XueXinAuthFragment.this);
                         }else if (count == 0){
-
+                            mXueXinIconLayout.setVisibility(View.VISIBLE);
+                            for (int i= 0;i<mLayouts.size();i++){
+                                if (i == 2){
+                                    mLayouts.get(i).setVisibility(View.VISIBLE);
+                                    mAuthBn.setText(getString(R.string.authorization));
+                                    setTitle(getString(R.string.authorization));
+                                }else {
+                                    mLayouts.get(i).setVisibility(View.GONE);
+                                }
+                            }
                         }
                     }catch (NumberFormatException e){
                         ToastUtil.showShortText(getContext(),getString(R.string.login_error));
@@ -104,8 +118,12 @@ public class XueXinAuthFragment extends BaseFragment {
         }
     };
 
-    public static XueXinAuthFragment newInstance() {
-        return new XueXinAuthFragment();
+    public static XueXinAuthFragment newInstance(String label) {
+        XueXinAuthFragment fragment = new XueXinAuthFragment();
+        Bundle args = new Bundle();
+        args.putString(LABEL_PARAM,label);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public XueXinAuthFragment() {
@@ -115,7 +133,9 @@ public class XueXinAuthFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (getArguments() != null){
+            mLabel = getArguments().getString(LABEL_PARAM);
+        }
     }
 
     @Override
@@ -123,33 +143,46 @@ public class XueXinAuthFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_xue_xin_auth, container, false);
-        view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         authClick(view);
         editTextChangeListener();
+        if (mLabel.equals(getString(R.string.hasToken))){
+            mXueXinIconLayout.setVisibility(View.VISIBLE);
+            for (int i= 0;i<mLayouts.size();i++){
+                if (i == 2){
+                    mLayouts.get(i).setVisibility(View.VISIBLE);
+                    mAuthBn.setText(getString(R.string.authorization));
+                    setTitle(getString(R.string.authorization));
+                }else {
+                    mLayouts.get(i).setVisibility(View.GONE);
+                }
+            }
+        }
         return view;
     }
 
     private void initView(View view){
-        final ArrayList<LinearLayout> layouts = new ArrayList<>();
-        layouts.add((LinearLayout) view.findViewById(R.id.register_layout));
-        layouts.add((LinearLayout) view.findViewById(R.id.loginLayout));
-        layouts.add((LinearLayout) view.findViewById(R.id.authorizationLayout));
+        mLayouts= new ArrayList<>();
+        mLayouts.add((LinearLayout) view.findViewById(R.id.register_layout));
+        mLayouts.add((LinearLayout) view.findViewById(R.id.loginLayout));
+        mLayouts.add((LinearLayout) view.findViewById(R.id.authorizationLayout));
         mUserNameEditText = (EditText) view.findViewById(R.id.etUsername);
         mPassEditText = (EditText) view.findViewById(R.id.etPassword);
         mCaptchaImg = (ImageView) view.findViewById(R.id.fragment_xue_xin_auth_image);
         mTipTV = (TextView) view.findViewById(R.id.fragment_xue_xin_tip_textView);
         mCaptchaEditText = (EditText) view.findViewById(R.id.etCaptcha);
         mCaptchaLayout = (RelativeLayout) view.findViewById(R.id.fragment_xue_xin_captcha_layout);
+        mXueXinIconLayout = (RelativeLayout) view.findViewById(R.id.xuexinIconLayout);
         mAuthBn = (Button) view.findViewById(R.id.fragment_xue_xin_auth_bn);
+        mAuthBn.setText(mTitleChar);
         TextView moreTV = (TextView) view.findViewById(R.id.moreTV);
         moreTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 String[] items = {
                         getString(R.string.register),
-                        getString(R.string.login),
-                        getString(R.string.authorization)
+                        getString(R.string.login)
                 };
                 SchoolFriendDialog.listItemDialog(getContext(), items, new SchoolFriendDialog.ListItemCallback() {
                     @Override
@@ -157,11 +190,11 @@ public class XueXinAuthFragment extends BaseFragment {
                         mTitleChar = charSequence.toString();
                         mAuthBn.setText(mTitleChar);
                         setTitle(mTitleChar.toString());
-                        for (int i = 0; i < 3; i++) {
+                        for (int i = 0; i < 2; i++) {
                             if (i == position) {
-                                layouts.get(i).setVisibility(View.VISIBLE);
+                                mLayouts.get(i).setVisibility(View.VISIBLE);
                             } else {
-                                layouts.get(i).setVisibility(View.GONE);
+                                mLayouts.get(i).setVisibility(View.GONE);
                             }
                         }
                     }
@@ -214,7 +247,8 @@ public class XueXinAuthFragment extends BaseFragment {
                         String[] strs = result.split(":\\[");
                         String temp = "["+strs[1];
                         ArrayList<UserInfo> userInfos = gson.fromJsonToList(temp.substring(0,temp.length()-1),UserInfo.class);
-                        saveUserInfo(userInfos);
+                        getHostActivity().getSharedPreferences().edit().putString(getString(R.string.person_info),gson.toJson(userInfos)).commit();
+                        getHostActivity().getSharedPreferences().edit().putInt(getString(R.string.is_authorization),1).commit();
                         getHostActivity().open(UserInfoFragment.newInstance(userInfos));
                     }
                 }
@@ -274,7 +308,8 @@ public class XueXinAuthFragment extends BaseFragment {
             if (validate(userName, pass)) {
                 params.put(Constant.XUE_XIN_USERNAME, userName);
                 params.put(Constant.XUE_XIN_PASSWORD, pass);
-                params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
+                params.put(Constant.AUTHOR_ID,getHostActivity().userId()+"");
+                Log.i(TAG,Constant.AUTHOR_ID+getHostActivity().userId());
                 mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
                 mDialog.show();
                 request.setUrl(Constant.XUE_AUTH);
@@ -286,6 +321,7 @@ public class XueXinAuthFragment extends BaseFragment {
             params.put(Constant.XUE_XIN_USERNAME, userName);
             params.put(Constant.XUE_XIN_PASSWORD, pass);
             params.put(Constant.XUE_XIN_CAPTCHA, captcha);
+            params.put(Constant.AUTHOR_ID,getHostActivity().userId()+"");
             params.put(Constant.ANDROID_ID, Divice.getAndroidId(getActivity()));
             request.setParams(params);
             mDialog = SchoolFriendDialog.showProgressDialog(getActivity(), getString(R.string.auth_progress_dialog_title), getString(R.string.auth_progress_dialog_content));
@@ -323,8 +359,9 @@ public class XueXinAuthFragment extends BaseFragment {
                             if (token != null){
                                 String tokenValue = SchoolFriendGson.newInstance().toJson(token);
                                 Log.i(TAG, tokenValue);
+                                getHostActivity().getSharedPreferences().edit().putInt(Constant.USER_ID,token.getUserId()).commit();
                                 getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(tokenValue)).commit();
-                                UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, callback);
+                                UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, loginCallback);
 
                             }
                         } catch (IOException e) {
@@ -341,8 +378,8 @@ public class XueXinAuthFragment extends BaseFragment {
     }
 
     private void register(View view){
-        mDialog = SchoolFriendDialog.showProgressDialog(getContext(),getString(R.string.login)
-                ,getString(R.string.logining));
+        mDialog = SchoolFriendDialog.showProgressDialog(getContext(),getString(R.string.register)
+                ,getString(R.string.registering));
         mDialog.show();
         String loginName =((EditText)view.findViewById(R.id.etReUsername)).getText().toString();
         String password = ((EditText)view.findViewById(R.id.etRePassword)).getText().toString();
@@ -369,10 +406,11 @@ public class XueXinAuthFragment extends BaseFragment {
                             try {
                                 AuthenticationAccessToken token = (AuthenticationAccessToken) parseResponse.getInfo(responseBody, AuthenticationAccessToken.class);
                                 if (token != null){
+                                    getHostActivity().getSharedPreferences().edit().putInt(Constant.USER_ID,token.getUserId()).commit();
                                     String tokenValue = SchoolFriendGson.newInstance().toJson(token);
                                     Log.i(TAG,tokenValue);
                                     getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(tokenValue)).commit();
-                                    UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, callback);
+                                    UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, loginCallback);
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();

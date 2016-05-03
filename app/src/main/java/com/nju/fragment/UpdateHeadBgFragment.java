@@ -99,6 +99,7 @@ public class UpdateHeadBgFragment extends BaseFragment {
                 mDialog.show();
                 final HashMap<String,String> params = new HashMap<>();
                 params.put(Constant.AUTHORIZATION,getHostActivity().token());
+                Log.i(TAG,getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;

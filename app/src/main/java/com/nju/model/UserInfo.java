@@ -27,6 +27,7 @@ public class UserInfo implements Parcelable {
     private String major;
     private String date;
 
+
     public UserInfo() {
 
     }
