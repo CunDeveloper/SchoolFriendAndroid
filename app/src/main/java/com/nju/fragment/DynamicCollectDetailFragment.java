@@ -68,7 +68,7 @@ public class DynamicCollectDetailFragment extends BaseFragment {
             }
 
         } else {
-            contentImg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cheese_2));
+            contentImg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.head));
         }
     }
 }

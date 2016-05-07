@@ -50,7 +50,7 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person_circle_detail_pic, container, false);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cheese_1);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head);
         SchoolFriendTextView textView = (SchoolFriendTextView) view.findViewById(R.id.fragment_person_circle_detail_pic_content_tv);
         textView.setText(mContents.get(0).getContent());
         initViewPager(view);

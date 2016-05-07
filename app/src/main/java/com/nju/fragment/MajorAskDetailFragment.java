@@ -319,6 +319,14 @@ public class MajorAskDetailFragment extends BaseFragment {
             Log.e(TAG, mAlumniQuestion.getImgPaths());
             listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH, mAlumniQuestion.getImgPaths().split(",")));
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CircleImageViewFragment fragment = CircleImageViewFragment.
+                        newInstance(mAlumniQuestion.getImgPaths().split(","), position, PathConstant.ALUMNI_QUESTION_IMG_PATH);
+                getHostActivity().open(fragment,fragment);
+            }
+        });
 
     }
 

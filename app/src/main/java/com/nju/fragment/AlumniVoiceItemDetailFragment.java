@@ -299,6 +299,14 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             Log.e(TAG, mVoice.getImgPaths());
             listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH, mVoice.getImgPaths().split(",")));
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CircleImageViewFragment fragment = CircleImageViewFragment.
+                        newInstance(mVoice.getImgPaths().split(","), position, PathConstant.ALUMNI_VOICE_IMG_PATH);
+                getHostActivity().open(fragment,fragment);
+            }
+        });
         TextView deleteTV = (TextView) view.findViewById(R.id.delete_tv);
         if (mVoice.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
             deleteTV.setText(Constant.DELETE);

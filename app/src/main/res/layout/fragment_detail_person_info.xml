@@ -17,7 +17,7 @@
             android:layout_height="50dp"
             android:id="@+id/imageView"
             android:layout_marginEnd="@dimen/phone_apadding"
-            android:src="@drawable/head2"
+            android:src="@drawable/head"
             android:scaleType="fitXY"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />

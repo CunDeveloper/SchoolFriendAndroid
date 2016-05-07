@@ -66,7 +66,11 @@ public class ComplainAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                radioButton.setChecked(true);
+                if (radioButton.isChecked()){
+                    radioButton.setChecked(false);
+                }else {
+                    radioButton.setChecked(true);
+                }
             }
         });
         return convertView;

@@ -49,6 +49,8 @@
                         android:layout_width="match_parent"
                         android:paddingStart="@dimen/phone_apadding"
                         android:paddingEnd="@dimen/phone_apadding"
+                        android:divider="@android:color/white"
+                        android:dividerHeight="@dimen/phone_apadding"
                         android:id="@+id/listView"
                         android:layout_height="wrap_content"/>
                     <LinearLayout

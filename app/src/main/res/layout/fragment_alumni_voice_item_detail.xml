@@ -85,6 +85,8 @@
                         android:id="@+id/listView"
                         android:layout_marginStart="@dimen/phone_apadding"
                         android:layout_marginEnd="@dimen/phone_apadding"
+                        android:divider="@android:color/white"
+                        android:dividerHeight="@dimen/phone_apadding"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <LinearLayout

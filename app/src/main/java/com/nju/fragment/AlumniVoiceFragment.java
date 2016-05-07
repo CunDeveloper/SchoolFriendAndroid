@@ -21,6 +21,7 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniVoiceItemAdapter;
 import com.nju.db.db.service.AlumniVoiceDbService;
+import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.NetworkInfoEvent;
@@ -271,6 +272,13 @@ public class AlumniVoiceFragment extends BaseFragment {
     public void onMessageDegree(MessageEvent event) {
         mDegree = event.getMessage();
         mRequestJson = AlumniVoiceService.queryVoices(AlumniVoiceFragment.this, callback, event.getMessage(), Constant.PRE, 0);
+    }
+
+    @Subscribe
+    public void onMessageComplainEvent(MessageComplainEvent event) {
+        if (event.getMessage().equals(getString(R.string.complain))) {
+            ComplainFragment fragment = ComplainFragment.newInstance();
+            getHostActivity().open(fragment,fragment);        }
     }
 
     @Override

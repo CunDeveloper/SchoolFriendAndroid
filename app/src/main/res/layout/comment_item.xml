@@ -10,7 +10,7 @@
          android:layout_height="40dp"
          android:scaleType="fitXY"
          android:layout_marginEnd="@dimen/padding_left"
-         android:src="@drawable/cheese_4"
+         android:src="@drawable/head"
          android:id="@+id/head_icon_img" />
 
     <TextView

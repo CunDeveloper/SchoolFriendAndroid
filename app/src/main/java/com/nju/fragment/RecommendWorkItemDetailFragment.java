@@ -334,7 +334,14 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             Log.e(TAG, mRecommendWork.getImgPaths());
             listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH, mRecommendWork.getImgPaths().split(",")));
         }
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CircleImageViewFragment fragment = CircleImageViewFragment.
+                        newInstance(mRecommendWork.getImgPaths().split(","), position, PathConstant.ALUMNI_RECOMMEND_IMG_PATH);
+                getHostActivity().open(fragment,fragment);
+            }
+        });
         TextView deleteTV = (TextView) view.findViewById(R.id.delete_tv);
         deleteTV.setOnClickListener(new View.OnClickListener() {
             @Override

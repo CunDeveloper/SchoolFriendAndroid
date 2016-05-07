@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.db.db.service.RecommendDbService;
+import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.NetworkInfoEvent;
@@ -260,6 +261,13 @@ public class RecommendWorkFragment extends BaseFragment {
         mRecommendId = new AtomicInteger();
         mRecommendId.set(event.getId());
         deleteContentJson = RecommendWorkService.deleteMyRecommend(this, event.getId(), deleteContentCallback);
+    }
+
+    @Subscribe
+    public void onMessageComplainEvent(MessageComplainEvent event) {
+        if (event.getMessage().equals(getString(R.string.complain))) {
+            ComplainFragment fragment = ComplainFragment.newInstance();
+            getHostActivity().open(fragment,fragment);        }
     }
 
     @Override

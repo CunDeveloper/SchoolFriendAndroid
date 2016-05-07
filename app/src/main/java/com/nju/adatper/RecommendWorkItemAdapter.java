@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.BaseFragment;
@@ -107,6 +108,13 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(recommendWork.getImgPaths().split(","), position, PathConstant.ALUMNI_RECOMMEND_IMG_PATH));
+            }
+        });
+        holder.gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listItemDialog(mFragment.getContext()).show();
+                return true;
             }
         });
         holder.countTx.setText(recommendWork.getCommentCount() + "");

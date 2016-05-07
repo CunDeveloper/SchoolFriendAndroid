@@ -102,7 +102,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         TextView contentTV = (TextView) view.findViewById(R.id.school_friend_item_content);
         contentTV.setText(mContent.getContent());
         ImageView imageView = (ImageView) view.findViewById(R.id.school_friend_item_headicon_img);
-        imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.head2));
+        imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.head));
         TextView nameTV = (TextView) view.findViewById(R.id.school_friend_item_name_text);
         nameTV.setText("张小军");
         TextView labelTV = (TextView) view.findViewById(R.id.school_friend_item_label_text);

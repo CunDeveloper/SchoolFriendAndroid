@@ -236,5 +236,6 @@
     <string name="person_info">person_info</string>
     <string name="head_url_filename">head_url_filename</string>
     <string name="file_save_to">文件保存到</string>
+    <string name="complain_finish_wait_consume">投诉完成,等待处理</string>
 
 </resources>

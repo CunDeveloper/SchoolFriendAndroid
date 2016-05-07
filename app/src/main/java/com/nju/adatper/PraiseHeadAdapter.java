@@ -46,7 +46,7 @@ public class PraiseHeadAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-        Picasso.with(mContext).load(R.drawable.cheese_3)
+        Picasso.with(mContext).load(R.drawable.head)
                 .transform(new RoundedTransformation(R.dimen.small_circle, 4))
                 .resizeDimen(R.dimen.small_circle, R.dimen.small_circle).centerCrop()
                 .into(holder.headImg);

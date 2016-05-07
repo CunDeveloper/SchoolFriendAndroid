@@ -457,7 +457,8 @@ public class AlumniDynamicFragment extends BaseFragment {
     @Subscribe
     public void onMessageComplainEvent(MessageComplainEvent event) {
         if (event.getMessage().equals(getString(R.string.complain))) {
-            getHostActivity().open(ComplainFragment.newInstance());
+            ComplainFragment fragment = ComplainFragment.newInstance();
+            getHostActivity().open(fragment,fragment);
         }
     }
 

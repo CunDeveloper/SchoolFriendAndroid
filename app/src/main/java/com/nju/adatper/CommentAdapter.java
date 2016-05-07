@@ -1,6 +1,8 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,12 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.event.MessageEventId;
 import com.nju.event.PersonInfoEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.model.AuthorInfo;
 import com.nju.model.ContentComment;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,6 +80,18 @@ public class CommentAdapter extends BaseAdapter {
                 holder.replayTV.setText(Constant.REPLAY);
             }
         }
+        AuthorInfo commentAuthor = contentComment.getCommentAuthor();
+        if (commentAuthor != null){
+            String headPath = commentAuthor.getHeadUrl();
+            if (headPath != null){
+                String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + headPath;
+                ImageDownloader.with(mContext).download(headUrl,holder.headImg);
+            }
+        }else {
+            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.head);
+            holder.headImg.setImageBitmap(bitmap);
+        }
+
 
         holder.nameTV.setText(contentComment.getCommentAuthor().getAuthorName());
 

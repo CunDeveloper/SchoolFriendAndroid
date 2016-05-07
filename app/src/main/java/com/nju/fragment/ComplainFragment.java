@@ -7,13 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import com.nju.activity.R;
 import com.nju.adatper.ComplainAdapter;
 import com.nju.util.Divice;
+import com.nju.util.ToastUtil;
+
+import java.util.ArrayList;
 
 
 public class ComplainFragment extends BaseFragment {
@@ -49,6 +54,7 @@ public class ComplainFragment extends BaseFragment {
         LinearLayout head = (LinearLayout) inflater.inflate(R.layout.complain_fragment_listhead, listView, false);
         listView.addHeaderView(head);
         listView.setAdapter(new ComplainAdapter(getContext()));
+
         return view;
     }
 
@@ -65,8 +71,15 @@ public class ComplainFragment extends BaseFragment {
         getHostActivity().display(0);
         final Button sendBn = getHostActivity().getMenuBn();
         sendBn.setText(getString(R.string.commit));
-        sendBn.setEnabled(false);
-        sendBn.setAlpha(0.8f);
+        sendBn.setEnabled(true);
+        sendBn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShortText(getContext(),getString(R.string.complain_finish_wait_consume));
+                BaseFragment fragment = getHostActivity().getBackStack().peek();
+                getHostActivity().open(fragment);
+            }
+        });
     }
 
 

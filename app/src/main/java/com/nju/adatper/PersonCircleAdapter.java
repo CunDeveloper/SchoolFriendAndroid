@@ -61,7 +61,7 @@ public class PersonCircleAdapter extends BaseAdapter {
         if (content.getIs_contain_image() > 0) {
             holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent, android.R.color.white));
             holder.mContentTV.setIncludeFontPadding(false);
-            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent, R.drawable.head2));
+            holder.mImageView.setImageDrawable(ContextCompat.getDrawable(mContent, R.drawable.head));
         } else {
             holder.mContentTV.setBackgroundColor(ContextCompat.getColor(mContent, R.color.light_gray));
             holder.mContentTV.setIncludeFontPadding(true);

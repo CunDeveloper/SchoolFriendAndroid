@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity {
         mNavNameTV = (TextView) headerView.findViewById(R.id.nav_header_username);
         mNavNameTV.setText(username);
         mNavHeadImg = (ImageView) headerView.findViewById(R.id.headIMG);
-        Picasso.with(getBaseContext()).load(R.drawable.cheese_3)
+        Picasso.with(getBaseContext()).load(R.drawable.head)
                 .transform(new RoundedTransformation(R.dimen.bottom_choose_height, 4))
                 .resizeDimen(R.dimen.bottom_choose_height, R.dimen.bottom_choose_height).centerCrop()
                 .into(mNavHeadImg);

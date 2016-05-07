@@ -10,7 +10,7 @@
         <ImageView
             android:layout_width="@dimen/dp200"
             android:layout_height="@dimen/dp200"
-            android:src="@drawable/cheese_1"
+            android:src="@drawable/head"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/smallImage" />

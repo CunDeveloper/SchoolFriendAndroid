@@ -22,7 +22,7 @@
         android:layout_height="80dp"
         android:id="@+id/headIMG"
         android:scaleType="fitXY"
-        android:src="@drawable/head2"
+        android:src="@drawable/head"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import com.nju.activity.R;
 import com.nju.adatper.MajorAskAdapter;
 import com.nju.db.db.service.MajorAskDbService;
+import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.MessageLabelEvent;
@@ -295,6 +296,13 @@ public class MajorAskFragment extends BaseFragment {
             CloseRequestUtil.close(mRequestJson);
         if (delectAskRequestJson != null)
             CloseRequestUtil.close(delectAskRequestJson);
+    }
+
+    @Subscribe
+    public void onMessageComplainEvent(MessageComplainEvent event) {
+        if (event.getMessage().equals(getString(R.string.complain))) {
+            ComplainFragment fragment = ComplainFragment.newInstance();
+            getHostActivity().open(fragment,fragment);        }
     }
 
     @Override

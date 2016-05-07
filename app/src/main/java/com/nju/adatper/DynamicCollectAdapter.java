@@ -69,7 +69,7 @@ public class DynamicCollectAdapter extends BaseAdapter {
         if (dynamicCollect.getContent() != null) {
             holder.contentTV.setText(StringBase64.decode(dynamicCollect.getContent()));
         } else {
-            holder.contentImg.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.cheese_2));
+            holder.contentImg.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.head));
         }
         holder.dateTV.setText(dynamicCollect.getDate());
 

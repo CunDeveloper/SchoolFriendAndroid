@@ -28,7 +28,7 @@
             android:layout_height="@dimen/phone_item_height"
             android:layout_marginEnd="10dp"
             android:id="@+id/head_icon_img"
-            android:src="@drawable/head2"
+            android:src="@drawable/head"
             android:scaleType="fitXY"
             android:background="@drawable/head_icon_bg"
             android:layout_gravity="right"

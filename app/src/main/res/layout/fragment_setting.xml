@@ -33,7 +33,7 @@
                     android:layout_marginBottom="@dimen/phone_apadding"
                     android:scaleType="fitXY"
                     android:layout_width="@dimen/dp50"
-                    android:src="@drawable/cheese_1"
+                    android:src="@drawable/head"
                     android:clickable="false"
                     android:layout_height="@dimen/dp50"
                     android:layout_alignParentTop="true"

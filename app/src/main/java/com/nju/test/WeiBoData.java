@@ -35,11 +35,11 @@ public class WeiBoData {
                 " and end smoothly instead of starting and stopping abruptly.");
         list = new ArrayList<>();
         Bitmap bitmap;
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.cheese_2);
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.head);
         list.add(bitmap);
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.cheese_1);
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.head);
         list.add(bitmap);
-        bitmap = BitmapFactory.decodeResource(resources, R.drawable.cheese_3);
+        bitmap = BitmapFactory.decodeResource(resources, R.drawable.head);
         list.add(bitmap);
 
         user = new User();
@@ -63,7 +63,7 @@ public class WeiBoData {
         friendWeibo.setImages(list);
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("上海.德国中心");
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         weibos.add(friendWeibo);
 
         /**
@@ -95,7 +95,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("上海.德国中心");
         weibos.add(friendWeibo);
@@ -131,7 +131,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("");
         weibos.add(friendWeibo);
@@ -163,7 +163,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("上海.德国中心");
         weibos.add(friendWeibo);
@@ -195,7 +195,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("");
         weibos.add(friendWeibo);
@@ -229,7 +229,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("上海.德国中心");
         weibos.add(friendWeibo);
@@ -261,7 +261,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("上海.德国中心");
         weibos.add(friendWeibo);
@@ -292,7 +292,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("");
         weibos.add(friendWeibo);
@@ -326,7 +326,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("");
         weibos.add(friendWeibo);
@@ -362,7 +362,7 @@ public class WeiBoData {
 
 
         friendWeibo.setPraiseUserName("张飞");
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("上海.德国中心");
         weibos.add(friendWeibo);
@@ -395,7 +395,7 @@ public class WeiBoData {
         comments.add(comment);
         friendWeibo.setComments(comments);
 
-        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head2));
+        friendWeibo.setHeadIcon(resources.getDrawable(R.drawable.head));
         friendWeibo.setPublishDate("1小时前");
         friendWeibo.setLocation("");
         weibos.add(friendWeibo);

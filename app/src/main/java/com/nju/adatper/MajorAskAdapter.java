@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.BaseFragment;
@@ -105,6 +106,13 @@ public class MajorAskAdapter extends BaseAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(alumniQuestion.getImgPaths().split(","), position, PathConstant.ALUMNI_QUESTION_IMG_PATH));
+            }
+        });
+        holder.gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SchoolFriendDialog.listItemDialog(mFragment.getContext()).show();
+                return true;
             }
         });
         return convertView;
