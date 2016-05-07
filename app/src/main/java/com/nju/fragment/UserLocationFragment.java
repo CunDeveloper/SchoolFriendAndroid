@@ -32,7 +32,7 @@ import java.util.List;
 public class UserLocationFragment extends BaseFragment {
 
     public static final String TAG = UserLocationFragment.class.getSimpleName();
-    private static final int OK = 0 ;
+    private static final int OK = 0;
     private TencentLocationManager mLocationManager;
     private TencentLocationListener listener;
     private List<LocationInfo> mLocationInfoList;
@@ -41,11 +41,12 @@ public class UserLocationFragment extends BaseFragment {
     private UserLocationAdapter mLocationAdapter;
     private int choosePosition = -1;
     private Handler mHandler = new MyHandler(this);
-    public static UserLocationFragment newInstance() {
-        return new UserLocationFragment();
-    }
 
     public UserLocationFragment() {
+    }
+
+    public static UserLocationFragment newInstance() {
+        return new UserLocationFragment();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class UserLocationFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_location, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
-        mProgressBar = (ProgressBar)view.findViewById(R.id.user_location_progressBar);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.user_location_progressBar);
         listener = new MyLocationListener();
         initListContent(view);
         TencentLocationRequest request = TencentLocationRequest.create();
@@ -66,7 +67,7 @@ public class UserLocationFragment extends BaseFragment {
         request.setRequestLevel(TencentLocationRequest.REQUEST_LEVEL_POI);
         request.setAllowCache(false);
         mLocationManager = TencentLocationManager.getInstance(getActivity());
-        int code = mLocationManager.requestLocationUpdates(request,listener);
+        int code = mLocationManager.requestLocationUpdates(request, listener);
         Log.e(TAG, code + "==");
         return view;
     }
@@ -83,14 +84,14 @@ public class UserLocationFragment extends BaseFragment {
     }
 
     private void initListContent(View view) {
-        mListView = (ListView)view.findViewById(R.id.user_location_listView);
+        mListView = (ListView) view.findViewById(R.id.user_location_listView);
         View headerView = getActivity().getLayoutInflater().inflate(R.layout.user_location_header, mListView, false);
         final TextView headImageView = (TextView) headerView.findViewById(R.id.user_location_header_checkBox);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 headImageView.setText(getString(R.string.fa_check_icon));
-                if(choosePosition != -1) {
+                if (choosePosition != -1) {
                     mLocationInfoList.get(choosePosition).setIconName("");
                     choosePosition = -1;
                     mLocationAdapter.notifyDataSetChanged();
@@ -102,24 +103,24 @@ public class UserLocationFragment extends BaseFragment {
         mLocationInfoList = new ArrayList<>();
         LocationInfo info = new LocationInfo();
         mLocationInfoList.add(info);
-        mLocationAdapter = new UserLocationAdapter(mLocationInfoList,getActivity());
+        mLocationAdapter = new UserLocationAdapter(mLocationInfoList, getActivity());
         mListView.setAdapter(mLocationAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mLocationInfoList.get(position - 1).setIconName(getString(R.string.fa_check_icon));
-                if (choosePosition == -1){
+                if (choosePosition == -1) {
                     headImageView.setText("");
-                } else{
+                } else {
                     mLocationInfoList.get(choosePosition).setIconName("");
                 }
-                choosePosition = position-1;
+                choosePosition = position - 1;
                 mLocationAdapter.notifyDataSetChanged();
                 TextView locationText = (TextView) view.findViewById(R.id.user_location_item_name);
                 BaseActivity.LocalStack stack = getHostActivity().getBackStack();
                 stack.pop();
                 final BaseFragment fragment = (BaseFragment) stack.peek();
-                if (fragment instanceof PublishDynamicFragment){
+                if (fragment instanceof PublishDynamicFragment) {
                     PublishDynamicFragment dynamiCfragment = (PublishDynamicFragment) fragment;
                     dynamiCfragment.setLocation(locationText.getText().toString());
                     getHostActivity().open(fragment);
@@ -137,7 +138,48 @@ public class UserLocationFragment extends BaseFragment {
         }
     }
 
-    private  class MyLocationListener implements TencentLocationListener{
+    private static class LocatCompator implements Comparator<LocationInfo> {
+        @Override
+        public int compare(LocationInfo lhs, LocationInfo rhs) {
+            if (lhs.getDistance() < rhs.getDistance()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+    }
+
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<UserLocationFragment> mUserLocationFragment;
+
+        private MyHandler(UserLocationFragment userLocationFragment) {
+            this.mUserLocationFragment = new WeakReference<>(userLocationFragment);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void handleMessage(Message msg) {
+            UserLocationFragment fragment = mUserLocationFragment.get();
+            if (fragment != null) {
+                super.handleMessage(msg);
+                if (msg.what == OK) {
+                    fragment.mLocationManager.removeUpdates(fragment.listener);
+                    List<LocationInfo> tempLists = (List<LocationInfo>) msg.obj;
+                    if (tempLists != null && tempLists.size() > 0) {
+                        fragment.mLocationInfoList.remove(0);
+                        fragment.mLocationInfoList.addAll(tempLists);
+                        Collections.sort(fragment.mLocationInfoList, new LocatCompator());
+                        fragment.mLocationAdapter.notifyDataSetChanged();
+                    }
+                    fragment.mProgressBar.setVisibility(View.GONE);
+                    fragment.mListView.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
+    private class MyLocationListener implements TencentLocationListener {
 
         @Override
         public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
@@ -148,7 +190,7 @@ public class UserLocationFragment extends BaseFragment {
             info.setDistance(1.0);
             List<LocationInfo> locationLists = new ArrayList<>(40);
             locationLists.add(info);
-            for(TencentPoi poi:tencentLocation.getPoiList()){
+            for (TencentPoi poi : tencentLocation.getPoiList()) {
                 info = new LocationInfo();
                 info.setLocationName(poi.getName());
                 info.setAddress(poi.getAddress());
@@ -166,47 +208,6 @@ public class UserLocationFragment extends BaseFragment {
         @Override
         public void onStatusUpdate(String s, int i, String s1) {
 
-        }
-    }
-
-    private static class LocatCompator implements Comparator<LocationInfo> {
-        @Override
-        public int compare(LocationInfo lhs, LocationInfo rhs) {
-            if(lhs.getDistance()<rhs.getDistance()) {
-                return -1;
-            }
-            else{
-                return 1;
-            }
-        }
-    }
-
-    private static class MyHandler extends  Handler {
-
-        private final WeakReference<UserLocationFragment> mUserLocationFragment;
-
-        private MyHandler(UserLocationFragment userLocationFragment) {
-            this.mUserLocationFragment = new WeakReference<>(userLocationFragment);
-        }
-        @SuppressWarnings("unchecked")
-        @Override
-        public void handleMessage(Message msg) {
-            UserLocationFragment fragment = mUserLocationFragment.get();
-            if (fragment != null) {
-                super.handleMessage(msg);
-                if(msg.what == OK) {
-                    fragment.mLocationManager.removeUpdates(fragment.listener);
-                    List<LocationInfo> tempLists = (List<LocationInfo>) msg.obj;
-                    if(tempLists!=null && tempLists.size()>0) {
-                        fragment.mLocationInfoList.remove(0);
-                        fragment.mLocationInfoList.addAll(tempLists);
-                        Collections.sort(fragment.mLocationInfoList, new LocatCompator());
-                        fragment.mLocationAdapter.notifyDataSetChanged();
-                    }
-                    fragment.mProgressBar.setVisibility(View.GONE);
-                    fragment.mListView.setVisibility(View.VISIBLE);
-                }
-            }
         }
     }
 

@@ -3,7 +3,6 @@ package com.nju.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.nju.activity.R;
-import com.nju.adatper.MultiChoosePicAdapter;
 import com.nju.adatper.SingleChoosePicAdapter;
 import com.nju.model.Image;
 import com.nju.service.ChooseImageService;
@@ -30,22 +28,23 @@ public class SingleChoosePicFragment extends BaseFragment {
     private ProgressBar mProgressBar;
     private GridView mGridView;
     private ArrayList<Image> mImgPaths;
-    public static SingleChoosePicFragment newInstance(String label) {
-        SingleChoosePicFragment fragment = new SingleChoosePicFragment();
-        Bundle args = new Bundle();
-        args.putString(LABEL,label);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public SingleChoosePicFragment() {
         // Required empty public constructor
     }
 
+    public static SingleChoosePicFragment newInstance(String label) {
+        SingleChoosePicFragment fragment = new SingleChoosePicFragment();
+        Bundle args = new Bundle();
+        args.putString(LABEL, label);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mLabel = getArguments().getString(LABEL);
         }
     }
@@ -63,7 +62,7 @@ public class SingleChoosePicFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UpdateHeadBgFragment fragment = UpdateHeadBgFragment.newInstance(mImgPaths.get(position).getData(), mLabel);
-                getHostActivity().open(fragment,fragment);
+                getHostActivity().open(fragment, fragment);
             }
         });
         new LoadImg(this).execute();
@@ -75,30 +74,33 @@ public class SingleChoosePicFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.picture);
         }
         getHostActivity().display(9);
     }
 
-    private  class LoadImg extends AsyncTask<Void,Void,ArrayList<Image>> {
+    private class LoadImg extends AsyncTask<Void, Void, ArrayList<Image>> {
 
         private final WeakReference<SingleChoosePicFragment> mWeakReference;
-        public LoadImg(SingleChoosePicFragment fragment){
+
+        public LoadImg(SingleChoosePicFragment fragment) {
             mWeakReference = new WeakReference<>(fragment);
         }
+
         @Override
         protected ArrayList<Image> doInBackground(Void... params) {
             return ChooseImageService.queryImages(getActivity());
         }
+
         @Override
         protected void onPostExecute(ArrayList<Image> list) {
             super.onPostExecute(list);
             SingleChoosePicFragment fragment = mWeakReference.get();
-            if (fragment != null){
+            if (fragment != null) {
                 fragment.mImgPaths = list;
-                fragment.mGridView.setAdapter(new SingleChoosePicAdapter(fragment,list));
+                fragment.mGridView.setAdapter(new SingleChoosePicAdapter(fragment, list));
                 fragment.mProgressBar.setVisibility(View.GONE);
             }
         }

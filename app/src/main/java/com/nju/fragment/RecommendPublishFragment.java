@@ -24,7 +24,6 @@ import com.nju.http.request.MultiImgRequest;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.ImageWrapper;
-import com.nju.model.RecommendWork;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.InputEmotionUtil;
@@ -44,15 +43,46 @@ public class RecommendPublishFragment extends BaseFragment {
     public static final String TAG = RecommendPublishFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
     private static final String PARAM_UPLOAD_IMAGES = "paramUploadImage";
-    private ArrayList<ImageWrapper> mUploadImgPaths;
     private static CharSequence mTitle;
+    private ArrayList<ImageWrapper> mUploadImgPaths;
     private EditText mTitleET;
     private EditText mContentET;
     private EditText mEmailET;
-    private CharSequence mType =1+"";
+    private CharSequence mType = 1 + "";
     private SchoolFriendDialog mDialog;
+    ResponseCallback callback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            Log.e(TAG, error.getLocalizedMessage());
+            mDialog.dismiss();
+            ToastUtil.showShortText(getContext(), Constant.PUBLISH_ERREOR);
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            Log.i(TAG, responseBody);
+            mDialog.dismiss();
+            ParseResponse parseResponse = new ParseResponse();
+            try {
+                String info = parseResponse.getInfo(responseBody);
+                Log.i(TAG, info);
+                if (info != null && info.equals(Constant.OK_MSG)) {
+                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
+                    getHostActivity().open(RecommendWorkFragment.newInstance(), RecommendPublishFragment.this);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
     private SyncChoosePublish choosePublish;
-    public static RecommendPublishFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
+
+    public RecommendPublishFragment() {
+        // Required empty public constructor
+    }
+
+    public static RecommendPublishFragment newInstance(String title, ArrayList<ImageWrapper> uploadImgPaths) {
         RecommendPublishFragment fragment = new RecommendPublishFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_TITLE, title);
@@ -61,16 +91,12 @@ public class RecommendPublishFragment extends BaseFragment {
         return fragment;
     }
 
-    public RecommendPublishFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
-            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
+            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null) {
                 mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
             }
         }
@@ -84,11 +110,10 @@ public class RecommendPublishFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         InputEmotionUtil.initView(this, view, TAG);
         InputEmotionUtil.addViewPageEvent(getContext(), view);
-        if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
+        if (mUploadImgPaths != null && mUploadImgPaths.size() > 0) {
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
-        }
-        else {
+        } else {
             mUploadImgPaths = new ArrayList<>();
         }
         choosePublish = SyncChoosePublish.newInstance(view).sync(this);
@@ -97,7 +122,7 @@ public class RecommendPublishFragment extends BaseFragment {
         return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         final int[] contentWordCount = {0};
         final int[] titleWordCount = {0};
         final int[] emailWordCount = {0};
@@ -112,12 +137,14 @@ public class RecommendPublishFragment extends BaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (contentWordCount[0]>=1&&titleWordCount[0]>=1 &&emailWordCount[0]>=1){
-                    sendBn.setAlpha(1);sendBn.setEnabled(true);
-                }else {
-                    sendBn.setAlpha(0.7f);sendBn.setEnabled(false);
+                if (contentWordCount[0] >= 1 && titleWordCount[0] >= 1 && emailWordCount[0] >= 1) {
+                    sendBn.setAlpha(1);
+                    sendBn.setEnabled(true);
+                } else {
+                    sendBn.setAlpha(0.7f);
+                    sendBn.setEnabled(false);
                 }
-                 contentWordCount[0] = count;
+                contentWordCount[0] = count;
             }
 
             @Override
@@ -131,15 +158,19 @@ public class RecommendPublishFragment extends BaseFragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 titleWordCount[0] = count;
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (contentWordCount[0]>=1&&titleWordCount[0]>=1 &&emailWordCount[0]>=1){
-                    sendBn.setAlpha(1);sendBn.setEnabled(true);
-                }else {
-                    sendBn.setAlpha(0.7f);sendBn.setEnabled(false);
+                if (contentWordCount[0] >= 1 && titleWordCount[0] >= 1 && emailWordCount[0] >= 1) {
+                    sendBn.setAlpha(1);
+                    sendBn.setEnabled(true);
+                } else {
+                    sendBn.setAlpha(0.7f);
+                    sendBn.setEnabled(false);
                 }
                 titleWordCount[0] = count;
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -154,10 +185,12 @@ public class RecommendPublishFragment extends BaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (contentWordCount[0]>=1&&titleWordCount[0]>=1 &&emailWordCount[0]>=1){
-                    sendBn.setAlpha(1);sendBn.setEnabled(true);
-                }else {
-                    sendBn.setAlpha(0.7f);sendBn.setEnabled(false);
+                if (contentWordCount[0] >= 1 && titleWordCount[0] >= 1 && emailWordCount[0] >= 1) {
+                    sendBn.setAlpha(1);
+                    sendBn.setEnabled(true);
+                } else {
+                    sendBn.setAlpha(0.7f);
+                    sendBn.setEnabled(false);
                 }
                 emailWordCount[0] = count;
             }
@@ -192,61 +225,61 @@ public class RecommendPublishFragment extends BaseFragment {
 
     }
 
-    private void initCheckBox(View view){
+    private void initCheckBox(View view) {
         final CheckBox shiXiCheckBox = (CheckBox) view.findViewById(R.id.shixi_checkBox);
         final CheckBox xiaoZhaoCheckBox = (CheckBox) view.findViewById(R.id.xiaozhao_checkBox);
         final CheckBox sheZhaoCheckBox = (CheckBox) view.findViewById(R.id.shezhao_checkBox);
         shiXiCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                computeType(shiXiCheckBox,xiaoZhaoCheckBox,sheZhaoCheckBox);
+                computeType(shiXiCheckBox, xiaoZhaoCheckBox, sheZhaoCheckBox);
             }
         });
         xiaoZhaoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                computeType(shiXiCheckBox,xiaoZhaoCheckBox,sheZhaoCheckBox);
+                computeType(shiXiCheckBox, xiaoZhaoCheckBox, sheZhaoCheckBox);
             }
         });
         sheZhaoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                computeType(shiXiCheckBox,xiaoZhaoCheckBox,sheZhaoCheckBox);
+                computeType(shiXiCheckBox, xiaoZhaoCheckBox, sheZhaoCheckBox);
             }
         });
 
     }
 
-    private void computeType(CheckBox shiXiCheckBox,CheckBox xiaoZhaoCheckBox, CheckBox sheZhaoCheckBox){
-        if (shiXiCheckBox.isChecked() && xiaoZhaoCheckBox.isChecked() && sheZhaoCheckBox.isChecked()){
-            mType = 7+"";
-        } else if (xiaoZhaoCheckBox.isChecked()&&sheZhaoCheckBox.isChecked()){
-            mType = 6+"";
-        } else if (shiXiCheckBox.isChecked()&&xiaoZhaoCheckBox.isChecked()){
-            mType = 5+"";
-        } else if (shiXiCheckBox.isChecked()&&sheZhaoCheckBox.isChecked()){
-            mType = 4+"";
-        } else if (sheZhaoCheckBox.isChecked()){
-            mType = 3+"";
-        } else if (xiaoZhaoCheckBox.isChecked()){
-            mType = 2+"";
-        } else  if (shiXiCheckBox.isChecked()){
-            mType =1+"";
+    private void computeType(CheckBox shiXiCheckBox, CheckBox xiaoZhaoCheckBox, CheckBox sheZhaoCheckBox) {
+        if (shiXiCheckBox.isChecked() && xiaoZhaoCheckBox.isChecked() && sheZhaoCheckBox.isChecked()) {
+            mType = 7 + "";
+        } else if (xiaoZhaoCheckBox.isChecked() && sheZhaoCheckBox.isChecked()) {
+            mType = 6 + "";
+        } else if (shiXiCheckBox.isChecked() && xiaoZhaoCheckBox.isChecked()) {
+            mType = 5 + "";
+        } else if (shiXiCheckBox.isChecked() && sheZhaoCheckBox.isChecked()) {
+            mType = 4 + "";
+        } else if (sheZhaoCheckBox.isChecked()) {
+            mType = 3 + "";
+        } else if (xiaoZhaoCheckBox.isChecked()) {
+            mType = 2 + "";
+        } else if (shiXiCheckBox.isChecked()) {
+            mType = 1 + "";
         }
     }
 
-    public  void setImages(ArrayList<ImageWrapper> images){
+    public void setImages(ArrayList<ImageWrapper> images) {
         mUploadImgPaths = images;
     }
 
     public void inputEmotion(String text) {
         String label = InputEmotionUtil.getLabel();
-        if (label != null){
-            if (label.equals(getString(R.string.content))){
+        if (label != null) {
+            if (label.equals(getString(R.string.content))) {
                 int selectionCursor = mContentET.getSelectionStart();
                 mContentET.getText().insert(selectionCursor, text);
                 mContentET.invalidate();
-            }else if (label.equals(getString(R.string.title))){
+            } else if (label.equals(getString(R.string.title))) {
                 int selectionCursor = mTitleET.getSelectionStart();
                 mTitleET.getText().insert(selectionCursor, text);
                 mTitleET.invalidate();
@@ -254,39 +287,12 @@ public class RecommendPublishFragment extends BaseFragment {
         }
     }
 
-    ResponseCallback callback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            Log.e(TAG, error.getLocalizedMessage());
-            mDialog.dismiss();
-            ToastUtil.showShortText(getContext(),Constant.PUBLISH_ERREOR);
-        }
-
-        @Override
-        public void onSuccess(String responseBody) {
-            Log.i(TAG, responseBody);
-            mDialog.dismiss();
-            ParseResponse parseResponse = new ParseResponse();
-            try {
-                String info = parseResponse.getInfo(responseBody);
-                Log.i(TAG,info);
-                if (info != null && info.equals(Constant.OK_MSG)) {
-                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
-                    getHostActivity().open(RecommendWorkFragment.newInstance(), RecommendPublishFragment.this);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    };
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -305,20 +311,21 @@ public class RecommendPublishFragment extends BaseFragment {
                 final String content = mContentET.getText().toString();
                 final String title = mTitleET.getText().toString();
                 final String email = mEmailET.getText().toString();
-                final HashMap<String,String> params = new HashMap<>();
+                final HashMap<String, String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
-                params.put(Constant.TITLE,StringBase64.encode(title));
-                params.put(Constant.TYPE,mType.toString());
-                params.put(Constant.EMAIL,email);
+                params.put(Constant.TITLE, StringBase64.encode(title));
+                params.put(Constant.TYPE, mType.toString());
+                params.put(Constant.EMAIL, email);
                 params.put(Constant.AUTHORIZATION, RecommendPublishFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;
-                for (ImageWrapper image :mUploadImgPaths) {
+                for (ImageWrapper image : mUploadImgPaths) {
                     final String path = image.getPath();
                     bitmapWrapper = new BitmapWrapper();
                     sourceFile = new File(path);
-                    bitmapWrapper.setPath(path);bitmapWrapper.setFileName(sourceFile.getName());
+                    bitmapWrapper.setPath(path);
+                    bitmapWrapper.setFileName(sourceFile.getName());
                     try {
                         bitmapWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
                         bitmapWrappers.add(bitmapWrapper);
@@ -326,11 +333,11 @@ public class RecommendPublishFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
-                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
+                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
                 String level = choosePublish.level();
-                Log.i(TAG,"level value "+level);
-                final String url = PathConstant.BASE_URL+PathConstant.RECOMMEND_WORK_PATH + PathConstant.RECOMMEND_WORK_SUB_PATH_SAVE+"?level="+level;
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(url,params,bitmapWrapperArrayList,callback));
+                Log.i(TAG, "level value " + level);
+                final String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_WORK_PATH + PathConstant.RECOMMEND_WORK_SUB_PATH_SAVE + "?level=" + level;
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(url, params, bitmapWrapperArrayList, callback));
             }
         });
     }

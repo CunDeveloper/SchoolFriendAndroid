@@ -47,10 +47,39 @@ public class PublishDynamicFragment extends BaseFragment {
     private TextView mLocationTV;
     private TextView whoScanTV;
     private SchoolFriendDialog mDialog;
+    ResponseCallback callback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            Log.e(TAG, error.getMessage());
+            mDialog.dismiss();
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            Log.i(TAG, responseBody);
+            mDialog.dismiss();
+            ParseResponse parseResponse = new ParseResponse();
+            try {
+                String info = parseResponse.getInfo(responseBody);
+                Log.i(TAG, "info=" + info);
+                if (info != null && info.equals(Constant.OK_MSG)) {
+                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
+                    getHostActivity().open(AlumniDynamicFragment.newInstance(), PublishDynamicFragment.this);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
     private SyncChoosePublish choosePublish;
     private String mLocation;
     private String mWhoScan;
-    public static PublishDynamicFragment newInstance(String title,ArrayList<ImageWrapper> uploadImgPaths) {
+
+    public PublishDynamicFragment() {
+        // Required empty public constructor
+    }
+
+    public static PublishDynamicFragment newInstance(String title, ArrayList<ImageWrapper> uploadImgPaths) {
         PublishDynamicFragment fragment = new PublishDynamicFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_TITLE, title);
@@ -59,16 +88,12 @@ public class PublishDynamicFragment extends BaseFragment {
         return fragment;
     }
 
-    public PublishDynamicFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTitle = getArguments().getString(PARAM_TITLE);
-            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null){
+            if (getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES) != null) {
                 mUploadImgPaths = getArguments().getParcelableArrayList(PARAM_UPLOAD_IMAGES);
             }
         }
@@ -84,19 +109,20 @@ public class PublishDynamicFragment extends BaseFragment {
         InputEmotionUtil.addViewPageEvent(getContext(), view);
         initView(view);
         choosePublish = SyncChoosePublish.newInstance(view).sync(this);
-        if (mUploadImgPaths!=null&&mUploadImgPaths.size()>0){
+        if (mUploadImgPaths != null && mUploadImgPaths.size() > 0) {
             view.findViewById(R.id.add_pic).setVisibility(View.GONE);
             InputEmotionUtil.setUpGridView(this, view, mUploadImgPaths);
-        }else {
+        } else {
             mUploadImgPaths = new ArrayList<>();
         }
         return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         mLocationTV = (TextView) view.findViewById(R.id.location_tv);
-        if (mLocation != null){
-            mLocationTV.setText(mLocation);mLocationTV.invalidate();
+        if (mLocation != null) {
+            mLocationTV.setText(mLocation);
+            mLocationTV.invalidate();
         }
         mLocationTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +138,7 @@ public class PublishDynamicFragment extends BaseFragment {
             }
         });
         whoScanTV = (TextView) view.findViewById(R.id.whoScanTV);
-        if (mWhoScan != null){
+        if (mWhoScan != null) {
             whoScanTV.setText(mWhoScan);
         }
         mContentET = (EditText) view.findViewById(R.id.content_editText);
@@ -125,10 +151,10 @@ public class PublishDynamicFragment extends BaseFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Button button = getHostActivity().getMenuBn();
-                if (count>=1){
+                if (count >= 1) {
                     button.setEnabled(true);
                     button.setAlpha(1);
-                }else {
+                } else {
                     button.setEnabled(false);
                     button.setAlpha(0.8f);
                 }
@@ -141,22 +167,22 @@ public class PublishDynamicFragment extends BaseFragment {
         });
     }
 
-    public void setLocation(String text){
+    public void setLocation(String text) {
         mLocation = text;
     }
 
-    public void setWhoScan(String text){
+    public void setWhoScan(String text) {
         mWhoScan = text;
     }
 
-    public  void setImages(ArrayList<ImageWrapper> images){
+    public void setImages(ArrayList<ImageWrapper> images) {
         mUploadImgPaths = images;
     }
 
     public void inputEmotion(String text) {
         String label = InputEmotionUtil.getLabel();
-        if (label != null){
-            if (label.equals(getString(R.string.content))){
+        if (label != null) {
+            if (label.equals(getString(R.string.content))) {
                 int selectionCursor = mContentET.getSelectionStart();
                 mContentET.getText().insert(selectionCursor, text);
                 mContentET.invalidate();
@@ -164,44 +190,20 @@ public class PublishDynamicFragment extends BaseFragment {
         }
     }
 
-    ResponseCallback callback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            Log.e(TAG,error.getMessage());
-            mDialog.dismiss();
-        }
-
-        @Override
-        public void onSuccess(String responseBody) {
-            Log.i(TAG,responseBody);
-            mDialog.dismiss();
-            ParseResponse parseResponse = new ParseResponse();
-            try {
-                String info = parseResponse.getInfo(responseBody);
-                Log.i(TAG,"info="+info);
-                if (info != null && info.equals(Constant.OK_MSG)) {
-                    ToastUtil.showShortText(getContext(), Constant.PUBLISH_OK);
-                    getHostActivity().open(AlumniDynamicFragment.newInstance(),PublishDynamicFragment.this);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
         getHostActivity().display(0);
-        final Button sendBn =  getHostActivity().getMenuBn();
-        sendBn.setEnabled(false);sendBn.setAlpha(0.8f);
+        final Button sendBn = getHostActivity().getMenuBn();
+        sendBn.setEnabled(false);
+        sendBn.setAlpha(0.8f);
         sendBn.setText(getString(R.string.publish));
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,24 +213,25 @@ public class PublishDynamicFragment extends BaseFragment {
                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
                 final String content = mContentET.getText().toString();
-                final HashMap<String,String> params = new HashMap<>();
+                final HashMap<String, String> params = new HashMap<>();
                 params.put(Constant.CONTENT, StringBase64.encode(content));
                 String whoScan = WhoScanUtil.access(whoScanTV.getText().toString());
                 params.put(Constant.WHO_SCAN, whoScan);
                 CharSequence location = mLocationTV.getText().toString();
-                if (location.toString().equals(Constant.IN_LOCATION)){
+                if (location.toString().equals(Constant.IN_LOCATION)) {
                     location = "";
                 }
-                params.put(Constant.LOCATION,location.toString());
+                params.put(Constant.LOCATION, location.toString());
                 params.put(Constant.AUTHORIZATION, PublishDynamicFragment.this.getHostActivity().token());
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;
-                for (ImageWrapper image :mUploadImgPaths) {
+                for (ImageWrapper image : mUploadImgPaths) {
                     final String path = image.getPath();
                     bitmapWrapper = new BitmapWrapper();
                     sourceFile = new File(path);
-                    bitmapWrapper.setPath(path);bitmapWrapper.setFileName(sourceFile.getName());
+                    bitmapWrapper.setPath(path);
+                    bitmapWrapper.setFileName(sourceFile.getName());
                     try {
                         bitmapWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
                         bitmapWrappers.add(bitmapWrapper);
@@ -237,8 +240,8 @@ public class PublishDynamicFragment extends BaseFragment {
                     }
                 }
                 ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
-                final String url = PathConstant.BASE_URL+PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE+"?level="+choosePublish.level();
-                Log.i(TAG,url);
+                final String url = PathConstant.BASE_URL + PathConstant.ALUMNI_TALK_PATH + PathConstant.ALUMNI_TALK_SUB_PATH_SAVE + "?level=" + choosePublish.level();
+                Log.i(TAG, url);
                 HttpManager.getInstance().exeRequest(new MultiImgRequest(url, params, bitmapWrapperArrayList, callback));
             }
         });

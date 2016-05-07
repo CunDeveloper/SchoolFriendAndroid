@@ -21,12 +21,14 @@ import java.util.ArrayList;
  */
 public class CacheIntentService extends IntentService {
     private static final String TAG = CacheIntentService.class.getSimpleName();
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      */
-    public CacheIntentService(){
+    public CacheIntentService() {
         super(TAG);
     }
+
     public CacheIntentService(String name) {
         super(name);
     }
@@ -34,45 +36,45 @@ public class CacheIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         final String label = intent.getStringExtra(Constant.LABEL);
-        if (null != label && ! label.equals("")){
-            switch (label){
-                case Constant.RECOMMEND:{
+        if (null != label && !label.equals("")) {
+            switch (label) {
+                case Constant.RECOMMEND: {
                     ArrayList<RecommendWork> recommendWorks = intent.getParcelableArrayListExtra(Constant.RECOMMEND);
                     if (recommendWorks != null) {
-                        for (RecommendWork recommendWork:recommendWorks){
-                            Log.i(TAG, recommendWork.getId() + ""+recommendWork.getContent());
+                        for (RecommendWork recommendWork : recommendWorks) {
+                            Log.i(TAG, recommendWork.getId() + "" + recommendWork.getContent());
                         }
                         new RecommendDbService(getBaseContext()).save(recommendWorks);
                     }
                     break;
                 }
-                case Constant.ALUMNI_VOICE:{
+                case Constant.ALUMNI_VOICE: {
                     ArrayList<AlumniVoice> alumniVoices = intent.getParcelableArrayListExtra(Constant.ALUMNI_VOICE);
                     if (alumniVoices != null) {
-                        for (AlumniVoice alumniVoice:alumniVoices){
-                            Log.i(TAG, alumniVoice.getId() + ""+alumniVoice.getContent());
+                        for (AlumniVoice alumniVoice : alumniVoices) {
+                            Log.i(TAG, alumniVoice.getId() + "" + alumniVoice.getContent());
                         }
                         new AlumniVoiceDbService(getBaseContext()).save(alumniVoices);
                     }
                     break;
                 }
 
-                case Constant.MAJOR_ASK:{
+                case Constant.MAJOR_ASK: {
                     ArrayList<AlumniQuestion> alumniQuestions = intent.getParcelableArrayListExtra(Constant.MAJOR_ASK);
                     if (alumniQuestions != null) {
-                        for (AlumniQuestion alumniQuestion:alumniQuestions){
-                            Log.i(TAG, alumniQuestion.getId() + ""+alumniQuestion.getDescription());
+                        for (AlumniQuestion alumniQuestion : alumniQuestions) {
+                            Log.i(TAG, alumniQuestion.getId() + "" + alumniQuestion.getDescription());
                         }
                         new MajorAskDbService(getBaseContext()).save(alumniQuestions);
                     }
                     break;
                 }
 
-                case Constant.ALUMNI_DYNAMIC:{
+                case Constant.ALUMNI_DYNAMIC: {
                     ArrayList<AlumniTalk> alumniTalks = intent.getParcelableArrayListExtra(Constant.ALUMNI_DYNAMIC);
                     if (alumniTalks != null) {
-                        for (AlumniTalk alumniTalk:alumniTalks){
-                            Log.i(TAG, alumniTalk.getId() + ""+alumniTalk.getContent());
+                        for (AlumniTalk alumniTalk : alumniTalks) {
+                            Log.i(TAG, alumniTalk.getId() + "" + alumniTalk.getContent());
                         }
                         new AlumniDynamicDbService(getBaseContext()).save(alumniTalks);
                     }

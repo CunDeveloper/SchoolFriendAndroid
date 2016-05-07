@@ -27,8 +27,8 @@ public abstract class ResponseCallback implements Callback {
             @Override
             public void run() {
                 e.printStackTrace();
-                Log.e(TAG, e.getMessage()+"exception");
-                if (e.getMessage() != null){
+                Log.e(TAG, e.getMessage() + "exception");
+                if (e.getMessage() != null) {
                     onFail(e);
                 }
 

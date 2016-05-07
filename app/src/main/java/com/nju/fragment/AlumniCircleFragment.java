@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.nju.activity.R;
 import com.nju.adatper.EmotionPageAdapter;
 import com.nju.adatper.FriendContentAdapter;
@@ -26,9 +27,11 @@ import com.nju.test.WeiBoData;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.nju.adatper.UserCommentItemListAdapter.COMMENT_OK;
 import static com.nju.adatper.UserCommentItemListAdapter.PRAISE_OK;
 
@@ -57,11 +60,12 @@ public class AlumniCircleFragment extends BaseFragment {
     private int subHeight;
 
     private Handler mHandler = new MyHandler(this);
-    public static AlumniCircleFragment newInstance() {
-        return new AlumniCircleFragment();
-    }
 
     public AlumniCircleFragment() {
+    }
+
+    public static AlumniCircleFragment newInstance() {
+        return new AlumniCircleFragment();
     }
 
     @Override
@@ -84,19 +88,19 @@ public class AlumniCircleFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_alumni_circle, container, false);
-        mListView = (ListView)view.findViewById(R.id.school_friend_listview);
-        mMainLayout = (LinearLayout)view.findViewById(R.id.activity_school_friend_main);
-        mInputLayout = (RelativeLayout)view.findViewById(R.id.activity_school_friend_input_layout);
-        mCommentEditText = (EditText)view.findViewById(R.id.activity_school_friend_comment_edittext);
-        mSendButton = (Button)view.findViewById(R.id.activity_school_friend_send_button);
+        View view = inflater.inflate(R.layout.fragment_alumni_circle, container, false);
+        mListView = (ListView) view.findViewById(R.id.school_friend_listview);
+        mMainLayout = (LinearLayout) view.findViewById(R.id.activity_school_friend_main);
+        mInputLayout = (RelativeLayout) view.findViewById(R.id.activity_school_friend_input_layout);
+        mCommentEditText = (EditText) view.findViewById(R.id.activity_school_friend_comment_edittext);
+        mSendButton = (Button) view.findViewById(R.id.activity_school_friend_send_button);
         mEmotionTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
-        mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
-        mEmoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
+        mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
+        mEmoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
         weibos = WeiBoData.weiBos(getActivity());
         sumWeiBos = WeiBoData.weiBos(getActivity());
-        mFriendContentAdapter = new FriendContentAdapter(weibos,getActivity(),mHandler,mListView,this);
+        mFriendContentAdapter = new FriendContentAdapter(weibos, getActivity(), mHandler, mListView, this);
         mListView.setAdapter(mFriendContentAdapter);
         mListView.setPadding(mListView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mListView.getPaddingRight(), mListView.getPaddingBottom());
         mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
@@ -108,7 +112,7 @@ public class AlumniCircleFragment extends BaseFragment {
         return view;
     }
 
-    private void initOnGlobalListener(){
+    private void initOnGlobalListener() {
         mMainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -187,24 +191,24 @@ public class AlumniCircleFragment extends BaseFragment {
     }
 
     private void initEmotionTextViewEvent() {
-         mEmotionTextView.setOnTouchListener(new View.OnTouchListener() {
-             @Override
-             public boolean onTouch(View v, MotionEvent event) {
-                 if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
-                     mEmotionTextView.setText(getString(R.string.keyboard));
-                     SoftInput.close(getActivity(), mEmotionTextView);
-                     isEmotionOpen = false;
-                     label = false;
-                     label2 = true;
-                 } else if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-                     mEmotionTextView.setText(getString(R.string.smile));
-                     SoftInput.open(getActivity());
-                     isEmotionOpen = true;
-                     label = false;
-                 }
-                 return true;
-             }
-         });
+        mEmotionTextView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && isEmotionOpen) {
+                    mEmotionTextView.setText(getString(R.string.keyboard));
+                    SoftInput.close(getActivity(), mEmotionTextView);
+                    isEmotionOpen = false;
+                    label = false;
+                    label2 = true;
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    mEmotionTextView.setText(getString(R.string.smile));
+                    SoftInput.open(getActivity());
+                    isEmotionOpen = true;
+                    label = false;
+                }
+                return true;
+            }
+        });
     }
 
     public void inputEmotion(String text) {
@@ -213,7 +217,7 @@ public class AlumniCircleFragment extends BaseFragment {
         mCommentEditText.invalidate();
     }
 
-    private void initSendListener(){
+    private void initSendListener() {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,8 +228,8 @@ public class AlumniCircleFragment extends BaseFragment {
                 weibos.get(mPosition).getComments().add(comment);
                 mCommentEditText.setText("");
                 if (mInputLayout.getVisibility() == View.VISIBLE) {
-                     closeKeyboard(subHeight);
-                }else {
+                    closeKeyboard(subHeight);
+                } else {
                     SoftInput.close(getActivity(), mSendButton);
                 }
             }
@@ -248,7 +252,7 @@ public class AlumniCircleFragment extends BaseFragment {
         });
     }
 
-    private static class MyHandler extends  Handler {
+    private static class MyHandler extends Handler {
 
         private final WeakReference<AlumniCircleFragment> mAlumniCircleFragment;
 
@@ -261,10 +265,10 @@ public class AlumniCircleFragment extends BaseFragment {
             AlumniCircleFragment fragment = mAlumniCircleFragment.get();
             if (fragment != null) {
                 super.handleMessage(msg);
-                if(msg.what == PRAISE_OK) {
+                if (msg.what == PRAISE_OK) {
                     fragment.mFriendContentAdapter.notifyDataSetChanged();
                 }
-                if(msg.what == COMMENT_OK) {
+                if (msg.what == COMMENT_OK) {
                     fragment.mFriendContentAdapter.notifyDataSetChanged();
                     fragment.mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
                     SoftInput.open(fragment.getActivity());

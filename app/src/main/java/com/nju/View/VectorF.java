@@ -1,7 +1,6 @@
 package com.nju.View;
 
 import android.graphics.PointF;
-import android.util.FloatMath;
 import android.view.MotionEvent;
 
 /**
@@ -9,11 +8,10 @@ import android.view.MotionEvent;
  */
 public class VectorF {
 
-    public float angle;
-    public float length;
-
     public final PointF start = new PointF();
     public final PointF end = new PointF();
+    public float angle;
+    public float length;
 
     public void calculateEndPoint() {
         end.x = (float) Math.cos(angle) * length + start.x;

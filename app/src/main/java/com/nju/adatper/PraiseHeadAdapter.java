@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 
 import com.nju.View.RoundedTransformation;
 import com.nju.activity.R;
@@ -17,6 +16,7 @@ import com.squareup.picasso.Picasso;
  */
 public class PraiseHeadAdapter extends BaseAdapter {
     private Context mContext;
+
     public PraiseHeadAdapter(Context context) {
         mContext = context;
     }
@@ -39,9 +39,9 @@ public class PraiseHeadAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.head_img,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.head_img, parent, false);
             holder.headImg = (ImageView) convertView;
             convertView.setTag(holder);
         }
@@ -53,7 +53,7 @@ public class PraiseHeadAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         private ImageView headImg;
     }
 }

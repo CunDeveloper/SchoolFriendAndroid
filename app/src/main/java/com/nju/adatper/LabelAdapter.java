@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.nju.activity.R;
@@ -19,10 +18,11 @@ public class LabelAdapter extends BaseAdapter {
     private ArrayList<String> mLabels;
     private Context mContext;
 
-    public LabelAdapter(Context context,ArrayList<String> labels){
+    public LabelAdapter(Context context, ArrayList<String> labels) {
         this.mContext = context;
         this.mLabels = labels;
     }
+
     @Override
     public int getCount() {
         return mLabels.size();
@@ -41,9 +41,9 @@ public class LabelAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.label_button,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.label_button, parent, false);
             holder.button = (TextView) convertView;
             convertView.setTag(holder);
         }
@@ -52,7 +52,7 @@ public class LabelAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         private TextView button;
     }
 }

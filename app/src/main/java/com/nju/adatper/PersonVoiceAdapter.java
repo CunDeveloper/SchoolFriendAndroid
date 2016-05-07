@@ -1,6 +1,5 @@
 package com.nju.adatper;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,6 @@ import com.nju.model.MyVoice;
 import com.nju.util.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created by cun on 2016/3/19.
@@ -29,6 +24,7 @@ import java.util.Set;
 public class PersonVoiceAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<MyVoice> mMyVoices;
+
     public PersonVoiceAdapter(BaseFragment fragment, ArrayList<MyVoice> voices) {
         mFragment = fragment;
         mMyVoices = voices;
@@ -41,7 +37,7 @@ public class PersonVoiceAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return  mMyVoices.get(position);
+        return mMyVoices.get(position);
     }
 
     @Override

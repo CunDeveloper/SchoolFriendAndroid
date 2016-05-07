@@ -15,18 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.event.MessageEventId;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
 import com.nju.model.RecommendWork;
-import com.nju.service.AlumniVoiceService;
 import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -53,9 +51,9 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     public static final String TAG = PersonRecommendWorkItemDetailFragment.class.getSimpleName();
     private static final String PARAM_KEY = "key";
     private static RecommendWork mRecommendWork;
-    private EditText mContentEditText ;
+    private EditText mContentEditText;
     private TextView mCommentNumberTV;
-    private PostRequestJson mRequestDeleteJson,mRequestQueryJson,mRequestSaveJson;
+    private PostRequestJson mRequestDeleteJson, mRequestQueryJson, mRequestSaveJson;
     private ArrayList<ContentComment> mContentComments;
     private CommentAdapter mCommentAdapter;
     private int commentType = 0;
@@ -78,10 +76,10 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
                 try {
                     String str = parseResponse.getInfo(responseBody);
                     if (str.equals(Constant.OK_MSG)) {
-                        if(getHostActivity().getBackStack().size()>1){
+                        if (getHostActivity().getBackStack().size() > 1) {
                             getHostActivity().getBackStack().pop();
                             BaseFragment fragment = getHostActivity().getBackStack().peek();
-                            if (fragment instanceof MyRecommendFragment){
+                            if (fragment instanceof MyRecommendFragment) {
                                 getHostActivity().open(fragment);
                             }
                         }
@@ -97,16 +95,17 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
                 Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 try {
-                    Object object = new ParseResponse().getInfo(responseBody,ContentComment.class);
+                    Object object = new ParseResponse().getInfo(responseBody, ContentComment.class);
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
@@ -119,7 +118,7 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
                         }
                     }
                     mCommentAdapter.notifyDataSetChanged();
-                    mCommentNumberTV.setText(mContentComments.size()+"");
+                    mCommentNumberTV.setText(mContentComments.size() + "");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -131,16 +130,17 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     private ResponseCallback saveCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
-                Log.e(TAG,error.getMessage());
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
-                mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this,mRecommendWork.getId(),queryCommentCallback);
+                mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this, mRecommendWork.getId(), queryCommentCallback);
             }
         }
 
@@ -149,32 +149,33 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     private ResponseCallback saveOtherCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
-                Log.e(TAG,error.getMessage());
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
-                mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this,mRecommendWork.getId(),queryCommentCallback);
+                mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this, mRecommendWork.getId(), queryCommentCallback);
             }
         }
 
     };
 
 
+    public PersonRecommendWorkItemDetailFragment() {
+        // Required empty public constructor
+    }
+
     public static PersonRecommendWorkItemDetailFragment newInstance(RecommendWork recommendWork) {
         PersonRecommendWorkItemDetailFragment fragment = new PersonRecommendWorkItemDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable(PARAM_KEY,recommendWork);
+        args.putParcelable(PARAM_KEY, recommendWork);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public PersonRecommendWorkItemDetailFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -190,14 +191,14 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(getType(mRecommendWork.getType()));
         }
         getHostActivity().display(6);
     }
 
-    private String getType(int type){
+    private String getType(int type) {
         if (type == 0)
             return getString(R.string.shixi);
         if (type == 1)
@@ -215,9 +216,9 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         mMainView = view;
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
-        mContentEditText = CommentUtil.getCommentEdit(this,view);
+        mContentEditText = CommentUtil.getCommentEdit(this, view);
         initToolBar(view);
-        mRequestQueryJson = RecommendWorkService.querySingleComment(this,mRecommendWork.getId(),queryCommentCallback);
+        mRequestQueryJson = RecommendWorkService.querySingleComment(this, mRecommendWork.getId(), queryCommentCallback);
         return view;
     }
 
@@ -255,24 +256,24 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         });
     }
 
-    private void initView(final View view){
+    private void initView(final View view) {
         TextView titleTv = (TextView) view.findViewById(R.id.title_tv);
-        try{
+        try {
             titleTv.setText(StringBase64.decode(mRecommendWork.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             titleTv.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView detailTv = (TextView) view.findViewById(R.id.description_tv);
-        try{
+        try {
             detailTv.setText(StringBase64.decode(mRecommendWork.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             detailTv.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView emailTV = (TextView) view.findViewById(R.id.email_tv);
         emailTV.setText(mRecommendWork.getEmail());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mRecommendWork.getDate()));
-        mCommentNumberTV  = (TextView) view.findViewById(R.id.comment_number_tv);
+        mCommentNumberTV = (TextView) view.findViewById(R.id.comment_number_tv);
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
         nameTV.setText(mRecommendWork.getAuthor().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
@@ -285,32 +286,32 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (commentType == 0){
-                    mRequestSaveJson = RecommendWorkService.saveAsk(PersonRecommendWorkItemDetailFragment.this,view,mRecommendWork.getId(),saveCallback);
-                }else {
-                    mRequestSaveJson = RecommendWorkService.saveAskForOther(PersonRecommendWorkItemDetailFragment.this,view,commentType,saveOtherCallback);
+                if (commentType == 0) {
+                    mRequestSaveJson = RecommendWorkService.saveAsk(PersonRecommendWorkItemDetailFragment.this, view, mRecommendWork.getId(), saveCallback);
+                } else {
+                    mRequestSaveJson = RecommendWorkService.saveAskForOther(PersonRecommendWorkItemDetailFragment.this, view, commentType, saveOtherCallback);
                     commentType = 0;
                 }
-                CommentUtil.closeSoftKey(getContext(),view);
+                CommentUtil.closeSoftKey(getContext(), view);
             }
         });
 
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        if (mRecommendWork.getImgPaths() != null){
-            Log.e(TAG,mRecommendWork.getImgPaths());
-            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH,mRecommendWork.getImgPaths().split(",")));
+        if (mRecommendWork.getImgPaths() != null) {
+            Log.e(TAG, mRecommendWork.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH, mRecommendWork.getImgPaths().split(",")));
         }
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
+    public void onNetStateMessageState(NetworkInfoEvent event) {
+        if (event.isConnected()) {
             mRequestQueryJson = RecommendWorkService.querySingleComment(this, mRecommendWork.getId(), queryCommentCallback);
         }
     }
 
     @Subscribe
-    public void onMessageEvent(MessageEventId event){
+    public void onMessageEvent(MessageEventId event) {
         commentType = event.getId();
         final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
         final LinearLayout linearLayout = (LinearLayout) mMainView.findViewById(R.id.new_comment_layout);
@@ -326,7 +327,7 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         if (mRequestDeleteJson != null)
             CloseRequestUtil.close(mRequestDeleteJson);

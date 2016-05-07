@@ -24,27 +24,26 @@ public class MoveAnimation implements Animation {
     public boolean update(GestureImageView view, long time) {
         totalTime += time;
 
-        if(firstFrame) {
+        if (firstFrame) {
             firstFrame = false;
             startX = view.getImageX();
             startY = view.getImageY();
         }
 
-        if(totalTime < animationTimeMS) {
+        if (totalTime < animationTimeMS) {
 
             float ratio = (float) totalTime / animationTimeMS;
 
             float newX = ((targetX - startX) * ratio) + startX;
             float newY = ((targetY - startY) * ratio) + startY;
 
-            if(moveAnimationListener != null) {
+            if (moveAnimationListener != null) {
                 moveAnimationListener.onMove(newX, newY);
             }
 
             return true;
-        }
-        else {
-            if(moveAnimationListener != null) {
+        } else {
+            if (moveAnimationListener != null) {
                 moveAnimationListener.onMove(targetX, targetY);
             }
         }

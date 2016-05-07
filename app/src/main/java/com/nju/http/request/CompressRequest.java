@@ -16,18 +16,18 @@ import java.util.concurrent.Callable;
  * Created by xiaojuzhang on 2015/12/18.
  */
 public class CompressRequest implements Callable<BitmapWrapper> {
-    private static int mWidth = 0;
-    private static int mHeight = 0;
     private static final int DEFAULT_WIDTH = 720;
     private static final int DEFAULT_HEIGHT = 1000;
+    private static int mWidth = 0;
+    private static int mHeight = 0;
     private final BitmapWrapper mBitmapWrapper;
     private final Context mContext;
 
-    public CompressRequest(Context context,BitmapWrapper bitmapWrapper) {
+    public CompressRequest(Context context, BitmapWrapper bitmapWrapper) {
         if (mWidth == 0 || mHeight == 0) {
             SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.SCHOOL_FRIEND_SHARED_PREFERENCE, Context.MODE_PRIVATE);
-            mWidth = sharedPreferences.getInt(context.getString(R.string.diviceWidth),DEFAULT_WIDTH);
-            mHeight = sharedPreferences.getInt(context.getString(R.string.visiDiviceHeight),DEFAULT_HEIGHT);
+            mWidth = sharedPreferences.getInt(context.getString(R.string.diviceWidth), DEFAULT_WIDTH);
+            mHeight = sharedPreferences.getInt(context.getString(R.string.visiDiviceHeight), DEFAULT_HEIGHT);
         }
         mBitmapWrapper = bitmapWrapper;
         mContext = context;

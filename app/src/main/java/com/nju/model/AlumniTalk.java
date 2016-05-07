@@ -9,6 +9,17 @@ import java.util.ArrayList;
  * Created by cun on 2016/3/30.
  */
 public class AlumniTalk implements Parcelable {
+    public static final Creator<AlumniTalk> CREATOR = new Creator<AlumniTalk>() {
+        @Override
+        public AlumniTalk createFromParcel(Parcel in) {
+            return new AlumniTalk(in);
+        }
+
+        @Override
+        public AlumniTalk[] newArray(int size) {
+            return new AlumniTalk[size];
+        }
+    };
     private int id;
     private String date;
     private String content;
@@ -18,7 +29,8 @@ public class AlumniTalk implements Parcelable {
     private ArrayList<AlumnicTalkPraise> talkPraises = new ArrayList<>();
     private ArrayList<ContentComment> comments = new ArrayList<>();
 
-    public AlumniTalk(){}
+    public AlumniTalk() {
+    }
 
     protected AlumniTalk(Parcel in) {
         id = in.readInt();
@@ -31,17 +43,9 @@ public class AlumniTalk implements Parcelable {
         comments = in.createTypedArrayList(ContentComment.CREATOR);
     }
 
-    public static final Creator<AlumniTalk> CREATOR = new Creator<AlumniTalk>() {
-        @Override
-        public AlumniTalk createFromParcel(Parcel in) {
-            return new AlumniTalk(in);
-        }
-
-        @Override
-        public AlumniTalk[] newArray(int size) {
-            return new AlumniTalk[size];
-        }
-    };
+    public static Creator<AlumniTalk> getCREATOR() {
+        return CREATOR;
+    }
 
     @Override
     public int describeContents() {
@@ -122,9 +126,5 @@ public class AlumniTalk implements Parcelable {
 
     public void setComments(ArrayList<ContentComment> comments) {
         this.comments = comments;
-    }
-
-    public static Creator<AlumniTalk> getCREATOR() {
-        return CREATOR;
     }
 }

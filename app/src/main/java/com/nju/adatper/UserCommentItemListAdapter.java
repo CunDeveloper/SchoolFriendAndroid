@@ -6,12 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListPopupWindow;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.nju.activity.CommentEvent;
-import com.nju.activity.PraiseEvent;
 import com.nju.activity.R;
+import com.nju.event.CommentEvent;
+import com.nju.event.PraiseEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,7 +29,7 @@ public class UserCommentItemListAdapter extends BaseAdapter {
     private ListPopupWindow mPopupWindow;
     private Dictionary<Integer, Integer> listViewItemHeights = new Hashtable<>();
 
-    public UserCommentItemListAdapter(Context context,ListPopupWindow popupWindow,int position ) {
+    public UserCommentItemListAdapter(Context context, ListPopupWindow popupWindow, int position) {
         mContext = context;
         mPosition = position;
         mPopupWindow = popupWindow;

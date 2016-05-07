@@ -5,5 +5,6 @@ package com.nju.View;
  */
 public interface ZoomAnimationListener {
     void onZoom(float scale, float x, float y);
+
     void onComplete();
 }

@@ -16,7 +16,7 @@ import java.util.HashSet;
  */
 public class TestData {
 
-    public static HashSet<String> voiceTypes(){
+    public static HashSet<String> voiceTypes() {
         HashSet<String> sets = new HashSet<>();
         sets.add("工作");
         sets.add("学习");
@@ -27,16 +27,17 @@ public class TestData {
         return sets;
     }
 
-    public static String[] getMajorType(){
+    public static String[] getMajorType() {
         String[] types = new String[6];
-        types[0]="C++";
-        types[1]= "C";
+        types[0] = "C++";
+        types[1] = "C";
         types[2] = "JAVA";
         types[3] = "VC";
         types[4] = "Python";
         types[5] = "JavaScript";
         return types;
     }
+
     public static HashSet<String> getUndergraduateCollege() {
         HashSet<String> sets = new HashSet<>();
         sets.add("文学系");
@@ -163,7 +164,7 @@ public class TestData {
         return dynamicCollects;
     }
 
-    public static ArrayList<ContentComment> getComments(){
+    public static ArrayList<ContentComment> getComments() {
         ArrayList<ContentComment> contentComments = new ArrayList<>();
         ContentComment contentComment = new ContentComment();
         AuthorInfo commentAuthor = new AuthorInfo();
@@ -182,22 +183,36 @@ public class TestData {
         return contentComments;
     }
 
-    public static ArrayList<String> getLabels(){
+    public static ArrayList<String> getLabels() {
         ArrayList<String> labels = new ArrayList<>();
         labels.add("javascript");
         labels.add("java");
         labels.add("c#");
-        labels.add("php"); labels.add("android"); labels.add("jquery");
-        labels.add("python"); labels.add("html"); labels.add("");
-        labels.add("ios"); labels.add("mysql"); labels.add("c++");
-        labels.add("css"); labels.add("sql"); labels.add("object-c");
-        labels.add("arrays"); labels.add("ruby"); labels.add("sqlserver");
-        labels.add("xcode"); labels.add("database"); labels.add("vb.net");
-        labels.add("ajax"); labels.add("linux"); labels.add("node.js");
+        labels.add("php");
+        labels.add("android");
+        labels.add("jquery");
+        labels.add("python");
+        labels.add("html");
+        labels.add("");
+        labels.add("ios");
+        labels.add("mysql");
+        labels.add("c++");
+        labels.add("css");
+        labels.add("sql");
+        labels.add("object-c");
+        labels.add("arrays");
+        labels.add("ruby");
+        labels.add("sqlserver");
+        labels.add("xcode");
+        labels.add("database");
+        labels.add("vb.net");
+        labels.add("ajax");
+        labels.add("linux");
+        labels.add("node.js");
         return labels;
     }
 
-    public static ArrayList<ContentComment> getTestComment(){
+    public static ArrayList<ContentComment> getTestComment() {
         ContentComment contentComment;
         ArrayList<ContentComment> contentComments = new ArrayList<>();
         contentComment = new ContentComment();
@@ -210,7 +225,7 @@ public class TestData {
         contentComment.setContent("你现在过得怎么样");
         contentComment.setCommentAuthor(new AuthorInfo(2, "贾新喜"));
         contentComment.setCommentedAuthor(new AuthorInfo());
-        contentComment.setCommentedAuthor(new AuthorInfo(3,"张小军"));
+        contentComment.setCommentedAuthor(new AuthorInfo(3, "张小军"));
         contentComments.add(contentComment);
 
         return contentComments;

@@ -10,8 +10,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
+import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.AlumniVoiceItemDetailFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
@@ -76,9 +76,9 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         final AlumniVoice voice = mVoices.get(position);
         holder = (ViewHolder) convertView.getTag();
         int author_id = voice.getAuthorInfo().getAuthorId();
-        if (author_id == mFragment.getHostActivity().userId()){
+        if (author_id == mFragment.getHostActivity().userId()) {
             holder.deleteTV.setText(Constant.DELETE);
-        }else {
+        } else {
             holder.deleteTV.setText("");
         }
         holder.deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +91,9 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         HeadIcon.setUp(holder.headImg, voice.getAuthorInfo());
         holder.commentTV.setText(voice.getCommentCount() + "");
         holder.praiseCountTV.setText(voice.getPraiseCount() + "");
-        try{
+        try {
             holder.titleTV.setText(StringBase64.decode(voice.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         holder.titleTV.setOnClickListener(new View.OnClickListener() {
@@ -107,16 +107,15 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         holder.dateTV.setText(date);
         holder.labelTV.setText(voice.getAuthorInfo().getLabel());
         holder.nameTV.setText(voice.getAuthorInfo().getAuthorName());
-        try{
+        try {
             holder.simpleDescTV.setText(StringBase64.decode(voice.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.simpleDescTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        if (voice.getImgPaths() == null){
-            holder.picGridView.setAdapter(new ContentPicAdater(mFragment.getContext(),PathConstant.ALUMNI_VOICE_IMG_PATH, Constant.EMPTY));
-        }
-        else {
-            holder.picGridView.setAdapter(new ContentPicAdater(mFragment.getContext(),PathConstant.ALUMNI_VOICE_IMG_PATH, voice.getImgPaths().split(",")));
+        if (voice.getImgPaths() == null) {
+            holder.picGridView.setAdapter(new ContentPicAdater(mFragment.getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH, Constant.EMPTY));
+        } else {
+            holder.picGridView.setAdapter(new ContentPicAdater(mFragment.getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH, voice.getImgPaths().split(",")));
         }
         holder.picGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

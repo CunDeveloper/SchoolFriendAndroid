@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
-import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.PersonCircleFragment;
 import com.nju.model.FriendWeibo;
 import com.nju.model.User;
@@ -188,7 +187,7 @@ public class FriendContentAdapter extends BaseAdapter {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                     //mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(drawables, finalI));
+                    //mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(drawables, finalI));
                 }
             });
             imageView.setLayoutParams(holder.mParams);

@@ -8,6 +8,17 @@ import android.os.Parcelable;
  */
 public class AlumniQuestion implements Parcelable {
 
+    public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
+        @Override
+        public AlumniQuestion createFromParcel(Parcel in) {
+            return new AlumniQuestion(in);
+        }
+
+        @Override
+        public AlumniQuestion[] newArray(int size) {
+            return new AlumniQuestion[size];
+        }
+    };
     private int id;
     private String date;
     private String problem;
@@ -18,12 +29,11 @@ public class AlumniQuestion implements Parcelable {
     private boolean isSolved;
     private int whoScan;
     private String label;
-
     private int check = 0;
+
 
     public AlumniQuestion() {
     }
-
 
     protected AlumniQuestion(Parcel in) {
         id = in.readInt();
@@ -37,17 +47,9 @@ public class AlumniQuestion implements Parcelable {
         label = in.readString();
     }
 
-    public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
-        @Override
-        public AlumniQuestion createFromParcel(Parcel in) {
-            return new AlumniQuestion(in);
-        }
-
-        @Override
-        public AlumniQuestion[] newArray(int size) {
-            return new AlumniQuestion[size];
-        }
-    };
+    public static Creator<AlumniQuestion> getCREATOR() {
+        return CREATOR;
+    }
 
     @Override
     public int describeContents() {
@@ -147,10 +149,6 @@ public class AlumniQuestion implements Parcelable {
         this.label = label;
     }
 
-    public static Creator<AlumniQuestion> getCREATOR() {
-        return CREATOR;
-    }
-
     @Override
     public boolean equals(Object o) {
         AlumniQuestion that = (AlumniQuestion) o;
@@ -158,7 +156,7 @@ public class AlumniQuestion implements Parcelable {
         int thatId = that.getId();
         if (thisId == thatId) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

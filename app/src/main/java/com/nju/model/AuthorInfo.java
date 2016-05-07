@@ -23,6 +23,22 @@ public class AuthorInfo implements Parcelable {
     private String username;
     private String password;
 
+    public AuthorInfo(int authorId, String authorName) {
+        this.authorId = authorId;
+        this.authorName = authorName;
+    }
+
+    public AuthorInfo() {
+
+    }
+
+    protected AuthorInfo(Parcel in) {
+        authorId = in.readInt();
+        authorName = in.readString();
+        headUrl = in.readString();
+        label = in.readString();
+    }
+
     public static Creator<AuthorInfo> getCREATOR() {
         return CREATOR;
     }
@@ -41,22 +57,6 @@ public class AuthorInfo implements Parcelable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public AuthorInfo(int authorId, String authorName) {
-        this.authorId = authorId;
-        this.authorName = authorName;
-    }
-
-    public AuthorInfo() {
-
-    }
-
-    protected AuthorInfo(Parcel in) {
-        authorId = in.readInt();
-        authorName = in.readString();
-        headUrl = in.readString();
-        label = in.readString();
     }
 
     public int getAuthorId() {

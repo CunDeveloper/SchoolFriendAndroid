@@ -36,8 +36,8 @@ public class SchoolFriendGson {
         return gson.toJson(t);
     }
 
-    public Object fromJson(String json,Class clazz){
-        return  gson.fromJson(json,clazz);
+    public Object fromJson(String json, Class clazz) {
+        return gson.fromJson(json, clazz);
     }
 
     public <T> ArrayList<T> fromJsonToList(String json, final Class clazz) {

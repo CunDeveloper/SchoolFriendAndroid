@@ -11,23 +11,23 @@ import android.view.ViewGroup;
 import com.nju.activity.R;
 import com.nju.adatper.CirclePager;
 import com.nju.model.AuthorInfo;
-import com.nju.util.Divice;
 
 public class CircleFragment extends BaseFragment {
 
     private static final String TAG = CircleFragment.class.getSimpleName();
-    private static final String PARAM_AUTHOR ="authorInfo";
+    private static final String PARAM_AUTHOR = "authorInfo";
     private AuthorInfo mAuthorInfo;
-    public static CircleFragment newInstance(AuthorInfo authorInfo) {
-        CircleFragment fragment = new CircleFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(PARAM_AUTHOR,authorInfo);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public CircleFragment() {
         // Required empty public constructor
+    }
+
+    public static CircleFragment newInstance(AuthorInfo authorInfo) {
+        CircleFragment fragment = new CircleFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(PARAM_AUTHOR, authorInfo);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CircleFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mAuthorInfo.getAuthorName());
         }
@@ -56,12 +56,12 @@ public class CircleFragment extends BaseFragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_circle, container, false);
-       // view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
+        // view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initViewPager(view);
         return view;
     }
 
-    private void initViewPager(View view){
+    private void initViewPager(View view) {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new CirclePager(getFragmentManager()));
     }

@@ -25,16 +25,17 @@ public class WebViewFragment extends BaseFragment {
     private static final String PARAM_TITLE = "title";
     private String mUrl;
     private String mTitle;
-    public static WebViewFragment newInstance(String url) {
-        WebViewFragment fragment = new WebViewFragment();
-        Bundle args = new Bundle();
-        args.putString(PARAM_URL,url);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public WebViewFragment() {
         // Required empty public constructor
+    }
+
+    public static WebViewFragment newInstance(String url) {
+        WebViewFragment fragment = new WebViewFragment();
+        Bundle args = new Bundle();
+        args.putString(PARAM_URL, url);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class WebViewFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.delete);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -71,7 +72,7 @@ public class WebViewFragment extends BaseFragment {
         getHostActivity().display(5);
     }
 
-    private void initWebView(View view){
+    private void initWebView(View view) {
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.fragment_web_view_progressBar);
         progressBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         WebView mWebView = (WebView) view.findViewById(R.id.webview);
@@ -93,12 +94,12 @@ public class WebViewFragment extends BaseFragment {
         });
         //"file:///android_asset/html/test.html"
         mWebView.loadUrl(mUrl);
-        ProgressBarAnimation animation = new ProgressBarAnimation(progressBar,0,100);
+        ProgressBarAnimation animation = new ProgressBarAnimation(progressBar, 0, 100);
         animation.setDuration(122);
         progressBar.startAnimation(animation);
     }
 
-    private static class MwebViewClient extends WebViewClient{
+    private static class MwebViewClient extends WebViewClient {
 
     }
 

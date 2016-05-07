@@ -1,7 +1,5 @@
 package com.nju.adatper;
 
-import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +14,9 @@ import com.nju.fragment.PersonRecommendWorkItemDetailFragment;
 import com.nju.model.EntryDate;
 import com.nju.model.MyRecommend;
 import com.nju.model.RecommendWork;
-import com.nju.util.Constant;
 import com.nju.util.DateUtil;
-import com.nju.util.StringBase64;
-import com.nju.util.ToastUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created by cun on 2016/3/19.
@@ -34,7 +25,7 @@ public class PersonRecommendAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<MyRecommend> mMyRecommends;
 
-    public PersonRecommendAdapter(BaseFragment fragment,ArrayList<MyRecommend> recommends){
+    public PersonRecommendAdapter(BaseFragment fragment, ArrayList<MyRecommend> recommends) {
         mFragment = fragment;
         mMyRecommends = recommends;
     }
@@ -46,8 +37,8 @@ public class PersonRecommendAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-       // return mRecommendWorkMap.get(arrayKeys[position]);
-       // return mRecommendWorks.get(position);
+        // return mRecommendWorkMap.get(arrayKeys[position]);
+        // return mRecommendWorks.get(position);
         return mMyRecommends.get(position);
     }
 

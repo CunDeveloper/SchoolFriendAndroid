@@ -47,42 +47,42 @@ public class SchoolFriendDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_RECOMMEND_COLLECT =
             CREATE_TABLE + RecommendCollectEntity.TABLE_NAME + " (" +
                     RecommendCollectEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    RecommendCollectEntity.CONTENT +TEXT_TYPE +
+                    RecommendCollectEntity.CONTENT + TEXT_TYPE +
                     " )";
     private static final String SQL_CREATE_ALUMNI_VOICE_COLLECT =
             CREATE_TABLE + AlumniVoiceCollectEntity.TABLE_NAME + " (" +
                     AlumniVoiceCollectEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    AlumniVoiceCollectEntity.CONTENT +TEXT_TYPE +
+                    AlumniVoiceCollectEntity.CONTENT + TEXT_TYPE +
                     " )";
     private static final String SQL_CREATE_MAJOR_ASK_COLLECT =
             CREATE_TABLE + MajorAskCollectEntity.TABLE_NAME + " (" +
                     MajorAskCollectEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    MajorAskCollectEntity.CONTENT +TEXT_TYPE +
+                    MajorAskCollectEntity.CONTENT + TEXT_TYPE +
                     " )";
     private static final String SQL_CREATE_RECOMMEND_WORK =
             CREATE_TABLE + RecommendEntity.TABLE_NAME + " (" +
                     RecommendEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    RecommendEntity.CONTENT +TEXT_TYPE + COMMA_SEP+
-                    RecommendEntity.TYPE + INTEGER_TYPE +COMMA_SEP +
-                    RecommendEntity.DEGREE + TEXT_TYPE+
+                    RecommendEntity.CONTENT + TEXT_TYPE + COMMA_SEP +
+                    RecommendEntity.TYPE + INTEGER_TYPE + COMMA_SEP +
+                    RecommendEntity.DEGREE + TEXT_TYPE +
                     " )";
     private static final String SQL_CREATE_ALUMNI_VOICE =
             CREATE_TABLE + AlumniVoiceEntity.TABLE_NAME + " (" +
                     AlumniVoiceEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    AlumniVoiceEntity.CONTENT +TEXT_TYPE +
+                    AlumniVoiceEntity.CONTENT + TEXT_TYPE +
                     " )";
-    private static final String SQL_CREATE_MAJOR_ASK=
+    private static final String SQL_CREATE_MAJOR_ASK =
             CREATE_TABLE + MajorAskEntity.TABLE_NAME + " (" +
                     MajorAskEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    MajorAskEntity.CONTENT +TEXT_TYPE + COMMA_SEP+
-                    MajorAskEntity.DEGREE + TEXT_TYPE  + COMMA_SEP +
+                    MajorAskEntity.CONTENT + TEXT_TYPE + COMMA_SEP +
+                    MajorAskEntity.DEGREE + TEXT_TYPE + COMMA_SEP +
                     MajorAskEntity.LABEL + TEXT_TYPE +
                     " )";
 
     private static final String SQL_CREATE_ALUMNI_DYNAMIC =
             CREATE_TABLE + AlumniDynamicEntity.TABLE_NAME + " (" +
                     AlumniDynamicEntity.ID + PRIMARY_KEY + COMMA_SEP +
-                    AlumniDynamicEntity.CONTENT +TEXT_TYPE + COMMA_SEP +
+                    AlumniDynamicEntity.CONTENT + TEXT_TYPE + COMMA_SEP +
                     AlumniDynamicEntity.DEGREE + TEXT_TYPE +
                     " )";
 

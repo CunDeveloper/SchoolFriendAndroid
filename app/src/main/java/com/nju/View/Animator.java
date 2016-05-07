@@ -21,32 +21,31 @@ public class Animator extends Thread {
 
         running = true;
 
-        while(running) {
+        while (running) {
 
-            while(active && animation != null) {
+            while (active && animation != null) {
                 long time = System.currentTimeMillis();
                 active = animation.update(view, time - lastTime);
                 view.redraw();
                 lastTime = time;
 
-                while(active) {
+                while (active) {
                     try {
-                        if(view.waitForDraw(32)) { // 30Htz
+                        if (view.waitForDraw(32)) { // 30Htz
                             break;
                         }
-                    }
-                    catch (InterruptedException ignore) {
+                    } catch (InterruptedException ignore) {
                         active = false;
                     }
                 }
             }
 
-            synchronized(this) {
-                if(running) {
+            synchronized (this) {
+                if (running) {
                     try {
                         wait();
+                    } catch (InterruptedException ignore) {
                     }
-                    catch (InterruptedException ignore) {}
                 }
             }
         }
@@ -59,7 +58,7 @@ public class Animator extends Thread {
     }
 
     public void play(Animation transformer) {
-        if(active) {
+        if (active) {
             cancel();
         }
         this.animation = transformer;

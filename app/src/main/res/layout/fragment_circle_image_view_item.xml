@@ -4,14 +4,30 @@
     android:layout_height="match_parent"
     xmlns:gesture-image="http://schemas.polites.com/android"
     tools:context="com.nju.fragment.CircleImageViewItemFragment">
-    <com.nju.View.GestureImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        gesture-image:min-scale="0.1"
-        gesture-image:max-scale="10.0"
-        gesture-image:strict="false"
-        android:id="@+id/fragment_circle_image_view_item_iamge"
-        />
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp200"
+            android:src="@drawable/cheese_1"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/smallImage" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar2"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
-
+        <com.nju.View.GestureImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            gesture-image:min-scale="0.1"
+            android:longClickable="true"
+            gesture-image:max-scale="10.0"
+            gesture-image:strict="false"
+            android:id="@+id/fragment_circle_image_view_item_iamge"/>
 </FrameLayout>

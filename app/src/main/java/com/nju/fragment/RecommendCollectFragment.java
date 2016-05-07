@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkCollectAdapter;
 import com.nju.db.db.service.RecommendWorkCollectDbService;
+import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
@@ -33,21 +33,22 @@ public class RecommendCollectFragment extends BaseFragment {
     private static final String TAG = RecommendCollectFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
     private static CharSequence mTitle;
-    private ArrayList<RecommendWork>  mRecommendWorks;
+    private ArrayList<RecommendWork> mRecommendWorks;
     private RecommendWorkCollectAdapter mRecommendWorkCollectAdapter;
     private int mChoosePosition;
     private boolean mIsMore = false;
     private RelativeLayout mCollectToolLayout;
-    public static RecommendCollectFragment newInstance(String title) {
-        RecommendCollectFragment fragment = new RecommendCollectFragment();
-        Bundle args = new Bundle();
-        args.putString(PARAM_TITLE,title);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public RecommendCollectFragment() {
         // Required empty public constructor
+    }
+
+    public static RecommendCollectFragment newInstance(String title) {
+        RecommendCollectFragment fragment = new RecommendCollectFragment();
+        Bundle args = new Bundle();
+        args.putString(PARAM_TITLE, title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class RecommendCollectFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -74,10 +75,10 @@ public class RecommendCollectFragment extends BaseFragment {
         return view;
     }
 
-    private void initListView(View view){
+    private void initListView(View view) {
         mRecommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        mRecommendWorkCollectAdapter = new RecommendWorkCollectAdapter(getContext(),mRecommendWorks);
+        mRecommendWorkCollectAdapter = new RecommendWorkCollectAdapter(getContext(), mRecommendWorks);
         listView.setAdapter(mRecommendWorkCollectAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,14 +99,14 @@ public class RecommendCollectFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageChoose(MessageEvent event){
+    public void onMessageChoose(MessageEvent event) {
         Log.i(TAG, event.getMessage());
-        if (event.getMessage().equals(getString(R.string.more))){
+        if (event.getMessage().equals(getString(R.string.more))) {
             mIsMore = true;
-            for (RecommendWork recommendWork:mRecommendWorks){
-                if (recommendWork.getId() == mChoosePosition){
+            for (RecommendWork recommendWork : mRecommendWorks) {
+                if (recommendWork.getId() == mChoosePosition) {
                     recommendWork.setCheck(2);
-                }else {
+                } else {
                     recommendWork.setCheck(1);
                 }
             }
@@ -115,8 +116,8 @@ public class RecommendCollectFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageEventMore(MessageEventMore eventMore){
-        for (RecommendWork recommendWork:mRecommendWorks){
+    public void onMessageEventMore(MessageEventMore eventMore) {
+        for (RecommendWork recommendWork : mRecommendWorks) {
             recommendWork.setCheck(0);
         }
         mCollectToolLayout.setVisibility(View.GONE);
@@ -124,7 +125,7 @@ public class RecommendCollectFragment extends BaseFragment {
         mIsMore = false;
     }
 
-    public boolean isMore(){
+    public boolean isMore() {
         return mIsMore;
     }
 
@@ -133,7 +134,7 @@ public class RecommendCollectFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -141,21 +142,22 @@ public class RecommendCollectFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
-    private static class ExeCollectTask extends AsyncTask<Void,Void,ArrayList<RecommendWork>>
-    {
+    private static class ExeCollectTask extends AsyncTask<Void, Void, ArrayList<RecommendWork>> {
         private final WeakReference<RecommendCollectFragment> mRecommendWorkWeakRef;
-        public ExeCollectTask(RecommendCollectFragment  recommendCollectFragment){
+
+        public ExeCollectTask(RecommendCollectFragment recommendCollectFragment) {
             this.mRecommendWorkWeakRef = new WeakReference<>(recommendCollectFragment);
         }
+
         @Override
         protected ArrayList<RecommendWork> doInBackground(Void... params) {
             RecommendCollectFragment recommendCollectFragment = mRecommendWorkWeakRef.get();
-            if (recommendCollectFragment!=null){
+            if (recommendCollectFragment != null) {
                 return new RecommendWorkCollectDbService(recommendCollectFragment.getContext()).getCollects();
             }
             return null;
@@ -165,8 +167,8 @@ public class RecommendCollectFragment extends BaseFragment {
         protected void onPostExecute(ArrayList<RecommendWork> recommendWorks) {
             super.onPostExecute(recommendWorks);
             RecommendCollectFragment recommendCollectFragment = mRecommendWorkWeakRef.get();
-            if (recommendCollectFragment!=null){
-                if (recommendWorks != null){
+            if (recommendCollectFragment != null) {
+                if (recommendWorks != null) {
                     recommendCollectFragment.mRecommendWorks.addAll(recommendWorks);
                     recommendCollectFragment.mRecommendWorkCollectAdapter.notifyDataSetChanged();
                 }

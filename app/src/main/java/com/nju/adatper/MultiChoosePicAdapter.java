@@ -94,7 +94,7 @@ public class MultiChoosePicAdapter extends BaseAdapter {
                     holder.imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.allPicsReview), mLabel),mFragment);
+                            mFragment.getHostActivity().open(CameraImageViewFragment.newInstance(mImages, position, mContext.getString(R.string.allPicsReview), mLabel), mFragment);
                         }
                     });
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.choose_image_item_checkBox);

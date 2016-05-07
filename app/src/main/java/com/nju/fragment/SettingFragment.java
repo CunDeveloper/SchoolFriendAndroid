@@ -17,20 +17,19 @@ import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
-import com.nju.util.ToastUtil;
 
 
-public class SettingFragment extends BaseFragment  {
+public class SettingFragment extends BaseFragment {
 
-    public static SettingFragment newInstance( ) {
+    public SettingFragment() {
+        // Required empty public constructor
+    }
+
+    public static SettingFragment newInstance() {
         SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public SettingFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -46,7 +45,7 @@ public class SettingFragment extends BaseFragment  {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.arrows);
             actionBar.setTitle(R.string.setting);
@@ -64,12 +63,12 @@ public class SettingFragment extends BaseFragment  {
         return view;
     }
 
-    private void addViewEvent(View view){
+    private void addViewEvent(View view) {
         ImageView headImg = (ImageView) view.findViewById(R.id.headIconImg);
         String headUrl = getHostActivity().getSharedPreferences().
-                getString(getString(R.string.head_url),"");
-        if (! headUrl.equals("")){
-            ImageDownloader.with(getContext()).download(headUrl,headImg);
+                getString(getString(R.string.head_url), "");
+        if (!headUrl.equals("")) {
+            ImageDownloader.with(getContext()).download(headUrl, headImg);
         }
         TextView functionTV = (TextView) view.findViewById(R.id.function_desc);
         functionTV.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +122,7 @@ public class SettingFragment extends BaseFragment  {
                 dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION,"").commit();
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, "").commit();
                         getActivity().finish();
                     }
                 });

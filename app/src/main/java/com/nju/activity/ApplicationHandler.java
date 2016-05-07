@@ -19,14 +19,16 @@ public class ApplicationHandler extends Handler {
     public static final String TAG = ApplicationHandler.class.getSimpleName();
     private static ApplicationHandler mHandler;
 
-    private ApplicationHandler(){
+    private ApplicationHandler() {
     }
+
     public static ApplicationHandler newInstance() {
         if (mHandler == null) {
             mHandler = new ApplicationHandler();
         }
         return mHandler;
     }
+
     @SuppressWarnings("unchecked")
     @Override
     public void handleMessage(Message msg) {
@@ -38,8 +40,8 @@ public class ApplicationHandler extends Handler {
             int[] ids = {51};
             contentService.delete(ids);
             ArrayList<Content> tests = contentService.query();
-            for (Content content:tests) {
-                Log.e(TAG,content.getId()+" === "+content.getContent());
+            for (Content content : tests) {
+                Log.e(TAG, content.getId() + " === " + content.getContent());
             }
         }
     }

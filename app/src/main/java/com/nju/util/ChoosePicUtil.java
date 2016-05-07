@@ -21,7 +21,7 @@ public class ChoosePicUtil {
             BaseActivity.LocalStack<BaseFragment> backStack = fragment.getHostActivity().getBackStack();
             while (backStack.size() > 1) {
                 backStack.pop();
-                BaseFragment baseFragment =backStack.peek();
+                BaseFragment baseFragment = backStack.peek();
                 if (label.equals(PublishDynamicFragment.TAG)) {
                     if (baseFragment instanceof PublishDynamicFragment) {
                         //baseFragment = backStack.pop();
@@ -33,19 +33,18 @@ public class ChoosePicUtil {
                         fragment.getHostActivity().open(PublishDynamicFragment.newInstance(fragment.getString(R.string.publish_dynamic), imageWrappers));
                         break;
                     }
-                }else if (label.equals(RecommendPublishFragment.TAG)){
+                } else if (label.equals(RecommendPublishFragment.TAG)) {
                     if (baseFragment instanceof RecommendPublishFragment) {
                         //baseFragment = backStack.pop();
                         RecommendPublishFragment recommendPublishFragment = (RecommendPublishFragment) baseFragment;
                         recommendPublishFragment.setImages(imageWrappers);
                         fragment.getHostActivity().open(recommendPublishFragment);
                         break;
-                    }else {
+                    } else {
                         fragment.getHostActivity().open(AskPublishFragment.newInstance(fragment.getString(R.string.publish_recommend), imageWrappers));
                         break;
                     }
-                }
-                 else if (label.equals(AskPublishFragment.TAG)) {
+                } else if (label.equals(AskPublishFragment.TAG)) {
                     if (baseFragment instanceof AskPublishFragment) {
                         //baseFragment = backStack.pop();
                         AskPublishFragment askPublishFragment = (AskPublishFragment) baseFragment;
@@ -56,7 +55,7 @@ public class ChoosePicUtil {
                         fragment.getHostActivity().open(AskPublishFragment.newInstance(fragment.getString(R.string.major_ask), imageWrappers));
                         break;
                     }
-                } else if (label.equals(PublishVoiceFragment.TAG)){
+                } else if (label.equals(PublishVoiceFragment.TAG)) {
                     if (baseFragment instanceof PublishVoiceFragment) {
                         //baseFragment = backStack.pop();
                         PublishVoiceFragment publishVoiceFragment = (PublishVoiceFragment) baseFragment;

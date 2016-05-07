@@ -26,16 +26,17 @@ import java.io.IOException;
 public class AuthorRegisterFragment extends BaseFragment {
 
     private static final String TAG = AuthorRegisterFragment.class.getSimpleName();
+
+    public AuthorRegisterFragment() {
+        // Required empty public constructor
+    }
+
     public static AuthorRegisterFragment newInstance() {
         AuthorRegisterFragment fragment = new AuthorRegisterFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public AuthorRegisterFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -65,14 +66,14 @@ public class AuthorRegisterFragment extends BaseFragment {
     }
 
 
-    private void initRegister(View view){
+    private void initRegister(View view) {
         Button regBn = (Button) view.findViewById(R.id.register);
         final EditText userNameET = (EditText) view.findViewById(R.id.etUsername);
         final TextView tipTV = (TextView) view.findViewById(R.id.tipTV);
         userNameET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                ToastUtil.showShortText(getContext(),"change");
+                ToastUtil.showShortText(getContext(), "change");
             }
         });
         final EditText passwordET = (EditText) view.findViewById(R.id.etPassword);
@@ -83,29 +84,29 @@ public class AuthorRegisterFragment extends BaseFragment {
                 String username = userNameET.getText().toString();
                 String password = passwordET.getText().toString();
                 String surePass = surePassET.getText().toString();
-                if (!username.trim().equals("") && !password.trim().equals("") && !surePass.trim().equals("")){
+                if (!username.trim().equals("") && !password.trim().equals("") && !surePass.trim().equals("")) {
                     tipTV.setText("");
                     tipTV.invalidate();
-                    if (password.equals(surePass)){
+                    if (password.equals(surePass)) {
                         Author authorInfo = new Author();
                         authorInfo.setLoginName(username);
                         authorInfo.setPassword(password);
                         AuthorService.saveAuthor(AuthorRegisterFragment.this, authorInfo, new ResponseCallback() {
                             @Override
                             public void onFail(Exception error) {
-                                Log.e(TAG,error.getMessage());
+                                Log.e(TAG, error.getMessage());
                             }
 
                             @Override
                             public void onSuccess(String responseBody) {
-                                Log.i(TAG,responseBody);
+                                Log.i(TAG, responseBody);
                                 if (FragmentUtil.isAttachedToActivity(AuthorRegisterFragment.this)) {
                                     Log.i(TAG, responseBody);
                                     ParseResponse parseResponse = new ParseResponse();
                                     try {
                                         String str = parseResponse.getInfo(responseBody);
                                         if (str != null && str.equals(Constant.OK_MSG)) {
-                                            ToastUtil.showShortText(getContext(),getString(R.string.register_ok));
+                                            ToastUtil.showShortText(getContext(), getString(R.string.register_ok));
                                         }
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -113,11 +114,11 @@ public class AuthorRegisterFragment extends BaseFragment {
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         tipTV.setText(getString(R.string.twice_pass_diff));
                         tipTV.invalidate();
                     }
-                }else {
+                } else {
                     tipTV.setText(getString(R.string.filed_not_empty));
                     tipTV.invalidate();
                 }

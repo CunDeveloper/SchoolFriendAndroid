@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 
 import com.nju.activity.R;
-import com.nju.fragment.BaseFragment;
 import com.nju.http.ImageDownloader;
 import com.nju.util.PathConstant;
 
@@ -22,7 +20,8 @@ public class BigImgAdaper extends BaseAdapter {
     private Context mContext;
     private String[] mImgPaths;
     private String mBaseImg;
-    public BigImgAdaper(Context context,String baseImg, String[] imgPaths) {
+
+    public BigImgAdaper(Context context, String baseImg, String[] imgPaths) {
         mContext = context;
         mImgPaths = imgPaths;
         mBaseImg = baseImg;
@@ -46,20 +45,20 @@ public class BigImgAdaper extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        if (convertView == null){
+        if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.big_img,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.big_img, parent, false);
             viewHolder.imageView = (ImageView) convertView;
             convertView.setTag(viewHolder);
         }
         viewHolder = (ViewHolder) convertView.getTag();
-        final String url = PathConstant.IMAGE_PATH +mBaseImg+ mImgPaths[position];
-        Log.i(TAG,url);
-        ImageDownloader.with(mContext).download(url,viewHolder.imageView);
+        final String url = PathConstant.IMAGE_PATH + mBaseImg + mImgPaths[position];
+        Log.i(TAG, url);
+        ImageDownloader.with(mContext).download(url, viewHolder.imageView);
         return convertView;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         private ImageView imageView;
     }
 }

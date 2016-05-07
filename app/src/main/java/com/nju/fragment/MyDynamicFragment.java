@@ -13,21 +13,16 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
-import com.nju.adatper.PersonAskAdapter;
 import com.nju.adatper.PersonDynamicAdapter;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
-import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniTalk;
 import com.nju.model.EntryDate;
-import com.nju.model.MyAsk;
 import com.nju.model.MyDynamic;
 import com.nju.service.AlumniTalkService;
-import com.nju.service.MajorAskService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -43,7 +38,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 
 public class MyDynamicFragment extends BaseFragment {
@@ -60,7 +54,7 @@ public class MyDynamicFragment extends BaseFragment {
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            Log.e(TAG,error.getMessage());
+            Log.e(TAG, error.getMessage());
             ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
             mRefreshLayout.setRefreshing(false);
             error.printStackTrace();
@@ -70,7 +64,7 @@ public class MyDynamicFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            Log.i(TAG,responseBody);
+            Log.i(TAG, responseBody);
             if (FragmentUtil.isAttachedToActivity(MyDynamicFragment.this)) {
                 Log.i(TAG, responseBody);
                 ParseResponse parseResponse = new ParseResponse();
@@ -82,7 +76,7 @@ public class MyDynamicFragment extends BaseFragment {
                             for (Object obj : majorAsks) {
                                 AlumniTalk alumniTalk = (AlumniTalk) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
-                                if (!mAlumniTalks.contains(alumniTalk)){
+                                if (!mAlumniTalks.contains(alumniTalk)) {
                                     mAlumniTalks.add(alumniTalk);
                                 }
                             }
@@ -110,16 +104,17 @@ public class MyDynamicFragment extends BaseFragment {
             }
         }
     };
-    public static MyDynamicFragment newInstance(String title) {
-        MyDynamicFragment fragment = new MyDynamicFragment();
-        Bundle args = new Bundle();
-        args.putString(TITLE_PARAM,title);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public MyDynamicFragment() {
         // Required empty public constructor
+    }
+
+    public static MyDynamicFragment newInstance(String title) {
+        MyDynamicFragment fragment = new MyDynamicFragment();
+        Bundle args = new Bundle();
+        args.putString(TITLE_PARAM, title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -146,7 +141,7 @@ public class MyDynamicFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -154,20 +149,19 @@ public class MyDynamicFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
-        if (mRequestJson != null){
+        if (mRequestJson != null) {
             CloseRequestUtil.close(mRequestJson);
         }
     }
-
 
 
     private void initListView(View view) {
@@ -177,7 +171,7 @@ public class MyDynamicFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        mDynamiceAdapter = new PersonDynamicAdapter(this,mMyDynamics);
+        mDynamiceAdapter = new PersonDynamicAdapter(this, mMyDynamics);
         mListView.setAdapter(mDynamiceAdapter);
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -195,52 +189,52 @@ public class MyDynamicFragment extends BaseFragment {
         });
     }
 
-    private void setUpOnRefreshListener(View view){
+    private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
+                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
+                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
             }
         });
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
-            mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE,0);
+    public void onNetStateMessageState(NetworkInfoEvent event) {
+        if (event.isConnected()) {
+            mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
         }
     }
 
-    private void initMap(){
+    private void initMap() {
         MyDynamic myDynamic;
         EntryDate entryDate;
-        for (AlumniTalk alumniTalk:mAlumniTalks){
+        for (AlumniTalk alumniTalk : mAlumniTalks) {
             boolean isContain = true;
             myDynamic = new MyDynamic();
             final long time = DateUtil.getTime(alumniTalk.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
-            entryDate = new EntryDate(month,day);
-            for (MyDynamic dynamic:mMyDynamics){
-                if (entryDate.equals(dynamic.getEntryDate())){
+            entryDate = new EntryDate(month, day);
+            for (MyDynamic dynamic : mMyDynamics) {
+                if (entryDate.equals(dynamic.getEntryDate())) {
                     isContain = false;
                     ArrayList<AlumniTalk> tempList = dynamic.getAlumniTalks();
-                    if (!tempList.contains(alumniTalk)){
+                    if (!tempList.contains(alumniTalk)) {
                         tempList.add(alumniTalk);
                         dynamic.setAlumniTalks(tempList);
                         break;
                     }
                 }
             }
-            if (isContain){
+            if (isContain) {
                 Log.i(TAG, "DAY=" + entryDate.getDay() + "==MONTH=" + entryDate.getMonth());
                 myDynamic.setEntryDate(entryDate);
                 ArrayList<AlumniTalk> alumniTalks = new ArrayList<>();

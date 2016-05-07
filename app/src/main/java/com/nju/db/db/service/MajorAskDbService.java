@@ -23,39 +23,40 @@ public class MajorAskDbService {
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private SQLiteDatabase db;
     private Context mContext;
+
     public MajorAskDbService(Context context) {
         db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
         mContext = context;
     }
 
     public synchronized void save(ArrayList<AlumniQuestion> alumniQuestions) {
-        db.execSQL(Constant.DELETE_FROM+ MajorAskEntity.TABLE_NAME);
+        db.execSQL(Constant.DELETE_FROM + MajorAskEntity.TABLE_NAME);
         ContentValues contentValues;
-        for (AlumniQuestion alumniQuestion:alumniQuestions){
+        for (AlumniQuestion alumniQuestion : alumniQuestions) {
             contentValues = new ContentValues();
-            contentValues.put(MajorAskEntity.ID,alumniQuestion.getId());
-            contentValues.put(MajorAskEntity.LABEL,alumniQuestion.getLabel());
+            contentValues.put(MajorAskEntity.ID, alumniQuestion.getId());
+            contentValues.put(MajorAskEntity.LABEL, alumniQuestion.getLabel());
             final String json = gson.toJson(alumniQuestion);
-            contentValues.put(MajorAskEntity.CONTENT,json);
+            contentValues.put(MajorAskEntity.CONTENT, json);
             String entryYear = alumniQuestion.getAuthor().getLabel().split(" ")[2];
-            HashMap<String,String> degrees = DegreeUtil.degrees(mContext);
+            HashMap<String, String> degrees = DegreeUtil.degrees(mContext);
             String degree = degrees.get(entryYear);
             Log.i(TAG, degree);
-            if (degree != null &&!degree.trim().equals("")){
-                contentValues.put(MajorAskEntity.DEGREE,degree);
-                db.replace(MajorAskEntity.TABLE_NAME,null,contentValues);
+            if (degree != null && !degree.trim().equals("")) {
+                contentValues.put(MajorAskEntity.DEGREE, degree);
+                db.replace(MajorAskEntity.TABLE_NAME, null, contentValues);
             }
         }
     }
 
-    public ArrayList<AlumniQuestion> getMajorAsks(String degree){
-        ArrayList<AlumniQuestion>  alumniQuestions = new ArrayList<>();
-        String[] projection ={
+    public ArrayList<AlumniQuestion> getMajorAsks(String degree) {
+        ArrayList<AlumniQuestion> alumniQuestions = new ArrayList<>();
+        String[] projection = {
                 MajorAskEntity.CONTENT
         };
         Cursor cursor;
-        if (degree != null && !degree.trim().equals("")){
-            if (degree.equals(Constant.ALL)){
+        if (degree != null && !degree.trim().equals("")) {
+            if (degree.equals(Constant.ALL)) {
                 cursor = db.query(
                         MajorAskEntity.TABLE_NAME,
                         projection,
@@ -65,7 +66,7 @@ public class MajorAskDbService {
                         null,
                         null
                 );
-            }else {
+            } else {
                 String selection = MajorAskEntity.DEGREE + "=?";
                 String[] selectionArgs = new String[1];
                 selectionArgs[0] = degree;
@@ -83,7 +84,7 @@ public class MajorAskDbService {
             int contentId = cursor.getColumnIndex(MajorAskEntity.CONTENT);
             AlumniQuestion alumniQuestion;
             while (cursor.moveToNext()) {
-                alumniQuestion = (AlumniQuestion) gson.fromJson(cursor.getString(contentId),AlumniQuestion.class);
+                alumniQuestion = (AlumniQuestion) gson.fromJson(cursor.getString(contentId), AlumniQuestion.class);
                 alumniQuestions.add(alumniQuestion);
             }
             cursor.close();
@@ -91,19 +92,18 @@ public class MajorAskDbService {
         return alumniQuestions;
     }
 
-    public ArrayList<AlumniQuestion> getMajorAsksByDegreeAndLabel(String degree,String label){
-        ArrayList<AlumniQuestion>  alumniQuestions = new ArrayList<>();
-        String[] projection ={
+    public ArrayList<AlumniQuestion> getMajorAsksByDegreeAndLabel(String degree, String label) {
+        ArrayList<AlumniQuestion> alumniQuestions = new ArrayList<>();
+        String[] projection = {
                 MajorAskEntity.CONTENT
         };
         Cursor cursor;
-        if (label.equals("")){
+        if (label.equals("")) {
             return getMajorAsks(degree);
-        }
-        else if (degree != null && !degree.trim().equals("") && !label.equals("")){
-            if (degree.equals(Constant.ALL)){
-                String selection = MajorAskEntity.LABEL +"=?";
-                Log.i(TAG,selection);
+        } else if (degree != null && !degree.trim().equals("") && !label.equals("")) {
+            if (degree.equals(Constant.ALL)) {
+                String selection = MajorAskEntity.LABEL + "=?";
+                Log.i(TAG, selection);
                 String[] selectionArgs = {label};
                 cursor = db.query(
                         MajorAskEntity.TABLE_NAME,
@@ -114,25 +114,25 @@ public class MajorAskDbService {
                         null,
                         null
                 );
-             }else {
-                    String selection = MajorAskEntity.DEGREE + "=? AND "+MajorAskEntity.LABEL +"=?" ;
-                    Log.i(TAG,selection);
-                    String[] selectionArgs = {degree,label};
-                    cursor = db.query(
-                            MajorAskEntity.TABLE_NAME,
-                            projection,
-                            selection,
-                            selectionArgs,
-                            null,
-                            null,
-                            null
-                    );
+            } else {
+                String selection = MajorAskEntity.DEGREE + "=? AND " + MajorAskEntity.LABEL + "=?";
+                Log.i(TAG, selection);
+                String[] selectionArgs = {degree, label};
+                cursor = db.query(
+                        MajorAskEntity.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        null
+                );
             }
 
             int contentId = cursor.getColumnIndex(MajorAskEntity.CONTENT);
             AlumniQuestion alumniQuestion;
             while (cursor.moveToNext()) {
-                alumniQuestion = (AlumniQuestion) gson.fromJson(cursor.getString(contentId),AlumniQuestion.class);
+                alumniQuestion = (AlumniQuestion) gson.fromJson(cursor.getString(contentId), AlumniQuestion.class);
                 alumniQuestions.add(alumniQuestion);
             }
             cursor.close();
@@ -140,9 +140,9 @@ public class MajorAskDbService {
         return alumniQuestions;
     }
 
-    public ArrayList<AlumniQuestion>  getMajorAsks(){
+    public ArrayList<AlumniQuestion> getMajorAsks() {
         ArrayList<AlumniQuestion> alumniQuestions = new ArrayList<>();
-        String[] projection ={
+        String[] projection = {
                 MajorAskEntity.CONTENT
         };
         Cursor cursor = db.query(
@@ -155,10 +155,10 @@ public class MajorAskDbService {
                 null
         );
         int contentId = cursor.getColumnIndex(MajorAskEntity.CONTENT);
-        AlumniQuestion  alumniQuestion;
+        AlumniQuestion alumniQuestion;
         while (cursor.moveToNext()) {
-            alumniQuestion = (AlumniQuestion) gson.fromJson(cursor.getString(contentId),AlumniQuestion.class);
-            Log.i(TAG,alumniQuestion.getDescription());
+            alumniQuestion = (AlumniQuestion) gson.fromJson(cursor.getString(contentId), AlumniQuestion.class);
+            Log.i(TAG, alumniQuestion.getDescription());
             alumniQuestions.add(alumniQuestion);
         }
         cursor.close();

@@ -14,15 +14,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.CommentOtherEvent;
-import com.nju.activity.DeleteCommentEvent;
-import com.nju.activity.MessageContentIdEvent;
-import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
+import com.nju.event.CommentOtherEvent;
+import com.nju.event.DeleteCommentEvent;
+import com.nju.event.MessageContentIdEvent;
+import com.nju.event.PersonInfoEvent;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleFragment;
 import com.nju.fragment.CircleImageViewFragment;
-import com.nju.http.ImageDownloader;
 import com.nju.model.AlumniTalk;
 import com.nju.model.AlumnicTalkPraise;
 import com.nju.model.ContentComment;
@@ -32,7 +31,6 @@ import com.nju.util.DateUtil;
 import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
-import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,14 +41,15 @@ import java.util.ArrayList;
  */
 public class AlumniTalkAdapter extends BaseAdapter {
     private static final String TAG = AlumniTalkAdapter.class.getSimpleName();
+    private static String[] empty = {};
     private BaseFragment mContext;
-    private static String[] empty={};
     private ArrayList<AlumniTalk> mAlumniTalks;
 
-    public AlumniTalkAdapter(BaseFragment context,ArrayList<AlumniTalk> alumniTalks) {
+    public AlumniTalkAdapter(BaseFragment context, ArrayList<AlumniTalk> alumniTalks) {
         this.mContext = context;
         this.mAlumniTalks = alumniTalks;
     }
+
     @Override
     public int getCount() {
         return mAlumniTalks.size();
@@ -69,8 +68,8 @@ public class AlumniTalkAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.alumni_talk_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.alumni_talk_item, parent, false);
             holder = new ViewHolder();
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
@@ -95,31 +94,31 @@ public class AlumniTalkAdapter extends BaseAdapter {
         tempTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext.getContext(),tempTV);
-                listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext.getContext(),listPopupWindow, position));
+                ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext.getContext(), tempTV);
+                listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext.getContext(), listPopupWindow, position));
                 listPopupWindow.show();
             }
         });
-        HeadIcon.setUp(holder.headImg,alumniTalk.getAuthorInfo());
-        try{
+        HeadIcon.setUp(holder.headImg, alumniTalk.getAuthorInfo());
+        try {
             holder.contentTV.setText(StringBase64.decode(alumniTalk.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        if (alumniTalk.getLocation()!=null){
+        if (alumniTalk.getLocation() != null) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.locationTV.setLayoutParams(params);
             holder.locationTV.setVisibility(View.VISIBLE);
             holder.locationTV.setText(alumniTalk.getLocation());
-        }else {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0,0);
+        } else {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0, 0);
             holder.locationTV.setLayoutParams(params);
             holder.locationTV.setVisibility(View.GONE);
         }
         int authorId = alumniTalk.getAuthorInfo().getAuthorId();
-        if (authorId == mContext.getHostActivity().userId()){
+        if (authorId == mContext.getHostActivity().userId()) {
             holder.deleteTV.setText(Constant.DELETE);
-        }else {
+        } else {
             holder.deleteTV.setText("");
         }
         holder.deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -138,11 +137,10 @@ public class AlumniTalkAdapter extends BaseAdapter {
         holder.labelTV.setText(alumniTalk.getAuthorInfo().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniTalk.getDate()));
 
-        if (alumniTalk.getImagePaths() == null){
-            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),PathConstant.ALUMNI_TALK_IMG_PATH,empty));
-        }
-        else {
-            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(),PathConstant.ALUMNI_TALK_IMG_PATH,alumniTalk.getImagePaths().split(",")));
+        if (alumniTalk.getImagePaths() == null) {
+            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(), PathConstant.ALUMNI_TALK_IMG_PATH, empty));
+        } else {
+            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(), PathConstant.ALUMNI_TALK_IMG_PATH, alumniTalk.getImagePaths().split(",")));
         }
         holder.mPicGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -152,8 +150,8 @@ public class AlumniTalkAdapter extends BaseAdapter {
         });
         holder.listViewHead.removeAllViews();
         final ArrayList<AlumnicTalkPraise> alumnicTalkPraises = alumniTalk.getTalkPraises();
-        for (int i = 0;i<alumnicTalkPraises.size();i++){
-            TextView textView = (TextView) LayoutInflater.from(mContext.getContext()).inflate(R.layout.dynamic_praise_item,parent,false);
+        for (int i = 0; i < alumnicTalkPraises.size(); i++) {
+            TextView textView = (TextView) LayoutInflater.from(mContext.getContext()).inflate(R.layout.dynamic_praise_item, parent, false);
             final AlumnicTalkPraise talkPraise = alumnicTalkPraises.get(i);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,7 +160,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
                 }
             });
             textView.setText(talkPraise.getPraiseAuthor().getAuthorName());
-            holder.listViewHead.addView(textView,i);
+            holder.listViewHead.addView(textView, i);
         }
         final ArrayList<ContentComment> comments = alumniTalk.getComments();
         holder.listViewHead.setOnClickListener(new View.OnClickListener() {
@@ -205,11 +203,11 @@ public class AlumniTalkAdapter extends BaseAdapter {
         public TextView locationTV;
         public TextView praiseUserTV;
         public ImageView headImg;
-        private GridView mPicGridView;
         public ListView commentListView;
         public View praiseView;
         public LinearLayout.LayoutParams mParams;
         public LinearLayout.LayoutParams mLocationParams;
+        private GridView mPicGridView;
         private LinearLayout listViewHead;
         private TextView praiseItemTV;
         private TextView commentTV;

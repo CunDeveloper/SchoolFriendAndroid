@@ -19,18 +19,18 @@ import android.widget.TextView;
 
 import com.nju.View.RoundedTransformation;
 import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.CommentEvent;
-import com.nju.activity.CommentOtherEvent;
-import com.nju.activity.DeleteCommentEvent;
-import com.nju.activity.MessageContentIdEvent;
-import com.nju.activity.MessageDeleteEvent;
-import com.nju.activity.MessageEvent;
-import com.nju.activity.PersonInfoEvent;
-import com.nju.activity.PraiseEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniTalkAdapter;
 import com.nju.db.db.service.AlumniDynamicDbService;
+import com.nju.event.CommentEvent;
+import com.nju.event.CommentOtherEvent;
+import com.nju.event.DeleteCommentEvent;
 import com.nju.event.MessageComplainEvent;
+import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageDeleteEvent;
+import com.nju.event.MessageEvent;
+import com.nju.event.PersonInfoEvent;
+import com.nju.event.PraiseEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -39,6 +39,7 @@ import com.nju.model.AlumnicTalkPraise;
 import com.nju.model.ContentComment;
 import com.nju.service.AlumniTalkService;
 import com.nju.service.CacheIntentService;
+import com.nju.util.BitmapUtil;
 import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -54,6 +55,7 @@ import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -65,8 +67,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     public static final String TAG = AlumniDynamicFragment.class.getSimpleName();
     private ArrayList<AlumniTalk> mAlumniTalks = new ArrayList<>();
     private AlumniTalkAdapter mAlumniTalkAdapter;
-    private PostRequestJson mRequestJson,mRequestPraiseJson,mRequestCommentJson
-            ,getPraisesJson,getCommentsJson,deleteCommentJson,deleteContentJson;
+    private PostRequestJson mRequestJson, mRequestPraiseJson, mRequestCommentJson, getPraisesJson, getCommentsJson, deleteCommentJson, deleteContentJson;
     private SwipeRefreshLayout mRefreshLayout;
     private RelativeLayout mFootView;
     private View mainView;
@@ -76,61 +77,10 @@ public class AlumniDynamicFragment extends BaseFragment {
     private int commentId = 0;
     private AtomicInteger dynamicId;
     private String mDegree = Constant.ALL;
-    private ResponseCallback callback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniDynamicFragment.this)){
-                ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
-                mRefreshLayout.setRefreshing(false);
-                error.printStackTrace();
-                Log.e(TAG, error.getMessage());
-                mFootView.setVisibility(View.GONE);
-            }
-        }
-
-        @Override
-        public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniDynamicFragment.this)){
-                Log.i(TAG, responseBody);
-                ParseResponse parseResponse = new ParseResponse();
-                try {
-                    Object object = parseResponse.getInfo(responseBody,AlumniTalk.class);
-                    if (object != null){
-                        ArrayList majorAsks = (ArrayList) object;
-                        mAlumniTalks.clear();
-                        if (majorAsks.size()>0){
-                            for (Object obj :majorAsks){
-                                AlumniTalk  alumniTalk = (AlumniTalk) obj;
-                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
-                                if (!mAlumniTalks.contains(alumniTalk)){
-                                    mAlumniTalks.add(alumniTalk);
-                                }
-                            }
-                            Collections.sort(mAlumniTalks, new AlumniTalkSort());
-                            int length = mAlumniTalks.size();
-                            if (length>Constant.MAX_ROW){
-                                for (int i = length-1;i>Constant.MAX_ROW;i--){
-                                    mAlumniTalks.remove(mAlumniTalks.get(i));
-                                }
-                            }
-                        }
-                        mAlumniTalkAdapter.notifyDataSetChanged();
-                    }
-                    queryPraiseAndComment();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    mRefreshLayout.setRefreshing(false);
-                    mFootView.setVisibility(View.GONE);
-                }
-            }
-        }
-    };
-
     private ResponseCallback getPraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            Log.i(TAG,error.getMessage());
+            Log.i(TAG, error.getMessage());
         }
 
         @Override
@@ -140,17 +90,17 @@ public class AlumniDynamicFragment extends BaseFragment {
                 Log.i(TAG, responseBody);
                 ParseResponse parseResponse = new ParseResponse();
                 try {
-                    Object object = parseResponse.getInfo(responseBody,AlumnicTalkPraise.class);
+                    Object object = parseResponse.getInfo(responseBody, AlumnicTalkPraise.class);
                     if (object != null) {
                         ArrayList praises = (ArrayList) object;
                         if (praises.size() > 0) {
-                            for (Object obj:praises){
+                            for (Object obj : praises) {
                                 AlumnicTalkPraise talkPraise = (AlumnicTalkPraise) obj;
                                 int contentId = talkPraise.getContentId();
-                                for (AlumniTalk alumniTalk:mAlumniTalks){
-                                    if (contentId == alumniTalk.getId()){
+                                for (AlumniTalk alumniTalk : mAlumniTalks) {
+                                    if (contentId == alumniTalk.getId()) {
                                         ArrayList<AlumnicTalkPraise> talkPraises = alumniTalk.getTalkPraises();
-                                        if (! talkPraises.contains(talkPraise)){
+                                        if (!talkPraises.contains(talkPraise)) {
                                             alumniTalk.getTalkPraises().add(talkPraise);
                                         }
                                         break;
@@ -165,7 +115,6 @@ public class AlumniDynamicFragment extends BaseFragment {
             }
         }
     };
-
     private ResponseCallback getCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -183,16 +132,16 @@ public class AlumniDynamicFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
-                            for (AlumniTalk alumniTalk:mAlumniTalks){
+                            for (AlumniTalk alumniTalk : mAlumniTalks) {
                                 alumniTalk.setComments(new ArrayList<ContentComment>());
                             }
                             for (Object obj : comments) {
                                 ContentComment comment = (ContentComment) obj;
                                 int contentId = comment.getAlumnicTalkId();
-                                for (AlumniTalk alumniTalk:mAlumniTalks){
-                                    if (contentId == alumniTalk.getId()){
+                                for (AlumniTalk alumniTalk : mAlumniTalks) {
+                                    if (contentId == alumniTalk.getId()) {
                                         ArrayList<ContentComment> talkComments = alumniTalk.getComments();
-                                        if (!talkComments.contains(comment)){
+                                        if (!talkComments.contains(comment)) {
                                             alumniTalk.getComments().add(comment);
                                         }
                                         break;
@@ -208,7 +157,56 @@ public class AlumniDynamicFragment extends BaseFragment {
             }
         }
     };
+    private ResponseCallback callback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniDynamicFragment.this)) {
+                ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
+                mRefreshLayout.setRefreshing(false);
+                error.printStackTrace();
+                Log.e(TAG, error.getMessage());
+                mFootView.setVisibility(View.GONE);
+            }
+        }
 
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniDynamicFragment.this)) {
+                Log.i(TAG, responseBody);
+                ParseResponse parseResponse = new ParseResponse();
+                try {
+                    Object object = parseResponse.getInfo(responseBody, AlumniTalk.class);
+                    if (object != null) {
+                        ArrayList majorAsks = (ArrayList) object;
+                        mAlumniTalks.clear();
+                        if (majorAsks.size() > 0) {
+                            for (Object obj : majorAsks) {
+                                AlumniTalk alumniTalk = (AlumniTalk) obj;
+                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
+                                if (!mAlumniTalks.contains(alumniTalk)) {
+                                    mAlumniTalks.add(alumniTalk);
+                                }
+                            }
+                            Collections.sort(mAlumniTalks, new AlumniTalkSort());
+                            int length = mAlumniTalks.size();
+                            if (length > Constant.MAX_ROW) {
+                                for (int i = length - 1; i > Constant.MAX_ROW; i--) {
+                                    mAlumniTalks.remove(mAlumniTalks.get(i));
+                                }
+                            }
+                        }
+                        mAlumniTalkAdapter.notifyDataSetChanged();
+                    }
+                    queryPraiseAndComment();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    mRefreshLayout.setRefreshing(false);
+                    mFootView.setVisibility(View.GONE);
+                }
+            }
+        }
+    };
     private ResponseCallback saveCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -226,7 +224,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private ResponseCallback savePraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            Log.e(TAG,error.getMessage());
+            Log.e(TAG, error.getMessage());
         }
 
         @Override
@@ -240,7 +238,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private ResponseCallback deleteCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            Log.e(TAG,error.getMessage());
+            Log.e(TAG, error.getMessage());
         }
 
         @Override
@@ -251,7 +249,7 @@ public class AlumniDynamicFragment extends BaseFragment {
                 ParseResponse parseResponse = new ParseResponse();
                 try {
                     String str = parseResponse.getInfo(responseBody);
-                    if (str.equals(Constant.OK_MSG)){
+                    if (str.equals(Constant.OK_MSG)) {
                         queryPraiseAndComment();
                     }
                 } catch (IOException e) {
@@ -264,7 +262,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private ResponseCallback deleteContentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            Log.e(TAG,error.getMessage());
+            Log.e(TAG, error.getMessage());
         }
 
         @Override
@@ -275,10 +273,10 @@ public class AlumniDynamicFragment extends BaseFragment {
                 ParseResponse parseResponse = new ParseResponse();
                 try {
                     String str = parseResponse.getInfo(responseBody);
-                    if (str.equals(Constant.OK_MSG)){
+                    if (str.equals(Constant.OK_MSG)) {
                         int id = dynamicId.get();
-                        for (AlumniTalk talk :mAlumniTalks){
-                            if (id == talk.getId()){
+                        for (AlumniTalk talk : mAlumniTalks) {
+                            if (id == talk.getId()) {
                                 mAlumniTalks.remove(talk);
                                 mAlumniTalkAdapter.notifyDataSetChanged();
                                 break;
@@ -292,21 +290,21 @@ public class AlumniDynamicFragment extends BaseFragment {
         }
     };
 
-    private void queryPraiseAndComment(){
-        getCommentsJson = AlumniTalkService.queryComment(AlumniDynamicFragment.this,mAlumniTalks,getCommentCallback);
-        getPraisesJson = AlumniTalkService.queryPraise(AlumniDynamicFragment.this,mAlumniTalks,getPraiseCallback);
+    public AlumniDynamicFragment() {
+        // Required empty public constructor
+        new ExeCacheTask(this).execute(mDegree);
     }
 
-    public static AlumniDynamicFragment newInstance( ) {
+    public static AlumniDynamicFragment newInstance() {
         AlumniDynamicFragment fragment = new AlumniDynamicFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public AlumniDynamicFragment() {
-        // Required empty public constructor
-        new ExeCacheTask(this).execute(mDegree);
+    private void queryPraiseAndComment() {
+        getCommentsJson = AlumniTalkService.queryComment(AlumniDynamicFragment.this, mAlumniTalks, getCommentCallback);
+        getPraisesJson = AlumniTalkService.queryPraise(AlumniDynamicFragment.this, mAlumniTalks, getPraiseCallback);
     }
 
     @Override
@@ -316,7 +314,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -333,29 +331,30 @@ public class AlumniDynamicFragment extends BaseFragment {
         setUpOnRefreshListener(view);
         BottomToolBar.show(this, view);
         TextView navNameTv = getHostActivity().navNameTV();
-        String username = getHostActivity().getSharedPreferences().getString(getString(R.string.username),"");
-        if (!username.equals("")){
+        String username = getHostActivity().getSharedPreferences().getString(getString(R.string.username), "");
+        if (!username.equals("")) {
             navNameTv.setText(username);
-        }else {
+        } else {
             navNameTv.setText("访客");
         }
 
         ImageView navImg = getHostActivity().navHeadImg();
-        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url),"");
-        if (!headUrl.equals("")){
-            Picasso.with(getContext()).load(R.drawable.cheese_3)
+        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url_filename), "");
+        if (!headUrl.equals("")) {
+            Picasso.with(getContext()).load(BitmapUtil.file(headUrl))
                     .transform(new RoundedTransformation(R.dimen.bottom_choose_height, 4))
                     .resizeDimen(R.dimen.bottom_choose_height, R.dimen.bottom_choose_height).centerCrop()
                     .into(navImg);
         }
         return view;
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setTitle(R.string.alumn_circle);
         }
@@ -363,7 +362,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestJson != null)
@@ -383,24 +382,24 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        if (mAlumniTalks != null && mAlumniTalks.size()>0){
-            Intent intent = new Intent(getContext(),CacheIntentService.class);
-            intent.putExtra(Constant.LABEL,Constant.ALUMNI_DYNAMIC);
-            intent.putExtra(Constant.ALUMNI_DYNAMIC,mAlumniTalks);
+        if (mAlumniTalks != null && mAlumniTalks.size() > 0) {
+            Intent intent = new Intent(getContext(), CacheIntentService.class);
+            intent.putExtra(Constant.LABEL, Constant.ALUMNI_DYNAMIC);
+            intent.putExtra(Constant.ALUMNI_DYNAMIC, mAlumniTalks);
             getContext().startService(intent);
         }
     }
 
     @Subscribe
-    public void onMessagePraiseEvent(PraiseEvent event){
+    public void onMessagePraiseEvent(PraiseEvent event) {
         mIndex = event.getId();
-        mRequestPraiseJson = AlumniTalkService.savePraise(this,mAlumniTalks.get(mIndex).getId(),savePraiseCallback);
+        mRequestPraiseJson = AlumniTalkService.savePraise(this, mAlumniTalks.get(mIndex).getId(), savePraiseCallback);
     }
 
     @Subscribe
-    public void onMessageCommentEvent(final CommentEvent event){
+    public void onMessageCommentEvent(final CommentEvent event) {
         mIndex = event.getId();
         mListView.post(new Runnable() {
             @Override
@@ -413,12 +412,12 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessagePersonEvent(PersonInfoEvent event){
+    public void onMessagePersonEvent(PersonInfoEvent event) {
         getHostActivity().open(CircleFragment.newInstance(event.getAuthorInfo()));
     }
 
     @Subscribe
-    public void onMessageCommentOther(CommentOtherEvent event){
+    public void onMessageCommentOther(CommentOtherEvent event) {
         ContentComment comment = event.getComment();
         commentId = comment.getId();
         mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
@@ -427,46 +426,49 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageDegree(MessageEvent event){
+    public void onMessageDegree(MessageEvent event) {
         mDegree = event.getMessage();
         mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, mDegree, Constant.PRE, 0);
     }
+
     @Subscribe
-    public void onMessageDeleteComment(DeleteCommentEvent event){
+    public void onMessageDeleteComment(DeleteCommentEvent event) {
         ContentComment comment = event.getComment();
         commentId = comment.getId();
-        if (comment.getCommentAuthor().getAuthorId() == getHostActivity().userId()){
+        if (comment.getCommentAuthor().getAuthorId() == getHostActivity().userId()) {
             String[] strings = {getString(R.string.delete)};
-            SchoolFriendDialog.listItemDialog(getContext(),strings).show();
+            SchoolFriendDialog.listItemDialog(getContext(), strings).show();
         }
-    }
-    @Subscribe
-    public void onMessageDeleteComment(MessageDeleteEvent deleteEvent){
-        deleteCommentJson = AlumniTalkService.deleteComment(this,commentId,deleteCommentCallback);
-        commentId = 0;
-    }
-    @Subscribe
-    public void onMessageDeleteContent(MessageContentIdEvent event){
-        dynamicId = new AtomicInteger();
-        dynamicId.set(event.getId());
-        deleteContentJson = AlumniTalkService.deleteDynamci(this,event.getId(),deleteContentCallback);
     }
 
     @Subscribe
-    public void onMessageComplainEvent(MessageComplainEvent event){
-        if (event.getMessage().equals(getString(R.string.complain))){
+    public void onMessageDeleteComment(MessageDeleteEvent deleteEvent) {
+        deleteCommentJson = AlumniTalkService.deleteComment(this, commentId, deleteCommentCallback);
+        commentId = 0;
+    }
+
+    @Subscribe
+    public void onMessageDeleteContent(MessageContentIdEvent event) {
+        dynamicId = new AtomicInteger();
+        dynamicId.set(event.getId());
+        deleteContentJson = AlumniTalkService.deleteDynamci(this, event.getId(), deleteContentCallback);
+    }
+
+    @Subscribe
+    public void onMessageComplainEvent(MessageComplainEvent event) {
+        if (event.getMessage().equals(getString(R.string.complain))) {
             getHostActivity().open(ComplainFragment.newInstance());
         }
     }
 
-    private void initListView(final View view){
-        mContentEditText = CommentUtil.getCommentEdit(this,view);
+    private void initListView(final View view) {
+        mContentEditText = CommentUtil.getCommentEdit(this, view);
         mListView = (ListView) view.findViewById(R.id.listView);
         new ListViewHead(this).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        mAlumniTalkAdapter = new AlumniTalkAdapter(this,mAlumniTalks);
+        mAlumniTalkAdapter = new AlumniTalkAdapter(this, mAlumniTalks);
         mListView.setAdapter(mAlumniTalkAdapter);
         ImageView mCameraImageView = getHostActivity().getMenuCameraView();
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
@@ -495,19 +497,19 @@ public class AlumniDynamicFragment extends BaseFragment {
         });
     }
 
-    private void setUpOnRefreshListener(View view){
+    private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, mDegree, Constant.PRE,0);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, mDegree, Constant.PRE, 0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback,mDegree, Constant.PRE,0);
+                mRequestJson = AlumniTalkService.queryAlumniTalks(AlumniDynamicFragment.this, callback, mDegree, Constant.PRE, 0);
 
             }
         });
@@ -533,18 +535,19 @@ public class AlumniDynamicFragment extends BaseFragment {
         }
     }
 
-    private static class ExeCacheTask extends AsyncTask<String,Void,ArrayList<AlumniTalk>>
-    {
+    private static class ExeCacheTask extends AsyncTask<String, Void, ArrayList<AlumniTalk>> {
         private final WeakReference<AlumniDynamicFragment> mAlumniDynamicWeakRef;
         private String degree;
-        public ExeCacheTask(AlumniDynamicFragment  alumniDynamicFragment){
+
+        public ExeCacheTask(AlumniDynamicFragment alumniDynamicFragment) {
             this.mAlumniDynamicWeakRef = new WeakReference<>(alumniDynamicFragment);
         }
+
         @Override
         protected ArrayList<AlumniTalk> doInBackground(String... params) {
             AlumniDynamicFragment alumniDynamicFragment = mAlumniDynamicWeakRef.get();
             degree = params[0];
-            if (alumniDynamicFragment != null){
+            if (alumniDynamicFragment != null) {
                 switch (degree) {
                     case Constant.ALL:
                         return new AlumniDynamicDbService(alumniDynamicFragment.getContext()).getAlumniDynamics(Constant.ALL);
@@ -564,8 +567,8 @@ public class AlumniDynamicFragment extends BaseFragment {
             super.onPostExecute(alumniTalks);
             AlumniDynamicFragment alumniDynamicFragment = mAlumniDynamicWeakRef.get();
             int preId = 0;
-            if (alumniDynamicFragment!=null){
-                if (alumniTalks != null && alumniTalks.size()>0){
+            if (alumniDynamicFragment != null) {
+                if (alumniTalks != null && alumniTalks.size() > 0) {
                     Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalks));
                     Collections.sort(alumniTalks, new AlumniTalkSort());
                     ArrayList<AlumniTalk> source = alumniDynamicFragment.mAlumniTalks;
@@ -573,8 +576,8 @@ public class AlumniDynamicFragment extends BaseFragment {
                     source.addAll(alumniTalks);
                     alumniDynamicFragment.mAlumniTalkAdapter.notifyDataSetChanged();
                 }
-              }
             }
         }
     }
+}
 

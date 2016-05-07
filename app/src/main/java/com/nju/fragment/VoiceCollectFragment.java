@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.adatper.VoiceCollectAdapter;
 import com.nju.db.db.service.AlumniVoiceCollectDbService;
+import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.AlumniVoice;
 import com.nju.test.TestData;
@@ -39,16 +39,16 @@ public class VoiceCollectFragment extends BaseFragment {
     private boolean mIsMore = false;
     private RelativeLayout mCollectToolLayout;
 
+    public VoiceCollectFragment() {
+        // Required empty public constructor
+    }
+
     public static VoiceCollectFragment newInstance(String title) {
         VoiceCollectFragment fragment = new VoiceCollectFragment();
         Bundle args = new Bundle();
-        args.putString(PARAM_TITLE,title);
+        args.putString(PARAM_TITLE, title);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public VoiceCollectFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -60,7 +60,7 @@ public class VoiceCollectFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -76,10 +76,10 @@ public class VoiceCollectFragment extends BaseFragment {
         return view;
     }
 
-    private void initListView(View view){
+    private void initListView(View view) {
         mCollectVoices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        mVoiceCollectAdapter = new VoiceCollectAdapter(getContext(),mCollectVoices);
+        mVoiceCollectAdapter = new VoiceCollectAdapter(getContext(), mCollectVoices);
         listView.setAdapter(mVoiceCollectAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,14 +97,14 @@ public class VoiceCollectFragment extends BaseFragment {
         });
         mCollectToolLayout = (RelativeLayout) view.findViewById(R.id.collectToolLayout);
 
-}
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -112,20 +112,20 @@ public class VoiceCollectFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe
-    public void onMessageChoose(MessageEvent event){
+    public void onMessageChoose(MessageEvent event) {
         Log.i(TAG, event.getMessage());
-        if (event.getMessage().equals(getString(R.string.more))){
+        if (event.getMessage().equals(getString(R.string.more))) {
             mIsMore = true;
-            for (AlumniVoice alumniVoice:mCollectVoices){
-                if (alumniVoice.getId() == mChoosePosition){
+            for (AlumniVoice alumniVoice : mCollectVoices) {
+                if (alumniVoice.getId() == mChoosePosition) {
                     alumniVoice.setCheck(2);
-                }else {
+                } else {
                     alumniVoice.setCheck(1);
                 }
             }
@@ -135,8 +135,8 @@ public class VoiceCollectFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageEventMore(MessageEventMore eventMore){
-        for (AlumniVoice alumniVoice:mCollectVoices){
+    public void onMessageEventMore(MessageEventMore eventMore) {
+        for (AlumniVoice alumniVoice : mCollectVoices) {
             alumniVoice.setCheck(0);
         }
         mCollectToolLayout.setVisibility(View.GONE);
@@ -144,20 +144,21 @@ public class VoiceCollectFragment extends BaseFragment {
         mIsMore = false;
     }
 
-    public boolean isMore(){
+    public boolean isMore() {
         return mIsMore;
     }
 
-    private static class ExeCollectTask extends AsyncTask<Void,Void,ArrayList<AlumniVoice>>
-    {
+    private static class ExeCollectTask extends AsyncTask<Void, Void, ArrayList<AlumniVoice>> {
         private final WeakReference<VoiceCollectFragment> mVoiceCollectFragment;
-        public ExeCollectTask(VoiceCollectFragment voiceCollectFragment){
+
+        public ExeCollectTask(VoiceCollectFragment voiceCollectFragment) {
             this.mVoiceCollectFragment = new WeakReference<>(voiceCollectFragment);
         }
+
         @Override
         protected ArrayList<AlumniVoice> doInBackground(Void... params) {
             VoiceCollectFragment collectFragment = mVoiceCollectFragment.get();
-            if (collectFragment!=null){
+            if (collectFragment != null) {
                 return new AlumniVoiceCollectDbService(collectFragment.getContext()).getCollects();
             }
             return null;
@@ -167,8 +168,8 @@ public class VoiceCollectFragment extends BaseFragment {
         protected void onPostExecute(ArrayList<AlumniVoice> alumniVoices) {
             super.onPostExecute(alumniVoices);
             VoiceCollectFragment collectFragment = mVoiceCollectFragment.get();
-            if (collectFragment!=null){
-                if (alumniVoices != null){
+            if (collectFragment != null) {
+                if (alumniVoices != null) {
                     collectFragment.mCollectVoices.addAll(alumniVoices);
                     collectFragment.mVoiceCollectAdapter.notifyDataSetChanged();
                 }

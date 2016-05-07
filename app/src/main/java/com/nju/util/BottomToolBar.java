@@ -3,7 +3,6 @@ package com.nju.util;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,19 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.nju.activity.MessageEvent;
-import com.nju.activity.MessageLabelEvent;
 import com.nju.activity.R;
-import com.nju.activity.RecommendWorkTypeEvent;
 import com.nju.adatper.CollageAdapter;
 import com.nju.adatper.LabelAdapter;
+import com.nju.event.MessageEvent;
+import com.nju.event.MessageLabelEvent;
+import com.nju.event.RecommendWorkTypeEvent;
 import com.nju.fragment.BaseFragment;
-import com.nju.test.TestData;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -39,39 +36,39 @@ import java.util.Set;
  */
 public class BottomToolBar {
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
-    private static Map<String,ArrayList<String>> mCollegeMap;
+    private static Map<String, ArrayList<String>> mCollegeMap;
     private static ArrayList<String> mVoiceLabels;
     private static ArrayList<String> mAskLabels;
 
-    private static void initMap(BaseFragment fragment){
-        if (mCollegeMap == null){
+    private static void initMap(BaseFragment fragment) {
+        if (mCollegeMap == null) {
             String collegeJson = fragment.getHostActivity().getSharedPreferences()
                     .getString(Constant.COLLEGES, "");
-            if (!collegeJson.equals("")){
+            if (!collegeJson.equals("")) {
                 mCollegeMap = gson.fromJsonToMap(collegeJson);
             }
         }
-        if (mVoiceLabels == null){
+        if (mVoiceLabels == null) {
             Set<String> voiceLabelSet = fragment.getHostActivity().getSharedPreferences()
-                    .getStringSet(Constant.VOICE_LABEL,new HashSet<String>());
+                    .getStringSet(Constant.VOICE_LABEL, new HashSet<String>());
             mVoiceLabels = new ArrayList<>(voiceLabelSet);
         }
 
-        if (mAskLabels == null){
+        if (mAskLabels == null) {
             Set<String> askLabelSet = fragment.getHostActivity().getSharedPreferences()
-                    .getStringSet(Constant.ASK_LABEL,new HashSet<String>());
+                    .getStringSet(Constant.ASK_LABEL, new HashSet<String>());
             mAskLabels = new ArrayList<>(askLabelSet);
         }
     }
 
-    public static void show(final BaseFragment fragment,View view ){
+    public static void show(final BaseFragment fragment, View view) {
         initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         final ListView listView = (ListView) view.findViewById(R.id.college_choose_dialog_listview);
         final RelativeLayout mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
-        openChooseDialog(mCollegeMainLayout,listView,view);
-        hideChooseDialog(mCollegeMainLayout,listView,view);
+        openChooseDialog(mCollegeMainLayout, listView, view);
+        hideChooseDialog(mCollegeMainLayout, listView, view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,7 +77,7 @@ public class BottomToolBar {
         });
         Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
 
-        for (String level:levels) {
+        for (String level : levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
@@ -98,9 +95,9 @@ public class BottomToolBar {
                     TextView tv = (TextView) v;
                     String level = tv.getText().toString();
                     if (!level.equals(Constant.ALL)) {
-                        if (mCollegeMap != null){
+                        if (mCollegeMap != null) {
                             ArrayList<String> colleges = mCollegeMap.get(level);
-                            if (colleges != null){
+                            if (colleges != null) {
                                 listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
                                 listView.setVisibility(View.VISIBLE);
                             }
@@ -123,7 +120,7 @@ public class BottomToolBar {
         }
     }
 
-    public static void showVoiceTool1(final BaseFragment fragment,View view ){
+    public static void showVoiceTool1(final BaseFragment fragment, View view) {
         initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
@@ -134,7 +131,7 @@ public class BottomToolBar {
                 android.R.layout.simple_dropdown_item_1line, mVoiceLabels.toArray(new String[mVoiceLabels.size()]));
 
         final RelativeLayout mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
-        openChooseDialog(mCollegeMainLayout,listView,view);
+        openChooseDialog(mCollegeMainLayout, listView, view);
         hideChooseDialog(mCollegeMainLayout, listView, view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -144,7 +141,7 @@ public class BottomToolBar {
         });
         Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
 
-        for (String level:levels) {
+        for (String level : levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
@@ -189,7 +186,7 @@ public class BottomToolBar {
     }
 
 
-    public static void showRecommendTool(final BaseFragment fragment,View view ){
+    public static void showRecommendTool(final BaseFragment fragment, View view) {
         initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
@@ -203,7 +200,7 @@ public class BottomToolBar {
             }
         });
         Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
-        initDialogRecommend(mCollegeMainLayout,typeLinearLayout,view);
+        initDialogRecommend(mCollegeMainLayout, typeLinearLayout, view);
         for (String level : levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -281,22 +278,24 @@ public class BottomToolBar {
         }
     }
 
-    public static String getRecommendType(View view){
+    public static String getRecommendType(View view) {
         RadioButton rBn1 = (RadioButton) view.findViewById(R.id.rBn1);
         RadioButton rBn2 = (RadioButton) view.findViewById(R.id.rBn2);
         RadioButton rBn3 = (RadioButton) view.findViewById(R.id.rBn3);
-        if (rBn1.isChecked()){
+        if (rBn1.isChecked()) {
             return rBn1.getText().toString();
-        }if (rBn2.isChecked()){
+        }
+        if (rBn2.isChecked()) {
             return rBn2.getText().toString();
-        }if (rBn3.isChecked()){
+        }
+        if (rBn3.isChecked()) {
             return rBn3.getText().toString();
         }
         return rBn1.getText().toString();
     }
 
 
-    public static void showMajorTool(final BaseFragment fragment,View view ){
+    public static void showMajorTool(final BaseFragment fragment, View view) {
         initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
@@ -305,8 +304,8 @@ public class BottomToolBar {
         final Spinner spinner = (Spinner) view.findViewById(R.id.mSpinner);
         openChooseDialogHasGrid(mCollegeMainLayout, gridView, view);
         hideChooseDialogHasGrid(mCollegeMainLayout, gridView, view);
-        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level),new HashSet<String>());
-        for (String level:levels) {
+        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
+        for (String level : levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
@@ -323,7 +322,7 @@ public class BottomToolBar {
                 public boolean onLongClick(View v) {
                     TextView tv = (TextView) v;
                     if (!tv.getText().toString().equals(Constant.ALL)) {
-                        gridView.setAdapter(new LabelAdapter(fragment.getContext(),mAskLabels));
+                        gridView.setAdapter(new LabelAdapter(fragment.getContext(), mAskLabels));
                         gridView.setVisibility(View.VISIBLE);
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -353,16 +352,16 @@ public class BottomToolBar {
     }
 
 
-    public static void showVoiceTool(final BaseFragment fragment,View view ){
+    public static void showVoiceTool(final BaseFragment fragment, View view) {
         initMap(fragment);
         final ArrayList<TextView> mChooseLevelViews = new ArrayList<>();
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.college_choose_dialog_choose_layout);
         final GridView gridView = (GridView) view.findViewById(R.id.mGridView);
         final RelativeLayout mCollegeMainLayout = (RelativeLayout) view.findViewById(R.id.college_choose_dialog_relayout);
         final Spinner spinner = (Spinner) view.findViewById(R.id.mSchoolSpinner);
-        initVoiceDialog(mCollegeMainLayout,gridView,spinner,view);
-        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level),new HashSet<String>());
-        for (String level:levels) {
+        initVoiceDialog(mCollegeMainLayout, gridView, spinner, view);
+        Set<String> levels = fragment.getHostActivity().getSharedPreferences().getStringSet(fragment.getString(R.string.level), new HashSet<String>());
+        for (String level : levels) {
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
@@ -385,7 +384,7 @@ public class BottomToolBar {
                                 android.R.layout.simple_dropdown_item_1line, colleges.toArray(new String[colleges.size()]));
                         spinner.setVisibility(View.VISIBLE);
                         spinner.setAdapter(adapter);
-                        gridView.setAdapter(new LabelAdapter(fragment.getContext(),mVoiceLabels));
+                        gridView.setAdapter(new LabelAdapter(fragment.getContext(), mVoiceLabels));
                         gridView.setVisibility(View.VISIBLE);
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -415,18 +414,17 @@ public class BottomToolBar {
     }
 
 
-
-    private static void changeLevelTVColor(ArrayList<TextView> mChooseLevelViews,Context context,TextView view){
-        for (TextView textView:mChooseLevelViews){
-            if (view.getText().toString().equals(textView.getText().toString())){
-                view.setTextColor(ContextCompat.getColor(context,R.color.primayDark));
-            }else{
+    private static void changeLevelTVColor(ArrayList<TextView> mChooseLevelViews, Context context, TextView view) {
+        for (TextView textView : mChooseLevelViews) {
+            if (view.getText().toString().equals(textView.getText().toString())) {
+                view.setTextColor(ContextCompat.getColor(context, R.color.primayDark));
+            } else {
                 textView.setTextColor(ContextCompat.getColor(context, android.R.color.black));
             }
         }
     }
 
-    private static void openChooseDialog(final RelativeLayout mCollegeMainLayout, final ListView listView, final View view){
+    private static void openChooseDialog(final RelativeLayout mCollegeMainLayout, final ListView listView, final View view) {
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         final Spinner spinner = (Spinner) view.findViewById(R.id.mSpinner);
         floatBn.setOnClickListener(new View.OnClickListener() {
@@ -439,7 +437,7 @@ public class BottomToolBar {
         });
     }
 
-    private static void initDialogRecommend(final RelativeLayout mCollegeMainLayout, final LinearLayout typeLinearLayout, final View view){
+    private static void initDialogRecommend(final RelativeLayout mCollegeMainLayout, final LinearLayout typeLinearLayout, final View view) {
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         final Spinner spinner = (Spinner) view.findViewById(R.id.mSpinner);
         floatBn.setOnClickListener(new View.OnClickListener() {
@@ -461,7 +459,7 @@ public class BottomToolBar {
         });
     }
 
-    private static void openChooseDialogHasGrid(final RelativeLayout mCollegeMainLayout, final GridView gridView, final View view){
+    private static void openChooseDialogHasGrid(final RelativeLayout mCollegeMainLayout, final GridView gridView, final View view) {
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         floatBn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -472,7 +470,7 @@ public class BottomToolBar {
         });
     }
 
-    private static void initVoiceDialog(final RelativeLayout mCollegeMainLayout, final GridView gridView,final Spinner spinner,final View view){
+    private static void initVoiceDialog(final RelativeLayout mCollegeMainLayout, final GridView gridView, final Spinner spinner, final View view) {
         FloatingActionButton floatBn = (FloatingActionButton) view.findViewById(R.id.college_choose_dialog_actionBn);
         floatBn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -495,7 +493,7 @@ public class BottomToolBar {
     }
 
 
-    private static void hideChooseDialogHasGrid(final RelativeLayout mCollegeMainLayout, final GridView gridView,View view){
+    private static void hideChooseDialogHasGrid(final RelativeLayout mCollegeMainLayout, final GridView gridView, View view) {
         View mView = view.findViewById(R.id.college_choose_dialog_view);
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -507,7 +505,7 @@ public class BottomToolBar {
     }
 
 
-    private static void hideChooseDialog(final RelativeLayout mCollegeMainLayout, final ListView listView,View view){
+    private static void hideChooseDialog(final RelativeLayout mCollegeMainLayout, final ListView listView, View view) {
         View mView = view.findViewById(R.id.college_choose_dialog_view);
         final Spinner spinner = (Spinner) view.findViewById(R.id.mSpinner);
         mView.setOnClickListener(new View.OnClickListener() {

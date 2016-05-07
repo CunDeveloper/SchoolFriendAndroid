@@ -18,7 +18,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 public class WeiXinShare {
     private static final int THUMB_SIZE = 150;
 
-    public static void text(String content,String description,int ascene,IWXAPI api){
+    public static void text(String content, String description, int ascene, IWXAPI api) {
         WXTextObject textObject = new WXTextObject();
         textObject.text = content;
 
@@ -33,14 +33,14 @@ public class WeiXinShare {
         api.sendReq(req);
     }
 
-    public static void pic(Bitmap bitmap,int ascene,IWXAPI api){
+    public static void pic(Bitmap bitmap, int ascene, IWXAPI api) {
         WXImageObject imageObject = new WXImageObject(bitmap);
         WXMediaMessage msg = new WXMediaMessage();
         msg.mediaObject = imageObject;
 
-        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap,THUMB_SIZE,THUMB_SIZE,true);
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, THUMB_SIZE, THUMB_SIZE, true);
         bitmap.recycle();
-        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp,true);
+        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("img");
@@ -49,7 +49,7 @@ public class WeiXinShare {
         api.sendReq(req);
     }
 
-    public static void music(String url,String title,String description,Bitmap thumb,int ascene,IWXAPI api){
+    public static void music(String url, String title, String description, Bitmap thumb, int ascene, IWXAPI api) {
         WXMusicObject music = new WXMusicObject();
         music.musicUrl = url;
 
@@ -69,7 +69,7 @@ public class WeiXinShare {
         api.sendReq(req);
     }
 
-    public static void video(String url,String title,String description,Bitmap thumb,int ascene,IWXAPI api){
+    public static void video(String url, String title, String description, Bitmap thumb, int ascene, IWXAPI api) {
         WXVideoObject video = new WXVideoObject();
         video.videoUrl = url;
 
@@ -88,7 +88,7 @@ public class WeiXinShare {
         api.sendReq(req);
     }
 
-    public static void webPage(String url,String title,String description,Bitmap thumb,int ascene,IWXAPI api){
+    public static void webPage(String url, String title, String description, Bitmap thumb, int ascene, IWXAPI api) {
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = url;
 
@@ -107,7 +107,7 @@ public class WeiXinShare {
         api.sendReq(req);
     }
 
-    public static void webPage(String url,String title,String description,int ascene,IWXAPI api){
+    public static void webPage(String url, String title, String description, int ascene, IWXAPI api) {
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = url;
         WXMediaMessage msg = new WXMediaMessage(webpage);
@@ -121,7 +121,7 @@ public class WeiXinShare {
         api.sendReq(req);
     }
 
-    public static void localFile(String url,String title,String description,Bitmap thumb,int ascene,IWXAPI api){
+    public static void localFile(String url, String title, String description, Bitmap thumb, int ascene, IWXAPI api) {
         WXFileObject localFile = new WXFileObject();
         localFile.filePath = url;
 
@@ -139,8 +139,6 @@ public class WeiXinShare {
 
         api.sendReq(req);
     }
-
-
 
 
     private static String buildTransaction(final String type) {

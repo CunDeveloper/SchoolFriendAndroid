@@ -1,14 +1,13 @@
 package com.nju.model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Created by cun on 2016/4/25.
  */
 public class MyRecommend implements Comparable {
     private EntryDate entryDate;
-    private ArrayList<RecommendWork> recommendWorks ;
+    private ArrayList<RecommendWork> recommendWorks;
 
     public MyRecommend(EntryDate entryDate, ArrayList<RecommendWork> recommendWorks) {
         this.entryDate = entryDate;

@@ -69,11 +69,10 @@ public class PersonAskListItemAdapter extends BaseAdapter {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
 
-        if (alumniQuestion.getImgPaths() == null){
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_QUESTION_IMG_PATH,Constant.EMPTY,120));
-        }
-        else {
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext,PathConstant.ALUMNI_QUESTION_IMG_PATH,alumniQuestion.getImgPaths().split(","),120));
+        if (alumniQuestion.getImgPaths() == null) {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_QUESTION_IMG_PATH, Constant.EMPTY, 120));
+        } else {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_QUESTION_IMG_PATH, alumniQuestion.getImgPaths().split(","), 120));
         }
 
         return convertView;

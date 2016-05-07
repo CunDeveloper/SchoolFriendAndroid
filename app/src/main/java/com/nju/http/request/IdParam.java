@@ -6,7 +6,8 @@ package com.nju.http.request;
 public class IdParam {
     private int id;
 
-    public IdParam(){}
+    public IdParam() {
+    }
 
     public IdParam(int commentId) {
         this.id = commentId;

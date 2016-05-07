@@ -82,10 +82,10 @@ public class CommentUtil {
 //        return editText;
 //    }
 
-    public static EditText getCommentEdit(BaseFragment fragment,final View view) {
+    public static EditText getCommentEdit(BaseFragment fragment, final View view) {
         hideSoft(fragment.getContext(), view);
-        initViewPager(fragment,view);
-        addViewPageEvent(fragment.getContext(),view);
+        initViewPager(fragment, view);
+        addViewPageEvent(fragment.getContext(), view);
         final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
         EditText editText = (EditText) view.findViewById(R.id.comment_edittext);
         editText.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,7 @@ public class CommentUtil {
         return editText;
     }
 
-    public static void closeSoftKey(Context context,View view){
+    public static void closeSoftKey(Context context, View view) {
         final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
         final RelativeLayout hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
         SoftInput.close(context, hideReLayout);

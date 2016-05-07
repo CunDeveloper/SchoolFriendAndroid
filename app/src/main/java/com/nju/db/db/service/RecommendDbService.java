@@ -23,6 +23,7 @@ public class RecommendDbService {
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private SQLiteDatabase mDb;
     private Context mContext;
+
     public RecommendDbService(Context context) {
         mDb = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
         mContext = context;
@@ -32,29 +33,29 @@ public class RecommendDbService {
 
         mDb.execSQL(Constant.DELETE_FROM + RecommendEntity.TABLE_NAME);
         ContentValues contentValues;
-        for (RecommendWork recommendWork:recommendWorks){
+        for (RecommendWork recommendWork : recommendWorks) {
             contentValues = new ContentValues();
             contentValues.put(RecommendEntity.ID, recommendWork.getId());
             int type = recommendWork.getType();
             Log.i(TAG, "TYPE == " + type);
             contentValues.put(RecommendEntity.TYPE, type);
             String entryYear = recommendWork.getAuthor().getLabel().split(" ")[2];
-            HashMap<String,String> degrees = DegreeUtil.degrees(mContext);
+            HashMap<String, String> degrees = DegreeUtil.degrees(mContext);
             String degree = degrees.get(entryYear);
             if (degree != null) {
                 Log.i(TAG, "DEGREE == " + degrees.get(degree));
                 contentValues.put(RecommendEntity.DEGREE, degrees.get(degree));
                 final String json = gson.toJson(recommendWork);
                 contentValues.put(RecommendEntity.CONTENT, json);
-                long id = mDb.replace(RecommendEntity.TABLE_NAME,null,contentValues);
-                Log.i(TAG,"ID == "+id);
+                long id = mDb.replace(RecommendEntity.TABLE_NAME, null, contentValues);
+                Log.i(TAG, "ID == " + id);
             }
         }
     }
 
-    public ArrayList<RecommendWork> getRecommendWorks(){
+    public ArrayList<RecommendWork> getRecommendWorks() {
         ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
-        String[] projection ={
+        String[] projection = {
                 RecommendEntity.CONTENT
         };
         Cursor cursor = mDb.query(
@@ -69,26 +70,26 @@ public class RecommendDbService {
         int contentId = cursor.getColumnIndex(RecommendEntity.CONTENT);
         RecommendWork recommendWork;
         while (cursor.moveToNext()) {
-            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId),RecommendWork.class);
-            Log.i(TAG,recommendWork.getContent());
+            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId), RecommendWork.class);
+            Log.i(TAG, recommendWork.getContent());
             recommendWorks.add(recommendWork);
         }
         cursor.close();
         return recommendWorks;
     }
 
-    public ArrayList<RecommendWork> getRecommendWorksByDegreeAndType(String degree,String type){
+    public ArrayList<RecommendWork> getRecommendWorksByDegreeAndType(String degree, String type) {
         ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
-        String[] projection ={
+        String[] projection = {
                 RecommendEntity.CONTENT
         };
         String selection;
         String[] selectionArgs = new String[1];
         String[] selectionArgsTwo = new String[2];
         Cursor cursor;
-        if (degree.equals(Constant.ALL)){
-           selection = RecommendEntity.TYPE +"=?";
-            Log.i(TAG,selection);
+        if (degree.equals(Constant.ALL)) {
+            selection = RecommendEntity.TYPE + "=?";
+            Log.i(TAG, selection);
             selectionArgs[0] = type;
             cursor = mDb.query(
                     RecommendEntity.TABLE_NAME,
@@ -99,9 +100,9 @@ public class RecommendDbService {
                     null,
                     null
             );
-        }else {
-            selection = RecommendEntity.DEGREE +"=?" +"AND "+RecommendEntity.TYPE +"=?";
-            Log.i(TAG,selection);
+        } else {
+            selection = RecommendEntity.DEGREE + "=?" + "AND " + RecommendEntity.TYPE + "=?";
+            Log.i(TAG, selection);
             selectionArgsTwo[0] = degree;
             selectionArgsTwo[1] = type;
             cursor = mDb.query(
@@ -118,20 +119,20 @@ public class RecommendDbService {
         int contentId = cursor.getColumnIndex(RecommendEntity.CONTENT);
         RecommendWork recommendWork;
         while (cursor.moveToNext()) {
-            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId),RecommendWork.class);
-            Log.i(TAG,recommendWork.getContent());
+            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId), RecommendWork.class);
+            Log.i(TAG, recommendWork.getContent());
             recommendWorks.add(recommendWork);
         }
         cursor.close();
         return recommendWorks;
     }
 
-    public ArrayList<RecommendWork> getRecommendWorksByType(String type){
+    public ArrayList<RecommendWork> getRecommendWorksByType(String type) {
         ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
-        String[] projection ={
+        String[] projection = {
                 RecommendEntity.CONTENT
         };
-        String selection = RecommendEntity.TYPE +"= ?";
+        String selection = RecommendEntity.TYPE + "= ?";
         String[] selectionArgs = {type};
         Cursor cursor = mDb.query(
                 RecommendEntity.TABLE_NAME,
@@ -145,8 +146,8 @@ public class RecommendDbService {
         int contentId = cursor.getColumnIndex(RecommendEntity.CONTENT);
         RecommendWork recommendWork;
         while (cursor.moveToNext()) {
-            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId),RecommendWork.class);
-            Log.i(TAG,recommendWork.getContent());
+            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId), RecommendWork.class);
+            Log.i(TAG, recommendWork.getContent());
             recommendWorks.add(recommendWork);
         }
         cursor.close();

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
@@ -23,18 +22,23 @@ import java.util.ArrayList;
 
 public class UserInfoFragment extends BaseFragment {
 
-    public static final String TAG = UserInfoFragment.class.getSimpleName() ;
+    public static final String TAG = UserInfoFragment.class.getSimpleName();
     private static final String LABEL_PARAM = "labelParam";
-    private CharSequence mLabel ="";
     private static final String USER_INFO = "user_info";
+    private CharSequence mLabel = "";
     private ArrayList<UserInfo> mUserInfos = null;
     private ListView mListView;
-    public static UserInfoFragment newInstance(ArrayList<UserInfo> userInfos,String label) {
+
+    public UserInfoFragment() {
+        // Required empty public constructor
+    }
+
+    public static UserInfoFragment newInstance(ArrayList<UserInfo> userInfos, String label) {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(USER_INFO,userInfos);
-        args.putString(LABEL_PARAM,label);
-        fragment.setArguments(args );
+        args.putParcelableArrayList(USER_INFO, userInfos);
+        args.putString(LABEL_PARAM, label);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -42,18 +46,14 @@ public class UserInfoFragment extends BaseFragment {
         UserInfoFragment fragment = new UserInfoFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(USER_INFO, userInfos);
-        fragment.setArguments(args );
+        fragment.setArguments(args);
         return fragment;
-    }
-
-    public UserInfoFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null) {
+        if (getArguments() != null) {
             mUserInfos = getArguments().getParcelableArrayList(USER_INFO);
             mLabel = getArguments().getString(LABEL_PARAM);
         }
@@ -64,14 +64,14 @@ public class UserInfoFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         mListView = (ListView) view.findViewById(R.id.mListview);
-        View headView = inflater.inflate(R.layout.fragment_user_info_listview_header,mListView,false);
+        View headView = inflater.inflate(R.layout.fragment_user_info_listview_header, mListView, false);
         mListView.addHeaderView(headView);
         initHeaderText(headView);
         mListView.setAdapter(new UserInfoAdapter(getContext(), mUserInfos));
         LinearLayout footLayout = (LinearLayout) view.findViewById(R.id.bottom_foot);
-        if (mLabel.toString().equals(getString(R.string.person_info))){
+        if (mLabel != null && mLabel.toString().equals(getString(R.string.person_info))) {
             footLayout.setVisibility(View.GONE);
         }
         footLayout.setOnClickListener(new View.OnClickListener() {
@@ -88,18 +88,18 @@ public class UserInfoFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setTitle(R.string.degree_info);
         }
         getHostActivity().display(9);
     }
 
-    private void initHeaderText(View view){
-        TextView nameTV,sexTV;
+    private void initHeaderText(View view) {
+        TextView nameTV, sexTV;
         nameTV = (TextView) view.findViewById(R.id.fragment_user_info_listview_name_tv);
         sexTV = (TextView) view.findViewById(R.id.fragment_user_info_listview_sex_tv);
-        for(UserInfo userInfo:mUserInfos){
+        for (UserInfo userInfo : mUserInfos) {
             nameTV.setText(userInfo.getName());
             sexTV.setText(userInfo.getSex());
             break;
@@ -126,15 +126,14 @@ public class UserInfoFragment extends BaseFragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (convertView == null) {
-               convertView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_user_info_item,null);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_user_info_item, null);
                 holder = new ViewHolder();
                 holder.labeTextView = (TextView) convertView.findViewById(R.id.fragment_user_info_item_label_text);
                 holder.xueYuanTextView = (TextView) convertView.findViewById(R.id.fragment_user_info_item_xueyuan_text);
                 holder.majorTextView = (TextView) convertView.findViewById(R.id.fragment_user_info_item_major_text);
                 holder.dateTextView = (TextView) convertView.findViewById(R.id.fragment_user_info_item_date_text);
                 convertView.setTag(holder);
-            }
-            else{
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             UserInfo info = mUserInfos.get(position);
@@ -145,7 +144,8 @@ public class UserInfoFragment extends BaseFragment {
             return convertView;
         }
     }
-    private class ViewHolder{
+
+    private class ViewHolder {
         public TextView labeTextView;
         public TextView xueYuanTextView;
         public TextView majorTextView;

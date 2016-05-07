@@ -3,7 +3,7 @@ package com.nju.model;
 /**
  * Created by cun on 2016/3/28.
  */
-public class RespPraise  extends BaseEntity{
+public class RespPraise extends BaseEntity {
     private AuthorInfo praiseAuthor;
     private int contentId;
 

@@ -24,22 +24,23 @@ public class OriginPicsViewFragment extends BaseFragment {
 
     public static final String TAG = OriginPicsViewFragment.class.getSimpleName();
     private static final String IMG_PATH = "img_path";
+    private static final String LABEL = "label";
+    private static CameraImageViewFragment mCameraImageViewFragment;
     private String mImgPath;
     private CustomImageVIew mImageView;
     private boolean label = true;
-    private static final String LABEL ="label";
     private SharedPreferences mPreferences;
-    private static CameraImageViewFragment mCameraImageViewFragment;
     private AppBarLayout mAppBarLayout;
-    public static OriginPicsViewFragment newInstance(String imgPath) {
-        OriginPicsViewFragment  fragment = new OriginPicsViewFragment();
-        Bundle args = new Bundle();
-        args.putString(IMG_PATH,imgPath);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public OriginPicsViewFragment() {
+    }
+
+    public static OriginPicsViewFragment newInstance(String imgPath) {
+        OriginPicsViewFragment fragment = new OriginPicsViewFragment();
+        Bundle args = new Bundle();
+        args.putString(IMG_PATH, imgPath);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -64,52 +65,54 @@ public class OriginPicsViewFragment extends BaseFragment {
         return view;
     }
 
-    private void imageViewClickEvent(){
+    private void imageViewClickEvent() {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPreferences.getBoolean(LABEL,true)) {
+                if (mPreferences.getBoolean(LABEL, true)) {
                     Divice.hideStatusBar((AppCompatActivity) getActivity());
                     mPreferences.edit().putBoolean(LABEL, false).apply();
-                   // mCameraImageViewFragment.hideBottomLayout();
+                    // mCameraImageViewFragment.hideBottomLayout();
                 } else {
                     Divice.showStatusBar((AppCompatActivity) getActivity());
                     //mCameraImageViewFragment.showBottomLayout();
-                    mPreferences.edit().putBoolean(LABEL,true).apply();
+                    mPreferences.edit().putBoolean(LABEL, true).apply();
                 }
             }
         });
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (mPreferences.getBoolean(LABEL,true)) {
+        if (mPreferences.getBoolean(LABEL, true)) {
             Divice.showStatusBar((AppCompatActivity) getActivity());
 //            mCameraImageViewFragment.showBottomLayout();
-        } else{
+        } else {
             Divice.hideStatusBar((AppCompatActivity) getActivity());
-           // mCameraImageViewFragment.hideBottomLayout();
+            // mCameraImageViewFragment.hideBottomLayout();
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
         Divice.showStatusBar((AppCompatActivity) getActivity());
     }
 
-    private class LoadLocalImg extends AsyncTask<String,Void,Bitmap>{
+    private class LoadLocalImg extends AsyncTask<String, Void, Bitmap> {
         final int width = Divice.getDisplayWidth(getActivity());
-        int topHeight = (int) (Divice.convertDpToPixel(getHostActivity().getToolBar().getHeight(),getContext())
-                        +Divice.getStatusBarHeight(getContext()));
-        final int height = Divice.getDisplayHeight(getActivity())-topHeight;
+        int topHeight = (int) (Divice.convertDpToPixel(getHostActivity().getToolBar().getHeight(), getContext())
+                + Divice.getStatusBarHeight(getContext()));
+        final int height = Divice.getDisplayHeight(getActivity()) - topHeight;
+
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
 
-                bitmap = Picasso.with(getActivity()).load(new File(params[0])).resize(width,height).get();
-                Log.e(TAG,"width="+bitmap.getWidth()+"==height="+bitmap.getHeight());
+                bitmap = Picasso.with(getActivity()).load(new File(params[0])).resize(width, height).get();
+                Log.e(TAG, "width=" + bitmap.getWidth() + "==height=" + bitmap.getHeight());
             } catch (IOException e) {
                 e.printStackTrace();
             }

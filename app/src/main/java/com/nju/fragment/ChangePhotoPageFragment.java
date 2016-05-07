@@ -9,15 +9,15 @@ import com.nju.activity.R;
 
 public class ChangePhotoPageFragment extends BaseFragment {
 
+    public ChangePhotoPageFragment() {
+        // Required empty public constructor
+    }
+
     public static ChangePhotoPageFragment newInstance() {
         ChangePhotoPageFragment fragment = new ChangePhotoPageFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public ChangePhotoPageFragment() {
-        // Required empty public constructor
     }
 
     @Override

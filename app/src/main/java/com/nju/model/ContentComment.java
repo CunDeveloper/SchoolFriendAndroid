@@ -3,25 +3,10 @@ package com.nju.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.nju.fragment.BaseFragment;
-
 /**
  * Created by cun on 2016/3/27.
  */
 public class ContentComment extends BaseEntity implements Parcelable {
-    private AuthorInfo commentAuthor;
-    private AuthorInfo commentedAuthor;
-    private String content;
-    private int contentId;
-    private int alumnicTalkId;
-    public ContentComment(){}
-    protected ContentComment(Parcel in) {
-        commentAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
-        commentedAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
-        content = in.readString();
-        contentId = in.readInt();
-    }
-
     public static final Creator<ContentComment> CREATOR = new Creator<ContentComment>() {
         @Override
         public ContentComment createFromParcel(Parcel in) {
@@ -33,6 +18,21 @@ public class ContentComment extends BaseEntity implements Parcelable {
             return new ContentComment[size];
         }
     };
+    private AuthorInfo commentAuthor;
+    private AuthorInfo commentedAuthor;
+    private String content;
+    private int contentId;
+    private int alumnicTalkId;
+
+    public ContentComment() {
+    }
+
+    protected ContentComment(Parcel in) {
+        commentAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
+        commentedAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
+        content = in.readString();
+        contentId = in.readInt();
+    }
 
     public AuthorInfo getCommentAuthor() {
         return commentAuthor;
@@ -82,7 +82,7 @@ public class ContentComment extends BaseEntity implements Parcelable {
     @Override
     public boolean equals(Object o) {
         ContentComment that = (ContentComment) o;
-        if (this.getId() == that.getId()){
+        if (this.getId() == that.getId()) {
             return true;
         }
         return false;

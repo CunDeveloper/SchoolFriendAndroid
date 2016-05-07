@@ -19,22 +19,24 @@ public class CollegeService {
     private static final String TAG = CollegeService.class.getSimpleName();
 
     private SQLiteDatabase db;
+
     public CollegeService(Context context) {
         db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
     }
+
     public void save(ArrayList<College> colleges) {
         db.beginTransaction();
-        String sql = "INSERT INTO "+ CollegeEntry.TABLE_NAME+"("+CollegeEntry.COLUMN_NAME_CO_ID+" ,"
-                +CollegeEntry.COLUMN_NAME_NAME+" ,"+CollegeEntry.COLUMN_NAME_PROVINCE_ID+")"+"values(?,?,?)";
+        String sql = "INSERT INTO " + CollegeEntry.TABLE_NAME + "(" + CollegeEntry.COLUMN_NAME_CO_ID + " ,"
+                + CollegeEntry.COLUMN_NAME_NAME + " ," + CollegeEntry.COLUMN_NAME_PROVINCE_ID + ")" + "values(?,?,?)";
         SQLiteStatement stmt = db.compileStatement(sql);
-        for (College college:colleges) {
-            stmt.bindLong(1,college.getCoId());
+        for (College college : colleges) {
+            stmt.bindLong(1, college.getCoId());
             stmt.bindString(2, college.getName());
             stmt.bindLong(3, college.getProvinceID());
             stmt.execute();
         }
         db.setTransactionSuccessful();
-        Log.i(TAG,"done");
+        Log.i(TAG, "done");
     }
 
     public ArrayList<College> query() {
@@ -56,7 +58,7 @@ public class CollegeService {
         int id = cursor.getColumnIndex(CollegeEntry.COLUMN_NAME_CO_ID);
         int nameIndex = cursor.getColumnIndex(CollegeEntry.COLUMN_NAME_NAME);
         int provinceIndex = cursor.getColumnIndex(CollegeEntry.COLUMN_NAME_PROVINCE_ID);
-        College college ;
+        College college;
         while (cursor.moveToNext()) {
             college = new College();
             college.setCoId(cursor.getInt(id));

@@ -1,5 +1,12 @@
 package com.nju.util;
 
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import junit.framework.Assert;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +17,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import junit.framework.Assert;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.CompressFormat;
-import android.util.Log;
-
 public class ShareUtil {
 
     private static final String TAG = ShareUtil.class.getSimpleName();
+    private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
 
     public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -44,9 +45,9 @@ public class ShareUtil {
         try {
             htmlUrl = new URL(url);
             URLConnection connection = htmlUrl.openConnection();
-            HttpURLConnection httpConnection = (HttpURLConnection)connection;
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
             int responseCode = httpConnection.getResponseCode();
-            if(responseCode == HttpURLConnection.HTTP_OK){
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 inStream = httpConnection.getInputStream();
             }
         } catch (MalformedURLException e) {
@@ -60,7 +61,7 @@ public class ShareUtil {
     }
 
     public static byte[] inputStreamToByte(InputStream is) {
-        try{
+        try {
             ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
             int ch;
             while ((ch = is.read()) != -1) {
@@ -69,7 +70,7 @@ public class ShareUtil {
             byte imgdata[] = bytestream.toByteArray();
             bytestream.close();
             return imgdata;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -93,15 +94,15 @@ public class ShareUtil {
 
         Log.d(TAG, "readFromFile : offset = " + offset + " len = " + len + " offset + len = " + (offset + len));
 
-        if(offset <0){
+        if (offset < 0) {
             Log.e(TAG, "readFromFile invalid offset:" + offset);
             return null;
         }
-        if(len <=0 ){
+        if (len <= 0) {
             Log.e(TAG, "readFromFile invalid len:" + len);
             return null;
         }
-        if(offset + len > (int) file.length()){
+        if (offset + len > (int) file.length()) {
             Log.e(TAG, "readFromFile invalid file len:" + file.length());
             return null;
         }
@@ -121,7 +122,6 @@ public class ShareUtil {
         return b;
     }
 
-    private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
     public static Bitmap extractThumbNail(final String path, final int height, final int width, final boolean crop) {
         Assert.assertTrue(path != null && !path.equals("") && height > 0 && width > 0);
 

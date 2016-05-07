@@ -27,8 +27,9 @@ import model.Content;
 
 public class PersonCircleDetailFragment extends BaseFragment {
     public static final String TAG = PersonCircleDetailFragment.class.getSimpleName();
-    private Content mContent;
     private static final String CONTENT_PARA = "content_para";
+    private static final int INPUT_HEIGHT_PHONE = 60;
+    private Content mContent;
     private RelativeLayout mInputLayout;
     private LinearLayout mMainLayout;
     private boolean label = true;
@@ -40,19 +41,18 @@ public class PersonCircleDetailFragment extends BaseFragment {
     private ViewPager mViewPager;
     private ArrayList<View> mSlideCircleViews;
     private int mSlidePosition = 0;
-    private static final int INPUT_HEIGHT_PHONE = 60;
-    private  int bottom_height;
+    private int bottom_height;
+
+    public PersonCircleDetailFragment() {
+        // Required empty public constructor
+    }
 
     public static PersonCircleDetailFragment newInstance(Content content) {
         PersonCircleDetailFragment fragment = new PersonCircleDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable(CONTENT_PARA,content);
+        args.putParcelable(CONTENT_PARA, content);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public PersonCircleDetailFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -68,16 +68,16 @@ public class PersonCircleDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person_circle_detail, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         mInputLayout = (RelativeLayout) view.findViewById(R.id.activity_school_friend_input_layout);
         mMainLayout = (LinearLayout) view.findViewById(R.id.fragment_person_circle_detail_main_layout);
         mScrollView = (ScrollView) view.findViewById(R.id.fragment_person_circle_detail_scrollview);
         mEmotionTextView = (TextView) view.findViewById(R.id.fragment_alumni_circle_emotion);
-        mViewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
-        mEmoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
+        mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
+        mEmoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
         mViewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         mSchoolFriendLayoutParams = new SchoolFriendLayoutParams(getContext());
-        bottom_height =  (int) Divice.convertDpToPixel(INPUT_HEIGHT_PHONE,getContext())+Divice.getStatusBarHeight(getActivity());
+        bottom_height = (int) Divice.convertDpToPixel(INPUT_HEIGHT_PHONE, getContext()) + Divice.getStatusBarHeight(getActivity());
         mInputLayout.setVisibility(View.VISIBLE);
         initView(view);
         initSlideCircleViews(view);
@@ -141,7 +141,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
                 int subHeight = mMainLayout.getHeight();
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
                     mEmoLineLayout.setVisibility(View.GONE);
-                    mScrollView.setLayoutParams(mSchoolFriendLayoutParams.noSoftInputParams((subHeight -bottom_height)));
+                    mScrollView.setLayoutParams(mSchoolFriendLayoutParams.noSoftInputParams((subHeight - bottom_height)));
                 } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
@@ -150,7 +150,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
                     } else {
                         mScrollView.setLayoutParams(mSchoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
                     }
-                     mEmoLineLayout.setVisibility(View.VISIBLE);
+                    mEmoLineLayout.setVisibility(View.VISIBLE);
                 }
             }
         });

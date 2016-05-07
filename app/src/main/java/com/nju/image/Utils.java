@@ -3,12 +3,10 @@ package com.nju.image;
 /**
  * Created by cun on 2016/3/31.
  */
-import android.annotation.TargetApi;
+
 import android.content.Context;
 import android.os.Build;
-import android.os.Build.VERSION_CODES;
 import android.os.Environment;
-import android.os.StrictMode;
 
 import java.io.File;
 
@@ -18,7 +16,10 @@ import java.io.File;
 public class Utils {
     public static final int IO_BUFFER_SIZE = 8 * 1024;
 
-    private Utils() {};
+    private Utils() {
+    }
+
+    ;
 
     public static boolean isExternalStorageRemovable() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {

@@ -15,24 +15,25 @@ import java.util.HashMap;
 public class MultiImgRequest extends RequestRunnable {
     private static final String TAG = MultiImgRequest.class.getSimpleName();
     private final ResponseCallback mCallback;
-    private final HashMap<String,String> mParams;
+    private final HashMap<String, String> mParams;
     private final String mUrl;
     private final Request.Builder mBuilder;
     private final ArrayList<BitmapWrapper> mBitmapWrapers;
 
-    public MultiImgRequest(String url, HashMap<String, String> params, ArrayList<BitmapWrapper> bitmapWrappers, ResponseCallback callback){
+    public MultiImgRequest(String url, HashMap<String, String> params, ArrayList<BitmapWrapper> bitmapWrappers, ResponseCallback callback) {
         mCallback = callback;
         mParams = params;
         mUrl = url;
         mBitmapWrapers = bitmapWrappers;
         mBuilder = new Request.Builder().tag(TAG);
     }
+
     @Override
     public void run() {
-        SchoolFriendHttp.getInstance().postMultiImg(mBuilder,mUrl,mParams,mBitmapWrapers,mCallback);
+        SchoolFriendHttp.getInstance().postMultiImg(mBuilder, mUrl, mParams, mBitmapWrapers, mCallback);
     }
 
-    public  String tag(){
+    public String tag() {
         return TAG;
     }
 }

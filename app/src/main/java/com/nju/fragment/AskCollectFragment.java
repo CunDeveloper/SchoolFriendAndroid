@@ -13,16 +13,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.adatper.AskCollectAdapter;
-import com.nju.adatper.VoiceCollectAdapter;
-import com.nju.db.db.service.AlumniVoiceCollectDbService;
 import com.nju.db.db.service.MajorAskCollectDbService;
+import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.AlumniQuestion;
-import com.nju.model.AlumniVoice;
-import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.Divice;
 
@@ -42,20 +38,21 @@ public class AskCollectFragment extends BaseFragment {
     private boolean mIsMore = false;
     private int mChoosePosition;
     private RelativeLayout mCollectToolLayout;
-    public static AskCollectFragment newInstance(String title) {
-        AskCollectFragment fragment = new AskCollectFragment();
-        Bundle args = new Bundle();
-        args.putString(PARAM_TITLE,title);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public AskCollectFragment() {
         // Required empty public constructor
     }
 
+    public static AskCollectFragment newInstance(String title) {
+        AskCollectFragment fragment = new AskCollectFragment();
+        Bundle args = new Bundle();
+        args.putString(PARAM_TITLE, title);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -80,8 +77,8 @@ public class AskCollectFragment extends BaseFragment {
 
 
     @Subscribe
-    public void onMessageEventMore(MessageEventMore eventMore){
-        for (AlumniQuestion alumniQuestion:mAlumniQuestions){
+    public void onMessageEventMore(MessageEventMore eventMore) {
+        for (AlumniQuestion alumniQuestion : mAlumniQuestions) {
             alumniQuestion.setCheck(0);
         }
         mCollectToolLayout.setVisibility(View.GONE);
@@ -90,14 +87,14 @@ public class AskCollectFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageChoose(MessageEvent event){
+    public void onMessageChoose(MessageEvent event) {
         Log.i(TAG, event.getMessage());
-        if (event.getMessage().equals(getString(R.string.more))){
+        if (event.getMessage().equals(getString(R.string.more))) {
             mIsMore = true;
-            for (AlumniQuestion alumniQuestion:mAlumniQuestions){
-                if (alumniQuestion.getId() == mChoosePosition){
+            for (AlumniQuestion alumniQuestion : mAlumniQuestions) {
+                if (alumniQuestion.getId() == mChoosePosition) {
                     alumniQuestion.setCheck(2);
-                }else {
+                } else {
                     alumniQuestion.setCheck(1);
                 }
             }
@@ -106,12 +103,12 @@ public class AskCollectFragment extends BaseFragment {
         }
     }
 
-    public boolean isMore(){
+    public boolean isMore() {
         return mIsMore;
     }
 
-    private void initListView(View view){
-        mAlumniQuestions= TestData.getQlumniQuestions();
+    private void initListView(View view) {
+        mAlumniQuestions = TestData.getQlumniQuestions();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mAskCollectAdapter = new AskCollectAdapter(getContext(), mAlumniQuestions);
         listView.setAdapter(mAskCollectAdapter);
@@ -138,7 +135,7 @@ public class AskCollectFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -146,21 +143,22 @@ public class AskCollectFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
-    private static class ExeCollectTask extends AsyncTask<Void,Void,ArrayList<AlumniQuestion>>
-    {
+    private static class ExeCollectTask extends AsyncTask<Void, Void, ArrayList<AlumniQuestion>> {
         private final WeakReference<AskCollectFragment> mAskCollectWeakReference;
-        public ExeCollectTask(AskCollectFragment  askCollectFragment){
+
+        public ExeCollectTask(AskCollectFragment askCollectFragment) {
             this.mAskCollectWeakReference = new WeakReference<>(askCollectFragment);
         }
+
         @Override
         protected ArrayList<AlumniQuestion> doInBackground(Void... params) {
             AskCollectFragment askCollectFragment = mAskCollectWeakReference.get();
-            if (askCollectFragment!=null){
+            if (askCollectFragment != null) {
                 return new MajorAskCollectDbService(askCollectFragment.getContext()).getCollects();
             }
             return null;
@@ -170,8 +168,8 @@ public class AskCollectFragment extends BaseFragment {
         protected void onPostExecute(ArrayList<AlumniQuestion> alumniQuestions) {
             super.onPostExecute(alumniQuestions);
             AskCollectFragment askCollectFragment = mAskCollectWeakReference.get();
-            if (askCollectFragment!=null){
-                if (alumniQuestions != null){
+            if (askCollectFragment != null) {
+                if (alumniQuestions != null) {
                     askCollectFragment.mAlumniQuestions.addAll(alumniQuestions);
                     askCollectFragment.mAskCollectAdapter.notifyDataSetChanged();
                 }

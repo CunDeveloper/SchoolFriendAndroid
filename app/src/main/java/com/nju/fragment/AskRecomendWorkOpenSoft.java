@@ -11,16 +11,16 @@ import com.nju.activity.R;
 public class AskRecomendWorkOpenSoft extends BaseFragment {
 
 
-    public static AskRecomendWorkOpenSoft newInstance( ) {
+    public AskRecomendWorkOpenSoft() {
+        // Required empty public constructor
+    }
+
+    public static AskRecomendWorkOpenSoft newInstance() {
         AskRecomendWorkOpenSoft fragment = new AskRecomendWorkOpenSoft();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public AskRecomendWorkOpenSoft() {
-        // Required empty public constructor
     }
 
     @Override

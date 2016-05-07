@@ -23,17 +23,17 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
     private ArrayList<Content> mContents;
     private int mPosition;
 
-    public static PersonCircleDetailPicFragment newInstance(ArrayList<Content> contents,int position) {
-        PersonCircleDetailPicFragment fragment = new PersonCircleDetailPicFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList(CONTENT_PARAM,contents);
-        args.putInt(POSITION_PARAM,position);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public PersonCircleDetailPicFragment() {
 
+    }
+
+    public static PersonCircleDetailPicFragment newInstance(ArrayList<Content> contents, int position) {
+        PersonCircleDetailPicFragment fragment = new PersonCircleDetailPicFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(CONTENT_PARAM, contents);
+        args.putInt(POSITION_PARAM, position);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person_circle_detail_pic, container, false);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.cheese_1);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cheese_1);
         SchoolFriendTextView textView = (SchoolFriendTextView) view.findViewById(R.id.fragment_person_circle_detail_pic_content_tv);
         textView.setText(mContents.get(0).getContent());
         initViewPager(view);

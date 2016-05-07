@@ -19,29 +19,31 @@ public class EmotionPagerFragment extends BaseFragment {
     private static final String POSITION = "param";
     private static final String APG_PARAM1 = "param1";
     private static String mTag;
+    private static ArrayList<ArrayList<String>> mEmotions;
     private GridView mGridView;
-    private static  ArrayList<ArrayList<String>> mEmotions ;
     private ArrayList<String> mSubEmotions;
     private int mPosition;
-    public static EmotionPagerFragment newInstance(int position,String tag) {
+
+    public EmotionPagerFragment() {
+    }
+
+    public static EmotionPagerFragment newInstance(int position, String tag) {
         EmotionPagerFragment fragment = new EmotionPagerFragment();
         Bundle args = new Bundle();
         args.putInt(POSITION, position);
-        args.putString(APG_PARAM1,tag);
+        args.putString(APG_PARAM1, tag);
         fragment.setArguments(args);
         return fragment;
-    }
-    public EmotionPagerFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments()!=null) {
+        if (getArguments() != null) {
             mTag = getArguments().getString(APG_PARAM1);
             mPosition = getArguments().getInt(POSITION);
         }
-        if (mEmotions == null){
+        if (mEmotions == null) {
             mEmotions = Emotion.emotions();
         }
         mSubEmotions = mEmotions.get(mPosition);
@@ -50,12 +52,13 @@ public class EmotionPagerFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_emotion_pager, container, false);
+        View view = inflater.inflate(R.layout.fragment_emotion_pager, container, false);
         mGridView = (GridView) view.findViewById(R.id.fragment_emotion_pager_gridview);
         initGridViewClickListener();
         return view;
     }
-    private void initGridViewClickListener(){
+
+    private void initGridViewClickListener() {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -74,63 +77,57 @@ public class EmotionPagerFragment extends BaseFragment {
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }
-                else if (mTag.equals(AlumniVoiceItemDetailFragment.TAG)) {
+                } else if (mTag.equals(AlumniVoiceItemDetailFragment.TAG)) {
                     AlumniVoiceItemDetailFragment fragment = (AlumniVoiceItemDetailFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }
-                else if (mTag.equals(RecommendWorkItemDetailFragment.TAG)) {
+                } else if (mTag.equals(RecommendWorkItemDetailFragment.TAG)) {
                     RecommendWorkItemDetailFragment fragment = (RecommendWorkItemDetailFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }
-                else if (mTag.equals(RecommendPublishFragment.TAG)) {
+                } else if (mTag.equals(RecommendPublishFragment.TAG)) {
                     RecommendPublishFragment fragment = (RecommendPublishFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }
-                else if (mTag.equals(AskPublishFragment.TAG)) {
+                } else if (mTag.equals(AskPublishFragment.TAG)) {
                     AskPublishFragment fragment = (AskPublishFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }
-                else if (mTag.equals(PublishVoiceFragment.TAG)) {
+                } else if (mTag.equals(PublishVoiceFragment.TAG)) {
                     PublishVoiceFragment fragment = (PublishVoiceFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }
-                else if (mTag.equals(PublishDynamicFragment.TAG)) {
+                } else if (mTag.equals(PublishDynamicFragment.TAG)) {
                     PublishDynamicFragment fragment = (PublishDynamicFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                } else if (mTag.equals(MajorAskDetailFragment.TAG)){
+                } else if (mTag.equals(MajorAskDetailFragment.TAG)) {
                     MajorAskDetailFragment fragment = (MajorAskDetailFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                } else if (mTag.equals(PersonRecommendWorkItemDetailFragment.TAG)){
+                } else if (mTag.equals(PersonRecommendWorkItemDetailFragment.TAG)) {
                     PersonRecommendWorkItemDetailFragment fragment = (PersonRecommendWorkItemDetailFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                } else if (mTag.equals(PersonAlumniVoiceItemDetail.TAG)){
+                } else if (mTag.equals(PersonAlumniVoiceItemDetail.TAG)) {
                     PersonAlumniVoiceItemDetail fragment = (PersonAlumniVoiceItemDetail) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                }else if (mTag.equals(PersonAskDetailFragment.TAG)){
+                } else if (mTag.equals(PersonAskDetailFragment.TAG)) {
                     PersonAskDetailFragment fragment = (PersonAskDetailFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
                     }
-                } else if (mTag.equals(AlumniDynamicFragment.TAG)){
+                } else if (mTag.equals(AlumniDynamicFragment.TAG)) {
                     AlumniDynamicFragment fragment = (AlumniDynamicFragment) getHostActivity().getBackStack().peek();
                     if (fragment != null) {
                         fragment.inputEmotion(mSubEmotions.get(position));
@@ -139,8 +136,9 @@ public class EmotionPagerFragment extends BaseFragment {
             }
         });
     }
+
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         mGridView.setAdapter(new EmotionAdapter(mSubEmotions, getActivity()));
     }

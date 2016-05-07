@@ -27,8 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="label"
-        android:id="@+id/label_tv"
+        android:id="@+id/replay_tv"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/name_tv" />
 
@@ -37,7 +36,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Medium Text"
-
         android:textColor="@android:color/black"
         android:id="@+id/content_tv"
         android:layout_below="@+id/name_tv"
@@ -79,5 +77,14 @@
             android:id="@+id/textView401"
             />
     </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/light_blue"
+        android:id="@+id/commentedAuthorNameTV"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/replay_tv" />
 
 </RelativeLayout>

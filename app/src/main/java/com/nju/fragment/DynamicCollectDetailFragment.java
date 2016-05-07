@@ -18,16 +18,17 @@ import com.nju.util.StringBase64;
 public class DynamicCollectDetailFragment extends BaseFragment {
     private static final String PARAM_KEY = "paramKey";
     private DynamicCollect mDynamicCollect;
-    public static DynamicCollectDetailFragment newInstance(DynamicCollect dynamicCollect) {
-        DynamicCollectDetailFragment fragment = new DynamicCollectDetailFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(PARAM_KEY,dynamicCollect);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public DynamicCollectDetailFragment() {
         // Required empty public constructor
+    }
+
+    public static DynamicCollectDetailFragment newInstance(DynamicCollect dynamicCollect) {
+        DynamicCollectDetailFragment fragment = new DynamicCollectDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(PARAM_KEY, dynamicCollect);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -43,12 +44,12 @@ public class DynamicCollectDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dynamic_collect_detail, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
-        return  view;
+        return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
         nameTV.setText(mDynamicCollect.getAuthorInfo().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
@@ -57,17 +58,17 @@ public class DynamicCollectDetailFragment extends BaseFragment {
 
         ImageView contentImg = (ImageView) view.findViewById(R.id.collect_img);
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
-        dateTV.setText(getString(R.string.collect_with)+" "+mDynamicCollect.getDate());
-        if (mDynamicCollect.getContent()!=null){
+        dateTV.setText(getString(R.string.collect_with) + " " + mDynamicCollect.getDate());
+        if (mDynamicCollect.getContent() != null) {
             try {
                 contentTV.setText(StringBase64.decode(mDynamicCollect.getContent()));
-            }catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 contentTV.setText(Constant.UNKNOWN_CHARACTER);
             }
 
-        }else {
+        } else {
             contentImg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cheese_2));
         }
-     }
+    }
 }

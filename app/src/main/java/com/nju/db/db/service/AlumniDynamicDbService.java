@@ -23,39 +23,40 @@ public class AlumniDynamicDbService {
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private SQLiteDatabase db;
     private Context mContext;
+
     public AlumniDynamicDbService(Context context) {
         db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
         mContext = context;
     }
 
     public void save(ArrayList<AlumniTalk> alumniVoices) {
-        db.execSQL(Constant.DELETE_FROM+ AlumniDynamicEntity.TABLE_NAME);
+        db.execSQL(Constant.DELETE_FROM + AlumniDynamicEntity.TABLE_NAME);
         ContentValues contentValues;
-        for (AlumniTalk  alumniVoice:alumniVoices){
+        for (AlumniTalk alumniVoice : alumniVoices) {
             contentValues = new ContentValues();
-            contentValues.put(AlumniDynamicEntity.ID,alumniVoice.getId());
+            contentValues.put(AlumniDynamicEntity.ID, alumniVoice.getId());
             final String json = gson.toJson(alumniVoice);
-            contentValues.put(AlumniDynamicEntity.CONTENT,json);
+            contentValues.put(AlumniDynamicEntity.CONTENT, json);
             String entryYear = alumniVoice.getAuthorInfo().getLabel().split(" ")[2];
-            HashMap<String,String> degrees = DegreeUtil.degrees(mContext);
+            HashMap<String, String> degrees = DegreeUtil.degrees(mContext);
             String degree = degrees.get(entryYear);
-            Log.i(TAG,degree);
-            if (degree != null &&!degree.trim().equals("")){
-                contentValues.put(AlumniDynamicEntity.DEGREE,degree);
-                db.replace(AlumniDynamicEntity.TABLE_NAME,null,contentValues);
+            Log.i(TAG, degree);
+            if (degree != null && !degree.trim().equals("")) {
+                contentValues.put(AlumniDynamicEntity.DEGREE, degree);
+                db.replace(AlumniDynamicEntity.TABLE_NAME, null, contentValues);
             }
 
         }
     }
 
-    public ArrayList<AlumniTalk> getAlumniDynamics(String degree){
-        ArrayList<AlumniTalk>  alumniVoices = new ArrayList<>();
-        String[] projection ={
+    public ArrayList<AlumniTalk> getAlumniDynamics(String degree) {
+        ArrayList<AlumniTalk> alumniVoices = new ArrayList<>();
+        String[] projection = {
                 AlumniDynamicEntity.CONTENT
         };
         Cursor cursor;
-        if (degree != null && !degree.trim().equals("")){
-            if (degree.equals(Constant.ALL)){
+        if (degree != null && !degree.trim().equals("")) {
+            if (degree.equals(Constant.ALL)) {
                 cursor = db.query(
                         AlumniDynamicEntity.TABLE_NAME,
                         projection,
@@ -65,7 +66,7 @@ public class AlumniDynamicDbService {
                         null,
                         null
                 );
-            }else {
+            } else {
                 String selection = AlumniDynamicEntity.DEGREE + "=?";
                 String[] selectionArgs = new String[1];
                 selectionArgs[0] = degree;
@@ -81,9 +82,9 @@ public class AlumniDynamicDbService {
             }
 
             int contentId = cursor.getColumnIndex(AlumniDynamicEntity.CONTENT);
-            AlumniTalk  alumniVoice;
+            AlumniTalk alumniVoice;
             while (cursor.moveToNext()) {
-                alumniVoice = (AlumniTalk) gson.fromJson(cursor.getString(contentId),AlumniTalk.class);
+                alumniVoice = (AlumniTalk) gson.fromJson(cursor.getString(contentId), AlumniTalk.class);
                 alumniVoices.add(alumniVoice);
             }
             cursor.close();

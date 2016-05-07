@@ -8,7 +8,7 @@ public class RequestBodyJson<T> {
     private String authorization;
     private T body;
 
-    public  T getBody() {
+    public T getBody() {
         return body;
     }
 

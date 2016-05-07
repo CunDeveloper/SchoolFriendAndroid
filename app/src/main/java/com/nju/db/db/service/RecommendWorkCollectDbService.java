@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.nju.db.RecommendCollectEntity;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.model.RecommendWork;
@@ -18,22 +19,23 @@ public class RecommendWorkCollectDbService {
     private static final String TAG = RecommendWorkCollectDbService.class.getSimpleName();
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private SQLiteDatabase db;
+
     public RecommendWorkCollectDbService(Context context) {
         db = SchoolFriendDbHelper.newInstance(context).getWritableDatabase();
     }
 
-    public void save(RecommendWork recommendWork){
+    public void save(RecommendWork recommendWork) {
         final int id = recommendWork.getId();
         final String content = gson.toJson(recommendWork);
         ContentValues values = new ContentValues();
-        values.put(RecommendCollectEntity.ID,id);
-        values.put(RecommendCollectEntity.CONTENT,content);
-        db.replace(RecommendCollectEntity.TABLE_NAME,null,values);
+        values.put(RecommendCollectEntity.ID, id);
+        values.put(RecommendCollectEntity.CONTENT, content);
+        db.replace(RecommendCollectEntity.TABLE_NAME, null, values);
     }
 
-    public ArrayList<RecommendWork> getCollects(){
+    public ArrayList<RecommendWork> getCollects() {
         ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
-        String[] projection ={
+        String[] projection = {
                 RecommendCollectEntity.CONTENT
         };
         Cursor cursor = db.query(
@@ -48,8 +50,8 @@ public class RecommendWorkCollectDbService {
         int contentId = cursor.getColumnIndex(RecommendCollectEntity.CONTENT);
         RecommendWork recommendWork;
         while (cursor.moveToNext()) {
-             recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId),RecommendWork.class);
-             recommendWorks.add(recommendWork);
+            recommendWork = (RecommendWork) gson.fromJson(cursor.getString(contentId), RecommendWork.class);
+            recommendWorks.add(recommendWork);
         }
         return recommendWorks;
     }

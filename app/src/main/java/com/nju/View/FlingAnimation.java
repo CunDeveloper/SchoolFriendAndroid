@@ -30,10 +30,10 @@ public class FlingAnimation implements Animation {
 
         boolean active = (Math.abs(velocityX) > threshold && Math.abs(velocityY) > threshold);
 
-        if(listener != null) {
+        if (listener != null) {
             listener.onMove(dx, dy);
 
-            if(!active) {
+            if (!active) {
                 listener.onComplete();
             }
         }

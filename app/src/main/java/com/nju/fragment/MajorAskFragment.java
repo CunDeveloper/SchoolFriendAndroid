@@ -16,13 +16,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.nju.activity.MessageContentIdEvent;
-import com.nju.activity.MessageEvent;
-import com.nju.activity.MessageLabelEvent;
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.MajorAskAdapter;
 import com.nju.db.db.service.MajorAskDbService;
+import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageEvent;
+import com.nju.event.MessageLabelEvent;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -53,17 +53,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MajorAskFragment extends BaseFragment {
     private static final String TAG = MajorAskFragment.class.getSimpleName();
     private SwipeRefreshLayout mRefreshLayout;
-    private PostRequestJson mRequestJson,delectAskRequestJson;
-    private ArrayList<AlumniQuestion> mAlumniQuestions = new ArrayList<>();;
+    private PostRequestJson mRequestJson, delectAskRequestJson;
+    private ArrayList<AlumniQuestion> mAlumniQuestions = new ArrayList<>();
+    ;
     private RelativeLayout mFootView;
-    private MajorAskAdapter mMajorAskAdapter ;
+    private MajorAskAdapter mMajorAskAdapter;
     private AtomicInteger mAskId;
     private CharSequence mLabel = "";
     private CharSequence mDegree = Constant.ALL;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(MajorAskFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(MajorAskFragment.this)) {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
@@ -74,26 +75,26 @@ public class MajorAskFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(MajorAskFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(MajorAskFragment.this)) {
                 Log.i(TAG, responseBody);
                 ParseResponse parseResponse = new ParseResponse();
                 try {
-                    Object object = parseResponse.getInfo(responseBody,AlumniQuestion.class);
-                    if (object != null){
+                    Object object = parseResponse.getInfo(responseBody, AlumniQuestion.class);
+                    if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
                         mAlumniQuestions.clear();
-                        if (majorAsks.size()>0){
-                            for (Object obj :majorAsks){
-                                AlumniQuestion   alumniQuestion = (AlumniQuestion) obj;
+                        if (majorAsks.size() > 0) {
+                            for (Object obj : majorAsks) {
+                                AlumniQuestion alumniQuestion = (AlumniQuestion) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestion));
-                                if (!mAlumniQuestions.contains(alumniQuestion)){
+                                if (!mAlumniQuestions.contains(alumniQuestion)) {
                                     mAlumniQuestions.add(alumniQuestion);
                                 }
                             }
-                            Collections.sort(mAlumniQuestions,new MajorAskSort());
+                            Collections.sort(mAlumniQuestions, new MajorAskSort());
                             int length = mAlumniQuestions.size();
-                            if (length>Constant.MAX_ROW){
-                                for (int i = length-1;i>Constant.MAX_ROW;i--){
+                            if (length > Constant.MAX_ROW) {
+                                for (int i = length - 1; i > Constant.MAX_ROW; i--) {
                                     mAlumniQuestions.remove(mAlumniQuestions.get(i));
                                 }
                             }
@@ -113,7 +114,7 @@ public class MajorAskFragment extends BaseFragment {
     private ResponseCallback deleteContentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            Log.e(TAG,error.getMessage());
+            Log.e(TAG, error.getMessage());
         }
 
         @Override
@@ -128,7 +129,7 @@ public class MajorAskFragment extends BaseFragment {
                         int id = mAskId.get();
                         for (AlumniQuestion alumniQuestion : mAlumniQuestions) {
                             if (id == alumniQuestion.getId()) {
-                                synchronized (MajorAskFragment.this){
+                                synchronized (MajorAskFragment.this) {
                                     mAlumniQuestions.remove(alumniQuestion);
                                 }
                                 mMajorAskAdapter.notifyDataSetChanged();
@@ -143,16 +144,16 @@ public class MajorAskFragment extends BaseFragment {
         }
     };
 
-    public static MajorAskFragment newInstance( ) {
+    public MajorAskFragment() {
+        // Required empty public constructor
+        new ExeCacheTask(this).execute(mDegree.toString(), mLabel.toString());
+    }
+
+    public static MajorAskFragment newInstance() {
         MajorAskFragment fragment = new MajorAskFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public MajorAskFragment() {
-        // Required empty public constructor
-        new ExeCacheTask(this).execute(mDegree.toString(),mLabel.toString());
     }
 
     @Override
@@ -162,6 +163,7 @@ public class MajorAskFragment extends BaseFragment {
 
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -173,7 +175,7 @@ public class MajorAskFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.own_major_ask);
         }
@@ -194,12 +196,12 @@ public class MajorAskFragment extends BaseFragment {
         return view;
     }
 
-    private void setUpOnRefreshListener(View view){
+    private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE,0);
+                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
 //                if (mAlumniQuestions.size() > 0) {
 //                    mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, mAlumniQuestions.get(0).getId());
 //                }else {
@@ -210,9 +212,8 @@ public class MajorAskFragment extends BaseFragment {
     }
 
 
-
-    private void initCameraView(){
-        ImageView  mCameraImageView = getHostActivity().getMenuCameraView();
+    private void initCameraView() {
+        ImageView mCameraImageView = getHostActivity().getMenuCameraView();
         mCameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +222,7 @@ public class MajorAskFragment extends BaseFragment {
         });
     }
 
-    private void initListView(View view){
+    private void initListView(View view) {
         ListView listView = (ListView) view.findViewById(R.id.listView);
         new ListViewHead(this).setUp(listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
@@ -241,7 +242,7 @@ public class MajorAskFragment extends BaseFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == (mMajorAskAdapter.getCount())) {
                     mFootView.setVisibility(View.VISIBLE);
-                   // mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.NEXT);
+                    // mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.NEXT);
                 }
             }
 
@@ -253,41 +254,41 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
+    public void onNetStateMessageState(NetworkInfoEvent event) {
+        if (event.isConnected()) {
             if (mAlumniQuestions.size() > 0) {
                 mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, mAlumniQuestions.get(0).getId());
-            }else {
-                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE,0);
+            } else {
+                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
             }
         }
     }
 
     @Subscribe
-    public void onMessageDeleteContent(MessageContentIdEvent event){
+    public void onMessageDeleteContent(MessageContentIdEvent event) {
         mAskId = new AtomicInteger();
         mAskId.set(event.getId());
-        delectAskRequestJson = MajorAskService.deleteQuestion(this,event.getId(),deleteContentCallback);
+        delectAskRequestJson = MajorAskService.deleteQuestion(this, event.getId(), deleteContentCallback);
     }
 
     @Subscribe
-    public void onMessageDegree(MessageEvent event){
+    public void onMessageDegree(MessageEvent event) {
         mDegree = event.getMessage();
-        mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback,event.getMessage(), Constant.PRE, 0);
+        mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, event.getMessage(), Constant.PRE, 0);
         // new ExeCacheTask(this).execute(event.getMessage(),mLabel.toString());
     }
 
     @Subscribe
-    public void onMessageLabel(MessageLabelEvent event){
-        ToastUtil.showShortText(getContext(),event.getLabel());
+    public void onMessageLabel(MessageLabelEvent event) {
+        ToastUtil.showShortText(getContext(), event.getLabel());
         mLabel = event.getLabel();
-       // new ExeCacheTask(this).execute(mDegree.toString(),mLabel.toString());
-        mRequestJson = MajorAskService.queryMajorAskByLabel(this, callback, mDegree.toString(), event.getLabel(), Constant.PRE,0);
+        // new ExeCacheTask(this).execute(mDegree.toString(),mLabel.toString());
+        mRequestJson = MajorAskService.queryMajorAskByLabel(this, callback, mDegree.toString(), event.getLabel(), Constant.PRE, 0);
     }
 
     @Override
-    public void onStop(){
-        Log.i(TAG,"EXE STOP");
+    public void onStop() {
+        Log.i(TAG, "EXE STOP");
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestJson != null)
@@ -297,12 +298,12 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        if (mAlumniQuestions != null && mAlumniQuestions.size()>0){
-            Intent intent = new Intent(getContext(),CacheIntentService.class);
-            intent.putExtra(Constant.LABEL,Constant.MAJOR_ASK);
-            intent.putExtra(Constant.MAJOR_ASK,mAlumniQuestions);
+        if (mAlumniQuestions != null && mAlumniQuestions.size() > 0) {
+            Intent intent = new Intent(getContext(), CacheIntentService.class);
+            intent.putExtra(Constant.LABEL, Constant.MAJOR_ASK);
+            intent.putExtra(Constant.MAJOR_ASK, mAlumniQuestions);
             getContext().startService(intent);
         }
     }
@@ -326,21 +327,22 @@ public class MajorAskFragment extends BaseFragment {
         }
     }
 
-    private static class ExeCacheTask extends AsyncTask<String,Void,ArrayList<AlumniQuestion>>
-    {
+    private static class ExeCacheTask extends AsyncTask<String, Void, ArrayList<AlumniQuestion>> {
         private final WeakReference<MajorAskFragment> mMajorAskWeakRef;
-        private String degree ;
+        private String degree;
         private String label;
-        public ExeCacheTask(MajorAskFragment  majorAskFragment){
+
+        public ExeCacheTask(MajorAskFragment majorAskFragment) {
             this.mMajorAskWeakRef = new WeakReference<>(majorAskFragment);
         }
+
         @Override
         protected ArrayList<AlumniQuestion> doInBackground(String... params) {
             MajorAskFragment majorAskFragment = mMajorAskWeakRef.get();
             degree = params[0];
             label = params[1];
-            if (majorAskFragment!=null){
-                return new MajorAskDbService(majorAskFragment.getContext()).getMajorAsksByDegreeAndLabel(degree,label);
+            if (majorAskFragment != null) {
+                return new MajorAskDbService(majorAskFragment.getContext()).getMajorAsksByDegreeAndLabel(degree, label);
             }
             return null;
         }
@@ -349,26 +351,26 @@ public class MajorAskFragment extends BaseFragment {
         protected void onPostExecute(ArrayList<AlumniQuestion> alumniQuestions) {
             super.onPostExecute(alumniQuestions);
             MajorAskFragment majorAskFragment = mMajorAskWeakRef.get();
-            if (majorAskFragment!=null){
-                synchronized (mMajorAskWeakRef.get()){
+            if (majorAskFragment != null) {
+                synchronized (mMajorAskWeakRef.get()) {
                     ArrayList<AlumniQuestion> source = majorAskFragment.mAlumniQuestions;
                     ArrayList<AlumniQuestion> tempArray = new ArrayList<>();
                     AlumniQuestion question;
-                    for (int i=0;i<source.size();i++){
+                    for (int i = 0; i < source.size(); i++) {
                         question = new AlumniQuestion();
                         tempArray.add(question);
                     }
                     Collections.copy(tempArray, source);
                     source.removeAll(tempArray);
-                    if (alumniQuestions != null && alumniQuestions.size()>0){
+                    if (alumniQuestions != null && alumniQuestions.size() > 0) {
                         Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestions));
                         Collections.sort(alumniQuestions, new MajorAskSort());
                         source.addAll(alumniQuestions);
-                        for (AlumniQuestion alumniQuestion :alumniQuestions){
-                            Log.i(TAG,alumniQuestion.getLabel());
+                        for (AlumniQuestion alumniQuestion : alumniQuestions) {
+                            Log.i(TAG, alumniQuestion.getLabel());
                         }
                         majorAskFragment.mMajorAskAdapter.notifyDataSetChanged();
-                        majorAskFragment.mRequestJson = MajorAskService.queryMajorAsk(majorAskFragment, majorAskFragment.callback,degree, Constant.PRE,0);
+                        majorAskFragment.mRequestJson = MajorAskService.queryMajorAsk(majorAskFragment, majorAskFragment.callback, degree, Constant.PRE, 0);
                     }
                 }
             }

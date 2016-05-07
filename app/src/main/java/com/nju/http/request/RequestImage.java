@@ -14,17 +14,17 @@ public class RequestImage extends RequestRunnable {
     private Call call;
 
 
-    public RequestImage(String url,Callback callback) {
+    public RequestImage(String url, Callback callback) {
         this.mCallback = callback;
         this.mUrl = url;
     }
 
-    public Call getCall(){
+    public Call getCall() {
         return call;
     }
 
     @Override
     public void run() {
-        call = SchoolFriendHttp.getInstance().AsyncGetStream(mUrl,mCallback);
+        call = SchoolFriendHttp.getInstance().AsyncGetStream(mUrl, mCallback);
     }
 }

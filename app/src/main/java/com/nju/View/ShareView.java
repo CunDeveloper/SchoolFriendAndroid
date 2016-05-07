@@ -13,11 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.nju.activity.R;
-import com.nju.event.MessageEventId;
 import com.nju.event.MessageShareEventId;
 import com.nju.fragment.BaseFragment;
-import com.nju.util.WeiXinShare;
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,7 +24,7 @@ import java.util.ArrayList;
  * Created by cun on 2016/4/27.
  */
 public class ShareView {
-    public static void init(final BaseFragment fragment,View view){
+    public static void init(final BaseFragment fragment, View view) {
         final RelativeLayout mainLayout = (RelativeLayout) view.findViewById(R.id.shareLayout);
         mainLayout.setVisibility(View.VISIBLE);
         GridView gridView = (GridView) view.findViewById(R.id.mGridView);
@@ -66,14 +63,16 @@ public class ShareView {
         });
     }
 
-    private static class ShareAdapter extends BaseAdapter{
+    private static class ShareAdapter extends BaseAdapter {
         private ArrayList<Bitmap> mBitmaps = new ArrayList<>();
         private Context mContent;
-        public ShareAdapter(Context context){
+
+        public ShareAdapter(Context context) {
             mContent = context;
-            mBitmaps.add(BitmapFactory.decodeResource(mContent.getResources(),R.drawable.wechat_f));
+            mBitmaps.add(BitmapFactory.decodeResource(mContent.getResources(), R.drawable.wechat_f));
             mBitmaps.add(BitmapFactory.decodeResource(mContent.getResources(), R.drawable.wechat_moment_f));
         }
+
         @Override
         public int getCount() {
             return mBitmaps.size();
@@ -81,7 +80,7 @@ public class ShareView {
 
         @Override
         public Object getItem(int position) {
-            return mBitmaps.get(position) ;
+            return mBitmaps.get(position);
         }
 
         @Override
@@ -92,9 +91,9 @@ public class ShareView {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
-            if (convertView == null){
+            if (convertView == null) {
                 holder = new ViewHolder();
-                convertView = LayoutInflater.from(mContent).inflate(R.layout.share_item,parent,false);
+                convertView = LayoutInflater.from(mContent).inflate(R.layout.share_item, parent, false);
                 holder.imageView = (ImageView) convertView;
                 convertView.setTag(holder);
             }
@@ -103,7 +102,7 @@ public class ShareView {
             return convertView;
         }
 
-        private class ViewHolder{
+        private class ViewHolder {
             public ImageView imageView;
         }
     }

@@ -12,9 +12,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.nju.View.SchoolFriendDialog;
-import com.nju.activity.MessageEvent;
 import com.nju.activity.R;
 import com.nju.adatper.DynamicCollectAdapter;
+import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.DynamicCollect;
 import com.nju.test.TestData;
@@ -36,16 +36,17 @@ public class DynamicCollectFragment extends BaseFragment {
     private ArrayList<DynamicCollect> mDynamicCollects;
     private DynamicCollectAdapter mDynamicCollectAdapter;
     private RelativeLayout mCollectToolLayout;
-    public static DynamicCollectFragment newInstance(String title) {
-        DynamicCollectFragment fragment = new DynamicCollectFragment();
-        Bundle args = new Bundle();
-        args.putString(PARAM_TITLE,title);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public DynamicCollectFragment() {
         // Required empty public constructor
+    }
+
+    public static DynamicCollectFragment newInstance(String title) {
+        DynamicCollectFragment fragment = new DynamicCollectFragment();
+        Bundle args = new Bundle();
+        args.putString(PARAM_TITLE, title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -67,26 +68,26 @@ public class DynamicCollectFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe
-    public void onMessageChoose(MessageEvent event){
+    public void onMessageChoose(MessageEvent event) {
         Log.i(TAG, event.getMessage());
-        if (event.getMessage().equals(getString(R.string.more))){
+        if (event.getMessage().equals(getString(R.string.more))) {
             mIsMore = true;
-            for (DynamicCollect dynamicCollect:mDynamicCollects){
-                if (dynamicCollect.getId() == mChoosePosition){
+            for (DynamicCollect dynamicCollect : mDynamicCollects) {
+                if (dynamicCollect.getId() == mChoosePosition) {
                     dynamicCollect.setCheck(2);
-                }else {
+                } else {
                     dynamicCollect.setCheck(1);
                 }
             }
@@ -96,8 +97,8 @@ public class DynamicCollectFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageEventMore(MessageEventMore eventMore){
-        for (DynamicCollect dynamicCollect:mDynamicCollects){
+    public void onMessageEventMore(MessageEventMore eventMore) {
+        for (DynamicCollect dynamicCollect : mDynamicCollects) {
             dynamicCollect.setCheck(0);
         }
         mCollectToolLayout.setVisibility(View.GONE);
@@ -105,14 +106,14 @@ public class DynamicCollectFragment extends BaseFragment {
         mIsMore = false;
     }
 
-    public boolean isMore(){
+    public boolean isMore() {
         return mIsMore;
     }
 
-    private void initListView(View view){
+    private void initListView(View view) {
         mDynamicCollects = TestData.getDynamicCollects();
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        mDynamicCollectAdapter = new DynamicCollectAdapter(getContext(),mDynamicCollects);
+        mDynamicCollectAdapter = new DynamicCollectAdapter(getContext(), mDynamicCollects);
         listView.setAdapter(mDynamicCollectAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,7 +137,7 @@ public class DynamicCollectFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }

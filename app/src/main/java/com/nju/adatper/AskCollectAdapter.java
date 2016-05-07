@@ -65,22 +65,22 @@ public class AskCollectAdapter extends BaseAdapter {
         holder.nameTV.setText(alumniQuestion.getAuthor().getAuthorName());
         holder.labelTV.setText(alumniQuestion.getAuthor().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniQuestion.getDate()));
-        try{
+        try {
             holder.titleTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        try{
+        try {
             holder.contentTV.setText(StringBase64.decode(alumniQuestion.getDescription()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
 
-        if (alumniQuestion.getCheck() == 0){
+        if (alumniQuestion.getCheck() == 0) {
             holder.checkBox.setVisibility(View.GONE);
-        }else if (alumniQuestion.getCheck() == 1){
+        } else if (alumniQuestion.getCheck() == 1) {
             holder.checkBox.setVisibility(View.VISIBLE);
-        }else if (alumniQuestion.getCheck() == 2){
+        } else if (alumniQuestion.getCheck() == 2) {
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setChecked(true);
         }

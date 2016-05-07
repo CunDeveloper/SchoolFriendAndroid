@@ -34,8 +34,8 @@ public class AlumniVoiceItemFragment extends BaseFragment {
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemFragment.this)){
-                ToastUtil.ShowText(getContext(),getString(R.string.fail_info_tip));
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemFragment.this)) {
+                ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
             }
@@ -43,22 +43,23 @@ public class AlumniVoiceItemFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemFragment.this)) {
                 Log.i(TAG, responseBody);
                 mRefreshLayout.setRefreshing(false);
             }
         }
     };
-    public static AlumniVoiceItemFragment newInstance(String type) {
-        AlumniVoiceItemFragment fragment = new AlumniVoiceItemFragment();
-        Bundle args = new Bundle();
-        args.putString(PARAM_TYPE,type);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public AlumniVoiceItemFragment() {
         // Required empty public constructor
+    }
+
+    public static AlumniVoiceItemFragment newInstance(String type) {
+        AlumniVoiceItemFragment fragment = new AlumniVoiceItemFragment();
+        Bundle args = new Bundle();
+        args.putString(PARAM_TYPE, type);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -74,14 +75,14 @@ public class AlumniVoiceItemFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_alumni_voice_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_alumni_voice_item, container, false);
         initListView(view);
         setUpOnRefreshListener(view);
         return view;
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
     }
 
@@ -89,7 +90,7 @@ public class AlumniVoiceItemFragment extends BaseFragment {
     private void initListView(View view) {
         voices = TestData.getVoicesData();
         ListView listView = (ListView) view.findViewById(R.id.alumni_voice_item_list);
-        AlumniVoiceItemAdapter adapter = new AlumniVoiceItemAdapter(this,voices);
+        AlumniVoiceItemAdapter adapter = new AlumniVoiceItemAdapter(this, voices);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -99,7 +100,7 @@ public class AlumniVoiceItemFragment extends BaseFragment {
         });
     }
 
-    private void setUpOnRefreshListener(View view){
+    private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.post(new Runnable() {
             @Override
@@ -116,13 +117,13 @@ public class AlumniVoiceItemFragment extends BaseFragment {
         });
     }
 
-    private void updateVoices()  {
-        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf","",callback);
+    private void updateVoices() {
+        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf", "", callback);
         HttpManager.getInstance().exeRequest(mRequestJson);
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         CloseRequestUtil.close(mRequestJson);
     }

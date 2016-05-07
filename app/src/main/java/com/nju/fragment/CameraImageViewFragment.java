@@ -15,7 +15,6 @@ import com.nju.activity.R;
 import com.nju.adatper.OriginPicViewPagerAdapter;
 import com.nju.model.Image;
 import com.nju.util.AsyncCompress;
-import com.nju.util.ChoosePicUtil;
 import com.nju.util.Divice;
 import com.nju.util.ToastUtil;
 
@@ -28,7 +27,7 @@ public class CameraImageViewFragment extends BaseFragment {
 
     private static final String TAG = CameraImageViewFragment.class.getSimpleName();
     private static final String POSITION = "position";
-    private static final String LABEL ="label";
+    private static final String LABEL = "label";
     private static final String SUB_LABEL = "subLabel";
     private static final String LEFT_BRACKET = "(";
     private static final String RIGHT_BRACKET = ")";
@@ -37,6 +36,13 @@ public class CameraImageViewFragment extends BaseFragment {
     private static final int SUB_PIC_IN_ALL = 206;
     private static final float HALF_ALPHA = 0.5F;
     private static final int MOST_PICS = 9;
+    private static final int ADD_PIC = 203;
+    private static final int SUB_PIC = 204;
+    private final ArrayList<Image> mChoosePic = new ArrayList<>();
+    private final ArrayList<Image> mChoosePicInAll = new ArrayList<>();
+    private final HashSet<Integer> mChooseIndex = new HashSet<>();
+    private final HashSet<Integer> mChooseIndexInAll = new HashSet<>();
+    private final Handler mHandler = new MyHandler(this);
     private ViewPager mViewPager;
     private ArrayList<Image> mImages;
     private int mPosition;
@@ -45,26 +51,19 @@ public class CameraImageViewFragment extends BaseFragment {
     private String mLabel;//
     private String mSubLabel;
     private RelativeLayout mBottomLayout;
-    private static final int ADD_PIC = 203;
-    private static final int SUB_PIC = 204;
-    private final ArrayList<Image> mChoosePic = new ArrayList<>();
-    private final ArrayList<Image> mChoosePicInAll = new ArrayList<>();
-    private final HashSet<Integer> mChooseIndex = new HashSet<>();
-    private final HashSet<Integer> mChooseIndexInAll = new HashSet<>();
-    private final Handler mHandler = new MyHandler(this);
-
-    public static CameraImageViewFragment newInstance(ArrayList<Image> imgPaths,int position,String label,String subLabel) {
-        CameraImageViewFragment fragment = new CameraImageViewFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList(TAG,imgPaths);
-        args.putInt(POSITION, position);
-        args.putString(LABEL, label);
-        args.putString(SUB_LABEL,subLabel);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public CameraImageViewFragment() {
+    }
+
+    public static CameraImageViewFragment newInstance(ArrayList<Image> imgPaths, int position, String label, String subLabel) {
+        CameraImageViewFragment fragment = new CameraImageViewFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(TAG, imgPaths);
+        args.putInt(POSITION, position);
+        args.putString(LABEL, label);
+        args.putString(SUB_LABEL, subLabel);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -81,7 +80,7 @@ public class CameraImageViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_camera_image_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_camera_image_view, container, false);
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
         mCheckBox = (CheckBox) view.findViewById(R.id.fragment_camera_image_view_checkBox);
         mViewPager = (ViewPager) view.findViewById(R.id.fragment_camera_imgage_view_pager);
@@ -108,24 +107,24 @@ public class CameraImageViewFragment extends BaseFragment {
     private void dependLabelConditionInit() {
         if (mLabel.equals(getString(R.string.choosedReview))) {
             mCheckBox.setChecked(true);
-            setFinishBn(getString(R.string.finish) + LEFT_BRACKET + mImages.size() +SLASH+MOST_PICS +RIGHT_BRACKET, true, 1);
+            setFinishBn(getString(R.string.finish) + LEFT_BRACKET + mImages.size() + SLASH + MOST_PICS + RIGHT_BRACKET, true, 1);
             mChoosePic.addAll(mImages);
-            for (int i=0;i< mImages.size();i++){
+            for (int i = 0; i < mImages.size(); i++) {
                 mChooseIndex.add(i);
             }
-        } else if (mLabel.equals(getString(R.string.capture_image))){
-            setFinishBn(getString(R.string.finish),true,1);
+        } else if (mLabel.equals(getString(R.string.capture_image))) {
+            setFinishBn(getString(R.string.finish), true, 1);
             hideBottomLayout();
         } else if (mLabel.equals(getString(R.string.allPicsReview))) {
-            setFinishBn(getString(R.string.finish),false,HALF_ALPHA);
+            setFinishBn(getString(R.string.finish), false, HALF_ALPHA);
             mCheckBox.setChecked(false);
-            for (int i = 0;i< mImages.size();i++) {
+            for (int i = 0; i < mImages.size(); i++) {
                 mChooseIndexInAll.add(i);
             }
         }
     }
 
-    private void setFinishBn( final String text,final boolean enabled,final float alpha) {
+    private void setFinishBn(final String text, final boolean enabled, final float alpha) {
         mFinishButton.setText(text);
         mFinishButton.setEnabled(enabled);
         mFinishButton.setAlpha(alpha);
@@ -138,11 +137,11 @@ public class CameraImageViewFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if (mLabel.equals(getString(R.string.capture_image))) {
-                    new AsyncCompress(CameraImageViewFragment.this,mSubLabel).execute(mImages);
+                    new AsyncCompress(CameraImageViewFragment.this, mSubLabel).execute(mImages);
                 } else if (mLabel.equals(getString(R.string.choosedReview))) {
-                    new AsyncCompress(CameraImageViewFragment.this,mSubLabel).execute(mChoosePic);
+                    new AsyncCompress(CameraImageViewFragment.this, mSubLabel).execute(mChoosePic);
                 } else if (mLabel.equals(getString(R.string.allPicsReview))) {
-                    new AsyncCompress(CameraImageViewFragment.this,mSubLabel).execute(mChoosePicInAll);
+                    new AsyncCompress(CameraImageViewFragment.this, mSubLabel).execute(mChoosePicInAll);
                 }
             }
         });
@@ -191,7 +190,7 @@ public class CameraImageViewFragment extends BaseFragment {
         }
     }
 
-    private void initViewPagerSlideListener (){
+    private void initViewPagerSlideListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -212,20 +211,20 @@ public class CameraImageViewFragment extends BaseFragment {
     }
 
     private void dependLabelSlide(int position) {
-       if (mLabel.equals(getString(R.string.choosedReview))) {
-           getHostActivity().getToolBar().setTitle((position + 1) + "" + SLASH + mImages.size());
-           if (mChooseIndex.contains(position)) {
-               mCheckBox.setChecked(true);
-           } else {
-               mCheckBox.setChecked(false);
-           }
-       } else if (mLabel.equals(getString(R.string.allPicsReview))) {
-           if (mChooseIndexInAll.contains(position)) {
-               mCheckBox.setChecked(false);
-           } else {
-               mCheckBox.setChecked(true);
-           }
-       }
+        if (mLabel.equals(getString(R.string.choosedReview))) {
+            getHostActivity().getToolBar().setTitle((position + 1) + "" + SLASH + mImages.size());
+            if (mChooseIndex.contains(position)) {
+                mCheckBox.setChecked(true);
+            } else {
+                mCheckBox.setChecked(false);
+            }
+        } else if (mLabel.equals(getString(R.string.allPicsReview))) {
+            if (mChooseIndexInAll.contains(position)) {
+                mCheckBox.setChecked(false);
+            } else {
+                mCheckBox.setChecked(true);
+            }
+        }
     }
 
     public void hideBottomLayout() {
@@ -250,50 +249,48 @@ public class CameraImageViewFragment extends BaseFragment {
             if (fragment != null) {
                 super.handleMessage(msg);
                 if (fragment.mLabel.equals(fragment.getString(R.string.choosedReview))) {
-                    reviewImage(fragment,msg);
+                    reviewImage(fragment, msg);
                 } else if (fragment.mLabel.equals(fragment.getString(R.string.allPicsReview))) {
-                    reviewAllImage(fragment,msg);
+                    reviewAllImage(fragment, msg);
                 }
 
             }
         }
 
-        private void reviewImage(CameraImageViewFragment fragment,Message msg) {
+        private void reviewImage(CameraImageViewFragment fragment, Message msg) {
             if (msg.what == ADD_PIC) {
                 fragment.mChoosePic.add(fragment.mImages.get((Integer) msg.obj));
-                fragment.setFinishBn(fragment.getString(R.string.finish) + LEFT_BRACKET + (fragment.mChoosePic.size()) +SLASH+MOST_PICS+RIGHT_BRACKET,
+                fragment.setFinishBn(fragment.getString(R.string.finish) + LEFT_BRACKET + (fragment.mChoosePic.size()) + SLASH + MOST_PICS + RIGHT_BRACKET,
                         true, 1);
-            } else if (msg.what == SUB_PIC){
+            } else if (msg.what == SUB_PIC) {
                 fragment.mChoosePic.remove(fragment.mImages.get((Integer) msg.obj));
                 int size = fragment.mChoosePic.size();
-                if (size == 0){
-                    fragment.setFinishBn(fragment.getString(R.string.finish),false,HALF_ALPHA);
-                }
-                else {
-                    fragment.setFinishBn(fragment.getString(R.string.finish) +LEFT_BRACKET+ fragment.mChoosePic.size()+SLASH+MOST_PICS+RIGHT_BRACKET,true,1);
+                if (size == 0) {
+                    fragment.setFinishBn(fragment.getString(R.string.finish), false, HALF_ALPHA);
+                } else {
+                    fragment.setFinishBn(fragment.getString(R.string.finish) + LEFT_BRACKET + fragment.mChoosePic.size() + SLASH + MOST_PICS + RIGHT_BRACKET, true, 1);
                 }
 
             }
         }
 
-        private void reviewAllImage(CameraImageViewFragment fragment,Message msg) {
+        private void reviewAllImage(CameraImageViewFragment fragment, Message msg) {
             if (msg.what == ADD_PIC_IN_ALL) {
                 int size = fragment.mChoosePicInAll.size();
                 if (size == MOST_PICS) {
-                    ToastUtil.showShortText(fragment.getContext(),fragment.getString(R.string.most_choose_nine_pics));
+                    ToastUtil.showShortText(fragment.getContext(), fragment.getString(R.string.most_choose_nine_pics));
                 } else {
                     fragment.mChoosePicInAll.add(fragment.mImages.get((Integer) msg.obj));
-                    fragment.setFinishBn(fragment.getString(R.string.finish) +LEFT_BRACKET +fragment.mChoosePicInAll.size()+SLASH +MOST_PICS+RIGHT_BRACKET,
+                    fragment.setFinishBn(fragment.getString(R.string.finish) + LEFT_BRACKET + fragment.mChoosePicInAll.size() + SLASH + MOST_PICS + RIGHT_BRACKET,
                             true, 1);
                 }
-            } else if (msg.what == SUB_PIC_IN_ALL){
+            } else if (msg.what == SUB_PIC_IN_ALL) {
                 fragment.mChoosePicInAll.remove(fragment.mImages.get((Integer) msg.obj));
                 int size = fragment.mChoosePicInAll.size();
-                if (size == 0){
-                    fragment.setFinishBn(fragment.getString(R.string.finish),false,HALF_ALPHA);
-                }
-                else {
-                    fragment.setFinishBn(fragment.getString(R.string.finish) + LEFT_BRACKET+size+SLASH+MOST_PICS+RIGHT_BRACKET,true,1);
+                if (size == 0) {
+                    fragment.setFinishBn(fragment.getString(R.string.finish), false, HALF_ALPHA);
+                } else {
+                    fragment.setFinishBn(fragment.getString(R.string.finish) + LEFT_BRACKET + size + SLASH + MOST_PICS + RIGHT_BRACKET, true, 1);
                 }
 
             }

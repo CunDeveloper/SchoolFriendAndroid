@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
 import com.nju.event.MessageEventId;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -28,7 +28,6 @@ import com.nju.model.AlumniVoice;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
-import com.nju.service.RecommendWorkService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -51,49 +50,32 @@ import java.util.ArrayList;
 
 public class PersonAlumniVoiceItemDetail extends BaseFragment {
     public static final String TAG = PersonAlumniVoiceItemDetail.class.getSimpleName();
-    private static final String PARAM_VOICE= "voiceKey";
+    private static final String PARAM_VOICE = "voiceKey";
     private static final String PARAM_TITLE = "title";
     private AlumniVoice mVoice;
     private String mTitle;
-    private EditText mContentEditText ;
+    private EditText mContentEditText;
     private ArrayList<ContentComment> mContentComments;
     private ArrayList<RespPraise> mPraiseAuthors = new ArrayList<>();
     private CommentAdapter mCommentAdapter;
     private View mMainView;
     private int commentType = 0;
-    private TextView mCommentNumberTV,mPraiseNumberTV;
-    private PostRequestJson mRequestSaveJson,mRequestQueryJson,mRequestQueryPraiseJson;
-    private ResponseCallback saveCallback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)){
-                Log.e(TAG,error.getMessage());
-            }
-        }
-        @Override
-        public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)){
-                Log.i(TAG, responseBody);
-                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
-                mRequestQueryJson = AlumniVoiceService.queryComment(PersonAlumniVoiceItemDetail.this, mVoice.getId(), queryCommentCallback);
-            }
-        }
-    };
-
+    private TextView mCommentNumberTV, mPraiseNumberTV;
+    private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestQueryPraiseJson;
     private ResponseCallback queryPraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)){
-                Log.e(TAG,error.getMessage());
+            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
+                Log.e(TAG, error.getMessage());
             }
         }
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
                 Log.i(TAG, responseBody);
                 try {
-                    Object object = new ParseResponse().getInfo(responseBody,RespPraise.class);
+                    Object object = new ParseResponse().getInfo(responseBody, RespPraise.class);
                     if (object != null) {
                         ArrayList authors = (ArrayList) object;
                         if (authors.size() > 0) {
@@ -111,20 +93,20 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
             }
         }
     };
-
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
                 Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
                 Log.i(TAG, responseBody);
                 try {
-                    Object object = new ParseResponse().getInfo(responseBody,ContentComment.class);
+                    Object object = new ParseResponse().getInfo(responseBody, ContentComment.class);
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
@@ -137,26 +119,43 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
                         }
                     }
                     mCommentAdapter.notifyDataSetChanged();
-                    mCommentNumberTV.setText(mContentComments.size()+"");
+                    mCommentNumberTV.setText(mContentComments.size() + "");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
     };
+    private ResponseCallback saveCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
+                Log.e(TAG, error.getMessage());
+            }
+        }
 
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
+                Log.i(TAG, responseBody);
+                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
+                mRequestQueryJson = AlumniVoiceService.queryComment(PersonAlumniVoiceItemDetail.this, mVoice.getId(), queryCommentCallback);
+            }
+        }
+    };
 
-    public static PersonAlumniVoiceItemDetail newInstance(AlumniVoice voice,String title) {
-        PersonAlumniVoiceItemDetail fragment = new PersonAlumniVoiceItemDetail();
-        Bundle args = new Bundle();
-        args.putParcelable(PARAM_VOICE,voice);
-        args.putString(PARAM_TITLE,title);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public PersonAlumniVoiceItemDetail() {
         // Required empty public constructor
+    }
+
+    public static PersonAlumniVoiceItemDetail newInstance(AlumniVoice voice, String title) {
+        PersonAlumniVoiceItemDetail fragment = new PersonAlumniVoiceItemDetail();
+        Bundle args = new Bundle();
+        args.putParcelable(PARAM_VOICE, voice);
+        args.putString(PARAM_TITLE, title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -173,7 +172,7 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -189,12 +188,12 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         initToolBar(view);
-        mContentEditText = CommentUtil.getCommentEdit(this,view);
+        mContentEditText = CommentUtil.getCommentEdit(this, view);
         return view;
     }
 
     @Subscribe
-    public void onMessageEvent(MessageEventId event){
+    public void onMessageEvent(MessageEventId event) {
         commentType = event.getId();
         final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
         final LinearLayout linearLayout = (LinearLayout) mMainView.findViewById(R.id.new_comment_layout);
@@ -202,7 +201,6 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         SoftInput.open(getContext());
         scrollView.scrollTo(0, linearLayout.getBottom());
     }
-
 
 
     @Override
@@ -217,7 +215,7 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         mContentEditText.invalidate();
     }
 
-    private void initView(final View view){
+    private void initView(final View view) {
         mCommentNumberTV = (TextView) view.findViewById(R.id.comment_number_tv);
         mPraiseNumberTV = (TextView) view.findViewById(R.id.praise_number_tv);
         TextView nameTV = (TextView) view.findViewById(R.id.alumni_vo_name);
@@ -225,15 +223,15 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         TextView labelTV = (TextView) view.findViewById(R.id.alumni_vo_label);
         labelTV.setText(mVoice.getAuthorInfo().getLabel());
         TextView titleTV = (TextView) view.findViewById(R.id.alumni_vo_title);
-        try{
+        try {
             titleTV.setText(StringBase64.decode(mVoice.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView contentTV = (TextView) view.findViewById(R.id.alumni_vo_desc);
-        try{
+        try {
             contentTV.setText(StringBase64.decode(mVoice.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView dateTV = (TextView) view.findViewById(R.id.alumni_vo_date);
@@ -242,44 +240,44 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         gridView.setAdapter(new PraiseHeadAdapter(getContext()));
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         mContentComments = TestData.getComments();
-        mCommentAdapter = new CommentAdapter(getContext(),mContentComments);
+        mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         newListView.setAdapter(mCommentAdapter);
         Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (commentType == 0){
+                if (commentType == 0) {
                     mRequestSaveJson = AlumniVoiceService.saveComment(PersonAlumniVoiceItemDetail.this, view, mVoice.getId(), saveCallback);
-                }else {
+                } else {
                     mRequestSaveJson = AlumniVoiceService.saveCommentForOther(PersonAlumniVoiceItemDetail.this, view, commentType, saveCallback);
                     commentType = 0;
                 }
                 CommentUtil.closeSoftKey(getContext(), view);
             }
         });
-        mRequestQueryJson = AlumniVoiceService.queryComment(this,mVoice.getId(),queryCommentCallback);
-        mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this,mVoice.getId(),queryPraiseCallback);
+        mRequestQueryJson = AlumniVoiceService.queryComment(this, mVoice.getId(), queryCommentCallback);
+        mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this, mVoice.getId(), queryPraiseCallback);
 
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        if (mVoice.getImgPaths() != null){
-            Log.e(TAG,mVoice.getImgPaths());
-            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH,mVoice.getImgPaths().split(",")));
+        if (mVoice.getImgPaths() != null) {
+            Log.e(TAG, mVoice.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH, mVoice.getImgPaths().split(",")));
         }
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
-            mRequestQueryJson = AlumniVoiceService.queryComment(this,mVoice.getId(),queryCommentCallback);
+    public void onNetStateMessageState(NetworkInfoEvent event) {
+        if (event.isConnected()) {
+            mRequestQueryJson = AlumniVoiceService.queryComment(this, mVoice.getId(), queryCommentCallback);
             mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this, mVoice.getId(), queryPraiseCallback);
         }
     }
 
-    private void initToolBar(final View view){
+    private void initToolBar(final View view) {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestSaveJson != null)

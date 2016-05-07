@@ -75,10 +75,10 @@ public class Constant {
     public static final String WIFI = "wifi";
     public static final String MOBILE = "mobile";
     public static final String OTHER = "other";
-    public static final String RECOMMEND_COLLECT ="recommendCollect" ;
+    public static final String RECOMMEND_COLLECT = "recommendCollect";
     public static final String RECOMMEND = "recommend";
     public static final String ALUMNI_VOICE = "alumniVoice";
-    public static final String MAJOR_ASK = "majorAsk" ;
+    public static final String MAJOR_ASK = "majorAsk";
     public static final String DELETE_TABLE_DATA = "DELETE * FROM ";
     public static final String[] EMPTY = {};
     public static final int MAX_LIST_NUMBER = 100;
@@ -87,10 +87,10 @@ public class Constant {
     public static final String MASTER = "硕士";
     public static final String DOCTOR = "博士";
     public static final String DEGREE = "degree";
-    public static final String WORK_TYP = "workType" ;
+    public static final String WORK_TYP = "workType";
     public static final String INTERN = "实习";
-    public static final String ALL_JOG = "社招" ;
-    public static final String SCHOOL_JOG = "校招" ;
+    public static final String ALL_JOG = "社招";
+    public static final String SCHOOL_JOG = "校招";
 
     public static final int LIMIT = 200;
     public static final String DYNAMIC_PRE_ID = "dynamicPreId";
@@ -134,7 +134,8 @@ public class Constant {
     public static final String REPLAY = "回复";
     public static final String PRAISE_OK = "点赞成功";
     public static final String COMMENT_OK = "评论成功";
-    public static final String DELETE = "删除" ;
+    public static final String DELETE = "删除";
     public static final int MAX_ROW = 20;
     public static final String AUTHOR_ID = "authorId";
+    public static final String ALUMNI_PUBLIC_PIC_ROOT = "校友圈";
 }

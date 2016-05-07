@@ -49,6 +49,10 @@ public class AlumniVoice implements Parcelable {
         author = in.readParcelable(AuthorInfo.class.getClassLoader());
     }
 
+    public static Creator<AlumniVoice> getCREATOR() {
+        return CREATOR;
+    }
+
     public int getId() {
         return id;
     }
@@ -113,10 +117,6 @@ public class AlumniVoice implements Parcelable {
         this.author = authorInfo;
     }
 
-    public static Creator<AlumniVoice> getCREATOR() {
-        return CREATOR;
-    }
-
     public ArrayList<AuthorInfo> getPraiseAuthors() {
         return praiseAuthors;
     }
@@ -153,7 +153,7 @@ public class AlumniVoice implements Parcelable {
     @Override
     public boolean equals(Object o) {
         AlumniVoice that = (AlumniVoice) o;
-        if (this.getId() == that.getId()){
+        if (this.getId() == that.getId()) {
             return true;
         }
         return false;

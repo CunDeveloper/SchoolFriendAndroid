@@ -13,16 +13,16 @@ import com.nju.util.Divice;
 
 public class MyCircleFragment extends BaseFragment {
 
-    public static MyCircleFragment newInstance( ) {
+    public MyCircleFragment() {
+        // Required empty public constructor
+    }
+
+    public static MyCircleFragment newInstance() {
         MyCircleFragment fragment = new MyCircleFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public MyCircleFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -38,7 +38,7 @@ public class MyCircleFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.my_circle);
         }
@@ -55,7 +55,7 @@ public class MyCircleFragment extends BaseFragment {
         return view;
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         RelativeLayout mDynamicLay = (RelativeLayout) view.findViewById(R.id.my_dynamic);
         mDynamicLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +74,7 @@ public class MyCircleFragment extends BaseFragment {
         mDynamicPublishLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishDynamicFragment.newInstance(getString(R.string.publish_dynamic),null));
+                getHostActivity().open(PublishDynamicFragment.newInstance(getString(R.string.publish_dynamic), null));
             }
         });
 
@@ -97,7 +97,7 @@ public class MyCircleFragment extends BaseFragment {
         mVoicePublishLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(PublishVoiceFragment.newInstance(getString(R.string.publish_voice),null));
+                getHostActivity().open(PublishVoiceFragment.newInstance(getString(R.string.publish_voice), null));
             }
         });
 
@@ -119,7 +119,7 @@ public class MyCircleFragment extends BaseFragment {
         mAskPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(AskPublishFragment.newInstance(getString(R.string.publsh_ask),null));
+                getHostActivity().open(AskPublishFragment.newInstance(getString(R.string.publsh_ask), null));
             }
         });
 
@@ -142,7 +142,7 @@ public class MyCircleFragment extends BaseFragment {
         mRecommendPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(RecommendPublishFragment.newInstance(getString(R.string.publish_recommend),null));
+                getHostActivity().open(RecommendPublishFragment.newInstance(getString(R.string.publish_recommend), null));
             }
         });
 

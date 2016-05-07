@@ -8,7 +8,8 @@ public class QueryLimit {
     private int limit;
     private String dir;
 
-    public QueryLimit(){}
+    public QueryLimit() {
+    }
 
     public QueryLimit(int rowId, int limit, String dir) {
         this.rowId = rowId;

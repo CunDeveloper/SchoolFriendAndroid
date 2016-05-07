@@ -7,18 +7,19 @@ import android.util.LruCache;
  */
 public class CacheData {
     private static final int SIZE = 4 * 1024 * 1024;
-    private static LruCache<String,Object> cache;
+    private static LruCache<String, Object> cache;
+
     static {
         if (cache == null) {
             cache = new LruCache<>(SIZE);
         }
     }
 
-    public static void save(Object object){
-        cache.put("myCollect",object);
+    public static void save(Object object) {
+        cache.put("myCollect", object);
     }
 
-    public static Object get(String key){
+    public static Object get(String key) {
         return cache.get(key);
     }
 

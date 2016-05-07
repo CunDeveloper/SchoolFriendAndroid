@@ -65,22 +65,22 @@ public class RecommendWorkCollectAdapter extends BaseAdapter {
         holder.nameTV.setText(recommendWork.getAuthor().getAuthorName());
         holder.labelTV.setText(recommendWork.getAuthor().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(recommendWork.getDate()));
-        try{
+        try {
             holder.titleTV.setText(StringBase64.decode(recommendWork.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         try {
             holder.contentTV.setText(StringBase64.decode(recommendWork.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        if (recommendWork.getCheck()==1){
+        if (recommendWork.getCheck() == 1) {
             holder.chooseBox.setVisibility(View.VISIBLE);
-        }else if (recommendWork.getCheck() == 2){
+        } else if (recommendWork.getCheck() == 2) {
             holder.chooseBox.setChecked(true);
             holder.chooseBox.setVisibility(View.VISIBLE);
-        }else if (recommendWork.getCheck() == 0){
+        } else if (recommendWork.getCheck() == 0) {
             holder.chooseBox.setVisibility(View.GONE);
         }
         return convertView;

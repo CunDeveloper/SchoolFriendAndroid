@@ -1,8 +1,6 @@
 package com.nju.View;
 
 import android.graphics.PointF;
-
-import android.util.FloatMath;
 import android.view.MotionEvent;
 
 /**
@@ -40,8 +38,18 @@ public class MathUtils {
         point.x = (x1 + x2) / 2.0f;
         point.y = (y1 + y2) / 2.0f;
     }
+
+    public static float angle(PointF p1, PointF p2) {
+        return angle(p1.x, p1.y, p2.x, p2.y);
+    }
+
+    public static float angle(float x1, float y1, float x2, float y2) {
+        return (float) Math.atan2(y2 - y1, x2 - x1);
+    }
+
     /**
      * Rotates p1 around p2 by angle degrees.
+     *
      * @param p1
      * @param p2
      * @param angle
@@ -51,15 +59,7 @@ public class MathUtils {
         float py = p1.y;
         float ox = p2.x;
         float oy = p2.y;
-        p1.x = ((float) Math.cos(angle) * (px-ox) - (float) Math.sin(angle) * (py-oy) + ox);
-        p1.y = ((float) Math.sin(angle) * (px-ox) + (float) Math.cos(angle) * (py-oy) + oy);
-    }
-
-    public static float angle(PointF p1, PointF p2) {
-        return angle(p1.x, p1.y, p2.x, p2.y);
-    }
-
-    public static float angle(float x1, float y1, float x2, float y2) {
-        return (float) Math.atan2(y2 - y1, x2 - x1);
+        p1.x = ((float) Math.cos(angle) * (px - ox) - (float) Math.sin(angle) * (py - oy) + ox);
+        p1.y = ((float) Math.sin(angle) * (px - ox) + (float) Math.cos(angle) * (py - oy) + oy);
     }
 }

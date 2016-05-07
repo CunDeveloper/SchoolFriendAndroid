@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.nju.event.NetworkInfoEvent;
+import com.nju.event.NetworkStateChanged;
 import com.nju.util.Constant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,9 +18,10 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class NetworkStateReceiver extends BroadcastReceiver {
     private static final String TAG = NetworkStateReceiver.class.getSimpleName();
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         int networkType = intent.getExtras().getInt(ConnectivityManager.EXTRA_NETWORK_TYPE);
         boolean isWiFi = networkType == ConnectivityManager.TYPE_WIFI;
         boolean isMobile = networkType == ConnectivityManager.TYPE_MOBILE;
@@ -31,7 +34,7 @@ public class NetworkStateReceiver extends BroadcastReceiver {
                 EventBus.getDefault().post(new NetworkStateChanged(Constant.WIFI, true));
                 EventBus.getDefault().post(new NetworkInfoEvent(true));
             } else {
-                EventBus.getDefault().post(new NetworkStateChanged(Constant.WIFI,false));
+                EventBus.getDefault().post(new NetworkStateChanged(Constant.WIFI, false));
                 EventBus.getDefault().post(new NetworkInfoEvent(false));
                 Log.i(TAG, "Wi-Fi - DISCONNECTED");
             }

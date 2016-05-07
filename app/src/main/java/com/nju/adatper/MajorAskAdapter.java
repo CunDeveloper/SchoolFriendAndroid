@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
+import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.MajorAskDetailFragment;
@@ -69,9 +69,9 @@ public class MajorAskAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         final AlumniQuestion alumniQuestion = mQuestions.get(position);
         int author_id = alumniQuestion.getAuthor().getAuthorId();
-        if (author_id == mFragment.getHostActivity().userId()){
+        if (author_id == mFragment.getHostActivity().userId()) {
             holder.deleteTV.setText(Constant.DELETE);
-        }else {
+        } else {
             holder.deleteTV.setText("");
         }
         holder.deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +80,9 @@ public class MajorAskAdapter extends BaseAdapter {
                 EventBus.getDefault().post(new MessageContentIdEvent(alumniQuestion.getId()));
             }
         });
-        try{
+        try {
             holder.problemTV.setText(StringBase64.decode(alumniQuestion.getProblem()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.problemTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         holder.problemTV.setOnClickListener(new View.OnClickListener() {
@@ -96,11 +96,10 @@ public class MajorAskAdapter extends BaseAdapter {
         final String date = DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
         holder.dateTV.setText(date);
         holder.replayCountTV.setText(alumniQuestion.getReplayCount() + "");
-        if (alumniQuestion.getImgPaths() == null){
-            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(),PathConstant.ALUMNI_QUESTION_IMG_PATH,Constant.EMPTY));
-        }
-        else {
-            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(),PathConstant.ALUMNI_QUESTION_IMG_PATH,alumniQuestion.getImgPaths().split(",")));
+        if (alumniQuestion.getImgPaths() == null) {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH, Constant.EMPTY));
+        } else {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH, alumniQuestion.getImgPaths().split(",")));
         }
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,7 +113,7 @@ public class MajorAskAdapter extends BaseAdapter {
     private class ViewHolder {
         private TextView problemTV;
         private TextView dateTV;
-        private TextView nameTV,deleteTV;
+        private TextView nameTV, deleteTV;
         private TextView replayCountTV;
         private GridView gridView;
     }

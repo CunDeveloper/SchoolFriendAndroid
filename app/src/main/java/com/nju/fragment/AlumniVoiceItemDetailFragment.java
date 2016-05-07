@@ -21,15 +21,14 @@ import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
 import com.nju.View.ShareView;
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
 import com.nju.db.db.service.AlumniVoiceCollectDbService;
-import com.nju.db.db.service.MajorAskCollectDbService;
 import com.nju.event.MessageEventId;
 import com.nju.event.MessageShareEventId;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
@@ -38,7 +37,6 @@ import com.nju.model.AlumniVoice;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
-import com.nju.service.MajorAskService;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -49,7 +47,6 @@ import com.nju.util.FragmentUtil;
 import com.nju.util.HeadIcon;
 import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
-import com.nju.util.ShareUtil;
 import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
@@ -67,76 +64,42 @@ import java.util.ArrayList;
 public class AlumniVoiceItemDetailFragment extends BaseFragment {
 
     public static final String TAG = AlumniVoiceItemDetailFragment.class.getSimpleName();
-    private static final String PARAM_VOICE= "voiceKey";
+    private static final String PARAM_VOICE = "voiceKey";
     private AlumniVoice mVoice;
-    private EditText mContentEditText ;
-    private TextView mCommentNumberTV,mPraiseNumberTV,mPraiseTV;
+    private EditText mContentEditText;
+    private TextView mCommentNumberTV, mPraiseNumberTV, mPraiseTV;
     private ArrayList<ContentComment> mContentComments;
     private ArrayList<RespPraise> mPraiseAuthors = new ArrayList<>();
     private CommentAdapter mCommentAdapter;
     private View mMainView;
     private int commentType = 0;
     private boolean isPraise;
-    private PostRequestJson mRequestSaveJson,mRequestQueryJson,mRequestSavePraiseJson
-            ,mRequestQueryPraiseJson;
-    private ResponseCallback saveCallback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
-                Log.e(TAG,error.getMessage());
-            }
-        }
-        @Override
-        public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
-                Log.i(TAG, responseBody);
-                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
-                mRequestQueryJson = AlumniVoiceService.queryComment(AlumniVoiceItemDetailFragment.this,mVoice.getId(),queryCommentCallback);
-            }
-        }
-    };
-
-    private ResponseCallback savePraiseCallback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
-                Log.e(TAG,error.getMessage());
-            }
-        }
-        @Override
-        public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
-                Log.i(TAG, responseBody);
-                ToastUtil.ShowText(getContext(), getString(R.string.praise_ok));
-                mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(AlumniVoiceItemDetailFragment.this,mVoice.getId(),queryPraiseCallback);
-            }
-        }
-    };
-
+    private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestSavePraiseJson, mRequestQueryPraiseJson;
     private ResponseCallback queryPraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
-                Log.e(TAG,error.getMessage());
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 try {
-                    Object object = new ParseResponse().getInfo(responseBody,RespPraise.class);
+                    Object object = new ParseResponse().getInfo(responseBody, RespPraise.class);
                     if (object != null) {
                         ArrayList authors = (ArrayList) object;
                         if (authors.size() > 0) {
                             for (Object obj : authors) {
                                 RespPraise authorInfo = (RespPraise) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(authorInfo));
-                                 mPraiseAuthors.add(authorInfo);
+                                mPraiseAuthors.add(authorInfo);
                             }
                         }
                     }
-                    mPraiseNumberTV.setText(mPraiseAuthors.size()+"");
+                    mPraiseNumberTV.setText(mPraiseAuthors.size() + "");
                     changePraiseColor();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -144,21 +107,37 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             }
         }
     };
-
-    private ResponseCallback queryCommentCallback = new ResponseCallback() {
+    private ResponseCallback savePraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
                 Log.e(TAG, error.getMessage());
             }
         }
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                Log.i(TAG, responseBody);
+                ToastUtil.ShowText(getContext(), getString(R.string.praise_ok));
+                mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(AlumniVoiceItemDetailFragment.this, mVoice.getId(), queryPraiseCallback);
+            }
+        }
+    };
+    private ResponseCallback queryCommentCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
+            }
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 try {
-                    Object object = new ParseResponse().getInfo(responseBody,ContentComment.class);
+                    Object object = new ParseResponse().getInfo(responseBody, ContentComment.class);
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
@@ -171,24 +150,41 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
                         }
                     }
                     mCommentAdapter.notifyDataSetChanged();
-                    mCommentNumberTV.setText(mContentComments.size()+"");
+                    mCommentNumberTV.setText(mContentComments.size() + "");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
     };
+    private ResponseCallback saveCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
+            }
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                Log.i(TAG, responseBody);
+                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
+                mRequestQueryJson = AlumniVoiceService.queryComment(AlumniVoiceItemDetailFragment.this, mVoice.getId(), queryCommentCallback);
+            }
+        }
+    };
+
+    public AlumniVoiceItemDetailFragment() {
+        // Required empty public constructor
+    }
 
     public static AlumniVoiceItemDetailFragment newInstance(AlumniVoice voice) {
         AlumniVoiceItemDetailFragment fragment = new AlumniVoiceItemDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable(PARAM_VOICE,voice);
+        args.putParcelable(PARAM_VOICE, voice);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public AlumniVoiceItemDetailFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -204,7 +200,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         getHostActivity().display(6);
@@ -219,7 +215,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
         initToolBar(view);
-        mContentEditText = CommentUtil.getCommentEdit(this,view);
+        mContentEditText = CommentUtil.getCommentEdit(this, view);
         return view;
     }
 
@@ -235,26 +231,26 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         mContentEditText.invalidate();
     }
 
-    private void initView(final View view){
+    private void initView(final View view) {
         mCommentNumberTV = (TextView) view.findViewById(R.id.comment_number_tv);
         mPraiseNumberTV = (TextView) view.findViewById(R.id.praise_number_tv);
         ImageView headImg = (ImageView) view.findViewById(R.id.alumni_vo_imageView);
-        HeadIcon.setUp(headImg,mVoice.getAuthorInfo());
+        HeadIcon.setUp(headImg, mVoice.getAuthorInfo());
         TextView nameTV = (TextView) view.findViewById(R.id.alumni_vo_name);
         nameTV.setText(mVoice.getAuthorInfo().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.alumni_vo_label);
         labelTV.setText(mVoice.getAuthorInfo().getLabel());
         TextView titleTV = (TextView) view.findViewById(R.id.alumni_vo_title);
-        try{
+        try {
             titleTV.setText(StringBase64.decode(mVoice.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView contentTV = (TextView) view.findViewById(R.id.alumni_vo_desc);
 
-        try{
+        try {
             contentTV.setText(StringBase64.decode(mVoice.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView dateTV = (TextView) view.findViewById(R.id.alumni_vo_date);
@@ -263,7 +259,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         gridView.setAdapter(new PraiseHeadAdapter(getContext()));
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         mContentComments = TestData.getComments();
-        mCommentAdapter = new CommentAdapter(getContext(),mContentComments);
+        mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         newListView.setAdapter(mCommentAdapter);
         newListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -278,7 +274,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         newListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mVoice.getAuthorInfo().getAuthorId() == getHostActivity().userId()){
+                if (mVoice.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
                     String[] strings = {getString(R.string.delete)};
                     SchoolFriendDialog.listItemDialog(getContext(), strings).show();
                 }
@@ -289,22 +285,22 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (commentType == 0){
+                if (commentType == 0) {
                     mRequestSaveJson = AlumniVoiceService.saveComment(AlumniVoiceItemDetailFragment.this, view, mVoice.getId(), saveCallback);
-                }else {
+                } else {
                     mRequestSaveJson = AlumniVoiceService.saveCommentForOther(AlumniVoiceItemDetailFragment.this, view, commentType, saveCallback);
                     commentType = 0;
                 }
-                 CommentUtil.closeSoftKey(getContext(), view);
+                CommentUtil.closeSoftKey(getContext(), view);
             }
         });
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        if (mVoice.getImgPaths()!=null){
-            Log.e(TAG,mVoice.getImgPaths());
-            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH,mVoice.getImgPaths().split(",")));
+        if (mVoice.getImgPaths() != null) {
+            Log.e(TAG, mVoice.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH, mVoice.getImgPaths().split(",")));
         }
         TextView deleteTV = (TextView) view.findViewById(R.id.delete_tv);
-        if (mVoice.getAuthorInfo().getAuthorId() ==getHostActivity().userId()){
+        if (mVoice.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
             deleteTV.setText(Constant.DELETE);
         }
         deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -313,33 +309,32 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
 
             }
         });
-        mRequestQueryJson = AlumniVoiceService.queryComment(this,mVoice.getId(),queryCommentCallback);
-        mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this,mVoice.getId(),queryPraiseCallback);
+        mRequestQueryJson = AlumniVoiceService.queryComment(this, mVoice.getId(), queryCommentCallback);
+        mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this, mVoice.getId(), queryPraiseCallback);
     }
 
 
-
-    private void initToolBar(final View view){
+    private void initToolBar(final View view) {
         TextView commentTV = (TextView) view.findViewById(R.id.comment);
         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         commentTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollView.scrollTo(0,scrollView.getBottom());
+                scrollView.scrollTo(0, scrollView.getBottom());
                 SoftInput.open(getContext());
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
         });
-        mPraiseTV= (TextView) view.findViewById(R.id.praise);
+        mPraiseTV = (TextView) view.findViewById(R.id.praise);
 
         mPraiseTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPraise){
-                    mRequestSavePraiseJson = AlumniVoiceService.praise(AlumniVoiceItemDetailFragment.this,mVoice.getId(),savePraiseCallback);
+                if (isPraise) {
+                    mRequestSavePraiseJson = AlumniVoiceService.praise(AlumniVoiceItemDetailFragment.this, mVoice.getId(), savePraiseCallback);
                     isPraise = false;
-                }else {
-                    ToastUtil.showShortText(getContext(),getString(R.string.you_have_praised));
+                } else {
+                    ToastUtil.showShortText(getContext(), getString(R.string.you_have_praised));
                 }
             }
         });
@@ -358,7 +353,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 new AlumniVoiceCollectDbService(getContext()).save(mVoice);
-                AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this,mVoice.getId(), new ResponseCallback() {
+                AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this, mVoice.getId(), new ResponseCallback() {
                     @Override
                     public void onFail(Exception error) {
                         Log.e(TAG, error.getMessage());
@@ -387,21 +382,20 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         });
 
 
-
         TextView shareTV = (TextView) view.findViewById(R.id.share);
         shareTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareView.init(AlumniVoiceItemDetailFragment.this,view);
+                ShareView.init(AlumniVoiceItemDetailFragment.this, view);
             }
         });
     }
 
-    private void changePraiseColor(){
-        int authorId = getHostActivity().getSharedPreferences().getInt(getString(R.string.authorId),0);
-        for (RespPraise respPraise:mPraiseAuthors){
-            Log.i(TAG,respPraise.getPraiseAuthor().getAuthorId()+"");
-            if (respPraise.getPraiseAuthor().getAuthorId() == authorId){
+    private void changePraiseColor() {
+        int authorId = getHostActivity().getSharedPreferences().getInt(getString(R.string.authorId), 0);
+        for (RespPraise respPraise : mPraiseAuthors) {
+            Log.i(TAG, respPraise.getPraiseAuthor().getAuthorId() + "");
+            if (respPraise.getPraiseAuthor().getAuthorId() == authorId) {
                 isPraise = false;
                 mPraiseTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
             }
@@ -409,15 +403,15 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
+    public void onNetStateMessageState(NetworkInfoEvent event) {
+        if (event.isConnected()) {
             mRequestQueryJson = AlumniVoiceService.queryComment(AlumniVoiceItemDetailFragment.this, mVoice.getId(), queryCommentCallback);
             mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(AlumniVoiceItemDetailFragment.this, mVoice.getId(), queryPraiseCallback);
         }
     }
 
     @Subscribe
-    public void onMessageEvent(MessageEventId event){
+    public void onMessageEvent(MessageEventId event) {
         commentType = event.getId();
         final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
         final LinearLayout linearLayout = (LinearLayout) mMainView.findViewById(R.id.new_comment_layout);
@@ -427,37 +421,37 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageShareEvent(MessageShareEventId eventId){
+    public void onMessageShareEvent(MessageShareEventId eventId) {
         String pageUrl = "http://115.159.186.158:8080/school-friend-service-webapp/SchoolFriendHtml/html/recommedShare.html";
-        CharSequence title,description;
-        try{
+        CharSequence title, description;
+        try {
             title = StringBase64.decode(mVoice.getTitle());
             description = StringBase64.decode(mVoice.getContent());
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             title = Constant.UNKNOWN_CHARACTER;
             description = Constant.UNKNOWN_CHARACTER;
         }
 
-        if (mVoice.getImgPaths() != null && !mVoice.getImgPaths().equals("")){
+        if (mVoice.getImgPaths() != null && !mVoice.getImgPaths().equals("")) {
             String url = PathConstant.IMAGE_PATH_SMALL + PathConstant.ALUMNI_VOICE_IMG_PATH + mVoice.getImgPaths().split(",")[0];
             Bitmap bitmap = ImageDownloader.with(getContext()).download(url).bitmap();
 
-            if (eventId.getId()== 0){
+            if (eventId.getId() == 0) {
                 WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneSession, getHostActivity().wxApi());
-            }else if (eventId.getId() == 1){
-                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+            } else if (eventId.getId() == 1) {
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), bitmap, SendMessageToWX.Req.WXSceneTimeline, getHostActivity().wxApi());
             }
-        }else {
-            if (eventId.getId()== 0){
-                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneSession,getHostActivity().wxApi());
-            }else if (eventId.getId() == 1){
-                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(),SendMessageToWX.Req.WXSceneTimeline,getHostActivity().wxApi());
+        } else {
+            if (eventId.getId() == 0) {
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), SendMessageToWX.Req.WXSceneSession, getHostActivity().wxApi());
+            } else if (eventId.getId() == 1) {
+                WeiXinShare.webPage(pageUrl, title.toString(), description.toString(), SendMessageToWX.Req.WXSceneTimeline, getHostActivity().wxApi());
             }
         }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestSaveJson != null)

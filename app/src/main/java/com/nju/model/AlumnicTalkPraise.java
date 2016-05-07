@@ -7,20 +7,6 @@ import android.os.Parcelable;
  * Created by cun on 2016/4/14.
  */
 public class AlumnicTalkPraise implements Parcelable {
-    private AuthorInfo praiseAuthor;
-    private int contentId;
-    private int id;
-    private String date;
-
-    public AlumnicTalkPraise(){}
-
-    protected AlumnicTalkPraise(Parcel in) {
-        praiseAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
-        contentId = in.readInt();
-        id = in.readInt();
-        date = in.readString();
-    }
-
     public static final Creator<AlumnicTalkPraise> CREATOR = new Creator<AlumnicTalkPraise>() {
         @Override
         public AlumnicTalkPraise createFromParcel(Parcel in) {
@@ -32,6 +18,20 @@ public class AlumnicTalkPraise implements Parcelable {
             return new AlumnicTalkPraise[size];
         }
     };
+    private AuthorInfo praiseAuthor;
+    private int contentId;
+    private int id;
+    private String date;
+
+    public AlumnicTalkPraise() {
+    }
+
+    protected AlumnicTalkPraise(Parcel in) {
+        praiseAuthor = in.readParcelable(AuthorInfo.class.getClassLoader());
+        contentId = in.readInt();
+        id = in.readInt();
+        date = in.readString();
+    }
 
     public AuthorInfo getPraiseAuthor() {
         return praiseAuthor;
@@ -68,9 +68,9 @@ public class AlumnicTalkPraise implements Parcelable {
     @Override
     public boolean equals(Object o) {
         AlumnicTalkPraise that = (AlumnicTalkPraise) o;
-        if (that.getId() == this.getId()){
+        if (that.getId() == this.getId()) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

@@ -13,9 +13,9 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.PersonRecommendAdapter;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -53,7 +53,7 @@ public class MyRecommendFragment extends BaseFragment {
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(MyRecommendFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(MyRecommendFragment.this)) {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
@@ -64,23 +64,23 @@ public class MyRecommendFragment extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(MyRecommendFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(MyRecommendFragment.this)) {
                 Log.i(TAG, responseBody);
                 ParseResponse parseResponse = new ParseResponse();
                 try {
-                    Object object = parseResponse.getInfo(responseBody,RecommendWork.class);
-                    if (object != null){
+                    Object object = parseResponse.getInfo(responseBody, RecommendWork.class);
+                    if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
-                        if (majorAsks.size()>0){
-                            for (Object obj :majorAsks){
-                                RecommendWork  recommendWork = (RecommendWork) obj;
+                        if (majorAsks.size() > 0) {
+                            for (Object obj : majorAsks) {
+                                RecommendWork recommendWork = (RecommendWork) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
                                 if (!mRecommendWorks.contains(recommendWork))
                                     mRecommendWorks.add(recommendWork);
                             }
                             int length = mRecommendWorks.size();
-                            if (length>Constant.MAX_ROW){
-                                for (int i = length-1;i>Constant.MAX_ROW;i--){
+                            if (length > Constant.MAX_ROW) {
+                                for (int i = length - 1; i > Constant.MAX_ROW; i--) {
                                     mRecommendWorks.remove(mRecommendWorks.get(i));
                                 }
                             }
@@ -98,16 +98,16 @@ public class MyRecommendFragment extends BaseFragment {
         }
     };
 
+    public MyRecommendFragment() {
+        // Required empty public constructor
+    }
+
     public static MyRecommendFragment newInstance(String title) {
         MyRecommendFragment fragment = new MyRecommendFragment();
         Bundle args = new Bundle();
-        args.putString(PARAM_TITLE,title);
+        args.putString(PARAM_TITLE, title);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public MyRecommendFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -128,7 +128,7 @@ public class MyRecommendFragment extends BaseFragment {
         return view;
     }
 
-    private void initListView(View view){
+    private void initListView(View view) {
         mRecommendWorks = new ArrayList<>();
         initMap();
         listView = (ListView) view.findViewById(R.id.listView);
@@ -136,7 +136,7 @@ public class MyRecommendFragment extends BaseFragment {
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mPersonRecommendAdapter = new PersonRecommendAdapter(this,mMyRecommends);
+        mPersonRecommendAdapter = new PersonRecommendAdapter(this, mMyRecommends);
         listView.setAdapter(mPersonRecommendAdapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -144,7 +144,7 @@ public class MyRecommendFragment extends BaseFragment {
                 if (view.getLastVisiblePosition() == (mPersonRecommendAdapter.getCount())
                         && view.getLastVisiblePosition() == Constant.MAX_ROW) {
                     mFootView.setVisibility(View.VISIBLE);
-                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE,0);
+                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
                 }
             }
 
@@ -155,29 +155,29 @@ public class MyRecommendFragment extends BaseFragment {
         });
     }
 
-    private void initMap(){
+    private void initMap() {
         MyRecommend myRecommend;
         EntryDate entryDate;
-        for (RecommendWork recommendWork:mRecommendWorks){
+        for (RecommendWork recommendWork : mRecommendWorks) {
             boolean isContain = true;
             myRecommend = new MyRecommend();
             final long time = DateUtil.getTime(recommendWork.getDate());
             String day = DateFormat.format(Constant.DD, time).toString();
             String month = DateFormat.format(Constant.MM, time).toString();
-            entryDate = new EntryDate(month,day);
-            for (MyRecommend recommend:mMyRecommends){
-                if (entryDate.equals(recommend.getEntryDate())){
+            entryDate = new EntryDate(month, day);
+            for (MyRecommend recommend : mMyRecommends) {
+                if (entryDate.equals(recommend.getEntryDate())) {
                     isContain = false;
                     ArrayList<RecommendWork> tempList = recommend.getRecommendWorks();
-                    if (!tempList.contains(recommendWork)){
+                    if (!tempList.contains(recommendWork)) {
                         tempList.add(recommendWork);
                         recommend.setRecommendWorks(tempList);
                         break;
                     }
                 }
             }
-            if (isContain){
-                Log.i(TAG,"DAY="+entryDate.getDay()+"==MONTH="+entryDate.getMonth());
+            if (isContain) {
+                Log.i(TAG, "DAY=" + entryDate.getDay() + "==MONTH=" + entryDate.getMonth());
                 myRecommend.setEntryDate(entryDate);
                 ArrayList<RecommendWork> recommendWorks = new ArrayList<>();
                 recommendWorks.add(recommendWork);
@@ -185,26 +185,25 @@ public class MyRecommendFragment extends BaseFragment {
                 mMyRecommends.add(myRecommend);
             }
         }
-        Collections.sort(mMyRecommends,Collections.reverseOrder());
+        Collections.sort(mMyRecommends, Collections.reverseOrder());
     }
 
-    private void setUpOnRefreshListener(View view){
+    private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE,0);
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL,Constant.PRE,0);
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
             }
         });
     }
-
 
 
     @Override
@@ -212,7 +211,7 @@ public class MyRecommendFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(mTitle);
         }
@@ -220,20 +219,20 @@ public class MyRecommendFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkInfoEvent event){
-        if (event.isConnected()){
-            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback,Constant.ALL,Constant.PRE,0);
+    public void onNetStateMessageState(NetworkInfoEvent event) {
+        if (event.isConnected()) {
+            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
         }
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestJson != null)

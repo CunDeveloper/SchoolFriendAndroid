@@ -22,4 +22,7 @@
     <dimen name="FIVE_DP">5dp</dimen>
     <dimen name="dp50">50dp</dimen>
     <dimen name="dp300">300dp</dimen>
+    <dimen name="dp200">200dp</dimen>
+    <dimen name="dp30">30dp</dimen>
+    <dimen name="dp40">40dp</dimen>
 </resources>

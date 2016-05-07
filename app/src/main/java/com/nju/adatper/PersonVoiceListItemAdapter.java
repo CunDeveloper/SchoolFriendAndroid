@@ -68,11 +68,10 @@ public class PersonVoiceListItemAdapter extends BaseAdapter {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
 
-        if (alumniVoice.getImgPaths() == null){
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_VOICE_IMG_PATH,Constant.EMPTY,120));
-        }
-        else {
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext,PathConstant.ALUMNI_VOICE_IMG_PATH,alumniVoice.getImgPaths().split(","),120));
+        if (alumniVoice.getImgPaths() == null) {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_VOICE_IMG_PATH, Constant.EMPTY, 120));
+        } else {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_VOICE_IMG_PATH, alumniVoice.getImgPaths().split(","), 120));
         }
 
         return convertView;

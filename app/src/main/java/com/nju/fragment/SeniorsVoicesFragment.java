@@ -18,15 +18,15 @@ public class SeniorsVoicesFragment extends BaseFragment {
 
     private static final String TAG = SeniorsVoicesFragment.class.getSimpleName();
 
+    public SeniorsVoicesFragment() {
+        // Required empty public constructor
+    }
+
     public static SeniorsVoicesFragment newInstance() {
         SeniorsVoicesFragment fragment = new SeniorsVoicesFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public SeniorsVoicesFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SeniorsVoicesFragment extends BaseFragment {
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         TextView textView = (TextView) view.findViewById(R.id.fragment_seniors_voice_tv);
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.fragment_web_view_progressBar);
-        progressBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+        progressBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         return view;
     }
 

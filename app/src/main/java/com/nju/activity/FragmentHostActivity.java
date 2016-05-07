@@ -18,26 +18,48 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
  */
 public interface FragmentHostActivity {
     void open(BaseFragment fragment);
-    void open(BaseFragment fragment,boolean clearBackStack);
-    void open(BaseFragment fragment,boolean clearBackStack,Fragment fragmentToRemove);
-    void open(BaseFragment fragment,Fragment fragmentToRemove);
+
+    void open(BaseFragment fragment, boolean clearBackStack);
+
+    void open(BaseFragment fragment, boolean clearBackStack, Fragment fragmentToRemove);
+
+    void open(BaseFragment fragment, Fragment fragmentToRemove);
+
     void hideAllMenuView();
+
     ApplicationHandler getAppHandler();
+
     SharedPreferences getSharedPreferences();
+
     Toolbar getToolBar();
+
     Button getMenuBn();
+
     ImageView getMenuCameraView();
+
     TextView getMenuDeleteView();
+
     LinearLayout geLinearLayout();
+
     View getRecommendLayout();
+
     void display(int i);
+
     BaseActivity.LocalStack<BaseFragment> getBackStack();
+
     boolean isPhone();
+
     String token();
+
     int userId();
+
     IWXAPI wxApi();
+
     void closeDrawLayout();
+
     void openDrawLayout();
+
     TextView navNameTV();
+
     ImageView navHeadImg();
 }

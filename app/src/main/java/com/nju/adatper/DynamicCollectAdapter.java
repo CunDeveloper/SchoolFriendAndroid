@@ -10,11 +10,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nju.View.RoundedTransformation;
 import com.nju.activity.R;
 import com.nju.model.DynamicCollect;
 import com.nju.util.StringBase64;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -75,11 +73,11 @@ public class DynamicCollectAdapter extends BaseAdapter {
         }
         holder.dateTV.setText(dynamicCollect.getDate());
 
-        if (dynamicCollect.getCheck() == 0){
+        if (dynamicCollect.getCheck() == 0) {
             holder.checkBox.setVisibility(View.GONE);
-        }else if (dynamicCollect.getCheck() == 1){
+        } else if (dynamicCollect.getCheck() == 1) {
             holder.checkBox.setVisibility(View.VISIBLE);
-        }else if (dynamicCollect.getCheck() == 2){
+        } else if (dynamicCollect.getCheck() == 2) {
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setChecked(true);
         }

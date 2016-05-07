@@ -4,12 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
-import com.nju.fragment.SingleChoosePicFragment;
 import com.nju.model.Image;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
@@ -29,7 +27,7 @@ public class SingleChoosePicAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<Image> mImagePaths;
 
-    public SingleChoosePicAdapter(BaseFragment fragment,ArrayList<Image> images){
+    public SingleChoosePicAdapter(BaseFragment fragment, ArrayList<Image> images) {
         this.mFragment = fragment;
         this.mImagePaths = images;
     }
@@ -67,10 +65,10 @@ public class SingleChoosePicAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         int type = getItemViewType(position);
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            switch (type){
-                case TYPE_IMAGE:{
+            switch (type) {
+                case TYPE_IMAGE: {
                     convertView = LayoutInflater.from(mFragment.getContext()).
                             inflate(R.layout.single_choose_image_item, parent, false);
                     holder.imageView = (ImageView) convertView.findViewById(R.id.mImageView);
@@ -78,8 +76,8 @@ public class SingleChoosePicAdapter extends BaseAdapter {
                     convertView.setTag(holder);
                     break;
                 }
-                case TYPE_CAPTURE:{
-                    convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.choose_image_camera, parent,false);
+                case TYPE_CAPTURE: {
+                    convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.choose_image_camera, parent, false);
                     convertView.setLayoutParams(new SchoolFriendLayoutParams(mFragment.getContext()).chooseImgParams());
 
                     break;

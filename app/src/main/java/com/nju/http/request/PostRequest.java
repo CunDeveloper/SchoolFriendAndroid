@@ -11,10 +11,21 @@ import java.util.HashMap;
  */
 public class PostRequest extends RequestRunnable {
     private static final String TAG = PostRequest.class.getSimpleName();
-    private  Callback mCallback;
-    private  HashMap<String,String> mParams;
-    private  String mUrl;
+    private Callback mCallback;
+    private HashMap<String, String> mParams;
+    private String mUrl;
     private String tag;
+
+    public PostRequest() {
+
+    }
+
+    public PostRequest(final String url, final HashMap<String, String> params, final Callback callback, final String TAG) {
+        mCallback = callback;
+        mParams = params;
+        mUrl = url;
+        mBuilder.tag(TAG);
+    }
 
     public Callback getCallback() {
         return mCallback;
@@ -48,16 +59,6 @@ public class PostRequest extends RequestRunnable {
         this.tag = tag;
     }
 
-    public PostRequest() {
-
-    }
-
-    public PostRequest(final String url, final HashMap<String, String> params,final Callback callback,final String TAG){
-        mCallback = callback;
-        mParams = params;
-        mUrl = url;
-        mBuilder.tag(TAG);
-    }
     @Override
     public void run() {
         SchoolFriendHttp.getInstance().AsyncPost(mBuilder, mUrl, mParams, mCallback);

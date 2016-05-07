@@ -32,7 +32,7 @@ public class ZoomAnimation implements Animation {
      */
     @Override
     public boolean update(GestureImageView view, long time) {
-        if(firstFrame) {
+        if (firstFrame) {
             firstFrame = false;
 
             startX = view.getImageX();
@@ -40,7 +40,7 @@ public class ZoomAnimation implements Animation {
             startScale = view.getScale();
             scaleDiff = (zoom * startScale) - startScale;
 
-            if(scaleDiff > 0) {
+            if (scaleDiff > 0) {
                 // Calculate destination for midpoint
                 VectorF vector = new VectorF();
 
@@ -54,15 +54,14 @@ public class ZoomAnimation implements Animation {
                 float length = vector.calculateLength();
 
                 // Multiply length by zoom to get the new length
-                vector.length = length*zoom;
+                vector.length = length * zoom;
 
                 // Now deduce the new endpoint
                 vector.calculateEndPoint();
 
                 xDiff = vector.end.x - startX;
                 yDiff = vector.end.y - startY;
-            }
-            else {
+            } else {
                 // Zoom out to center
                 xDiff = view.getCenterX() - startX;
                 yDiff = view.getCenterY() - startY;
@@ -73,28 +72,27 @@ public class ZoomAnimation implements Animation {
 
         float ratio = (float) totalTime / (float) animationLengthMS;
 
-        if(ratio < 1) {
+        if (ratio < 1) {
 
-            if(ratio > 0) {
+            if (ratio > 0) {
                 // we still have time left
                 float newScale = (ratio * scaleDiff) + startScale;
                 float newX = (ratio * xDiff) + startX;
                 float newY = (ratio * yDiff) + startY;
 
-                if(zoomAnimationListener != null) {
+                if (zoomAnimationListener != null) {
                     zoomAnimationListener.onZoom(newScale, newX, newY);
                 }
             }
 
             return true;
-        }
-        else {
+        } else {
 
             float newScale = scaleDiff + startScale;
             float newX = xDiff + startX;
             float newY = yDiff + startY;
 
-            if(zoomAnimationListener != null) {
+            if (zoomAnimationListener != null) {
                 zoomAnimationListener.onZoom(newScale, newX, newY);
                 zoomAnimationListener.onComplete();
             }

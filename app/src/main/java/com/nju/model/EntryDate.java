@@ -33,7 +33,7 @@ public class EntryDate implements Comparable {
         if (!(obj instanceof EntryDate)) {
             return false;
         } else {
-            EntryDate that = (EntryDate)obj;
+            EntryDate that = (EntryDate) obj;
             return this.day.equals(that.day) &&
                     this.month.equals(that.month);
         }
@@ -50,9 +50,9 @@ public class EntryDate implements Comparable {
     public int compareTo(Object another) {
         EntryDate that = (EntryDate) another;
         int compare = this.month.compareTo(that.month);
-        if (compare != 0){
+        if (compare != 0) {
             return compare;
-        }else {
+        } else {
             return this.day.compareTo(that.day);
         }
     }

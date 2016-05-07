@@ -20,20 +20,22 @@ public class ContentService {
 
     private static final String TAG = ProvinceService.class.getSimpleName();
     private SQLiteDatabase db;
+
     public ContentService() {
         db = SchoolFriendDbHelper.newInstance().getWritableDatabase();
     }
+
     public synchronized void save(ArrayList<Content> contents) {
         db.beginTransaction();
-        String sql = Constant.INSERT_INTO+ ContentEntry.TABLE_NAME+Constant.LEFT_BACKUT+ContentEntry.COLUMN_NAME_ID+Constant.COMMA_SEP
-                +ContentEntry.COLUMN_NAME_TEXT+Constant.COMMA_SEP+ContentEntry.COLUMN_NAME_IS_CONTAIN_IMAGE+
-                Constant.COMMA_SEP+ContentEntry.COLUMN_NAME_USER_ID+Constant.RIGHT_BACKUT +"values(?,?,?,?)";
+        String sql = Constant.INSERT_INTO + ContentEntry.TABLE_NAME + Constant.LEFT_BACKUT + ContentEntry.COLUMN_NAME_ID + Constant.COMMA_SEP
+                + ContentEntry.COLUMN_NAME_TEXT + Constant.COMMA_SEP + ContentEntry.COLUMN_NAME_IS_CONTAIN_IMAGE +
+                Constant.COMMA_SEP + ContentEntry.COLUMN_NAME_USER_ID + Constant.RIGHT_BACKUT + "values(?,?,?,?)";
         SQLiteStatement stmt = db.compileStatement(sql);
-        for (Content content:contents) {
-            stmt.bindLong(1,content.getId());
+        for (Content content : contents) {
+            stmt.bindLong(1, content.getId());
             stmt.bindString(2, content.getContent());
             stmt.bindLong(3, content.getIs_contain_image());
-            stmt.bindLong(4,content.getUser_id());
+            stmt.bindLong(4, content.getUser_id());
             stmt.execute();
         }
         db.setTransactionSuccessful();
@@ -76,10 +78,10 @@ public class ContentService {
 
     public synchronized void delete(int[] ids) {
         db.beginTransaction();
-        String sql = Constant.DELETE_FROM+ ContentEntry.TABLE_NAME+ Constant.WHERE + ContentEntry.COLUMN_NAME_ID+"= ?";
+        String sql = Constant.DELETE_FROM + ContentEntry.TABLE_NAME + Constant.WHERE + ContentEntry.COLUMN_NAME_ID + "= ?";
         SQLiteStatement stmt = db.compileStatement(sql);
-        for (int id:ids) {
-            stmt.bindLong(1,id);
+        for (int id : ids) {
+            stmt.bindLong(1, id);
             stmt.execute();
         }
         stmt.close();
@@ -90,12 +92,12 @@ public class ContentService {
     /**
      * to delete all but the latest 200 records
      */
-    private synchronized void deleteAllButLastet(){
-        String sql = Constant.DELETE_FROM + ContentEntry.TABLE_NAME+ Constant.WHERE +ContentEntry.COLUMN_NAME_ID
-                +" not in ("+
-                "SELECT "+ContentEntry.COLUMN_NAME_ID +" FROM "+ContentEntry.TABLE_NAME+
-                " ORDER BY "+ContentEntry.COLUMN_NAME_DATE + " DESC "+
-                "LIMIT " +Constant.MAX_SAVE_NUMBER +" )";
+    private synchronized void deleteAllButLastet() {
+        String sql = Constant.DELETE_FROM + ContentEntry.TABLE_NAME + Constant.WHERE + ContentEntry.COLUMN_NAME_ID
+                + " not in (" +
+                "SELECT " + ContentEntry.COLUMN_NAME_ID + " FROM " + ContentEntry.TABLE_NAME +
+                " ORDER BY " + ContentEntry.COLUMN_NAME_DATE + " DESC " +
+                "LIMIT " + Constant.MAX_SAVE_NUMBER + " )";
         SQLiteStatement stmt = db.compileStatement(sql);
         stmt.execute();
         stmt.close();

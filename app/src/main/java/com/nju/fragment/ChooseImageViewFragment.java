@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class ChooseImageViewFragment extends BaseFragment {
 
-    private static  final String IMG_PATH = "img_path";
-    private static final String POSITION = "position";
     public static final String TAG = ChooseImageViewFragment.class.getSimpleName();
+    private static final String IMG_PATH = "img_path";
+    private static final String POSITION = "position";
     private static final String SLASH = "/";
     private ArrayList<ImageWrapper> mImgPaths;
     private int mPosition;
@@ -29,24 +29,24 @@ public class ChooseImageViewFragment extends BaseFragment {
     private ChooseOriginPicViewPagerAdapter mPagerAdapter;
     private int mDelPosition = 0;
 
-    public static ChooseImageViewFragment newInstance(ArrayList<ImageWrapper> imgPaths,int position) {
-        ChooseImageViewFragment fragment = new ChooseImageViewFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList(IMG_PATH,imgPaths);
-        args.putInt(POSITION,position);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public ChooseImageViewFragment() {
 
+    }
+
+    public static ChooseImageViewFragment newInstance(ArrayList<ImageWrapper> imgPaths, int position) {
+        ChooseImageViewFragment fragment = new ChooseImageViewFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(IMG_PATH, imgPaths);
+        args.putInt(POSITION, position);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mImgPaths =getArguments().getParcelableArrayList(IMG_PATH);
+            mImgPaths = getArguments().getParcelableArrayList(IMG_PATH);
             mPosition = getArguments().getInt(POSITION);
         }
     }
@@ -78,18 +78,18 @@ public class ChooseImageViewFragment extends BaseFragment {
         getHostActivity().getMenuBn().setVisibility(View.GONE);
     }
 
-    private  void displayDialog() {
-        SchoolFriendDialog dialog = SchoolFriendDialog.remindDialog(getContext(),getString(R.string.reminder),getString(R.string.are_you_sure_delete_this_pic));
+    private void displayDialog() {
+        SchoolFriendDialog dialog = SchoolFriendDialog.remindDialog(getContext(), getString(R.string.reminder), getString(R.string.are_you_sure_delete_this_pic));
 
         dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                 mImgPaths.remove(mDelPosition);
-                if (mImgPaths.size()>0){
+                if (mImgPaths.size() > 0) {
                     mViewPager.setAdapter(mPagerAdapter);
                 } else {
                     BaseActivity.LocalStack<BaseFragment> stack = getHostActivity().getBackStack();
-                    if (stack.size()>1){
+                    if (stack.size() > 1) {
                         stack.pop();
                         BaseFragment fragment = stack.peek();
                         getHostActivity().open(fragment);
@@ -107,7 +107,7 @@ public class ChooseImageViewFragment extends BaseFragment {
         dialog.show();
     }
 
-    private void initViewPagerSlideListener (ViewPager viewPager){
+    private void initViewPagerSlideListener(ViewPager viewPager) {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -118,6 +118,7 @@ public class ChooseImageViewFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 

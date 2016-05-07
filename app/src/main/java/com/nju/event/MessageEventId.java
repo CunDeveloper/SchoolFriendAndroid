@@ -6,7 +6,7 @@ package com.nju.event;
 public class MessageEventId {
     private int id;
 
-    public MessageEventId(int id){
+    public MessageEventId(int id) {
         this.id = id;
     }
 

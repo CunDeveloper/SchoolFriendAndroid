@@ -12,8 +12,9 @@ import java.util.Set;
  * Created by cun on 2016/4/16.
  */
 public class DegreeUtil {
-    private static HashMap<String,String> degrees = null;
-    public static HashMap<String,String> degrees(Context context){
+    private static HashMap<String, String> degrees = null;
+
+    public static HashMap<String, String> degrees(Context context) {
         if (degrees == null) {
             degrees = new HashMap<>();
             if (context != null) {
@@ -24,6 +25,6 @@ public class DegreeUtil {
                 }
             }
         }
-        return  degrees;
+        return degrees;
     }
 }

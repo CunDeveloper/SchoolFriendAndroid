@@ -64,22 +64,22 @@ public class VoiceCollectAdapter extends BaseAdapter {
         holder.nameTV.setText(alumniVoice.getAuthorInfo().getAuthorName());
         holder.labelTV.setText(alumniVoice.getAuthorInfo().getLabel());
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniVoice.getDate()));
-        try{
+        try {
             holder.titleTV.setText(StringBase64.decode(alumniVoice.getTitle()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        try{
+        try {
             holder.contentTV.setText(StringBase64.decode(alumniVoice.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
 
-        if (alumniVoice.getCheck() == 0){
+        if (alumniVoice.getCheck() == 0) {
             holder.checkBox.setVisibility(View.GONE);
-        }else if (alumniVoice.getCheck() == 1){
+        } else if (alumniVoice.getCheck() == 1) {
             holder.checkBox.setVisibility(View.VISIBLE);
-        }else if (alumniVoice.getCheck() == 2){
+        } else if (alumniVoice.getCheck() == 2) {
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setChecked(true);
         }

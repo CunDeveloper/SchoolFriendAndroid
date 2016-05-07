@@ -23,7 +23,7 @@ public class PersonRecommendListItemAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<RecommendWork> mRecommendWorks;
 
-    public PersonRecommendListItemAdapter(Context context,  ArrayList<RecommendWork> recommendWorks) {
+    public PersonRecommendListItemAdapter(Context context, ArrayList<RecommendWork> recommendWorks) {
         mContext = context;
         mRecommendWorks = recommendWorks;
     }
@@ -35,7 +35,7 @@ public class PersonRecommendListItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-         return mRecommendWorks.get(position);
+        return mRecommendWorks.get(position);
     }
 
     @Override
@@ -67,11 +67,10 @@ public class PersonRecommendListItemAdapter extends BaseAdapter {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
 
-        if (recommendWork.getImgPaths() == null){
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_RECOMMEND_IMG_PATH,Constant.EMPTY,120));
-        }
-        else {
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext,PathConstant.ALUMNI_RECOMMEND_IMG_PATH,recommendWork.getImgPaths().split(","),120));
+        if (recommendWork.getImgPaths() == null) {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_RECOMMEND_IMG_PATH, Constant.EMPTY, 120));
+        } else {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_RECOMMEND_IMG_PATH, recommendWork.getImgPaths().split(","), 120));
         }
         return convertView;
     }

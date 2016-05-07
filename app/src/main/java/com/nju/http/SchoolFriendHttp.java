@@ -1,11 +1,8 @@
 package com.nju.http;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.util.Log;
 
-import com.nju.image.Utils;
 import com.nju.model.BitmapWrapper;
 import com.nju.model.Image;
 import com.squareup.okhttp.Call;
@@ -48,10 +45,10 @@ public class SchoolFriendHttp {
     private static final MediaType MEDIA_TYPE_TEXT
             = MediaType.parse("text/plain; charset=utf-8");
     private static final String FILE = "file";
+    private static final String FILENAME = "schoolFriendCahce";
     private static SchoolFriendHttp mInstance;
     private static OkHttpClient mClient;
     private static BlockingDeque<Request> requestQueue;
-    private static final String FILENAME = "schoolFriendCahce";
 
     private SchoolFriendHttp() {
         if (mClient == null) {
@@ -65,7 +62,6 @@ public class SchoolFriendHttp {
             mClient.setCookieHandler(cookieManager);
         }
     }
-
 
 
     public static SchoolFriendHttp getInstance() {
@@ -107,9 +103,9 @@ public class SchoolFriendHttp {
         return response.body().string();
     }
 
-    public Call asynGet(final String url,Callback callback) {
+    public Call asynGet(final String url, Callback callback) {
         Request request = new Request.Builder()
-                .addHeader("Content-Type","text/plain")
+                .addHeader("Content-Type", "text/plain")
                 .url(url)
                 .build();
         Call call = mClient.newCall(request);
@@ -127,7 +123,7 @@ public class SchoolFriendHttp {
         return response.body().byteStream();
     }
 
-    public  Call AsyncGetStream(final String url,Callback callback) {
+    public Call AsyncGetStream(final String url, Callback callback) {
         Request request = new Request.Builder()
                 .url(url)
                 .header("Content-Type", IMAGE_TYPE)
@@ -148,7 +144,7 @@ public class SchoolFriendHttp {
      */
     public void AsyncGet(final String url, final Callback callback) {
         Request request = new Request.Builder()
-                .header("Content-Type",IMAGE_TYPE)
+                .header("Content-Type", IMAGE_TYPE)
                 .url(url)
                 .build();
 

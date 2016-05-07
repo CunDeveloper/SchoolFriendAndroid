@@ -8,9 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nju.activity.PersonInfoEvent;
 import com.nju.activity.R;
 import com.nju.event.MessageEventId;
+import com.nju.event.PersonInfoEvent;
+import com.nju.model.AuthorInfo;
 import com.nju.model.ContentComment;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -23,9 +24,10 @@ import java.util.ArrayList;
 /**
  * Created by cun on 2016/3/27.
  */
-public class CommentAdapter  extends BaseAdapter {
+public class CommentAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<ContentComment> mComments;
+
     public CommentAdapter(Context context, ArrayList<ContentComment> comments) {
         mContext = context;
         mComments = comments;
@@ -51,22 +53,35 @@ public class CommentAdapter  extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.comment_item,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.comment_item, parent, false);
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
-            holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
             holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon_img);
             holder.commentIconTV = (TextView) convertView.findViewById(R.id.comment_icon_tv);
+            holder.replayTV = (TextView) convertView.findViewById(R.id.replay_tv);
+            holder.commentedAuthorNameTV = (TextView) convertView.findViewById(R.id.commentedAuthorNameTV);
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
         final ContentComment contentComment = mComments.get(position);
+        AuthorInfo commentedAuthor = contentComment.getCommentedAuthor();
+        if (commentedAuthor != null) {
+            String commentedAuthorName = commentedAuthor.getAuthorName();
+            if (commentedAuthorName == null || commentedAuthorName.equals("")) {
+                holder.commentedAuthorNameTV.setText("");
+                holder.replayTV.setText("");
+            } else {
+                holder.commentedAuthorNameTV.setText(commentedAuthorName);
+                holder.replayTV.setText(Constant.REPLAY);
+            }
+        }
+
         holder.nameTV.setText(contentComment.getCommentAuthor().getAuthorName());
-        holder.labelTV.setText(contentComment.getCommentAuthor().getLabel());
-        try{
+
+        try {
             holder.contentTV.setText(StringBase64.decode(contentComment.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         holder.commentIconTV.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +107,9 @@ public class CommentAdapter  extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder{
-        private TextView nameTV,labelTV,contentTV,dateTV,commentTV,commentIconTV;
+    private class ViewHolder {
+        private TextView nameTV, contentTV, dateTV,
+                replayTV, commentedAuthorNameTV, commentTV, commentIconTV;
         private ImageView headImg;
     }
 }

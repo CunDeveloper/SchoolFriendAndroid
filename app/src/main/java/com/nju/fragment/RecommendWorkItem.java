@@ -19,7 +19,6 @@ import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
-import com.nju.model.AuthorInfo;
 import com.nju.model.RecommendWork;
 import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
@@ -33,15 +32,15 @@ import java.util.ArrayList;
 public class RecommendWorkItem extends BaseFragment {
     private static final String TAG = RecommendWorkItem.class.getSimpleName();
     private static final String PARAM_TYPE = "type";
-    private static String mType ;
-    private  ArrayList<RecommendWork>  recommendWorks;
+    private static String mType;
+    private ArrayList<RecommendWork> recommendWorks;
 
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(RecommendWorkItem.this)){
+            if (FragmentUtil.isAttachedToActivity(RecommendWorkItem.this)) {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
@@ -50,12 +49,16 @@ public class RecommendWorkItem extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(RecommendWorkItem.this)){
+            if (FragmentUtil.isAttachedToActivity(RecommendWorkItem.this)) {
                 Log.i(TAG, responseBody);
                 mRefreshLayout.setRefreshing(false);
             }
         }
     };
+
+    public RecommendWorkItem() {
+        // Required empty public constructor
+    }
 
     public static RecommendWorkItem newInstance(String type) {
         RecommendWorkItem fragment = new RecommendWorkItem();
@@ -66,15 +69,11 @@ public class RecommendWorkItem extends BaseFragment {
         return fragment;
     }
 
-    public RecommendWorkItem() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mType= getArguments().getString(PARAM_TYPE);
+            mType = getArguments().getString(PARAM_TYPE);
         }
     }
 
@@ -82,15 +81,15 @@ public class RecommendWorkItem extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_recommend_work_item, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()),view.getPaddingRight(),view.getPaddingBottom());
+        View view = inflater.inflate(R.layout.fragment_recommend_work_item, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initListView(view);
         setUpOnRefreshListener(view);
         initChooseDialog();
         return view;
     }
 
-    private void setUpOnRefreshListener(View view){
+    private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mRefreshLayout.post(new Runnable() {
             @Override
@@ -108,11 +107,11 @@ public class RecommendWorkItem extends BaseFragment {
     }
 
     private void updateRecommendWork() {
-        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf","",callback);
+        mRequestJson = new PostRequestJson("https://api.myjson.com/bins/3ucpf", "", callback);
         HttpManager.getInstance().exeRequest(mRequestJson);
     }
 
-    private void  initListView (View view){
+    private void initListView(View view) {
         recommendWorks = TestData.getRecommendWorks();
         ListView listView = (ListView) view.findViewById(R.id.fragment_recommend_work_item_listview);
         listView.setAdapter(new RecommendWorkItemAdapter(this, recommendWorks));
@@ -125,7 +124,7 @@ public class RecommendWorkItem extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         CloseRequestUtil.close(mRequestJson);
     }
@@ -135,17 +134,17 @@ public class RecommendWorkItem extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.recommend_work);
         }
         getHostActivity().display(5);
     }
 
-    private void initChooseDialog(){
+    private void initChooseDialog() {
         final int[] position = {0};
         TextView textView = (TextView) getActivity().findViewById(R.id.main_viewpager_menu_more);
-        MaterialDialog.ListCallbackSingleChoice listCallback= new MaterialDialog.ListCallbackSingleChoice(){
+        MaterialDialog.ListCallbackSingleChoice listCallback = new MaterialDialog.ListCallbackSingleChoice() {
 
             @Override
             public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
@@ -153,7 +152,7 @@ public class RecommendWorkItem extends BaseFragment {
                 return true;
             }
         };
-        final SchoolFriendDialog dialog  = SchoolFriendDialog.singleChoiceListDialog(getContext(), getString(R.string.chooseType), getResources().getStringArray(R.array.recommdWorkType), listCallback);
+        final SchoolFriendDialog dialog = SchoolFriendDialog.singleChoiceListDialog(getContext(), getString(R.string.chooseType), getResources().getStringArray(R.array.recommdWorkType), listCallback);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

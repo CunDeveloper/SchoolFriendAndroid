@@ -18,11 +18,12 @@ public class CacheUtil {
     private static final String DISK_CACHE_UNIQUE_NAME = "school_friend_img_dir";
     private static final int M_UNIT = 1024;
     private static CacheUtil mCacheUtil = null;
+    private final Object mDiskCacheLock = new Object();
     private DiskLruImageCache diskLruImageCache;
     private LruCache<String, Bitmap> mMemoryCache;
-    private final Object mDiskCacheLock = new Object();
     private boolean mDiskCacheStarting = true;
     private Context mContext;
+
     private CacheUtil(Context context) {
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / M_UNIT);
         final int cacheSize = maxMemory / 8;
@@ -38,20 +39,6 @@ public class CacheUtil {
         new InitDiskCacheTask().execute();
     }
 
-    class InitDiskCacheTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            synchronized (mDiskCacheLock) {
-                diskLruImageCache = new DiskLruImageCache(mContext,DISK_CACHE_UNIQUE_NAME,DISK_CACHE_SIZE);
-                mDiskCacheStarting = false; // Finished initialization
-                mDiskCacheLock.notifyAll(); // Wake any waiting threads
-            }
-            return null;
-        }
-
-    }
-
-
     public static CacheUtil getInstance(Context context) {
         if (mCacheUtil == null) {
             mCacheUtil = new CacheUtil(context);
@@ -62,7 +49,7 @@ public class CacheUtil {
     public void addBitmapToMemoryCache(String url, Bitmap bitmap) {
         String key = convertKey(url);
         if (getBitmapFromMemCache(key) == null) {
-            if (key != null && bitmap != null){
+            if (key != null && bitmap != null) {
                 mMemoryCache.put(key, bitmap);
             }
         }
@@ -80,13 +67,14 @@ public class CacheUtil {
 
     public Bitmap getBitmapFromDiskCache(String url) {
         String key = convertKey(url);
-        Log.i(TAG,key);
+        Log.i(TAG, key);
         synchronized (mDiskCacheLock) {
             // Wait while disk cache is started from background thread
             while (mDiskCacheStarting) {
                 try {
                     mDiskCacheLock.wait();
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
             }
             if (diskLruImageCache != null) {
                 return diskLruImageCache.getBitmap(key);
@@ -95,27 +83,39 @@ public class CacheUtil {
         return null;
     }
 
-    private String convertKey(String url){
+    private String convertKey(String url) {
         String[] strs = url.split("/");
         CharSequence key = "";
-        CharSequence smallLabel ="";
-        for (String str:strs){
-            if (str.equals(PathConstant.SMALL)){
+        CharSequence smallLabel = "";
+        for (String str : strs) {
+            if (str.equals(PathConstant.SMALL)) {
                 smallLabel = str;
                 break;
             }
         }
-        if (strs.length >1){
-            String lastKey = smallLabel.toString() + strs[strs.length-1];
-            if (lastKey.length()>64){
-                key = lastKey.substring(0,63);
-            }
-            else {
+        if (strs.length > 1) {
+            String lastKey = smallLabel.toString() + strs[strs.length - 1];
+            if (lastKey.length() > 64) {
+                key = lastKey.substring(0, 63);
+            } else {
                 key = lastKey;
             }
-            Log.i(TAG,lastKey);
+            Log.i(TAG, lastKey);
         }
-       return key.toString().split("\\.")[0].toLowerCase();
+        return key.toString().split("\\.")[0].toLowerCase();
+    }
+
+    class InitDiskCacheTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            synchronized (mDiskCacheLock) {
+                diskLruImageCache = new DiskLruImageCache(mContext, DISK_CACHE_UNIQUE_NAME, DISK_CACHE_SIZE);
+                mDiskCacheStarting = false; // Finished initialization
+                mDiskCacheLock.notifyAll(); // Wake any waiting threads
+            }
+            return null;
+        }
+
     }
 
 }

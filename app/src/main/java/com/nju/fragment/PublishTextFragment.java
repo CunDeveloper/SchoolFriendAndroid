@@ -49,14 +49,38 @@ public class PublishTextFragment extends BaseFragment {
     private int mSlidePosition = 0;
     private ArrayList<View> mSlideCircleViews;
     private SchoolFriendDialog mDialog;
+    Callback call = new Callback() {
+        @Override
+        public void onFailure(Request request, IOException e) {
+            e.printStackTrace();
+            // Log.e(TAG,e.getMessage());
+            mDialog.dismiss();
+        }
+
+        @Override
+        public void onResponse(Response response) throws IOException {
+            Log.e(TAG, response.body().string());
+            mDialog.dismiss();
+        }
+    };
+    ResponseCallback callback = new ResponseCallback() {
+
+        @Override
+        public void onFail(Exception error) {
+            mDialog.dismiss();
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            mDialog.dismiss();
+        }
+    };
+
+    public PublishTextFragment() {
+    }
 
     public static PublishTextFragment newInstance() {
         return new PublishTextFragment();
-    }
-
-
-
-    public PublishTextFragment() {
     }
 
     @Override
@@ -114,7 +138,7 @@ public class PublishTextFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (mLocation!=null) {
+        if (mLocation != null) {
             mLocationTextView.setText(mLocation);
             mLocationTextView.invalidate();
         }
@@ -165,52 +189,27 @@ public class PublishTextFragment extends BaseFragment {
             }
         });
     }
-    Callback call = new Callback() {
-        @Override
-        public void onFailure(Request request, IOException e) {
-            e.printStackTrace();
-           // Log.e(TAG,e.getMessage());
-            mDialog.dismiss();
-        }
 
-        @Override
-        public void onResponse(Response response) throws IOException {
-            Log.e(TAG,response.body().string());
-            mDialog.dismiss();
-        }
-    };
-    ResponseCallback callback = new ResponseCallback() {
-
-        @Override
-        public void onFail(Exception error) {
-            mDialog.dismiss();
-        }
-
-        @Override
-        public void onSuccess(String responseBody) {
-            mDialog.dismiss();
-        }
-    };
     private void initSendEvent() {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
+                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
-                SoftInput.close(getContext(),mSendButton);
+                SoftInput.close(getContext(), mSendButton);
                 final String content = mContentEditText.getText().toString();
                 final String location = mLocationTextView.getText().toString();
-                HashMap<String,String> params = new HashMap<>();
-                params.put(Constant.USER_ID,String.valueOf(51));
+                HashMap<String, String> params = new HashMap<>();
+                params.put(Constant.USER_ID, String.valueOf(51));
                 params.put(Constant.PUBLISH_TEXT, StringBase64.encode(content));
-                params.put(Constant.USER_LOCATION,location);
-                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, call,TAG));
+                params.put(Constant.USER_LOCATION, location);
+                HttpManager.getInstance().exeRequest(new PostRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_URL, params, call, TAG));
             }
         });
     }
 
     private void initFloatingBn(View view) {
-        final TextView  emotionView = (TextView) view.findViewById(R.id.emotion_icon);
+        final TextView emotionView = (TextView) view.findViewById(R.id.emotion_icon);
         emotionView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -236,6 +235,7 @@ public class PublishTextFragment extends BaseFragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count >= 1) {
@@ -256,8 +256,8 @@ public class PublishTextFragment extends BaseFragment {
 
     private void initOnGlobalListener(View view) {
         final LinearLayout mainLayout = (LinearLayout) view.findViewById(R.id.publish_text_main_layout);
-        final ScrollView  scrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
-        final LinearLayout  emoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
+        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.publish_text_scroll_layout);
+        final LinearLayout emoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
         mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -266,8 +266,8 @@ public class PublishTextFragment extends BaseFragment {
                 if ((rootHeight - subHeight) < (rootHeight / 3) && label) {
                     emoLineLayout.setVisibility(View.GONE);
                     scrollView.setLayoutParams(schoolFriendLayoutParams.noSoftInputParams(subHeight));
-                } else  if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen){
-                    label =true;
+                } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
+                    label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
                     if (getHostActivity().isPhone()) {
                         scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 50, Divice.getStatusBarHeight(getActivity())));

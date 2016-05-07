@@ -6,10 +6,11 @@ package com.nju.http.request;
 public class QueryLimitLabel extends QueryLimit {
     private String label;
 
-    public QueryLimitLabel(){}
+    public QueryLimitLabel() {
+    }
 
-    public QueryLimitLabel(int rowId, int limit, String dir,String label) {
-        super(rowId,limit,dir);
+    public QueryLimitLabel(int rowId, int limit, String dir, String label) {
+        super(rowId, limit, dir);
         this.label = label;
     }
 

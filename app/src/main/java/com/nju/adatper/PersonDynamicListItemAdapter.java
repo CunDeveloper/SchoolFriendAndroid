@@ -9,7 +9,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
-import com.nju.model.AlumniQuestion;
 import com.nju.model.AlumniTalk;
 import com.nju.util.Constant;
 import com.nju.util.PathConstant;
@@ -63,11 +62,10 @@ public class PersonDynamicListItemAdapter extends BaseAdapter {
             e.printStackTrace();
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        if (alumniTalk.getImagePaths() == null){
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_TALK_IMG_PATH,Constant.EMPTY,120));
-        }
-        else {
-            holder.gridView.setAdapter(new ThreePicsAdapter(mContext,PathConstant.ALUMNI_TALK_IMG_PATH,alumniTalk.getImagePaths().split(","),120));
+        if (alumniTalk.getImagePaths() == null) {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_TALK_IMG_PATH, Constant.EMPTY, 120));
+        } else {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mContext, PathConstant.ALUMNI_TALK_IMG_PATH, alumniTalk.getImagePaths().split(","), 120));
         }
         return convertView;
     }

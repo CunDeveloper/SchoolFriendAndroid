@@ -6,7 +6,18 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 
-public class RecommendWork  implements Parcelable {
+public class RecommendWork implements Parcelable {
+    public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
+        @Override
+        public RecommendWork createFromParcel(Parcel in) {
+            return new RecommendWork(in);
+        }
+
+        @Override
+        public RecommendWork[] newArray(int size) {
+            return new RecommendWork[size];
+        }
+    };
     private int id;
     private String date;
     private AuthorInfo authorInfo;
@@ -23,7 +34,6 @@ public class RecommendWork  implements Parcelable {
     public RecommendWork() {
     }
 
-
     protected RecommendWork(Parcel in) {
         id = in.readInt();
         date = in.readString();
@@ -36,18 +46,6 @@ public class RecommendWork  implements Parcelable {
         type = in.readInt();
         comments = in.createTypedArrayList(ContentComment.CREATOR);
     }
-
-    public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
-        @Override
-        public RecommendWork createFromParcel(Parcel in) {
-            return new RecommendWork(in);
-        }
-
-        @Override
-        public RecommendWork[] newArray(int size) {
-            return new RecommendWork[size];
-        }
-    };
 
     public AuthorInfo getAuthor() {
         return authorInfo;
@@ -159,7 +157,7 @@ public class RecommendWork  implements Parcelable {
     @Override
     public boolean equals(Object o) {
         RecommendWork that = (RecommendWork) o;
-        if (this.getId() == that.getId()){
+        if (this.getId() == that.getId()) {
             return true;
         }
         return false;

@@ -1,11 +1,9 @@
 package com.nju.adatper;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nju.activity.R;
@@ -23,10 +21,12 @@ import java.util.ArrayList;
 public class CommentListAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<ContentComment> mComments;
-    public CommentListAdapter(BaseFragment fragment,ArrayList<ContentComment> comments){
+
+    public CommentListAdapter(BaseFragment fragment, ArrayList<ContentComment> comments) {
         mFragment = fragment;
         mComments = comments;
     }
+
     @Override
     public int getCount() {
         return mComments.size();
@@ -45,8 +45,8 @@ public class CommentListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.comment_list_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.comment_list_item, parent, false);
             holder = new ViewHolder();
             holder.commentTV = (TextView) convertView.findViewById(R.id.comment_tv);
             holder.commentedTV = (TextView) convertView.findViewById(R.id.commented_tv);
@@ -65,23 +65,23 @@ public class CommentListAdapter extends BaseAdapter {
             }
         });
         String commentedName = contentComment.getCommentedAuthor().getAuthorName();
-        if (commentedName == null || commentedName.equals("")){
+        if (commentedName == null || commentedName.equals("")) {
             holder.commentedTV.setText("");
             holder.replayTV.setText("");
-        }else {
+        } else {
             holder.commentedTV.setText(commentedName);
             holder.replayTV.setText(Constant.REPLAY);
         }
-        try{
+        try {
             holder.contentTV.setText(StringBase64.decode(contentComment.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
         }
         return convertView;
     }
 
-    private class ViewHolder{
-        private TextView commentTV,commentedTV,replayTV,contentTV;
+    private class ViewHolder {
+        private TextView commentTV, commentedTV, replayTV, contentTV;
 
     }
 }

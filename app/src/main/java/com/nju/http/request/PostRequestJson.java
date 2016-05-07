@@ -5,8 +5,6 @@ import com.nju.http.SchoolFriendHttp;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 
-import java.util.HashMap;
-
 /**
  * Created by xiaojuzhang on 2016/3/22.
  */
@@ -18,19 +16,19 @@ public class PostRequestJson extends RequestRunnable {
     private Call call;
 
 
-    public PostRequestJson(String url,String json,Callback callback) {
+    public PostRequestJson(String url, String json, Callback callback) {
         this.mCallback = callback;
         this.mUrl = url;
         this.mJson = json;
     }
 
-    public Call getCall(){
+    public Call getCall() {
         return call;
     }
 
     @Override
     public void run() {
-        call = SchoolFriendHttp.getInstance().AsyncPostJson(mUrl,mJson,mCallback);
+        call = SchoolFriendHttp.getInstance().AsyncPostJson(mUrl, mJson, mCallback);
     }
 
 

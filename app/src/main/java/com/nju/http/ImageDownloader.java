@@ -7,17 +7,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 
-import com.nju.activity.BitmapEvent;
-import com.nju.activity.MessageEvent;
-import com.nju.http.request.RequestImage;
+import com.nju.event.BitmapEvent;
 import com.nju.image.CacheUtil;
-import com.nju.image.ImageUtil;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,77 +23,26 @@ import java.lang.ref.WeakReference;
  */
 public class ImageDownloader {
     private static final String TAG = ImageDownloader.class.getSimpleName();
-    private  static ImageDownloader imageDownloader;
+    private static ImageDownloader imageDownloader;
     private static CacheUtil cacheUtil;
     private Bitmap mBitmap;
-    public static ImageDownloader with(Context context){
-        if (imageDownloader == null){
-            imageDownloader = new ImageDownloader(context);
-        }
-        return imageDownloader;
-    }
 
-    private ImageDownloader(Context context){
+    private ImageDownloader(Context context) {
         cacheUtil = CacheUtil.getInstance(context);
     }
 
-
-    public synchronized BitmapDownloaderTask download(String url,ImageView imageView) {
-        if (cancelPotentialDownload(url, imageView)) {
-            Bitmap bitmap;
-            if ((bitmap=cacheUtil.getBitmapFromMemCache(url))!= null){
-                imageView.setImageBitmap(bitmap);
-            } else {
-                if ((bitmap = cacheUtil.getBitmapFromDiskCache(url)) != null){
-                    imageView.setImageBitmap(bitmap);
-                }else {
-                    BitmapDownloaderTask task = new BitmapDownloaderTask(imageView);
-                    DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
-                    imageView.setImageDrawable(downloadedDrawable);
-                    task.execute(url);
-                    return task;
-                }
-            }
+    public static ImageDownloader with(Context context) {
+        if (imageDownloader == null) {
+            imageDownloader = new ImageDownloader(context);
         }
-        return null;
-    }
-
-    public synchronized ImageDownloader download(String url) {
-            Bitmap bitmap;
-            if ((bitmap=cacheUtil.getBitmapFromMemCache(url))!= null){
-                mBitmap = bitmap;
-                notify();
-                return this;
-            } else {
-                if ((bitmap = cacheUtil.getBitmapFromDiskCache(url)) != null){
-                    mBitmap = bitmap;
-                    notify();
-                    return this;
-                }else {
-                    BitmapDownloaderTask task = new BitmapDownloaderTask(null);
-                    DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
-                    task.execute(url);
-                }
-        }
-        return this;
-    }
-
-    public synchronized Bitmap bitmap(){
-        while (mBitmap == null){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return mBitmap;
+        return imageDownloader;
     }
 
     private static BitmapDownloaderTask getBitmapDownloaderTask(ImageView imageView) {
         if (imageView != null) {
             Drawable drawable = imageView.getDrawable();
             if (drawable instanceof DownloadedDrawable) {
-                DownloadedDrawable downloadedDrawable = (DownloadedDrawable)drawable;
+                DownloadedDrawable downloadedDrawable = (DownloadedDrawable) drawable;
                 return downloadedDrawable.getBitmapDownloaderTask();
             }
         }
@@ -121,6 +63,57 @@ public class ImageDownloader {
         return true;
     }
 
+    public synchronized BitmapDownloaderTask download(String url, ImageView imageView) {
+        if (cancelPotentialDownload(url, imageView)) {
+            Bitmap bitmap;
+            if ((bitmap = cacheUtil.getBitmapFromMemCache(url)) != null) {
+                imageView.setImageBitmap(bitmap);
+            } else {
+                if ((bitmap = cacheUtil.getBitmapFromDiskCache(url)) != null) {
+                    imageView.setImageBitmap(bitmap);
+                } else {
+                    BitmapDownloaderTask task = new BitmapDownloaderTask(imageView);
+                    DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
+                    imageView.setImageDrawable(downloadedDrawable);
+                    task.execute(url);
+                    return task;
+                }
+            }
+        }
+        return null;
+    }
+
+    public synchronized ImageDownloader download(String url) {
+        Bitmap bitmap;
+        if ((bitmap = cacheUtil.getBitmapFromMemCache(url)) != null) {
+            mBitmap = bitmap;
+            notify();
+            return this;
+        } else {
+            if ((bitmap = cacheUtil.getBitmapFromDiskCache(url)) != null) {
+                mBitmap = bitmap;
+                notify();
+                return this;
+            } else {
+                BitmapDownloaderTask task = new BitmapDownloaderTask(null);
+                DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
+                task.execute(url);
+            }
+        }
+        return this;
+    }
+
+    public synchronized Bitmap bitmap() {
+        while (mBitmap == null) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return mBitmap;
+    }
+
     static class DownloadedDrawable extends ColorDrawable {
         private final WeakReference<BitmapDownloaderTask> bitmapDownloaderTaskReference;
 
@@ -129,16 +122,17 @@ public class ImageDownloader {
             bitmapDownloaderTaskReference =
                     new WeakReference<>(bitmapDownloaderTask);
         }
+
         public BitmapDownloaderTask getBitmapDownloaderTask() {
             return bitmapDownloaderTaskReference.get();
         }
     }
 
-   public   class BitmapDownloaderTask extends AsyncTask<String,Void,Bitmap>{
-        private String url;
+    public class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
         private final WeakReference<ImageView> imageViewReference;
+        private String url;
 
-        public BitmapDownloaderTask(ImageView imageView ) {
+        public BitmapDownloaderTask(ImageView imageView) {
             imageViewReference = new WeakReference<>(imageView);
 
         }
@@ -160,18 +154,20 @@ public class ImageDownloader {
             return null;
 
         }
-       @Override
+
+        @Override
         // Once the image is downloaded, associates it to the imageView
         protected void onPostExecute(Bitmap bitmap) {
             ImageView imageView = imageViewReference.get();
             mBitmap = bitmap;
-           if (imageView != null){
-               BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
-               // Change bitmap only if this process is still associated with it
-               if (this == bitmapDownloaderTask) {
-                   imageView.setImageBitmap(bitmap);
-               }
-           }
+            if (imageView != null) {
+                BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
+                // Change bitmap only if this process is still associated with it
+                if (this == bitmapDownloaderTask) {
+                    imageView.setImageBitmap(bitmap);
+                    EventBus.getDefault().post(new BitmapEvent(bitmap));
+                }
+            }
         }
     }
 }

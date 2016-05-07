@@ -22,20 +22,21 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
 
     public static final String TAG = ChoosedOriginPicViewPageItemFragment.class.getSimpleName();
     private static final String PARAM = "param";
-    private String mImgPath;
-    private CustomImageVIew mImgView;
     private static final String LABEL = "label";
     private static SharedPreferences mPreference;
-    public static ChoosedOriginPicViewPageItemFragment newInstance(String imgPath) {
-        ChoosedOriginPicViewPageItemFragment fragment = new ChoosedOriginPicViewPageItemFragment();
-        Bundle args = new Bundle();
-        args.putString(PARAM,imgPath);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String mImgPath;
+    private CustomImageVIew mImgView;
 
     public ChoosedOriginPicViewPageItemFragment() {
 
+    }
+
+    public static ChoosedOriginPicViewPageItemFragment newInstance(String imgPath) {
+        ChoosedOriginPicViewPageItemFragment fragment = new ChoosedOriginPicViewPageItemFragment();
+        Bundle args = new Bundle();
+        args.putString(PARAM, imgPath);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -59,23 +60,22 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
         return view;
     }
 
-    private void initImageViewClickEvent(){
+    private void initImageViewClickEvent() {
         mImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mPreference.getBoolean(LABEL,true)) {
+                if (mPreference.getBoolean(LABEL, true)) {
                     Divice.hideStatusBar((AppCompatActivity) getActivity());
-                    mPreference.edit().putBoolean(LABEL,false).apply();
-                }
-                else {
+                    mPreference.edit().putBoolean(LABEL, false).apply();
+                } else {
                     Divice.showStatusBar((AppCompatActivity) getActivity());
-                    mPreference.edit().putBoolean(LABEL,true).apply();
+                    mPreference.edit().putBoolean(LABEL, true).apply();
                 }
             }
         });
     }
 
-    private class LoadLocalImg extends AsyncTask<String,Void,Bitmap> {
+    private class LoadLocalImg extends AsyncTask<String, Void, Bitmap> {
 
         private int mTargetHeight = Divice.getDisplayWidth(getActivity());
 
@@ -84,7 +84,7 @@ public class ChoosedOriginPicViewPageItemFragment extends BaseFragment {
             Bitmap bitmap = null;
             try {
                 bitmap = Picasso.with(getActivity()).load(new File(params[0])).
-                        resize(mTargetHeight,mTargetHeight).get();
+                        resize(mTargetHeight, mTargetHeight).get();
             } catch (IOException e) {
                 e.printStackTrace();
             }

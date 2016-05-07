@@ -21,30 +21,30 @@ import java.io.OutputStream;
  */
 public class DiskLruImageCache {
 
-    private DiskLruCache mDiskCache;
-    private Bitmap.CompressFormat mCompressFormat = Bitmap.CompressFormat.JPEG;
-    private int mCompressQuality = 100;
     private static final int APP_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final String TAG = "DiskLruImageCache";
+    private DiskLruCache mDiskCache;
+    private Bitmap.CompressFormat mCompressFormat = Bitmap.CompressFormat.JPEG;
+    private int mCompressQuality = 100;
 
-    public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize) {
+    public DiskLruImageCache(Context context, String uniqueName, int diskCacheSize) {
         try {
-            final File diskCacheDir = getDiskCacheDir(context, uniqueName );
-            mDiskCache = DiskLruCache.open( diskCacheDir, APP_VERSION, VALUE_COUNT, diskCacheSize );
+            final File diskCacheDir = getDiskCacheDir(context, uniqueName);
+            mDiskCache = DiskLruCache.open(diskCacheDir, APP_VERSION, VALUE_COUNT, diskCacheSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean writeBitmapToFile( Bitmap bitmap, DiskLruCache.Editor editor )
+    private boolean writeBitmapToFile(Bitmap bitmap, DiskLruCache.Editor editor)
             throws IOException {
         OutputStream out = null;
         try {
-            out = new BufferedOutputStream(editor.newOutputStream(0), Utils.IO_BUFFER_SIZE );
-            return bitmap.compress( mCompressFormat, mCompressQuality, out );
+            out = new BufferedOutputStream(editor.newOutputStream(0), Utils.IO_BUFFER_SIZE);
+            return bitmap.compress(mCompressFormat, mCompressQuality, out);
         } finally {
-            if ( out != null ) {
+            if (out != null) {
                 out.close();
             }
         }
@@ -60,33 +60,33 @@ public class DiskLruImageCache {
         return new File(cachePath + File.separator + uniqueName);
     }
 
-    public void put( String key, Bitmap data ) {
+    public void put(String key, Bitmap data) {
 
         DiskLruCache.Editor editor = null;
         try {
-            editor = mDiskCache.edit( key );
-            if ( editor == null ) {
+            editor = mDiskCache.edit(key);
+            if (editor == null) {
                 return;
             }
 
-            if( writeBitmapToFile( data, editor ) ) {
+            if (writeBitmapToFile(data, editor)) {
                 mDiskCache.flush();
                 editor.commit();
-                if ( BuildConfig.DEBUG ) {
+                if (BuildConfig.DEBUG) {
                     Log.d("cache_test_DISK_", "image put on disk cache " + key);
                 }
             } else {
                 editor.abort();
-                if ( BuildConfig.DEBUG ) {
-                    Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + key );
+                if (BuildConfig.DEBUG) {
+                    Log.d("cache_test_DISK_", "ERROR on: image put on disk cache " + key);
                 }
             }
         } catch (IOException e) {
-            if ( BuildConfig.DEBUG ) {
-                Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + key );
+            if (BuildConfig.DEBUG) {
+                Log.d("cache_test_DISK_", "ERROR on: image put on disk cache " + key);
             }
             try {
-                if ( editor != null ) {
+                if (editor != null) {
                     editor.abort();
                 }
             } catch (IOException ignored) {
@@ -95,48 +95,48 @@ public class DiskLruImageCache {
 
     }
 
-    public Bitmap getBitmap( String key ) {
+    public Bitmap getBitmap(String key) {
 
         Bitmap bitmap = null;
         DiskLruCache.Snapshot snapshot = null;
         try {
-            snapshot = mDiskCache.get( key );
-            if ( snapshot == null ) {
+            snapshot = mDiskCache.get(key);
+            if (snapshot == null) {
                 return null;
             }
-            final InputStream in = snapshot.getInputStream( 0 );
-            if ( in != null ) {
+            final InputStream in = snapshot.getInputStream(0);
+            if (in != null) {
                 final BufferedInputStream buffIn =
-                        new BufferedInputStream( in, Utils.IO_BUFFER_SIZE );
+                        new BufferedInputStream(in, Utils.IO_BUFFER_SIZE);
                 bitmap = BitmapFactory.decodeStream(buffIn);
             }
-        } catch ( IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if ( snapshot != null ) {
+            if (snapshot != null) {
                 snapshot.close();
             }
         }
 
-        if ( BuildConfig.DEBUG ) {
-            Log.d( "cache_test_DISK_", bitmap == null ? "" : "image read from disk " + key);
+        if (BuildConfig.DEBUG) {
+            Log.d("cache_test_DISK_", bitmap == null ? "" : "image read from disk " + key);
         }
 
         return bitmap;
 
     }
 
-    public boolean containsKey( String key ) {
+    public boolean containsKey(String key) {
 
         boolean contained = false;
         DiskLruCache.Snapshot snapshot = null;
         try {
-            snapshot = mDiskCache.get( key );
+            snapshot = mDiskCache.get(key);
             contained = snapshot != null;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if ( snapshot != null ) {
+            if (snapshot != null) {
                 snapshot.close();
             }
         }
@@ -146,12 +146,12 @@ public class DiskLruImageCache {
     }
 
     public void clearCache() {
-        if ( BuildConfig.DEBUG ) {
-            Log.d( "cache_test_DISK_", "disk cache CLEARED");
+        if (BuildConfig.DEBUG) {
+            Log.d("cache_test_DISK_", "disk cache CLEARED");
         }
         try {
             mDiskCache.delete();
-        } catch ( IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

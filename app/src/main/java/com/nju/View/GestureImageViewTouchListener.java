@@ -3,6 +3,7 @@ package com.nju.View;
 /**
  * Created by cun on 2016/4/7.
  */
+
 import android.content.res.Configuration;
 import android.graphics.PointF;
 import android.view.GestureDetector;
@@ -14,17 +15,14 @@ import android.view.View.OnTouchListener;
 
 public class GestureImageViewTouchListener implements OnTouchListener {
 
-    private GestureImageView image;
-    private OnClickListener onClickListener;
-
     private final PointF current = new PointF();
     private final PointF last = new PointF();
     private final PointF next = new PointF();
     private final PointF midpoint = new PointF();
-
     private final VectorF scaleVector = new VectorF();
     private final VectorF pinchVector = new VectorF();
-
+    private GestureImageView image;
+    private OnClickListener onClickListener;
     private boolean touched = false;
     private boolean inZoom = false;
 
@@ -108,14 +106,15 @@ public class GestureImageViewTouchListener implements OnTouchListener {
             }
 
             @Override
-            public void onComplete() {}
+            public void onComplete() {
+            }
         });
 
         zoomAnimation.setZoom(2.0f);
         zoomAnimation.setZoomAnimationListener(new ZoomAnimationListener() {
             @Override
             public void onZoom(float scale, float x, float y) {
-                if(scale <= maxScale && scale >= minScale) {
+                if (scale <= maxScale && scale >= minScale) {
                     handleScale(scale, x, y);
                 }
             }
@@ -145,8 +144,8 @@ public class GestureImageViewTouchListener implements OnTouchListener {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                if(!inZoom) {
-                    if(onClickListener != null) {
+                if (!inZoom) {
+                    if (onClickListener != null) {
                         onClickListener.onClick(image);
                         return true;
                     }
@@ -174,71 +173,62 @@ public class GestureImageViewTouchListener implements OnTouchListener {
 
         float zoomTo;
 
-        if(image.isLandscape()) {
-            if(image.getDeviceOrientation() == Configuration.ORIENTATION_PORTRAIT) {
+        if (image.isLandscape()) {
+            if (image.getDeviceOrientation() == Configuration.ORIENTATION_PORTRAIT) {
                 int scaledHeight = image.getScaledHeight();
 
-                if(scaledHeight < canvasHeight) {
+                if (scaledHeight < canvasHeight) {
                     zoomTo = fitScaleVertical / currentScale;
                     zoomAnimation.setTouchX(e.getX());
                     zoomAnimation.setTouchY(image.getCenterY());
-                }
-                else {
+                } else {
                     zoomTo = fitScaleHorizontal / currentScale;
                     zoomAnimation.setTouchX(image.getCenterX());
                     zoomAnimation.setTouchY(image.getCenterY());
                 }
-            }
-            else {
+            } else {
                 int scaledWidth = image.getScaledWidth();
 
-                if(scaledWidth == canvasWidth) {
-                    zoomTo = currentScale*4.0f;
+                if (scaledWidth == canvasWidth) {
+                    zoomTo = currentScale * 4.0f;
                     zoomAnimation.setTouchX(e.getX());
                     zoomAnimation.setTouchY(e.getY());
-                }
-                else if(scaledWidth < canvasWidth) {
+                } else if (scaledWidth < canvasWidth) {
                     zoomTo = fitScaleHorizontal / currentScale;
                     zoomAnimation.setTouchX(image.getCenterX());
                     zoomAnimation.setTouchY(e.getY());
-                }
-                else {
+                } else {
                     zoomTo = fitScaleHorizontal / currentScale;
                     zoomAnimation.setTouchX(image.getCenterX());
                     zoomAnimation.setTouchY(image.getCenterY());
                 }
             }
-        }
-        else {
-            if(image.getDeviceOrientation() == Configuration.ORIENTATION_PORTRAIT) {
+        } else {
+            if (image.getDeviceOrientation() == Configuration.ORIENTATION_PORTRAIT) {
 
                 int scaledHeight = image.getScaledHeight();
 
-                if(scaledHeight == canvasHeight) {
-                    zoomTo = currentScale*4.0f;
+                if (scaledHeight == canvasHeight) {
+                    zoomTo = currentScale * 4.0f;
                     zoomAnimation.setTouchX(e.getX());
                     zoomAnimation.setTouchY(e.getY());
-                }
-                else if(scaledHeight < canvasHeight) {
+                } else if (scaledHeight < canvasHeight) {
                     zoomTo = fitScaleVertical / currentScale;
                     zoomAnimation.setTouchX(e.getX());
                     zoomAnimation.setTouchY(image.getCenterY());
-                }
-                else {
+                } else {
                     zoomTo = fitScaleVertical / currentScale;
                     zoomAnimation.setTouchX(image.getCenterX());
                     zoomAnimation.setTouchY(image.getCenterY());
                 }
-            }
-            else {
+            } else {
                 int scaledWidth = image.getScaledWidth();
 
-                if(scaledWidth < canvasWidth) {
+                if (scaledWidth < canvasWidth) {
                     zoomTo = fitScaleHorizontal / currentScale;
                     zoomAnimation.setTouchX(image.getCenterX());
                     zoomAnimation.setTouchY(e.getY());
-                }
-                else {
+                } else {
                     zoomTo = fitScaleVertical / currentScale;
                     zoomAnimation.setTouchX(image.getCenterX());
                     zoomAnimation.setTouchY(image.getCenterY());
@@ -258,43 +248,41 @@ public class GestureImageViewTouchListener implements OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if(!inZoom) {
+        if (!inZoom) {
 
-            if(!tapDetector.onTouchEvent(event)) {
-                if(event.getPointerCount() == 1 && flingDetector.onTouchEvent(event)) {
+            if (!tapDetector.onTouchEvent(event)) {
+                if (event.getPointerCount() == 1 && flingDetector.onTouchEvent(event)) {
                     startFling();
                 }
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     handleUp();
-                }
-                else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     stopAnimations();
 
                     last.x = event.getX();
                     last.y = event.getY();
 
-                    if(imageListener != null) {
+                    if (imageListener != null) {
                         imageListener.onTouch(last.x, last.y);
                     }
 
                     touched = true;
-                }
-                else if(event.getAction() == MotionEvent.ACTION_MOVE) {
-                    if(event.getPointerCount() > 1) {
+                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (event.getPointerCount() > 1) {
                         multiTouch = true;
-                        if(initialDistance > 0) {
+                        if (initialDistance > 0) {
 
                             pinchVector.set(event);
                             pinchVector.calculateLength();
 
                             float distance = pinchVector.length;
 
-                            if(initialDistance != distance) {
+                            if (initialDistance != distance) {
 
                                 float newScale = (distance / initialDistance) * lastScale;
 
-                                if(newScale <= maxScale) {
+                                if (newScale <= maxScale) {
                                     scaleVector.length *= newScale;
 
                                     scaleVector.calculateEndPoint();
@@ -307,8 +295,7 @@ public class GestureImageViewTouchListener implements OnTouchListener {
                                     handleScale(newScale, newX, newY);
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             initialDistance = MathUtils.distance(event);
 
                             MathUtils.midpoint(event, midpoint);
@@ -321,17 +308,15 @@ public class GestureImageViewTouchListener implements OnTouchListener {
 
                             scaleVector.length /= lastScale;
                         }
-                    }
-                    else {
-                        if(!touched) {
+                    } else {
+                        if (!touched) {
                             touched = true;
                             last.x = event.getX();
                             last.y = event.getY();
                             next.x = image.getImageX();
                             next.y = image.getImageY();
-                        }
-                        else if(!multiTouch) {
-                            if(handleDrag(event.getX(), event.getY())) {
+                        } else if (!multiTouch) {
+                            if (handleDrag(event.getX(), event.getY())) {
                                 image.redraw();
                             }
                         }
@@ -350,23 +335,22 @@ public class GestureImageViewTouchListener implements OnTouchListener {
         initialDistance = 0;
         lastScale = currentScale;
 
-        if(!canDragX) {
+        if (!canDragX) {
             next.x = centerX;
         }
 
-        if(!canDragY) {
+        if (!canDragY) {
             next.y = centerY;
         }
 
         boundCoordinates();
 
-        if(!canDragX && !canDragY) {
+        if (!canDragX && !canDragY) {
 
-            if(image.isLandscape()) {
+            if (image.isLandscape()) {
                 currentScale = fitScaleHorizontal;
                 lastScale = fitScaleHorizontal;
-            }
-            else {
+            } else {
                 currentScale = fitScaleVertical;
                 lastScale = fitScaleVertical;
             }
@@ -375,7 +359,7 @@ public class GestureImageViewTouchListener implements OnTouchListener {
         image.setScale(currentScale);
         image.setPosition(next.x, next.y);
 
-        if(imageListener != null) {
+        if (imageListener != null) {
             imageListener.onScale(currentScale);
             imageListener.onPosition(next.x, next.y);
         }
@@ -387,13 +371,11 @@ public class GestureImageViewTouchListener implements OnTouchListener {
 
         currentScale = scale;
 
-        if(currentScale > maxScale) {
+        if (currentScale > maxScale) {
             currentScale = maxScale;
-        }
-        else if (currentScale < minScale) {
+        } else if (currentScale < minScale) {
             currentScale = minScale;
-        }
-        else {
+        } else {
             next.x = x;
             next.y = y;
         }
@@ -403,7 +385,7 @@ public class GestureImageViewTouchListener implements OnTouchListener {
         image.setScale(currentScale);
         image.setPosition(next.x, next.y);
 
-        if(imageListener != null) {
+        if (imageListener != null) {
             imageListener.onScale(currentScale);
             imageListener.onPosition(next.x, next.y);
         }
@@ -418,20 +400,20 @@ public class GestureImageViewTouchListener implements OnTouchListener {
         float diffX = (current.x - last.x);
         float diffY = (current.y - last.y);
 
-        if(diffX != 0 || diffY != 0) {
+        if (diffX != 0 || diffY != 0) {
 
-            if(canDragX) next.x += diffX;
-            if(canDragY) next.y += diffY;
+            if (canDragX) next.x += diffX;
+            if (canDragY) next.y += diffY;
 
             boundCoordinates();
 
             last.x = current.x;
             last.y = current.y;
 
-            if(canDragX || canDragY) {
+            if (canDragX || canDragY) {
                 image.setPosition(next.x, next.y);
 
-                if(imageListener != null) {
+                if (imageListener != null) {
                     imageListener.onPosition(next.x, next.y);
                 }
 
@@ -490,37 +472,35 @@ public class GestureImageViewTouchListener implements OnTouchListener {
     }
 
     protected void boundCoordinates() {
-        if(next.x < boundaryLeft) {
+        if (next.x < boundaryLeft) {
             next.x = boundaryLeft;
-        }
-        else if(next.x > boundaryRight) {
+        } else if (next.x > boundaryRight) {
             next.x = boundaryRight;
         }
 
-        if(next.y < boundaryTop) {
+        if (next.y < boundaryTop) {
             next.y = boundaryTop;
-        }
-        else if(next.y > boundaryBottom) {
+        } else if (next.y > boundaryBottom) {
             next.y = boundaryBottom;
         }
     }
 
     protected void calculateBoundaries() {
 
-        int effectiveWidth = Math.round( (float) imageWidth * currentScale );
-        int effectiveHeight = Math.round( (float) imageHeight * currentScale );
+        int effectiveWidth = Math.round((float) imageWidth * currentScale);
+        int effectiveHeight = Math.round((float) imageHeight * currentScale);
 
         canDragX = effectiveWidth > displayWidth;
         canDragY = effectiveHeight > displayHeight;
 
-        if(canDragX) {
-            float diff = (float)(effectiveWidth - displayWidth) / 2.0f;
+        if (canDragX) {
+            float diff = (float) (effectiveWidth - displayWidth) / 2.0f;
             boundaryLeft = centerX - diff;
             boundaryRight = centerX + diff;
         }
 
-        if(canDragY) {
-            float diff = (float)(effectiveHeight - displayHeight) / 2.0f;
+        if (canDragY) {
+            float diff = (float) (effectiveHeight - displayHeight) / 2.0f;
             boundaryTop = centerY - diff;
             boundaryBottom = centerY + diff;
         }

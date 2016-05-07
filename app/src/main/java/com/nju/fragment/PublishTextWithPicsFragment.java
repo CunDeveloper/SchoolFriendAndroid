@@ -41,11 +41,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PublishTextWithPicsFragment extends BaseFragment {
-    public static final String TAG = PublishTextWithPicsFragment.class.getSimpleName() ;
+    public static final String TAG = PublishTextWithPicsFragment.class.getSimpleName();
     private boolean label = true;
     private boolean isEmotionOpen = true;
     private EditText mContentEditText;
-    private int  rootHeight = 0;
+    private int rootHeight = 0;
     private int subHeight = 0;
     private ArrayList<ImageWrapper> mUploadImgPaths;
     private SchoolFriendLayoutParams schoolFriendLayoutParams;
@@ -53,6 +53,23 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     private ArrayList<View> mSlideCircleViews;
     private int mSlidePosition = 0;
     private SchoolFriendDialog mDialog;
+    ResponseCallback callback = new ResponseCallback() {
+
+        @Override
+        public void onFail(Exception error) {
+            mDialog.dismiss();
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            Toast.makeText(getContext(), responseBody, Toast.LENGTH_LONG).show();
+            mDialog.dismiss();
+        }
+    };
+
+    public PublishTextWithPicsFragment() {
+        // Required empty public constructor
+    }
 
     public static PublishTextWithPicsFragment newInstance(ArrayList<ImageWrapper> uploadImgPaths) {
         PublishTextWithPicsFragment fragment = new PublishTextWithPicsFragment();
@@ -62,10 +79,6 @@ public class PublishTextWithPicsFragment extends BaseFragment {
         return fragment;
     }
 
-    public PublishTextWithPicsFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +86,13 @@ public class PublishTextWithPicsFragment extends BaseFragment {
             mUploadImgPaths = getArguments().getParcelableArrayList(TAG);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
-        view.setPadding(view.getPaddingLeft(),Divice.getStatusBarHeight(getActivity()),view.getPaddingRight(),view.getPaddingBottom());
-        mContentEditText = (EditText)view.findViewById(R.id.publish_wei_bo_content_editText);
+        View view = inflater.inflate(R.layout.fragment_publish_text_with_pics, container, false);
+        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
+        mContentEditText = (EditText) view.findViewById(R.id.publish_wei_bo_content_editText);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
         initViewPager(view);
         initOnGlobalListener(view);
@@ -115,19 +129,18 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
     private void initPicsGridView(View view) {
         GridView gridView = (GridView) view.findViewById(R.id.fragment_publish_text_with_pics_gridview);
-        NinePicsGridAdapter adapter = new NinePicsGridAdapter(getContext(),mUploadImgPaths);
+        NinePicsGridAdapter adapter = new NinePicsGridAdapter(getContext(), mUploadImgPaths);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(ChooseImageViewFragment.newInstance(mUploadImgPaths,position));
+                getHostActivity().open(ChooseImageViewFragment.newInstance(mUploadImgPaths, position));
             }
         });
     }
 
-
     private void initViewPager(View view) {
-        ViewPager viewPager = (ViewPager)view.findViewById(R.id.emotion_pager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
         viewPager.setAdapter(new EmotionPageAdapter(getFragmentManager(), TAG));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -149,41 +162,28 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
     }
 
-    ResponseCallback callback = new ResponseCallback() {
-
-        @Override
-        public void onFail(Exception error) {
-            mDialog.dismiss();
-        }
-
-        @Override
-        public void onSuccess(String responseBody) {
-            Toast.makeText(getContext(),responseBody,Toast.LENGTH_LONG).show();
-            mDialog.dismiss();
-        }
-    };
-
     private void initFinishBnEvent() {
         mFinishBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SoftInput.close(getContext(),mFinishBn);
-                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(),getString(R.string.uploading));
+                SoftInput.close(getContext(), mFinishBn);
+                mDialog = SchoolFriendDialog.showProgressDialogNoTitle(getContext(), getString(R.string.uploading));
                 mDialog.show();
-                SoftInput.close(getContext(),mFinishBn);
+                SoftInput.close(getContext(), mFinishBn);
                 String content = mContentEditText.getText().toString();
-                final HashMap<String,String> params = new HashMap<>();
+                final HashMap<String, String> params = new HashMap<>();
                 int user_id = getHostActivity().getSharedPreferences().getInt(Constant.USER_ID, 1);
-                params.put(Constant.USER_ID,String.valueOf(user_id));
+                params.put(Constant.USER_ID, String.valueOf(user_id));
                 params.put(Constant.CONTENT, StringBase64.encode(content));
                 final ArrayList<BitmapWrapper> bitmapWrappers = new ArrayList<>();
                 BitmapWrapper bitmapWrapper;
                 File sourceFile;
-                for (ImageWrapper image :mUploadImgPaths) {
+                for (ImageWrapper image : mUploadImgPaths) {
                     final String path = image.getPath();
                     bitmapWrapper = new BitmapWrapper();
                     sourceFile = new File(path);
-                    bitmapWrapper.setPath(path);bitmapWrapper.setFileName(sourceFile.getName());
+                    bitmapWrapper.setPath(path);
+                    bitmapWrapper.setFileName(sourceFile.getName());
                     try {
                         bitmapWrapper.setFileType(sourceFile.toURL().openConnection().getContentType());
                         bitmapWrappers.add(bitmapWrapper);
@@ -191,8 +191,8 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
-                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(),bitmapWrappers);
-                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL,params,bitmapWrapperArrayList,callback));
+                ArrayList<BitmapWrapper> bitmapWrapperArrayList = HttpManager.getInstance().compressBitmap(getContext(), bitmapWrappers);
+                HttpManager.getInstance().exeRequest(new MultiImgRequest(Constant.BASE_URL + Constant.PUBLISH_TEXT_WITH_PIC_URL, params, bitmapWrapperArrayList, callback));
 
             }
         });
@@ -200,9 +200,9 @@ public class PublishTextWithPicsFragment extends BaseFragment {
 
 
     private void initOnGlobalListener(View view) {
-        final LinearLayout mainLayout = (LinearLayout)view.findViewById(R.id.publish_wei_bo_main_layout);
-        final LinearLayout emoLineLayout = (LinearLayout)view.findViewById(R.id.emotion_layout);
-        final ScrollView  scrollView = (ScrollView)view.findViewById(R.id.publish_wei_bo_scroll_layout);
+        final LinearLayout mainLayout = (LinearLayout) view.findViewById(R.id.publish_wei_bo_main_layout);
+        final LinearLayout emoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
+        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.publish_wei_bo_scroll_layout);
         final AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_viewpager_appbar);
         mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -217,7 +217,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
                 } else if ((rootHeight - subHeight) < (rootHeight / 3) && isEmotionOpen) {
                     label = true;
                 } else if ((rootHeight - subHeight) > (rootHeight / 3)) {
-                    if(getHostActivity().isPhone()) {
+                    if (getHostActivity().isPhone()) {
                         scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParams(subHeight, 45, appBarLayout));
                     } else {
                         scrollView.setLayoutParams(schoolFriendLayoutParams.softInputParamsFrame(subHeight, 90));
@@ -229,7 +229,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     }
 
     private void initFloatingBn(View view) {
-        final TextView emotionView = (TextView)view.findViewById(R.id.emotion_icon);
+        final TextView emotionView = (TextView) view.findViewById(R.id.emotion_icon);
         emotionView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -256,7 +256,7 @@ public class PublishTextWithPicsFragment extends BaseFragment {
     }
 
     private void openChooseLocation(View view) {
-        TextView textView = (TextView)view.findViewById(R.id.publish_wei_bo_userloaction_text);
+        TextView textView = (TextView) view.findViewById(R.id.publish_wei_bo_userloaction_text);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

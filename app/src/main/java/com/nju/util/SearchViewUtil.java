@@ -15,8 +15,8 @@ import com.nju.fragment.BaseFragment;
  */
 public class SearchViewUtil {
 
-    public static void setUp(final BaseFragment fragment,View view ){
-        TextView textView = (TextView)fragment.getActivity().findViewById(R.id.main_viewpager_menu_more);
+    public static void setUp(final BaseFragment fragment, View view) {
+        TextView textView = (TextView) fragment.getActivity().findViewById(R.id.main_viewpager_menu_more);
         final LinearLayout searchLayout = (LinearLayout) view.findViewById(R.id.serarch_layout);
         final Button searchBn = (Button) view.findViewById(R.id.searchBn);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.mProgressBar);
@@ -39,7 +39,7 @@ public class SearchViewUtil {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                SoftInput.close(fragment.getContext(),searchBn);
+                SoftInput.close(fragment.getContext(), searchBn);
             }
         });
     }

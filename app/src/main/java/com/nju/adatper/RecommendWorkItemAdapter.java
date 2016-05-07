@@ -1,8 +1,5 @@
 package com.nju.adatper;
 
-import android.content.Context;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.nju.activity.MessageContentIdEvent;
 import com.nju.activity.R;
+import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.RecommendWorkItemDetailFragment;
@@ -25,7 +22,6 @@ import com.nju.util.StringBase64;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by xiaojuzhang on 2016/3/14.
@@ -74,9 +70,9 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
         final RecommendWork recommendWork = mRecommendWorks.get(position);
         int author_id = recommendWork.getAuthorInfo().getAuthorId();
-        if (author_id == mFragment.getHostActivity().userId()){
+        if (author_id == mFragment.getHostActivity().userId()) {
             holder.deleteTV.setText(Constant.DELETE);
-        }else {
+        } else {
             holder.deleteTV.setText("");
         }
         holder.deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -97,16 +93,15 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
             }
         });
         holder.usernameTx.setText(recommendWork.getAuthor().getAuthorName());
-        try{
+        try {
             holder.contentTV.setText(StringBase64.decode(recommendWork.getContent()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
-        if (recommendWork.getImgPaths() == null){
-            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH,Constant.EMPTY));
-        }
-        else {
-            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(),PathConstant.ALUMNI_RECOMMEND_IMG_PATH,recommendWork.getImgPaths().split(",")));
+        if (recommendWork.getImgPaths() == null) {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH, Constant.EMPTY));
+        } else {
+            holder.gridView.setAdapter(new ThreePicsAdapter(mFragment.getContext(), PathConstant.ALUMNI_RECOMMEND_IMG_PATH, recommendWork.getImgPaths().split(",")));
         }
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

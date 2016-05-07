@@ -26,20 +26,20 @@ public class AlumniVoiceDbService {
     }
 
     public void save(ArrayList<AlumniVoice> alumniVoices) {
-        db.execSQL(Constant.DELETE_FROM+AlumniVoiceEntity.TABLE_NAME);
+        db.execSQL(Constant.DELETE_FROM + AlumniVoiceEntity.TABLE_NAME);
         ContentValues contentValues;
-        for (AlumniVoice  alumniVoice:alumniVoices){
+        for (AlumniVoice alumniVoice : alumniVoices) {
             contentValues = new ContentValues();
-            contentValues.put(AlumniVoiceEntity.ID,alumniVoice.getId());
+            contentValues.put(AlumniVoiceEntity.ID, alumniVoice.getId());
             final String json = gson.toJson(alumniVoice);
-            contentValues.put(AlumniVoiceEntity.CONTENT,json);
-            db.replace(AlumniVoiceEntity.TABLE_NAME,null,contentValues);
+            contentValues.put(AlumniVoiceEntity.CONTENT, json);
+            db.replace(AlumniVoiceEntity.TABLE_NAME, null, contentValues);
         }
     }
 
-    public ArrayList<AlumniVoice> getAlumniVoice(){
-        ArrayList<AlumniVoice>  alumniVoices = new ArrayList<>();
-        String[] projection ={
+    public ArrayList<AlumniVoice> getAlumniVoice() {
+        ArrayList<AlumniVoice> alumniVoices = new ArrayList<>();
+        String[] projection = {
                 AlumniVoiceEntity.CONTENT
         };
         Cursor cursor = db.query(
@@ -52,9 +52,9 @@ public class AlumniVoiceDbService {
                 null
         );
         int contentId = cursor.getColumnIndex(AlumniVoiceEntity.CONTENT);
-        AlumniVoice  alumniVoice;
+        AlumniVoice alumniVoice;
         while (cursor.moveToNext()) {
-            alumniVoice = (AlumniVoice) gson.fromJson(cursor.getString(contentId),AlumniVoice.class);
+            alumniVoice = (AlumniVoice) gson.fromJson(cursor.getString(contentId), AlumniVoice.class);
             alumniVoices.add(alumniVoice);
         }
         cursor.close();

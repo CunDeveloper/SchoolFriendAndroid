@@ -5,12 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.nju.fragment.BaseFragment;
 import com.nju.util.Constant;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -18,10 +16,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Fragment
 
     private static final String TAG = BaseFragment.class.getSimpleName();
     protected LocalStack<BaseFragment> mLocalBackStack = new LocalStack<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public LocalStack<BaseFragment> getBackStack() {
         return mLocalBackStack;
@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Fragment
     }
 
     @Override
-    public SharedPreferences getSharedPreferences(){
+    public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(Constant.SCHOOL_FRIEND_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 

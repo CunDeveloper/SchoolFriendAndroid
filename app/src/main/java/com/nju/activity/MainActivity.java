@@ -25,6 +25,7 @@ import com.nju.View.RoundedTransformation;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.event.MessageEventMore;
+import com.nju.event.NetworkStateChanged;
 import com.nju.fragment.AlumniDynamicFragment;
 import com.nju.fragment.AlumniVoiceFragment;
 import com.nju.fragment.AskCollectFragment;
@@ -63,46 +64,46 @@ import java.util.Set;
 public class MainActivity extends BaseActivity {
     private static final String WX_APPID = "wx0e7d0e1f21f36288";
     private static final String WX_APP_SECRET = "0fb14de9a1832a7741f2caee321e89a1";
-    private static final String TAG = MainActivity.class.getSimpleName() ;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String FINAL_TAG = "final_tag";
+    private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
+    private static boolean isPhone;
+    private static String token = null;
+    int fragmentIndex = 0;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolBar;
     private Button mMenuBn;
-    private ImageView mMenuCameraView,mNavHeadImg;
-    private TextView mMenuDeleteView,mNavNameTV;
-
-    private LinearLayout mNoActionBarLinearLayout,mNoActionBarRecommendWorkLinearLayout;
-    private static boolean isPhone;
-    private static final String FINAL_TAG = "final_tag";
-    private ArrayList<View> actionBarViews = new ArrayList<>() ;
-    int fragmentIndex = 0;
-    private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
-    private static String token = null;
+    private ImageView mMenuCameraView, mNavHeadImg;
+    private TextView mMenuDeleteView, mNavNameTV;
+    private LinearLayout mNoActionBarLinearLayout, mNoActionBarRecommendWorkLinearLayout;
+    private ArrayList<View> actionBarViews = new ArrayList<>();
     private IWXAPI api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mint.setApplicationEnvironment(Mint.appEnvironmentStaging);
         Mint.initAndStartSession(MainActivity.this, "378226b0");
-        api = WXAPIFactory.createWXAPI(this,WX_APPID,true);
+        api = WXAPIFactory.createWXAPI(this, WX_APPID, true);
         api.registerApp(WX_APPID);
         setContentView(R.layout.activity_main);
         initView();
         initNavigationViewListener();
         initDataBase();
-        int isAuthorization = getSharedPreferences().getInt(getString(R.string.is_authorization),0);
-        if (token().equals("")){
+        int isAuthorization = getSharedPreferences().getInt(getString(R.string.is_authorization), 0);
+        if (token().equals("")) {
             XueXinAuthFragment fragment = XueXinAuthFragment.newInstance(getString(R.string.noToken));
             open(fragment, true, fragment);
-        } else if (isAuthorization == 0){
+        } else if (isAuthorization == 0) {
             XueXinAuthFragment fragment = XueXinAuthFragment.newInstance(getString(R.string.hasToken));
             open(fragment, true, fragment);
-        } else if (isAuthorization == 1){
+        } else if (isAuthorization == 1) {
             open(AlumniDynamicFragment.newInstance());
         }
     }
 
-    private void initView(){
+    private void initView() {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,11 +113,14 @@ public class MainActivity extends BaseActivity {
         mMenuCameraView = (ImageView) findViewById(R.id.main_viewpager_camera_imageView);
         mNoActionBarLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_bar_layout);
         mNoActionBarRecommendWorkLinearLayout = (LinearLayout) findViewById(R.id.main_viewpager_no_action_recommend_work_layout);
-        actionBarViews.add(mMenuBn);actionBarViews.add(mMenuDeleteView);actionBarViews.add(mMenuCameraView);
-        actionBarViews.add(mNoActionBarLinearLayout);actionBarViews.add(mNoActionBarRecommendWorkLinearLayout);
+        actionBarViews.add(mMenuBn);
+        actionBarViews.add(mMenuDeleteView);
+        actionBarViews.add(mMenuCameraView);
+        actionBarViews.add(mNoActionBarLinearLayout);
+        actionBarViews.add(mNoActionBarRecommendWorkLinearLayout);
         actionBarViews.add(findViewById(R.id.main_viewpager_menu_more));
         CoordinatorLayout mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_Viewpager_content);
-        if (Build.VERSION.SDK_INT>19) {
+        if (Build.VERSION.SDK_INT > 19) {
             mCoordinatorLayout.setPadding(mCoordinatorLayout.getPaddingLeft(), Divice.getStatusBarHeight(this)
                     , mCoordinatorLayout.getPaddingRight(), mCoordinatorLayout.getBottom());
         }
@@ -142,7 +146,7 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
     }
 
-    private void initNavigationViewListener () {
+    private void initNavigationViewListener() {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -177,31 +181,35 @@ public class MainActivity extends BaseActivity {
     private void initFinalValue() {
         final int deviceWidth = Divice.getDisplayWidth(this);
         final int deviceHeight = Divice.getDisplayHeight(this);
-        final int visibleDeviceHeight = deviceHeight -(int)( Divice.convertDpToPixel(mToolBar.getHeight(),this)
-                        +Divice.getStatusBarHeight(this));
+        final int visibleDeviceHeight = deviceHeight - (int) (Divice.convertDpToPixel(mToolBar.getHeight(), this)
+                + Divice.getStatusBarHeight(this));
         getSharedPreferences().edit().putInt(getString(R.string.diviceWidth), deviceWidth).commit();
         getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight).commit();
         getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight), visibleDeviceHeight).commit();
 
         //for only test
-        Set<String> levels = new HashSet<>();levels.add("本科");levels.add("所有");levels.add("硕士");
+        Set<String> levels = new HashSet<>();
+        levels.add("本科");
+        levels.add("所有");
+        levels.add("硕士");
         Set<String> degrees = new HashSet<>();
-        degrees.add("本科;2010");degrees.add("硕士;2014");
+        degrees.add("本科;2010");
+        degrees.add("硕士;2014");
         getSharedPreferences().edit().putStringSet(Constant.DEGREES, degrees).commit();
-        getSharedPreferences().edit().putStringSet(getString(R.string.level),levels).commit();
+        getSharedPreferences().edit().putStringSet(getString(R.string.level), levels).commit();
 
         //设置推荐工作的默认查询参数
         setRecommendWorkDefaultQueryParam();
     }
 
-    private void setRecommendWorkDefaultQueryParam(){
-        Set<String> levels = getSharedPreferences().getStringSet(getString(R.string.level),new HashSet<String>());
-        if (levels.size() == 4){
-            getSharedPreferences().edit().putString(Constant.DEGREE,Constant.DOCTOR);
-        }else if (levels.size() == 3){
-            getSharedPreferences().edit().putString(Constant.DEGREE,Constant.MASTER);
-        }else {
-            getSharedPreferences().edit().putString(Constant.DEGREE,Constant.UNDERGRADUATE);
+    private void setRecommendWorkDefaultQueryParam() {
+        Set<String> levels = getSharedPreferences().getStringSet(getString(R.string.level), new HashSet<String>());
+        if (levels.size() == 4) {
+            getSharedPreferences().edit().putString(Constant.DEGREE, Constant.DOCTOR);
+        } else if (levels.size() == 3) {
+            getSharedPreferences().edit().putString(Constant.DEGREE, Constant.MASTER);
+        } else {
+            getSharedPreferences().edit().putString(Constant.DEGREE, Constant.UNDERGRADUATE);
         }
         getSharedPreferences().edit().putString(Constant.WORK_TYP, 0 + "");
     }
@@ -225,13 +233,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void open(BaseFragment fragment) {
-        open(fragment,false,null);
+        open(fragment, false, null);
     }
 
     @Override
     public void open(BaseFragment fragment, boolean clearBackStack, Fragment fragmentToRemove) {
 
-        if (fragment.getClass().getSimpleName().equals(CircleImageViewFragment.TAG)){
+        if (fragment.getClass().getSimpleName().equals(CircleImageViewFragment.TAG)) {
             Divice.hideStatusBar(this);
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -293,15 +301,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public LinearLayout getRecommendLayout() {
-        return (LinearLayout)findViewById(R.id.main_viewpager_no_action_recommend_work_layout);
+        return (LinearLayout) findViewById(R.id.main_viewpager_no_action_recommend_work_layout);
     }
 
     @Override
     public void display(int target) {
-        for (int i=0;i<actionBarViews.size();i++){
-            if(target == i){
+        for (int i = 0; i < actionBarViews.size(); i++) {
+            if (target == i) {
                 actionBarViews.get(i).setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 actionBarViews.get(i).setVisibility(View.GONE);
             }
         }
@@ -315,12 +323,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public String token() {
-        return getSharedPreferences().getString(Constant.AUTHORIZATION,"").trim();
+        return getSharedPreferences().getString(Constant.AUTHORIZATION, "").trim();
     }
 
     @Override
     public int userId() {
-        return getSharedPreferences().getInt(Constant.USER_ID,0);
+        return getSharedPreferences().getInt(Constant.USER_ID, 0);
     }
 
     @Override
@@ -356,11 +364,11 @@ public class MainActivity extends BaseActivity {
             return;
         }
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (mLocalBackStack.size() >=2) {
+        if (mLocalBackStack.size() >= 2) {
             BaseFragment fragment = mLocalBackStack.peek();
             if (fragment instanceof PublishDynamicFragment || fragment instanceof AskPublishFragment
                     || fragment instanceof PublishVoiceFragment || fragment instanceof RecommendPublishFragment) {
-                SchoolFriendDialog dialog = SchoolFriendDialog.exitReminderDialog(this,getString(R.string.are_you_sure_exit_this_eidt));
+                SchoolFriendDialog dialog = SchoolFriendDialog.exitReminderDialog(this, getString(R.string.are_you_sure_exit_this_eidt));
                 dialog.getBuilder().onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
@@ -370,50 +378,49 @@ public class MainActivity extends BaseActivity {
                     }
                 });
                 dialog.show();
-            } else if (fragment instanceof RecommendCollectFragment){
+            } else if (fragment instanceof RecommendCollectFragment) {
                 RecommendCollectFragment collectFragment = (RecommendCollectFragment) fragment;
-                if (collectFragment.isMore()){
+                if (collectFragment.isMore()) {
                     EventBus.getDefault().post(new MessageEventMore(""));
-                }else {
+                } else {
                     mLocalBackStack.pop();
-                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.replace(R.id.container, mLocalBackStack.peek());
                     ft.commit();
                 }
-            }else if (fragment instanceof AskCollectFragment){
+            } else if (fragment instanceof AskCollectFragment) {
                 AskCollectFragment collectFragment = (AskCollectFragment) fragment;
-                if (collectFragment.isMore()){
+                if (collectFragment.isMore()) {
                     EventBus.getDefault().post(new MessageEventMore(""));
-                }else {
+                } else {
                     mLocalBackStack.pop();
-                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.replace(R.id.container, mLocalBackStack.peek());
                     ft.commit();
                 }
-            }else if (fragment instanceof VoiceCollectFragment){
+            } else if (fragment instanceof VoiceCollectFragment) {
                 VoiceCollectFragment collectFragment = (VoiceCollectFragment) fragment;
-                if (collectFragment.isMore()){
+                if (collectFragment.isMore()) {
                     EventBus.getDefault().post(new MessageEventMore(""));
-                }else {
+                } else {
                     mLocalBackStack.pop();
-                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.replace(R.id.container, mLocalBackStack.peek());
                     ft.commit();
                 }
-            }else if (fragment instanceof DynamicCollectFragment){
+            } else if (fragment instanceof DynamicCollectFragment) {
                 DynamicCollectFragment collectFragment = (DynamicCollectFragment) fragment;
-                if (collectFragment.isMore()){
+                if (collectFragment.isMore()) {
                     EventBus.getDefault().post(new MessageEventMore(""));
-                }else {
+                } else {
                     mLocalBackStack.pop();
-                    ft.replace(R.id.container,mLocalBackStack.peek());
+                    ft.replace(R.id.container, mLocalBackStack.peek());
                     ft.commit();
                 }
-            }
-            else {
+            } else {
                 mLocalBackStack.pop();
-                ft.replace(R.id.container,mLocalBackStack.peek());
+                ft.replace(R.id.container, mLocalBackStack.peek());
                 ft.commit();
             }
-            }
         }
+    }
 
 
     private void clearBackStack() {
@@ -427,19 +434,19 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void initDataBase(){
+    private void initDataBase() {
         SchoolFriendDbHelper.newInstance(this);
     }
 
     @Subscribe
-    public void onNetStateMessageState(NetworkStateChanged event){
-        if (! event.isInternetConnected()){
-            ToastUtil.showShortText(this,getString(R.string.network_connect_unavaible));
+    public void onNetStateMessageState(NetworkStateChanged event) {
+        if (!event.isInternetConnected()) {
+            ToastUtil.showShortText(this, getString(R.string.network_connect_unavaible));
         }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }

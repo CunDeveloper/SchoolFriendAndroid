@@ -49,16 +49,16 @@ public class DateUtil {
         return 0;
     }
 
-    public static String getRelativeTimeSpanString(String date){
+    public static String getRelativeTimeSpanString(String date) {
         final long time = DateUtil.getTime(date);
         return DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
     }
 
-    public static String getNoZeroMonth(String month){
-        if (month.startsWith("0")){
-            return month.charAt(1)+Constant.MONTH;
+    public static String getNoZeroMonth(String month) {
+        if (month.startsWith("0")) {
+            return month.charAt(1) + Constant.MONTH;
         }
-        return month+Constant.MONTH;
+        return month + Constant.MONTH;
     }
 
 }

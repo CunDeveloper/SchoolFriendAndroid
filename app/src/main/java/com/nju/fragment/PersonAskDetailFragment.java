@@ -14,11 +14,11 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.nju.activity.NetworkInfoEvent;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.event.MessageEventId;
+import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
@@ -43,7 +43,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -53,42 +52,24 @@ public class PersonAskDetailFragment extends BaseFragment {
     private AlumniQuestion mAlumniQuestion;
     private ArrayList<ContentComment> mContentComments;
     private CommentAdapter mCommentAdapter;
-    private EditText mContentEditText ;
-    private PostRequestJson mRequestSaveJson,mRequestQueryJson;
+    private EditText mContentEditText;
+    private PostRequestJson mRequestSaveJson, mRequestQueryJson;
     private View mMainView;
     private int commentType = 0;
-
-    private ResponseCallback saveCallback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)){
-                Log.e(TAG, error.getMessage());
-            }
-        }
-        @Override
-        public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)){
-                Log.i(TAG, responseBody);
-                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
-                mRequestQueryJson = MajorAskService.queryComment(PersonAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
-            }
-        }
-    };
-
-
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)) {
                 Log.e(TAG, error.getMessage());
             }
         }
+
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)){
+            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 try {
-                    Object object = new ParseResponse().getInfo(responseBody,ContentComment.class);
+                    Object object = new ParseResponse().getInfo(responseBody, ContentComment.class);
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
@@ -107,17 +88,34 @@ public class PersonAskDetailFragment extends BaseFragment {
             }
         }
     };
+    private ResponseCallback saveCallback = new ResponseCallback() {
+        @Override
+        public void onFail(Exception error) {
+            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)) {
+                Log.e(TAG, error.getMessage());
+            }
+        }
+
+        @Override
+        public void onSuccess(String responseBody) {
+            if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)) {
+                Log.i(TAG, responseBody);
+                ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
+                mRequestQueryJson = MajorAskService.queryComment(PersonAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
+            }
+        }
+    };
+
+    public PersonAskDetailFragment() {
+        // Required empty public constructor
+    }
 
     public static PersonAskDetailFragment newInstance(AlumniQuestion alumniQuestion) {
         PersonAskDetailFragment fragment = new PersonAskDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable(PARAM_KEY,alumniQuestion);
+        args.putParcelable(PARAM_KEY, alumniQuestion);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public PersonAskDetailFragment() {
-        // Required empty public constructor
     }
 
     @Subscribe
@@ -128,7 +126,7 @@ public class PersonAskDetailFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessageEvent(MessageEventId event){
+    public void onMessageEvent(MessageEventId event) {
         commentType = event.getId();
         final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
         final LinearLayout linearLayout = (LinearLayout) mMainView.findViewById(R.id.new_comment_layout);
@@ -156,7 +154,7 @@ public class PersonAskDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.own_major_ask);
         }
@@ -171,22 +169,22 @@ public class PersonAskDetailFragment extends BaseFragment {
         mMainView = view;
         view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
         initView(view);
-        mContentEditText = CommentUtil.getCommentEdit(this,view);
+        mContentEditText = CommentUtil.getCommentEdit(this, view);
         return view;
     }
 
-    private void initView(final View view){
+    private void initView(final View view) {
         TextView problemTV = (TextView) view.findViewById(R.id.problem_tv);
-        try{
+        try {
             problemTV.setText(StringBase64.decode(mAlumniQuestion.getProblem()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             problemTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView descTV = (TextView) view.findViewById(R.id.description_tv);
 
-        try{
+        try {
             descTV.setText(StringBase64.decode(mAlumniQuestion.getDescription()));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             descTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
@@ -212,9 +210,9 @@ public class PersonAskDetailFragment extends BaseFragment {
         });
         mRequestQueryJson = MajorAskService.queryComment(PersonAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        if (mAlumniQuestion.getImgPaths() != null){
-            Log.e(TAG,mAlumniQuestion.getImgPaths());
-            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH,mAlumniQuestion.getImgPaths().split(",")));
+        if (mAlumniQuestion.getImgPaths() != null) {
+            Log.e(TAG, mAlumniQuestion.getImgPaths());
+            listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_QUESTION_IMG_PATH, mAlumniQuestion.getImgPaths().split(",")));
         }
     }
 
@@ -225,7 +223,7 @@ public class PersonAskDetailFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
         if (mRequestSaveJson != null)
