@@ -25,7 +25,6 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.ContentComment;
 import com.nju.service.MajorAskService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
 import com.nju.util.Constant;
@@ -192,7 +191,7 @@ public class PersonAskDetailFragment extends BaseFragment {
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mAlumniQuestion.getDate()));
         final ListView commentListView = (ListView) view.findViewById(R.id.new_comment_listview);
-        mContentComments = TestData.getComments();
+        mContentComments =  new ArrayList<>();
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         commentListView.setAdapter(mCommentAdapter);
         Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);

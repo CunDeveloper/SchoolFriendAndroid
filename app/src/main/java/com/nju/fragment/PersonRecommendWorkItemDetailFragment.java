@@ -26,7 +26,6 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
 import com.nju.model.RecommendWork;
 import com.nju.service.RecommendWorkService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
 import com.nju.util.Constant;
@@ -278,7 +277,7 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         nameTV.setText(mRecommendWork.getAuthor().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
         labelTV.setText(mRecommendWork.getAuthor().getLabel());
-        mContentComments = TestData.getComments();
+        mContentComments =  new ArrayList<>();
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         newListView.setAdapter(mCommentAdapter);

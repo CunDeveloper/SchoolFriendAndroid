@@ -15,7 +15,6 @@ import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.model.AlumniVoice;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ToastUtil;
@@ -88,7 +87,7 @@ public class AlumniVoiceItemFragment extends BaseFragment {
 
 
     private void initListView(View view) {
-        voices = TestData.getVoicesData();
+        voices = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.alumni_voice_item_list);
         AlumniVoiceItemAdapter adapter = new AlumniVoiceItemAdapter(this, voices);
         listView.setAdapter(adapter);

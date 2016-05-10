@@ -34,7 +34,6 @@ import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.ContentComment;
 import com.nju.service.MajorAskService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
 import com.nju.util.Constant;
@@ -260,7 +259,7 @@ public class MajorAskDetailFragment extends BaseFragment {
         nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mAlumniQuestion.getDate()));
-        mContentComments = TestData.getComments();
+        mContentComments = new ArrayList<>();
         final ListView commentListView = (ListView) view.findViewById(R.id.new_comment_listview);
         commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

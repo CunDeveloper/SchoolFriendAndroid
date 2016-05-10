@@ -23,7 +23,6 @@ import com.nju.model.AlumniVoice;
 import com.nju.model.EntryDate;
 import com.nju.model.MyVoice;
 import com.nju.service.AlumniVoiceService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -198,7 +197,7 @@ public class MyVoiceFragment extends BaseFragment {
 
 
     private void initListView(View view) {
-        mAlumniVoices = TestData.getVoicesData();
+        mAlumniVoices =  new ArrayList<>();
         mListView = (ListView) view.findViewById(R.id.listView);
         new ListViewHead(this).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);

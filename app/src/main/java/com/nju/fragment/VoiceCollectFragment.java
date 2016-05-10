@@ -19,7 +19,6 @@ import com.nju.db.db.service.AlumniVoiceCollectDbService;
 import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.AlumniVoice;
-import com.nju.test.TestData;
 import com.nju.util.Divice;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,7 +76,7 @@ public class VoiceCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view) {
-        mCollectVoices = TestData.getVoicesData();
+        mCollectVoices =  new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mVoiceCollectAdapter = new VoiceCollectAdapter(getContext(), mCollectVoices);
         listView.setAdapter(mVoiceCollectAdapter);

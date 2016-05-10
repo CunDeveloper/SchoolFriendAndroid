@@ -138,9 +138,9 @@ public class PersonCircleFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Content content = mDecodeContents.get(position);
                 if (content.getIs_contain_image() > 0) {
-                    getHostActivity().open(PersonCircleDetailPicFragment.newInstance(mContainPicContentList, position));
+                   // getHostActivity().open(PersonCircleDetailPicFragment.newInstance(mContainPicContentList, position));
                 } else {
-                    getHostActivity().open(PersonCircleDetailFragment.newInstance(content));
+                   // getHostActivity().open(PersonCircleDetailFragment.newInstance(content));
                 }
 
             }

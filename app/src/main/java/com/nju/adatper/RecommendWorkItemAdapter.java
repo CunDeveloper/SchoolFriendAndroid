@@ -12,6 +12,7 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.RecommendWorkItemDetailFragment;
 import com.nju.model.RecommendWork;
@@ -94,6 +95,12 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
             }
         });
         holder.usernameTx.setText(recommendWork.getAuthor().getAuthorName());
+        holder.usernameTx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.getHostActivity().open(CircleFragment.newInstance(recommendWork.getAuthorInfo()));
+            }
+        });
         try {
             holder.contentTV.setText(StringBase64.decode(recommendWork.getContent()));
         } catch (IllegalArgumentException e) {

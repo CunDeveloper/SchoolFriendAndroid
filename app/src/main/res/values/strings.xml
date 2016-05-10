@@ -237,5 +237,6 @@
     <string name="head_url_filename">head_url_filename</string>
     <string name="file_save_to">文件保存到</string>
     <string name="complain_finish_wait_consume">投诉完成,等待处理</string>
+    <string name="current_no_current">暂无任何评论</string>
 
 </resources>

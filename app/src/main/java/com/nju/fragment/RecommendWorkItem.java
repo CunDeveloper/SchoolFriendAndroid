@@ -20,7 +20,6 @@ import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.model.RecommendWork;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
@@ -112,7 +111,7 @@ public class RecommendWorkItem extends BaseFragment {
     }
 
     private void initListView(View view) {
-        recommendWorks = TestData.getRecommendWorks();
+        recommendWorks =  new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.fragment_recommend_work_item_listview);
         listView.setAdapter(new RecommendWorkItemAdapter(this, recommendWorks));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

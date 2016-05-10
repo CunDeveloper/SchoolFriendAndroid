@@ -23,7 +23,6 @@ import com.nju.model.AlumniQuestion;
 import com.nju.model.EntryDate;
 import com.nju.model.MyAsk;
 import com.nju.service.MajorAskService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
@@ -185,7 +184,7 @@ public class MyAskFragment extends BaseFragment {
 
 
     private void initListView(View view) {
-        alumniQuestions = TestData.getQlumniQuestions();
+        alumniQuestions = new ArrayList<>();
         initMap();
         mListView = (ListView) view.findViewById(R.id.listView);
         new ListViewHead(this).setUp(mListView);

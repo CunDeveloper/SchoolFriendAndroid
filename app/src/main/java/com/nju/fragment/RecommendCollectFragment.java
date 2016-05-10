@@ -19,7 +19,6 @@ import com.nju.db.db.service.RecommendWorkCollectDbService;
 import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.RecommendWork;
-import com.nju.test.TestData;
 import com.nju.util.Divice;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,7 +75,7 @@ public class RecommendCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view) {
-        mRecommendWorks = TestData.getRecommendWorks();
+        mRecommendWorks =  new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mRecommendWorkCollectAdapter = new RecommendWorkCollectAdapter(getContext(), mRecommendWorks);
         listView.setAdapter(mRecommendWorkCollectAdapter);

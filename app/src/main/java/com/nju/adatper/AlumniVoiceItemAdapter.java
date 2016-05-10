@@ -15,6 +15,7 @@ import com.nju.activity.R;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.AlumniVoiceItemDetailFragment;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.model.AlumniVoice;
 import com.nju.util.Constant;
@@ -90,6 +91,12 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         });
 
         HeadIcon.setUp(holder.headImg, voice.getAuthorInfo());
+        holder.headImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.getHostActivity().open(CircleFragment.newInstance(voice.getAuthorInfo()));
+            }
+        });
         holder.commentTV.setText(voice.getCommentCount() + "");
         holder.praiseCountTV.setText(voice.getPraiseCount() + "");
         try {
@@ -108,6 +115,12 @@ public class AlumniVoiceItemAdapter extends BaseAdapter {
         holder.dateTV.setText(date);
         holder.labelTV.setText(voice.getAuthorInfo().getLabel());
         holder.nameTV.setText(voice.getAuthorInfo().getAuthorName());
+        holder.nameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.getHostActivity().open(CircleFragment.newInstance(voice.getAuthorInfo()));
+            }
+        });
         try {
             holder.simpleDescTV.setText(StringBase64.decode(voice.getContent()));
         } catch (IllegalArgumentException e) {

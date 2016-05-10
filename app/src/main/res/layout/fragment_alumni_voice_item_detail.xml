@@ -6,7 +6,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
         android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -158,6 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/phone_apadding"
+                        android:textColor="@color/light_blue"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:id="@+id/delete_tv"
                         android:layout_alignBottom="@+id/alumni_vo_date"

@@ -13,6 +13,7 @@ import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.event.MessageContentIdEvent;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.CircleFragment;
 import com.nju.fragment.CircleImageViewFragment;
 import com.nju.fragment.MajorAskDetailFragment;
 import com.nju.model.AlumniQuestion;
@@ -93,6 +94,12 @@ public class MajorAskAdapter extends BaseAdapter {
             }
         });
         holder.nameTV.setText(alumniQuestion.getAuthor().getAuthorName());
+        holder.nameTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.getHostActivity().open(CircleFragment.newInstance(alumniQuestion.getAuthor()));
+            }
+        });
         final long time = DateUtil.getTime(alumniQuestion.getDate());
         final String date = DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
         holder.dateTV.setText(date);

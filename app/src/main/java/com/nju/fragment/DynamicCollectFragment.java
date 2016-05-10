@@ -17,7 +17,6 @@ import com.nju.adatper.DynamicCollectAdapter;
 import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.DynamicCollect;
-import com.nju.test.TestData;
 import com.nju.util.Divice;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,7 +110,7 @@ public class DynamicCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view) {
-        mDynamicCollects = TestData.getDynamicCollects();
+        mDynamicCollects = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mDynamicCollectAdapter = new DynamicCollectAdapter(getContext(), mDynamicCollects);
         listView.setAdapter(mDynamicCollectAdapter);

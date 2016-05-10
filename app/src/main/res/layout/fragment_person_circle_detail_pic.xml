@@ -18,8 +18,8 @@
     <com.nju.View.SchoolFriendTextView
         android:id="@+id/fragment_person_circle_detail_pic_content_tv"
         android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/phone_apadding"
         android:layout_height="wrap_content"
-
         android:textColor="@android:color/white"
         android:textStyle="bold"
         />
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="@dimen/phone_apadding"
             android:layout_marginEnd="@dimen/phone_apadding"
             android:text="@string/comment_icon"
             android:textColor="@android:color/white"

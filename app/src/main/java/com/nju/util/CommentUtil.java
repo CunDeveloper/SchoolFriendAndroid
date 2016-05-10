@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class CommentUtil {
 
     public static void hideSoft(final Context context, View view) {
-
         View mView = view.findViewById(R.id.re_work_item_detail_hide_layout);
         final TextView mEmotionTv = (TextView) view.findViewById(R.id.comment_emotion);
         final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
@@ -55,6 +54,39 @@ public class CommentUtil {
         });
     }
 
+    public static void hideEmotionAndSoft(final Context context, View view) {
+        final View mView = view.findViewById(R.id.re_work_item_detail_hide_layout);
+        final TextView mEmotionTv = (TextView) view.findViewById(R.id.comment_emotion);
+        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
+        final RelativeLayout hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SoftInput.close(context, hideReLayout);
+                mEmotionLineLayout.setVisibility(View.GONE);
+                mView.setVisibility(View.GONE);
+            }
+        });
+
+        mEmotionTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mEmotionLineLayout.getVisibility() == View.GONE) {
+                    SoftInput.close(context, mEmotionTv);
+                    mEmotionLineLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mEmotionLineLayout.setVisibility(View.VISIBLE);
+                        }
+                    }, 200);
+                } else {
+                    SoftInput.open(context);
+                    mEmotionLineLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
     public static RelativeLayout getHideLayout(View view) {
         return (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
     }
@@ -64,23 +96,6 @@ public class CommentUtil {
         viewPager.setAdapter(new EmotionPageAdapter(fragment.getChildFragmentManager(), fragment.getClass().getSimpleName()));
     }
 
-//    public static EditText getCommentEdit(final  View view) {
-//        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
-//        EditText editText = (EditText) view.findViewById(R.id.comment_edittext);
-//        editText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mEmotionLineLayout.setVisibility(View.GONE);
-//            }
-//        });
-//        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                mEmotionLineLayout.setVisibility(View.GONE);
-//            }
-//        });
-//        return editText;
-//    }
 
     public static EditText getCommentEdit(BaseFragment fragment, final View view) {
         hideSoft(fragment.getContext(), view);
@@ -98,6 +113,30 @@ public class CommentUtil {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 mEmotionLineLayout.setVisibility(View.GONE);
+            }
+        });
+        return editText;
+    }
+
+    public static EditText getCommentEditWithEmotion(BaseFragment fragment, final View view) {
+        hideEmotionAndSoft(fragment.getContext(), view);
+        initViewPager(fragment, view);
+        addViewPageEvent(fragment.getContext(), view);
+        final View mView = view.findViewById(R.id.re_work_item_detail_hide_layout);
+        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
+        EditText editText = (EditText) view.findViewById(R.id.comment_edittext);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEmotionLineLayout.setVisibility(View.GONE);
+                mView.setVisibility(View.VISIBLE);
+            }
+        });
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                mEmotionLineLayout.setVisibility(View.GONE);
+                mView.setVisibility(View.VISIBLE);
             }
         });
         return editText;

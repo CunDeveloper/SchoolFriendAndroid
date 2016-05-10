@@ -28,10 +28,19 @@
             android:layout_toEndOf="@+id/textView34"
             />
     </RelativeLayout>
-    <com.nju.View.NonScrollableListView
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_marginStart="@dimen/padding_left"
         android:layout_marginEnd="@dimen/phone_apadding"
-        android:id="@+id/new_comment_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="@string/current_no_current"
+            android:layout_height="match_parent" />
+        <com.nju.View.NonScrollableListView
+            android:id="@+id/new_comment_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
 </LinearLayout>

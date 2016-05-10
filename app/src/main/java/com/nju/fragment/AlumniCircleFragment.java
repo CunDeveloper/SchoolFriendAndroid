@@ -23,7 +23,6 @@ import com.nju.adatper.EmotionPageAdapter;
 import com.nju.adatper.FriendContentAdapter;
 import com.nju.model.Comment;
 import com.nju.model.FriendWeibo;
-import com.nju.test.WeiBoData;
 import com.nju.util.Divice;
 import com.nju.util.SchoolFriendLayoutParams;
 import com.nju.util.SoftInput;
@@ -98,8 +97,8 @@ public class AlumniCircleFragment extends BaseFragment {
         mViewPager = (ViewPager) view.findViewById(R.id.emotion_pager);
         mEmoLineLayout = (LinearLayout) view.findViewById(R.id.emotion_layout);
         schoolFriendLayoutParams = new SchoolFriendLayoutParams(getActivity());
-        weibos = WeiBoData.weiBos(getActivity());
-        sumWeiBos = WeiBoData.weiBos(getActivity());
+        weibos =  new ArrayList<>();
+        sumWeiBos = new ArrayList<>();
         mFriendContentAdapter = new FriendContentAdapter(weibos, getActivity(), mHandler, mListView, this);
         mListView.setAdapter(mFriendContentAdapter);
         mListView.setPadding(mListView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mListView.getPaddingRight(), mListView.getPaddingBottom());

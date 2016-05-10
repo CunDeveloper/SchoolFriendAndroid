@@ -28,7 +28,6 @@ import com.nju.model.AlumniVoice;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
-import com.nju.test.TestData;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
 import com.nju.util.Constant;
@@ -239,7 +238,7 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         GridView gridView = (GridView) view.findViewById(R.id.new_gridview);
         gridView.setAdapter(new PraiseHeadAdapter(getContext()));
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
-        mContentComments = TestData.getComments();
+        mContentComments =  new ArrayList<>();
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         newListView.setAdapter(mCommentAdapter);
         Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);

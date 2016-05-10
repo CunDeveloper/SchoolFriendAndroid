@@ -62,7 +62,6 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/light_blue"
-                        android:text="1637269790@qq.com"
 
                         android:id="@+id/email_tv"
                         android:layout_alignParentTop="true"

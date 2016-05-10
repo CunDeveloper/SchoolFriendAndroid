@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MyRecommendFragment extends BaseFragment {
+public class  MyRecommendFragment extends BaseFragment {
     private static final String TAG = MyRecommendFragment.class.getSimpleName();
     private static final String PARAM_TITLE = "paramTitle";
     private static CharSequence mTitle;

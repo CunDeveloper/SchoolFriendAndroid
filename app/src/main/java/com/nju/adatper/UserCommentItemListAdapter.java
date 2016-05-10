@@ -42,7 +42,7 @@ public class UserCommentItemListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return "hello";
+        return "";
     }
 
     @Override
@@ -52,17 +52,24 @@ public class UserCommentItemListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment, parent, false);
-        TextView praiseTextView = (TextView) convertView.findViewById(R.id.user_comment_praise_text);
-        final TextView commentTextView = (TextView) convertView.findViewById(R.id.user_comment_comment_text);
-        praiseTextView.setOnClickListener(new View.OnClickListener() {
+        ViewHolder holder ;
+        if (convertView == null){
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.user_comment, parent, false);
+            holder.praiseTextView = (TextView) convertView.findViewById(R.id.user_comment_praise_text);
+            holder.commentTextView = (TextView) convertView.findViewById(R.id.user_comment_comment_text);
+            convertView.setTag(holder);
+        }
+
+        holder = (ViewHolder) convertView.getTag();
+        holder.praiseTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new PraiseEvent(mPosition));
                 mPopupWindow.dismiss();
             }
         });
-        commentTextView.setOnClickListener(new View.OnClickListener() {
+        holder.commentTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new CommentEvent(mPosition));
@@ -70,6 +77,10 @@ public class UserCommentItemListAdapter extends BaseAdapter {
             }
         });
         return convertView;
+    }
+
+    private class ViewHolder{
+        private TextView praiseTextView,commentTextView;
     }
 
 }

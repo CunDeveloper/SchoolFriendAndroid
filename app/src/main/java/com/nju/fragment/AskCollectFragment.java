@@ -19,7 +19,6 @@ import com.nju.db.db.service.MajorAskCollectDbService;
 import com.nju.event.MessageEvent;
 import com.nju.event.MessageEventMore;
 import com.nju.model.AlumniQuestion;
-import com.nju.test.TestData;
 import com.nju.util.Divice;
 
 import org.greenrobot.eventbus.EventBus;
@@ -108,7 +107,7 @@ public class AskCollectFragment extends BaseFragment {
     }
 
     private void initListView(View view) {
-        mAlumniQuestions = TestData.getQlumniQuestions();
+        mAlumniQuestions = new ArrayList<>();
         ListView listView = (ListView) view.findViewById(R.id.listView);
         mAskCollectAdapter = new AskCollectAdapter(getContext(), mAlumniQuestions);
         listView.setAdapter(mAskCollectAdapter);
