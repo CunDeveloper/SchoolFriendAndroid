@@ -73,11 +73,11 @@ public class MyAskFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
                         if (majorAsks.size() > 0) {
+                            alumniQuestions.clear();
                             for (Object obj : majorAsks) {
                                 AlumniQuestion majorAsk = (AlumniQuestion) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(majorAsk));
-                                if (!alumniQuestions.contains(majorAsk))
-                                    alumniQuestions.add(majorAsk);
+                                alumniQuestions.add(majorAsk);
                             }
 
                             int length = alumniQuestions.size();

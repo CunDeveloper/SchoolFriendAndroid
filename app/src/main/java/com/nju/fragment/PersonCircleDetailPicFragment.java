@@ -1,24 +1,24 @@
 package com.nju.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nju.View.SchoolFriendTextView;
 import com.nju.activity.R;
-import com.nju.model.AlumniQuestion;
+import com.nju.adatper.CircleImageViewAdapter;
+import com.nju.event.BitmapEvent;
 import com.nju.model.AlumniTalk;
 import com.nju.util.Constant;
+import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
+import com.nju.util.ToastUtil;
 
-import java.util.ArrayList;
-
-import model.Content;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class PersonCircleDetailPicFragment extends BaseFragment {
@@ -28,6 +28,7 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
     private static final String POSITION_PARAM = "position";
     private AlumniTalk  mTalk;
     private int mPosition;
+    private CircleImageViewAdapter mCircleImageViewAdapter;
 
     public PersonCircleDetailPicFragment() {
 
@@ -56,11 +57,28 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person_circle_detail_pic, container, false);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head);
-
         initView(view);
         return view;
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onMessageBitmapEvent(BitmapEvent event) {
+        mCircleImageViewAdapter.notifyDataSetChanged();
+    }
+
+
 
     private void initView(View view) {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_person_circle_detail_pic_viewpager);
@@ -71,7 +89,38 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
             }catch (IllegalArgumentException e){
                 contentTV.setText(Constant.UNKNOWN_CHARACTER);
             }
-
         }
+        assert mTalk != null;
+        mCircleImageViewAdapter = new CircleImageViewAdapter(getFragmentManager(),mTalk.getImagePaths().split(","), PathConstant.ALUMNI_TALK_IMG_PATH);
+        viewPager.setAdapter(mCircleImageViewAdapter);
+
+        LinearLayout detailLayout = (LinearLayout) view.findViewById(R.id.displayDetailLayout);
+        detailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHostActivity().open(PersonCircleDetailFragment.newInstance(mTalk));
+            }
+        });
+
+        LinearLayout praiseLayout = (LinearLayout) view.findViewById(R.id.praiseTv);
+        praiseLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShortText(getContext(),"praise");
+            }
+        });
+
+        LinearLayout commentLayout = (LinearLayout) view.findViewById(R.id.commentTv);
+        commentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShortText(getContext(), "COMMENT");
+            }
+        });
+
+        TextView commentCountTV = (TextView) view.findViewById(R.id.comment_number_tv);
+        commentCountTV.setText(mTalk.getCommentCount()+"");
+        TextView praiseCountTV = (TextView) view.findViewById(R.id.praise_number_tv);
+        praiseCountTV.setText(mTalk.getPraiseCount()+"");
     }
 }

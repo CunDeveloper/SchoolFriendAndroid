@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.nju.fragment.RecommendWorkItem;
+import com.nju.fragment.RecommendWorkItemFragment;
 
 ;
 
@@ -22,7 +22,7 @@ public class RecommendWorkAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return RecommendWorkItem.newInstance(mType[i]);
+        return RecommendWorkItemFragment.newInstance(mType[i]);
     }
 
     @Override

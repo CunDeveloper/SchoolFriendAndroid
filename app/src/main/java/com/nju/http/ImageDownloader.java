@@ -25,6 +25,7 @@ public class ImageDownloader {
     private static final String TAG = ImageDownloader.class.getSimpleName();
     private static ImageDownloader imageDownloader;
     private static CacheUtil cacheUtil;
+    private Object lock = new Object();
     private Bitmap mBitmap;
 
     private ImageDownloader(Context context) {
@@ -106,7 +107,7 @@ public class ImageDownloader {
     public synchronized Bitmap bitmap() {
         while (mBitmap == null) {
             try {
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -160,6 +161,7 @@ public class ImageDownloader {
         protected void onPostExecute(Bitmap bitmap) {
             ImageView imageView = imageViewReference.get();
             mBitmap = bitmap;
+
             if (imageView != null) {
                 BitmapDownloaderTask bitmapDownloaderTask = getBitmapDownloaderTask(imageView);
                 // Change bitmap only if this process is still associated with it

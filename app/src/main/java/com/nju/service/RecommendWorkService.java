@@ -141,4 +141,25 @@ public class RecommendWorkService {
         HttpManager.getInstance().exeRequest(mRequestQueryJson);
         return mRequestQueryJson;
     }
+
+    public static PostRequestJson queryCollects(BaseFragment fragment, Callback callback) {
+        final String json = QueryJson.emptyBodyToString(fragment);
+        String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_COLLECT + PathConstant.GET_RECOMMEND_COLLECT;
+        PostRequestJson mRequestQueryJson = new PostRequestJson(url, json, callback);
+        Log.e(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestQueryJson);
+        return mRequestQueryJson;
+    }
+
+    public static PostRequestJson deleteComment(BaseFragment fragment, int commentId, Callback callback) {
+        IdParam idParam = new IdParam(commentId);
+        final String json = QueryJson.deleteContentById(fragment, idParam);
+        String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_COLLECT + PathConstant.ALUMNI_TALK_COMMENT_SUB_PATH_CANCEL;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
 }

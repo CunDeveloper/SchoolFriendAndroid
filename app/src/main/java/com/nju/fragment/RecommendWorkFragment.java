@@ -79,17 +79,15 @@ public class RecommendWorkFragment extends BaseFragment {
                 try {
                     Object object = parseResponse.getInfo(responseBody, RecommendWork.class);
                     if (object != null) {
-                        mRecommendWorks.clear();
                         ArrayList majorAsks = (ArrayList) object;
                         if (majorAsks.size() > 0) {
+                            mRecommendWorks.clear();
                             for (Object obj : majorAsks) {
                                 RecommendWork recommendWork = (RecommendWork) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
-                                if (!mRecommendWorks.contains(recommendWork)) {
-                                    mRecommendWorks.add(recommendWork);
-                                }
+                                mRecommendWorks.add(recommendWork);
                             }
-                            Collections.sort(mRecommendWorks, new RecommendWorkSort());
+                            Collections.sort(mRecommendWorks,Collections.reverseOrder());
                             int length = mRecommendWorks.size();
                             if (length > Constant.MAX_ROW) {
                                 for (int i = length - 1; i > Constant.MAX_ROW; i--) {
@@ -106,6 +104,8 @@ public class RecommendWorkFragment extends BaseFragment {
                     mFootView.setVisibility(View.GONE);
                 }
             }
+
+
         }
     };
 
@@ -294,21 +294,6 @@ public class RecommendWorkFragment extends BaseFragment {
         }
     }
 
-    private static class RecommendWorkSort implements Comparator<RecommendWork> {
-
-        @Override
-        public int compare(RecommendWork lhs, RecommendWork rhs) {
-            final int lhsId = lhs.getId();
-            final int rhsId = rhs.getId();
-            if (lhsId > rhsId) {
-                return -1;
-            } else if (lhsId < rhsId) {
-                return 1;
-            }
-            return 0;
-        }
-    }
-
     private static class ExeCacheTask extends AsyncTask<String, Void, ArrayList<RecommendWork>> {
         private final WeakReference<RecommendWorkFragment> mRecommendWorkWeakRef;
 
@@ -335,7 +320,7 @@ public class RecommendWorkFragment extends BaseFragment {
             if (recommendFragment != null) {
                 if (recommendWorks != null && recommendWorks.size() > 0) {
                     Log.i(TAG, "cache json ==" + SchoolFriendGson.newInstance().toJson(recommendWorks));
-                    Collections.sort(recommendWorks, new RecommendWorkSort());
+                    Collections.sort(recommendWorks,Collections.reverseOrder());
                     ArrayList<RecommendWork> source = recommendFragment.mRecommendWorks;
                     ArrayList<RecommendWork> tempArray = new ArrayList<>();
                     RecommendWork work;

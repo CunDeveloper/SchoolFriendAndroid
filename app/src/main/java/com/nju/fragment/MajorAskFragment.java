@@ -83,16 +83,14 @@ public class MajorAskFragment extends BaseFragment {
                     Object object = parseResponse.getInfo(responseBody, AlumniQuestion.class);
                     if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
-                        mAlumniQuestions.clear();
                         if (majorAsks.size() > 0) {
+                            mAlumniQuestions.clear();
                             for (Object obj : majorAsks) {
                                 AlumniQuestion alumniQuestion = (AlumniQuestion) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestion));
-                                if (!mAlumniQuestions.contains(alumniQuestion)) {
-                                    mAlumniQuestions.add(alumniQuestion);
-                                }
+                                mAlumniQuestions.add(alumniQuestion);
                             }
-                            Collections.sort(mAlumniQuestions, new MajorAskSort());
+                            Collections.sort(mAlumniQuestions, Collections.reverseOrder());
                             int length = mAlumniQuestions.size();
                             if (length > Constant.MAX_ROW) {
                                 for (int i = length - 1; i > Constant.MAX_ROW; i--) {
@@ -234,7 +232,8 @@ public class MajorAskFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(MajorAskDetailFragment.newInstance(mAlumniQuestions.get(position)));
+                MajorAskDetailFragment fragment = MajorAskDetailFragment.newInstance(mAlumniQuestions.get(position));
+                        getHostActivity().open(fragment,fragment);
             }
         });
 
@@ -316,24 +315,6 @@ public class MajorAskFragment extends BaseFragment {
         }
     }
 
-    private static class MajorAskSort implements Comparator<AlumniQuestion> {
-        @Override
-        public int compare(AlumniQuestion lhs, AlumniQuestion rhs) {
-            final int lhsId = lhs.getId();
-            final int rhsId = rhs.getId();
-            if (lhsId > rhsId) {
-                return -1;
-            } else if (lhsId < rhsId) {
-                return 1;
-            }
-            return 0;
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            return false;
-        }
-    }
 
     private static class ExeCacheTask extends AsyncTask<String, Void, ArrayList<AlumniQuestion>> {
         private final WeakReference<MajorAskFragment> mMajorAskWeakRef;
@@ -372,7 +353,7 @@ public class MajorAskFragment extends BaseFragment {
                     source.removeAll(tempArray);
                     if (alumniQuestions != null && alumniQuestions.size() > 0) {
                         Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestions));
-                        Collections.sort(alumniQuestions, new MajorAskSort());
+                        Collections.sort(alumniQuestions,Collections.reverseOrder());
                         source.addAll(alumniQuestions);
                         for (AlumniQuestion alumniQuestion : alumniQuestions) {
                             Log.i(TAG, alumniQuestion.getLabel());

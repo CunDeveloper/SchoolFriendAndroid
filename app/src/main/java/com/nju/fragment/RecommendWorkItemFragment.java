@@ -28,8 +28,8 @@ import com.nju.util.ToastUtil;
 import java.util.ArrayList;
 
 
-public class RecommendWorkItem extends BaseFragment {
-    private static final String TAG = RecommendWorkItem.class.getSimpleName();
+public class RecommendWorkItemFragment extends BaseFragment {
+    private static final String TAG = RecommendWorkItemFragment.class.getSimpleName();
     private static final String PARAM_TYPE = "type";
     private static String mType;
     private ArrayList<RecommendWork> recommendWorks;
@@ -39,7 +39,7 @@ public class RecommendWorkItem extends BaseFragment {
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(RecommendWorkItem.this)) {
+            if (FragmentUtil.isAttachedToActivity(RecommendWorkItemFragment.this)) {
                 ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
                 mRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
@@ -48,19 +48,19 @@ public class RecommendWorkItem extends BaseFragment {
 
         @Override
         public void onSuccess(String responseBody) {
-            if (FragmentUtil.isAttachedToActivity(RecommendWorkItem.this)) {
+            if (FragmentUtil.isAttachedToActivity(RecommendWorkItemFragment.this)) {
                 Log.i(TAG, responseBody);
                 mRefreshLayout.setRefreshing(false);
             }
         }
     };
 
-    public RecommendWorkItem() {
+    public RecommendWorkItemFragment() {
         // Required empty public constructor
     }
 
-    public static RecommendWorkItem newInstance(String type) {
-        RecommendWorkItem fragment = new RecommendWorkItem();
+    public static RecommendWorkItemFragment newInstance(String type) {
+        RecommendWorkItemFragment fragment = new RecommendWorkItemFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_TYPE, type);
 

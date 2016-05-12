@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by xiaojuzhang on 2016/3/17.
  */
-public class AlumniQuestion implements Parcelable {
+public class AlumniQuestion implements Parcelable,Comparable<AlumniQuestion> {
 
     public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
         @Override
@@ -167,5 +167,15 @@ public class AlumniQuestion implements Parcelable {
 
     public void setCheck(int check) {
         this.check = check;
+    }
+
+    @Override
+    public int compareTo(AlumniQuestion another) {
+        if (this.getId() > another.getId()) {
+            return 1;
+        } else if (this.getId() < another.getId()){
+            return -1;
+        }
+        return 0;
     }
 }

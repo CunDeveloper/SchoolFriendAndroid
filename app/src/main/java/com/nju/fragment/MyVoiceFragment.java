@@ -73,12 +73,12 @@ public class MyVoiceFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList alumniVoices = (ArrayList) object;
                         if (alumniVoices.size() > 0) {
+                            mAlumniVoices.clear();
                             for (Object obj : alumniVoices) {
                                 AlumniVoice alumniVoice = (AlumniVoice) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoice));
-                                if (!mAlumniVoices.contains(alumniVoice)) {
-                                    mAlumniVoices.add(alumniVoice);
-                                }
+                                mAlumniVoices.add(alumniVoice);
+                              
                             }
 
                             int length = mAlumniVoices.size();

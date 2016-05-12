@@ -30,4 +30,7 @@
     <dimen name="dp22">22dp</dimen>
     <dimen name="_dp22">-22dp</dimen>
     <dimen name="sp22">22sp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="margin_bottom">150dp</dimen>
+    <dimen name="dp2">2dp</dimen>
 </resources>

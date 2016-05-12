@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by cun on 2016/3/15.
  */
-public class AlumniVoice implements Parcelable {
+public class AlumniVoice implements Parcelable,Comparable<AlumniVoice> {
 
     public static final Creator<AlumniVoice> CREATOR = new Creator<AlumniVoice>() {
         @Override
@@ -165,5 +165,15 @@ public class AlumniVoice implements Parcelable {
 
     public void setCheck(int check) {
         this.check = check;
+    }
+
+    @Override
+    public int compareTo(AlumniVoice another) {
+        if (this.getId() > another.getId()) {
+            return 1;
+        }else if (this.getId() < another.getId()) {
+            return -1;
+        }
+        return 0;
     }
 }

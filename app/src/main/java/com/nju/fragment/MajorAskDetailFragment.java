@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.nju.View.SchoolFriendDialog;
 import com.nju.View.ShareView;
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
@@ -29,6 +30,8 @@ import com.nju.event.NetworkInfoEvent;
 import com.nju.event.PersonInfoEvent;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
+import com.nju.http.callback.DeleteCallback;
+import com.nju.http.callback.SaveCollectCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
@@ -54,6 +57,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.IllegalFormatCodePointException;
 
 
 public class MajorAskDetailFragment extends BaseFragment {
@@ -63,7 +68,7 @@ public class MajorAskDetailFragment extends BaseFragment {
     private ArrayList<ContentComment> mContentComments;
     private CommentAdapter mCommentAdapter;
     private EditText mContentEditText;
-    private PostRequestJson mRequestSaveJson, mRequestQueryJson;
+    private PostRequestJson mRequestSaveJson, mRequestQueryJson,delectAskRequestJson;
     private View mMainView;
     private int commentType = 0;
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
@@ -84,13 +89,14 @@ public class MajorAskDetailFragment extends BaseFragment {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
                             for (Object obj : comments) {
+                                mContentComments.clear();
                                 ContentComment contentComment = (ContentComment) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
                             }
-                            mContentComments = SortUtil.softByDate(mContentComments);
                         }
                     }
+                    Collections.sort(mContentComments,Collections.reverseOrder());
                     mCommentAdapter.notifyDataSetChanged();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -306,10 +312,11 @@ public class MajorAskDetailFragment extends BaseFragment {
         deleteTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                delectAskRequestJson = MajorAskService.deleteQuestion(MajorAskDetailFragment.this, mAlumniQuestion.getId(),
+                        new DeleteCallback(TAG, MajorAskDetailFragment.this));
+                mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
             }
         });
-        mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
     }
 
     private void initListView(View view) {
@@ -347,31 +354,8 @@ public class MajorAskDetailFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 new MajorAskCollectDbService(getContext()).save(mAlumniQuestion);
-                MajorAskService.saveCollect(MajorAskDetailFragment.this, mAlumniQuestion.getId(), new ResponseCallback() {
-                    @Override
-                    public void onFail(Exception error) {
-                        Log.e(TAG, error.getMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(String responseBody) {
-                        Log.i(TAG, responseBody);
-                        if (FragmentUtil.isAttachedToActivity(MajorAskDetailFragment.this)) {
-                            Log.i(TAG, responseBody);
-                            ParseResponse parseResponse = new ParseResponse();
-                            try {
-                                String str = parseResponse.getInfo(responseBody);
-                                if (str != null && str.equals(Constant.OK_MSG)) {
-                                    ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
-                                    collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-                });
+                MajorAskService.saveCollect(MajorAskDetailFragment.this, mAlumniQuestion.getId(),
+                        new SaveCollectCallback(TAG,MajorAskDetailFragment.this,collectTV));
             }
         });
 
@@ -396,5 +380,8 @@ public class MajorAskDetailFragment extends BaseFragment {
             CloseRequestUtil.close(mRequestSaveJson);
         if (mRequestQueryJson != null)
             CloseRequestUtil.close(mRequestQueryJson);
+        if (delectAskRequestJson != null) {
+            CloseRequestUtil.close(delectAskRequestJson);
+        }
     }
 }

@@ -14,7 +14,8 @@
 
         android:background="@android:color/transparent"
         android:layout_above="@+id/fragment_person_circle_detail_pic_comment_layout"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3">
     <com.nju.View.SchoolFriendTextView
         android:id="@+id/fragment_person_circle_detail_pic_content_tv"
         android:layout_width="match_parent"
@@ -32,73 +33,104 @@
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         >
-        <com.nju.View.SchoolFriendAweTextView
+        <LinearLayout
+            android:id="@+id/praiseTv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:text="@string/praise_icon"
-            android:textColor="@android:color/white"
-            android:id="@+id/textView8"
-            android:textStyle="bold"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="赞"
-            android:id="@+id/text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white"
-            android:layout_toRightOf="@+id/textView8"
-            />
+            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content">
+            <com.nju.View.SchoolFriendAweTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginStart="@dimen/phone_apadding"
+                android:text="@string/praise_icon"
+                android:textColor="@android:color/white"
+                android:id="@+id/textView8"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/praise_str"
+                android:layout_marginEnd="@dimen/phone_apadding"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                />
+        </LinearLayout>
 
-        <com.nju.View.SchoolFriendAweTextView
+
+        <LinearLayout
+            android:id="@+id/commentTv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginStart="@dimen/phone_apadding"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:text="@string/comment_icon"
-            android:textColor="@android:color/white"
-            android:id="@+id/textView9"
-            android:layout_toRightOf="@+id/text"
-            android:textStyle="bold"
+            android:layout_toEndOf="@+id/praiseTv"
             android:layout_centerVertical="true"
-            />
-        <TextView
+            android:layout_height="wrap_content">
+            <com.nju.View.SchoolFriendAweTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginStart="@dimen/phone_apadding"
+                android:text="@string/comment_icon"
+                android:textColor="@android:color/white"
+                android:id="@+id/textView9"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comment_str"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:layout_toEndOf="@+id/textView9"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/displayDetailLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="评论"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white"
-            android:layout_toRightOf="@+id/textView9"
-            />
-        <com.nju.View.SchoolFriendAweTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/comment_icon"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:id="@+id/fragment_person_circle_detail_pic_comment_awe"
+            android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            />
-        <com.nju.View.SchoolFriendAweTextView
-            android:layout_width="wrap_content"
-            android:text="@string/praise_icon"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/phone_apadding"
-            android:layout_toStartOf="@+id/fragment_person_circle_detail_pic_comment_awe"
-            />
+            android:layout_height="wrap_content">
+            <com.nju.View.SchoolFriendAweTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/praise_icon"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginEnd="@dimen/dp5"
+                android:id="@+id/fragment_person_circle_detail_pic_comment_awe"
+                />
+            <TextView
+                android:id="@+id/praise_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginEnd="@dimen/phone_apadding"
+                android:textColor="@android:color/white"
+                />
+            <com.nju.View.SchoolFriendAweTextView
+                android:layout_width="wrap_content"
+                android:text="@string/comment_icon"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp5"
+                />
+            <TextView
+                android:id="@+id/comment_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0"
+                android:layout_marginEnd="@dimen/phone_apadding"
+                android:textColor="@android:color/white"
+                />
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

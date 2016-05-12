@@ -31,9 +31,11 @@ import com.nju.event.MessageShareEventId;
 import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
+import com.nju.http.callback.SaveCollectCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniVoice;
+import com.nju.model.AuthorInfo;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
@@ -58,6 +60,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class AlumniVoiceItemDetailFragment extends BaseFragment {
@@ -69,11 +72,13 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
     private TextView mCommentNumberTV, mPraiseNumberTV, mPraiseTV;
     private ArrayList<ContentComment> mContentComments;
     private ArrayList<RespPraise> mPraiseAuthors = new ArrayList<>();
+    private PraiseHeadAdapter mPraiseHeadAdapter;
     private CommentAdapter mCommentAdapter;
     private View mMainView;
     private int commentType = 0;
-    private boolean isPraise;
-    private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestSavePraiseJson, mRequestQueryPraiseJson;
+    private boolean isPraise = true;
+    private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestSavePraiseJson,
+            mRequestQueryPraiseJson,mDeleteRequestJson;
     private ResponseCallback queryPraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -91,13 +96,13 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList authors = (ArrayList) object;
                         if (authors.size() > 0) {
+                            mPraiseAuthors.clear();
                             for (Object obj : authors) {
-                                RespPraise authorInfo = (RespPraise) obj;
-                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(authorInfo));
-                                mPraiseAuthors.add(authorInfo);
+                                mPraiseAuthors.add((RespPraise) obj);
                             }
                         }
                     }
+                    mPraiseHeadAdapter.notifyDataSetChanged();
                     mPraiseNumberTV.setText(mPraiseAuthors.size() + "");
                     changePraiseColor();
                 } catch (IOException e) {
@@ -140,14 +145,15 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
+                            mContentComments.clear();
                             for (Object obj : comments) {
                                 ContentComment contentComment = (ContentComment) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
                             }
-                            mContentComments = SortUtil.softByDate(mContentComments);
                         }
                     }
+                    Collections.sort(mContentComments,Collections.reverseOrder());
                     mCommentAdapter.notifyDataSetChanged();
                     mCommentNumberTV.setText(mContentComments.size() + "");
                 } catch (IOException e) {
@@ -255,8 +261,8 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         TextView dateTV = (TextView) view.findViewById(R.id.alumni_vo_date);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mVoice.getDate()));
         GridView gridView = (GridView) view.findViewById(R.id.new_gridview);
-
-        gridView.setAdapter(new PraiseHeadAdapter(getContext()));
+        mPraiseHeadAdapter = new PraiseHeadAdapter(getContext(),PathConstant.ALUMNI_VOICE_IMG_PATH,mPraiseAuthors);
+        gridView.setAdapter(mPraiseHeadAdapter);
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         mContentComments = new ArrayList<>();
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
@@ -266,7 +272,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ContentComment comment = mContentComments.get(position);
                 //commentId = comment.getId();
-                mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                mContentEditText.setHint(Constant.REPLAY +":" + comment.getCommentAuthor().getAuthorName());
                 SoftInput.open(getContext());
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
@@ -314,7 +320,27 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         deleteTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mDeleteRequestJson = AlumniVoiceService.deleteVoice(AlumniVoiceItemDetailFragment.this, mVoice.getId(), new ResponseCallback() {
+                    @Override
+                    public void onFail(Exception error) {
+                        Log.e(TAG,error.getMessage());
+                    }
+                    @Override
+                    public void onSuccess(String responseBody) {
+                        ToastUtil.showShortText(getContext(),getString(R.string.delete_ok));
+                        if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                            Log.i(TAG, responseBody);
+                            ParseResponse parseResponse = new ParseResponse();
+                            try {
+                                String str = parseResponse.getInfo(responseBody);
+                                getHostActivity().getBackStack().pop();
+                                getHostActivity().open(getHostActivity().getBackStack().peek());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
             }
         });
         mRequestQueryJson = AlumniVoiceService.queryComment(this, mVoice.getId(), queryCommentCallback);
@@ -349,46 +375,13 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
 
         final TextView collectTV = (TextView) view.findViewById(R.id.collect);
         collectTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlumniVoiceCollectDbService(getContext()).save(mVoice);
-                ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
-                collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
-            }
-        });
-
-        collectTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlumniVoiceCollectDbService(getContext()).save(mVoice);
-                AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this, mVoice.getId(), new ResponseCallback() {
-                    @Override
-                    public void onFail(Exception error) {
-                        Log.e(TAG, error.getMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(String responseBody) {
-                        Log.i(TAG, responseBody);
-                        if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
-                            Log.i(TAG, responseBody);
-                            ParseResponse parseResponse = new ParseResponse();
-                            try {
-                                String str = parseResponse.getInfo(responseBody);
-                                if (str != null && str.equals(Constant.OK_MSG)) {
-                                    ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
-                                    collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-                });
-            }
-        });
-
+                                         @Override
+                                         public void onClick(View v) {
+                                             new AlumniVoiceCollectDbService(getContext()).save(mVoice);
+                                              AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this, mVoice.getId(),
+                                                     new SaveCollectCallback(TAG,AlumniVoiceItemDetailFragment.this,collectTV));
+                                         }
+                                     });
 
         TextView shareTV = (TextView) view.findViewById(R.id.share);
         shareTV.setOnClickListener(new View.OnClickListener() {
@@ -400,7 +393,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
     }
 
     private void changePraiseColor() {
-        int authorId = getHostActivity().getSharedPreferences().getInt(getString(R.string.authorId), 0);
+        int authorId = getHostActivity().userId();
         for (RespPraise respPraise : mPraiseAuthors) {
             Log.i(TAG, respPraise.getPraiseAuthor().getAuthorId() + "");
             if (respPraise.getPraiseAuthor().getAuthorId() == authorId) {
@@ -470,5 +463,7 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             CloseRequestUtil.close(mRequestSavePraiseJson);
         if (mRequestQueryPraiseJson != null)
             CloseRequestUtil.close(mRequestQueryPraiseJson);
+        if (mDeleteRequestJson != null)
+            CloseRequestUtil.close(mDeleteRequestJson);
     }
 }

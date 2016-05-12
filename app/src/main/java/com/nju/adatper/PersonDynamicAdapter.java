@@ -70,7 +70,8 @@ public class PersonDynamicAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String imgPaths = alumniTalks.get(position).getImagePaths();
                 if (imgPaths != null && !imgPaths.trim().equals("")){
-                    mFragment.getHostActivity().open(PersonCircleDetailPicFragment.newInstance(alumniTalks.get(position), 0));
+                    PersonCircleDetailPicFragment fragment = PersonCircleDetailPicFragment.newInstance(alumniTalks.get(position), 0);
+                    mFragment.getHostActivity().open(fragment,fragment);
                 } else {
                     mFragment.getHostActivity().open(PersonCircleDetailFragment.newInstance(alumniTalks.get(position)));
                 }

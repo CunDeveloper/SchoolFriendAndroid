@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 
-public class RecommendWork implements Parcelable {
+public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
     public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
         @Override
         public RecommendWork createFromParcel(Parcel in) {
@@ -21,6 +21,21 @@ public class RecommendWork implements Parcelable {
     private int id;
     private String date;
     private AuthorInfo authorInfo;
+
+
+    public static Creator<RecommendWork> getCREATOR() {
+        return CREATOR;
+    }
+
+    public AuthorInfo getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AuthorInfo author) {
+        this.author = author;
+    }
+
+    private AuthorInfo author;
     private String title;
     private String content;
     private String imgPaths;
@@ -47,13 +62,6 @@ public class RecommendWork implements Parcelable {
         comments = in.createTypedArrayList(ContentComment.CREATOR);
     }
 
-    public AuthorInfo getAuthor() {
-        return authorInfo;
-    }
-
-    public void setAuthor(AuthorInfo author) {
-        this.authorInfo = author;
-    }
 
     public String getTitle() {
         return title;
@@ -169,5 +177,15 @@ public class RecommendWork implements Parcelable {
 
     public void setCheck(int check) {
         this.check = check;
+    }
+
+    @Override
+    public int compareTo(RecommendWork another) {
+        if (this.getId() > another.getId()){
+            return 1;
+        }else if (this.getId() < another.getId()) {
+            return -1;
+        }
+        return 0;
     }
 }

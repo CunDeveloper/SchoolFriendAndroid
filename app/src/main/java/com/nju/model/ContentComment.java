@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by cun on 2016/3/27.
  */
-public class ContentComment extends BaseEntity implements Parcelable {
+public class ContentComment extends BaseEntity implements Parcelable,Comparable<ContentComment>{
     public static final Creator<ContentComment> CREATOR = new Creator<ContentComment>() {
         @Override
         public ContentComment createFromParcel(Parcel in) {
@@ -94,5 +94,16 @@ public class ContentComment extends BaseEntity implements Parcelable {
 
     public void setAlumnicTalkId(int alumnicTalkId) {
         this.alumnicTalkId = alumnicTalkId;
+    }
+
+
+    @Override
+    public int compareTo(ContentComment another) {
+        if (this.getId()>another.getId()){
+            return 1;
+        }else {
+            return -1;
+        }
+
     }
 }

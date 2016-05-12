@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by cun on 2016/3/30.
  */
-public class AlumniTalk implements Parcelable {
+public class AlumniTalk implements Parcelable,Comparable<AlumniTalk> {
     public static final Creator<AlumniTalk> CREATOR = new Creator<AlumniTalk>() {
         @Override
         public AlumniTalk createFromParcel(Parcel in) {
@@ -25,6 +25,8 @@ public class AlumniTalk implements Parcelable {
     private String content;
     private String imagePaths;
     private String location;
+    private int praiseCount;
+    private int commentCount;
     private AuthorInfo authorInfo;
     private ArrayList<AlumnicTalkPraise> talkPraises = new ArrayList<>();
     private ArrayList<ContentComment> comments = new ArrayList<>();
@@ -34,6 +36,8 @@ public class AlumniTalk implements Parcelable {
 
     protected AlumniTalk(Parcel in) {
         id = in.readInt();
+        praiseCount = in.readInt();
+        commentCount = in.readInt();
         date = in.readString();
         content = in.readString();
         imagePaths = in.readString();
@@ -55,6 +59,8 @@ public class AlumniTalk implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeInt(praiseCount);
+        dest.writeInt(commentCount);
         dest.writeString(date);
         dest.writeString(content);
         dest.writeString(imagePaths);
@@ -126,5 +132,40 @@ public class AlumniTalk implements Parcelable {
 
     public void setComments(ArrayList<ContentComment> comments) {
         this.comments = comments;
+    }
+
+    public int getPraiseCount() {
+        return praiseCount;
+    }
+
+    public void setPraiseCount(int praiseCount) {
+        this.praiseCount = praiseCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    @Override
+    public int compareTo(AlumniTalk another) {
+        if (this.getId() > another.getId()) {
+            return 1;
+        } else if (this.getId() < another.getId()) {
+            return -1;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        AlumniTalk that = (AlumniTalk) o;
+        if (this.getId() == that.getId()) {
+            return true;
+        }
+        return false;
     }
 }

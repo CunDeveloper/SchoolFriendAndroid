@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,16 +16,20 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
+import com.nju.event.MessageDeleteEvent;
 import com.nju.event.MessageEventId;
 import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
+import com.nju.http.callback.DeleteCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
 import com.nju.model.RecommendWork;
+import com.nju.service.AlumniTalkService;
 import com.nju.service.RecommendWorkService;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -44,6 +49,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
@@ -52,44 +58,12 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
     private static RecommendWork mRecommendWork;
     private EditText mContentEditText;
     private TextView mCommentNumberTV;
-    private PostRequestJson mRequestDeleteJson, mRequestQueryJson, mRequestSaveJson;
+    private PostRequestJson mRequestDeleteJson, mRequestQueryJson, mRequestSaveJson,mDeleteCommentJson;
     private ArrayList<ContentComment> mContentComments;
     private CommentAdapter mCommentAdapter;
     private int commentType = 0;
     private View mMainView;
-
-    private ResponseCallback deleteCallback = new ResponseCallback() {
-        @Override
-        public void onFail(Exception error) {
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
-                Log.e(TAG, error.getMessage());
-            }
-        }
-
-        @Override
-        public void onSuccess(String responseBody) {
-            Log.i(TAG, responseBody);
-            if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
-                Log.i(TAG, responseBody);
-                ParseResponse parseResponse = new ParseResponse();
-                try {
-                    String str = parseResponse.getInfo(responseBody);
-                    if (str.equals(Constant.OK_MSG)) {
-                        if (getHostActivity().getBackStack().size() > 1) {
-                            getHostActivity().getBackStack().pop();
-                            BaseFragment fragment = getHostActivity().getBackStack().peek();
-                            if (fragment instanceof MyRecommendFragment) {
-                                getHostActivity().open(fragment);
-                            }
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-
+    private int mDeleteIndex = 0;
 
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
@@ -108,14 +82,15 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
+                            mContentComments.clear();
                             for (Object obj : comments) {
                                 ContentComment contentComment = (ContentComment) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
                             }
-                            mContentComments = SortUtil.softByDate(mContentComments);
                         }
                     }
+                    Collections.sort(mContentComments, Collections.reverseOrder());
                     mCommentAdapter.notifyDataSetChanged();
                     mCommentNumberTV.setText(mContentComments.size() + "");
                 } catch (IOException e) {
@@ -158,7 +133,8 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
             if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
-                mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this, mRecommendWork.getId(), queryCommentCallback);
+                mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this,
+                        mRecommendWork.getId(), queryCommentCallback);
             }
         }
 
@@ -232,7 +208,8 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         deleteReLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRequestDeleteJson = RecommendWorkService.deleteMyRecommend(PersonRecommendWorkItemDetailFragment.this, mRecommendWork.getId(), deleteCallback);
+                mRequestDeleteJson = RecommendWorkService.deleteMyRecommend(PersonRecommendWorkItemDetailFragment.this, mRecommendWork.getId(),
+                        new DeleteCallback(TAG,PersonRecommendWorkItemDetailFragment.this));
             }
         });
         RelativeLayout replayReLayout = (RelativeLayout) view.findViewById(R.id.replay_reLayout);
@@ -281,6 +258,19 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         newListView.setAdapter(mCommentAdapter);
+        newListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ContentComment comment = mContentComments.get(position);
+                mDeleteIndex = comment.getId();
+                if (comment.getCommentAuthor().getAuthorId() == getHostActivity().userId()) {
+                    String[] strings = {getString(R.string.delete)};
+                    SchoolFriendDialog.listItemDialog(getContext(), strings).show();
+                }
+                return true;
+            }
+        });
+
         final Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -319,6 +309,36 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
         scrollView.scrollTo(0, linearLayout.getBottom());
     }
 
+    @Subscribe
+    public void onMessageDeleteComment(MessageDeleteEvent deleteEvent) {
+        mDeleteCommentJson = RecommendWorkService.deleteComment(this, mDeleteIndex, new ResponseCallback() {
+            @Override
+            public void onFail(Exception error) {
+                Log.e(TAG, error.getMessage());
+            }
+
+            @Override
+            public void onSuccess(String responseBody) {
+                Log.i(TAG, responseBody);
+                if (FragmentUtil.isAttachedToActivity(PersonRecommendWorkItemDetailFragment.this)) {
+                    Log.i(TAG, responseBody);
+                    ParseResponse parseResponse = new ParseResponse();
+                    try {
+                        String str = parseResponse.getInfo(responseBody);
+                        ToastUtil.showShortText(getContext(),str);
+                        if (str != null && str.equals(Constant.OK_MSG)) {
+                            mRequestQueryJson = RecommendWorkService.querySingleComment(PersonRecommendWorkItemDetailFragment.this,
+                                    mRecommendWork.getId(), queryCommentCallback);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        mDeleteIndex = 0;
+    }
+
     public void inputEmotion(String text) {
         int selectionCursor = mContentEditText.getSelectionStart();
         mContentEditText.getText().insert(selectionCursor, text);
@@ -332,5 +352,8 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
             CloseRequestUtil.close(mRequestDeleteJson);
         if (mRequestQueryJson != null)
             CloseRequestUtil.close(mRequestQueryJson);
+        if (mRequestSaveJson != null)
+            CloseRequestUtil.close(mRequestSaveJson);
+
     }
 }

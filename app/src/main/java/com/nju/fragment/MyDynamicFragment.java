@@ -72,13 +72,12 @@ public class MyDynamicFragment extends BaseFragment {
                     Object object = parseResponse.getInfo(responseBody, AlumniTalk.class);
                     if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
+                        mAlumniTalks.clear();
                         if (majorAsks.size() > 0) {
                             for (Object obj : majorAsks) {
                                 AlumniTalk alumniTalk = (AlumniTalk) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
-                                if (!mAlumniTalks.contains(alumniTalk)) {
-                                    mAlumniTalks.add(alumniTalk);
-                                }
+                                mAlumniTalks.add(alumniTalk);
                             }
                             int length = mAlumniTalks.size();
                             if (length > Constant.MAX_ROW) {

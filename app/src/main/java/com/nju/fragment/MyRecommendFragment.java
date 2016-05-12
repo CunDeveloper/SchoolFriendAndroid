@@ -72,12 +72,12 @@ public class  MyRecommendFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
                         if (majorAsks.size() > 0) {
+                            mRecommendWorks.clear();
                             for (Object obj : majorAsks) {
                                 RecommendWork recommendWork = (RecommendWork) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(recommendWork));
-                                if (!mRecommendWorks.contains(recommendWork))
-                                    mRecommendWorks.add(recommendWork);
-                            }
+                                mRecommendWorks.add(recommendWork);
+                        }
                             int length = mRecommendWorks.size();
                             if (length > Constant.MAX_ROW) {
                                 for (int i = length - 1; i > Constant.MAX_ROW; i--) {

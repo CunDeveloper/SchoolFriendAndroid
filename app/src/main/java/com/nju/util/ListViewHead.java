@@ -1,6 +1,5 @@
 package com.nju.util;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
-import com.nju.fragment.DetailPersonInfo;
+import com.nju.fragment.DetailPersonInfoFragment;
 import com.nju.fragment.SingleChoosePicFragment;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
@@ -48,13 +47,14 @@ public class ListViewHead {
                             AuthorImage authorImage = (AuthorImage) object;
                             String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + authorImage.getHeadIconUrl();
                             mFragment.getHostActivity().getSharedPreferences().edit()
-                                    .putString(mFragment.getString(R.string.head_url), headUrl).commit();
+                                    .putString(mFragment.getString(R.string.head_url), headUrl).apply();
                             mFragment.getHostActivity().getSharedPreferences().edit()
-                                    .putString(mFragment.getString(R.string.head_url_filename), authorImage.getHeadIconUrl()).commit();
+                                    .putString(mFragment.getString(R.string.head_url_filename), authorImage.getHeadIconUrl()).apply();
                             Log.i(TAG, headUrl);
                             ImageDownloader.with(mFragment.getContext()).download(headUrl, mHeadImage);
-                            Bitmap bitmap = ImageDownloader.with(mFragment.getContext()).download(headUrl).bitmap();
-                            BitmapUtil.saveToFile(mFragment, bitmap, authorImage.getHeadIconUrl());
+                            //Bitmap bitmap = ImageDownloader.with(mFragment.getContext()).download(headUrl).bitmap();
+
+                            //BitmapUtil.saveToFile(mFragment, bitmap, authorImage.getHeadIconUrl());
                             String bgUrl = PathConstant.IMAGE_PATH + PathConstant.BG_IMAGE + authorImage.getBgUrl();
                             Log.i(TAG, bgUrl);
                             ImageDownloader.with(mFragment.getContext()).download(bgUrl, mBgImage);
@@ -79,7 +79,7 @@ public class ListViewHead {
         mHeadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFragment.getHostActivity().open(DetailPersonInfo.newInstance());
+                mFragment.getHostActivity().open(DetailPersonInfoFragment.newInstance());
             }
         });
         mBgImage = (ImageView) head.findViewById(R.id.bgImageView);

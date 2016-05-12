@@ -39,6 +39,17 @@ public class DateUtil {
         return calendar != null ? calendar.get(Calendar.DAY_OF_MONTH) : 0;
     }
 
+    public static int hour(Calendar calendar) {
+        return calendar != null ? calendar.get(Calendar.HOUR_OF_DAY) : 0;
+    }
+
+    public static int minute(Calendar calendar) {
+        return calendar != null ? calendar.get(Calendar.MINUTE) : 0;
+    }
+    public static int second(Calendar calendar) {
+        return calendar != null ? calendar.get(Calendar.SECOND) : 0;
+    }
+
     public static long getTime(String strDate) {
         try {
             Date date = format.parse(strDate);
@@ -52,6 +63,11 @@ public class DateUtil {
     public static String getRelativeTimeSpanString(String date) {
         final long time = DateUtil.getTime(date);
         return DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_NUMERIC_DATE).toString();
+    }
+
+    public static String getTimeString(String date){
+        Calendar calendar = getCalendar(date);
+        return month(calendar)+"-"+day(calendar)+" "+hour(calendar)+":"+minute(calendar)+":"+second(calendar);
     }
 
     public static String getNoZeroMonth(String month) {

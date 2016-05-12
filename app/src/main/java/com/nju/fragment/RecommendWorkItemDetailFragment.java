@@ -31,6 +31,7 @@ import com.nju.event.NetworkInfoEvent;
 import com.nju.event.PersonInfoEvent;
 import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
+import com.nju.http.callback.SaveCollectCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
@@ -62,14 +63,17 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
     public static final String TAG = RecommendWorkItemDetailFragment.class.getSimpleName();
     private static final String PARAM_KEY = "key";
     private static final String TEXT_TYPE = "text/plain";
+    private static final String EMALIA_SUBJECT = "主题";
+    private static final String EMALIA_BODY = "内容";
+    private static final String EMALIA_TO = "mailto:";
     private static RecommendWork mRecommendWork;
     private EditText mContentEditText;
     private TextView mEmailTV, mCommentNumberTV;
-    private PostRequestJson mRequestJson, mRequestQueryJson;
+    private PostRequestJson mRequestJson, mRequestQueryJson, mDeleteContentJson;
     private ArrayList<ContentComment> mContentComments;
     private CommentAdapter mCommentAdapter;
     private View mMainView;
-    private int commentType = 0;
+    private int mCommentType = 0;
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -232,31 +236,8 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 new RecommendWorkCollectDbService(getContext()).save(mRecommendWork);
-                RecommendWorkService.saveCollect(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(), new ResponseCallback() {
-                    @Override
-                    public void onFail(Exception error) {
-                        Log.e(TAG, error.getMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(String responseBody) {
-                        Log.i(TAG, responseBody);
-                        if (FragmentUtil.isAttachedToActivity(RecommendWorkItemDetailFragment.this)) {
-                            Log.i(TAG, responseBody);
-                            ParseResponse parseResponse = new ParseResponse();
-                            try {
-                                String str = parseResponse.getInfo(responseBody);
-                                if (str != null && str.equals(Constant.OK_MSG)) {
-                                    ToastUtil.ShowText(getContext(), getString(R.string.collect_ok));
-                                    collectTV.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-                });
+                RecommendWorkService.saveCollect(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(),
+                        new SaveCollectCallback(TAG,RecommendWorkItemDetailFragment.this,collectTV));
             }
         });
 
@@ -319,11 +300,11 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (commentType == 0) {
+                if (mCommentType == 0) {
                     mRequestJson = RecommendWorkService.saveAsk(RecommendWorkItemDetailFragment.this, view, mRecommendWork.getId(), saveCallback);
                 } else {
-                    mRequestJson = RecommendWorkService.saveAskForOther(RecommendWorkItemDetailFragment.this, view, commentType, saveOtherCallback);
-                    commentType = 0;
+                    mRequestJson = RecommendWorkService.saveAskForOther(RecommendWorkItemDetailFragment.this, view, mCommentType, saveOtherCallback);
+                    mCommentType = 0;
                 }
                 CommentUtil.closeSoftKey(getContext(), view);
             }
@@ -345,7 +326,27 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         deleteTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDeleteContentJson = RecommendWorkService.deleteMyRecommend(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(), new ResponseCallback() {
+                    @Override
+                    public void onFail(Exception error) {
+                        Log.e(TAG,error.getMessage());
+                    }
 
+                    @Override
+                    public void onSuccess(String responseBody) {
+                        if (FragmentUtil.isAttachedToActivity(RecommendWorkItemDetailFragment.this)) {
+                            Log.i(TAG, responseBody);
+                            ParseResponse parseResponse = new ParseResponse();
+                            try {
+                                String str = parseResponse.getInfo(responseBody);
+                                getHostActivity().getBackStack().pop();
+                                getHostActivity().open(getHostActivity().getBackStack().peek());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -372,12 +373,12 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
     }
 
     private void sendEmail() {
-        Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setType(TEXT_TYPE);
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
-        intent.putExtra(Intent.EXTRA_TEXT, "Body of email");
-        intent.setData(Uri.parse("mailto:" + mEmailTV.getText())); // or just "mailto:" for blank
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+        intent.putExtra(Intent.EXTRA_SUBJECT, EMALIA_SUBJECT);
+        intent.putExtra(Intent.EXTRA_TEXT,EMALIA_BODY );
+        intent.setData(Uri.parse(EMALIA_TO + mEmailTV.getText()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -414,7 +415,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
 
     @Subscribe
     public void onMessageEvent(MessageEventId event) {
-        commentType = event.getId();
+        mCommentType = event.getId();
         final ScrollView scrollView = (ScrollView) mMainView.findViewById(R.id.mScrollView);
         final LinearLayout linearLayout = (LinearLayout) mMainView.findViewById(R.id.new_comment_layout);
         CommentUtil.getHideLayout(mMainView).setVisibility(View.VISIBLE);
@@ -462,5 +463,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             CloseRequestUtil.close(mRequestJson);
         if (mRequestQueryJson != null)
             CloseRequestUtil.close(mRequestQueryJson);
+        if (mDeleteContentJson != null)
+            CloseRequestUtil.close(mDeleteContentJson);
     }
 }

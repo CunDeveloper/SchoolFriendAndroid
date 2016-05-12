@@ -23,11 +23,12 @@
                 android:paddingBottom="300dp"
                 >
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/phone_head_length"
+                    android:layout_height="@dimen/phone_head_length"
                     android:layout_marginStart="@dimen/phone_apadding"
                     android:id="@+id/alumni_vo_imageView"
                     android:src="@drawable/head"
+                    android:scaleType="fitXY"
                     android:layout_marginEnd="@dimen/phone_apadding"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true" />
@@ -86,7 +87,8 @@
                     android:paddingStart="@dimen/phone_apadding"
                     android:paddingEnd="@dimen/phone_apadding"
                     android:layout_width="match_parent"
-                    android:divider="@null"
+                    android:divider="@android:color/white"
+                    android:dividerHeight="@dimen/dp2"
                     android:layout_below="@+id/alumni_vo_desc"
                     android:layout_height="wrap_content"/>
                 <LinearLayout

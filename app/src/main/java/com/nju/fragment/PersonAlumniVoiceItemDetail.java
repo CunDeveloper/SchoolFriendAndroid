@@ -7,26 +7,34 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.adatper.BigImgAdaper;
 import com.nju.adatper.CommentAdapter;
 import com.nju.adatper.PraiseHeadAdapter;
+import com.nju.event.MessageDeleteEvent;
 import com.nju.event.MessageEventId;
 import com.nju.event.NetworkInfoEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
+import com.nju.http.callback.DeleteCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniVoice;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
+import com.nju.service.AlumniTalkService;
 import com.nju.service.AlumniVoiceService;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -46,6 +54,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.IllegalFormatCodePointException;
 
 public class PersonAlumniVoiceItemDetail extends BaseFragment {
     public static final String TAG = PersonAlumniVoiceItemDetail.class.getSimpleName();
@@ -55,12 +65,15 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
     private String mTitle;
     private EditText mContentEditText;
     private ArrayList<ContentComment> mContentComments;
-    private ArrayList<RespPraise> mPraiseAuthors = new ArrayList<>();
+    private ArrayList<RespPraise> mRespPraises = new ArrayList<>();
     private CommentAdapter mCommentAdapter;
     private View mMainView;
     private int commentType = 0;
     private TextView mCommentNumberTV, mPraiseNumberTV;
-    private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestQueryPraiseJson;
+    private PraiseHeadAdapter mPraiseHeadAdapter;
+    private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestQueryPraiseJson
+            ,mDeleteRequestJson,mDeleteCommentJson;
+    private int mDeleteIndex = 0;
     private ResponseCallback queryPraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -79,13 +92,13 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
                         ArrayList authors = (ArrayList) object;
                         if (authors.size() > 0) {
                             for (Object obj : authors) {
-                                RespPraise authorInfo = (RespPraise) obj;
-                                Log.i(TAG, SchoolFriendGson.newInstance().toJson(authorInfo));
-                                mPraiseAuthors.add(authorInfo);
+                                RespPraise respPraise = (RespPraise) obj;
+                                mRespPraises.add(respPraise);
                             }
                         }
                     }
-                    mPraiseNumberTV.setText(mPraiseAuthors.size() + "");
+                    mPraiseHeadAdapter.notifyDataSetChanged();
+                    mPraiseNumberTV.setText(mRespPraises.size() + "");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -109,14 +122,15 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
+                            mContentComments.clear();
                             for (Object obj : comments) {
                                 ContentComment contentComment = (ContentComment) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
                             }
-                            mContentComments = SortUtil.softByDate(mContentComments);
                         }
                     }
+                    Collections.sort(mContentComments, Collections.reverseOrder());
                     mCommentAdapter.notifyDataSetChanged();
                     mCommentNumberTV.setText(mContentComments.size() + "");
                 } catch (IOException e) {
@@ -236,11 +250,25 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         TextView dateTV = (TextView) view.findViewById(R.id.alumni_vo_date);
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mVoice.getDate()));
         GridView gridView = (GridView) view.findViewById(R.id.new_gridview);
-        gridView.setAdapter(new PraiseHeadAdapter(getContext()));
+        mPraiseHeadAdapter = new PraiseHeadAdapter(getContext(),PathConstant.ALUMNI_VOICE_IMG_PATH,mRespPraises);
+        gridView.setAdapter(mPraiseHeadAdapter);
         ListView newListView = (ListView) view.findViewById(R.id.new_comment_listview);
         mContentComments =  new ArrayList<>();
         mCommentAdapter = new CommentAdapter(getContext(), mContentComments);
         newListView.setAdapter(mCommentAdapter);
+        newListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ContentComment comment = mContentComments.get(position);
+                mDeleteIndex = comment.getId();
+                if (comment.getCommentAuthor().getAuthorId() == getHostActivity().userId()) {
+                    String[] strings = {getString(R.string.delete)};
+                    SchoolFriendDialog.listItemDialog(getContext(), strings).show();
+                }
+                return true;
+            }
+        });
+
         Button sendBn = (Button) view.findViewById(R.id.activity_school_friend_send_button);
         sendBn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,6 +290,10 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
             Log.e(TAG, mVoice.getImgPaths());
             listView.setAdapter(new BigImgAdaper(getContext(), PathConstant.ALUMNI_VOICE_IMG_PATH, mVoice.getImgPaths().split(",")));
         }
+
+        ImageView headImg = (ImageView) view.findViewById(R.id.alumni_vo_imageView);
+        String url = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + mVoice.getAuthorInfo().getHeadUrl();
+        ImageDownloader.with(getContext()).download(url,headImg);
     }
 
     @Subscribe
@@ -272,7 +304,63 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         }
     }
 
+    @Subscribe
+    public void onMessageDeleteComment(MessageDeleteEvent deleteEvent) {
+        mDeleteCommentJson = AlumniVoiceService.deleteComment(this, mDeleteIndex, new ResponseCallback() {
+            @Override
+            public void onFail(Exception error) {
+                Log.e(TAG, error.getMessage());
+            }
+
+            @Override
+            public void onSuccess(String responseBody) {
+                Log.i(TAG, responseBody);
+                if (FragmentUtil.isAttachedToActivity(PersonAlumniVoiceItemDetail.this)) {
+                    Log.i(TAG, responseBody);
+                    ParseResponse parseResponse = new ParseResponse();
+                    try {
+                        String str = parseResponse.getInfo(responseBody);
+                        if (str != null && str.equals(Constant.OK_MSG)) {
+                            mRequestQueryJson = AlumniVoiceService.queryComment(PersonAlumniVoiceItemDetail.this, mVoice.getId(), queryCommentCallback);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        mDeleteIndex = 0;
+    }
+
     private void initToolBar(final View view) {
+        RelativeLayout deleteLayout = (RelativeLayout) view.findViewById(R.id.delete_reLayout);
+        RelativeLayout replayLayout = (RelativeLayout) view.findViewById(R.id.replay_reLayout);
+        RelativeLayout closeRelayout = (RelativeLayout) view.findViewById(R.id.close_reLayout);
+        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.mScrollView);
+        final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.new_comment_layout);
+        deleteLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDeleteRequestJson = AlumniVoiceService.deleteVoice(PersonAlumniVoiceItemDetail.this,mVoice.getId(),
+                        new DeleteCallback(TAG,PersonAlumniVoiceItemDetail.this));
+            }
+        });
+
+        replayLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
+                SoftInput.open(getContext());
+                scrollView.scrollTo(0, linearLayout.getBottom());
+            }
+        });
+
+        closeRelayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -285,5 +373,9 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
             CloseRequestUtil.close(mRequestQueryJson);
         if (mRequestQueryPraiseJson != null)
             CloseRequestUtil.close(mRequestQueryPraiseJson);
+        if (mDeleteRequestJson != null)
+            CloseRequestUtil.close(mDeleteRequestJson);
+        if (mDeleteCommentJson != null)
+            CloseRequestUtil.close(mDeleteCommentJson);
     }
 }

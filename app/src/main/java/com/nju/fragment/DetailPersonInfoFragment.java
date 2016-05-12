@@ -21,17 +21,17 @@ import com.nju.util.SchoolFriendGson;
 import java.util.ArrayList;
 
 
-public class DetailPersonInfo extends BaseFragment {
+public class DetailPersonInfoFragment extends BaseFragment {
 
-    private static final String TAG = DetailPersonInfo.class.getSimpleName();
+    private static final String TAG = DetailPersonInfoFragment.class.getSimpleName();
     private ArrayList<DegreeInfo> mDegreeInfos = new ArrayList<>();
 
-    public DetailPersonInfo() {
+    public DetailPersonInfoFragment() {
         // Required empty public constructor
     }
 
-    public static DetailPersonInfo newInstance() {
-        DetailPersonInfo fragment = new DetailPersonInfo();
+    public static DetailPersonInfoFragment newInstance() {
+        DetailPersonInfoFragment fragment = new DetailPersonInfoFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);

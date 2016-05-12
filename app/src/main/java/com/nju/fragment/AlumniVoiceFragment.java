@@ -82,16 +82,14 @@ public class AlumniVoiceFragment extends BaseFragment {
                     Object object = parseResponse.getInfo(responseBody, AlumniVoice.class);
                     if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
-                        mVoices.clear();
                         if (majorAsks.size() > 0) {
+                            mVoices.clear();
                             for (Object obj : majorAsks) {
                                 AlumniVoice alumniVoice = (AlumniVoice) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoice));
-                                if (!mVoices.contains(alumniVoice)) {
-                                    mVoices.add(alumniVoice);
-                                }
+                                mVoices.add(alumniVoice);
                             }
-                            Collections.sort(mVoices, new AlumniVoiceSort());
+                            Collections.sort(mVoices,Collections.reverseOrder());
                             int length = mVoices.size();
                             Log.i(TAG, "length " + length);
                             if (length > Constant.MAX_ROW) {
@@ -185,7 +183,7 @@ public class AlumniVoiceFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(mVoices.get(position)));
+                getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(mVoices.get(position-1)));
             }
         });
         mFootView.setOnClickListener(new View.OnClickListener() {
@@ -326,20 +324,6 @@ public class AlumniVoiceFragment extends BaseFragment {
         }
     }
 
-    private static class AlumniVoiceSort implements Comparator<AlumniVoice> {
-        @Override
-        public int compare(AlumniVoice lhs, AlumniVoice rhs) {
-            final int lhsId = lhs.getId();
-            final int rhsId = rhs.getId();
-            if (lhsId > rhsId) {
-                return -1;
-            } else if (lhsId < rhsId) {
-                return 1;
-            }
-            return 0;
-        }
-    }
-
     private static class ExeCacheTask extends AsyncTask<Void, Void, ArrayList<AlumniVoice>> {
         private final WeakReference<AlumniVoiceFragment> mAlumniVoiceWeakRef;
 
@@ -363,7 +347,7 @@ public class AlumniVoiceFragment extends BaseFragment {
             if (alumniVoiceFragment != null) {
                 if (alumniVoices != null && alumniVoices.size() > 0) {
                     Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniVoices));
-                    Collections.sort(alumniVoices, new AlumniVoiceSort());
+                    Collections.sort(alumniVoices,Collections.reverseOrder());
                     alumniVoiceFragment.mVoices.addAll(alumniVoices);
                     alumniVoiceFragment.mAlumniVoiceItemAdapter.notifyDataSetChanged();
                 } else {

@@ -76,6 +76,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private int mIndex;
     private int commentId = 0;
     private AtomicInteger dynamicId;
+    private ListViewHead mHead;
     private String mDegree = Constant.ALL;
     private ResponseCallback getPraiseCallback = new ResponseCallback() {
         @Override
@@ -178,16 +179,14 @@ public class AlumniDynamicFragment extends BaseFragment {
                     Object object = parseResponse.getInfo(responseBody, AlumniTalk.class);
                     if (object != null) {
                         ArrayList majorAsks = (ArrayList) object;
-                        mAlumniTalks.clear();
                         if (majorAsks.size() > 0) {
+                            mAlumniTalks.clear();
                             for (Object obj : majorAsks) {
                                 AlumniTalk alumniTalk = (AlumniTalk) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalk));
-                                if (!mAlumniTalks.contains(alumniTalk)) {
-                                    mAlumniTalks.add(alumniTalk);
-                                }
+                                mAlumniTalks.add(alumniTalk);
                             }
-                            Collections.sort(mAlumniTalks, new AlumniTalkSort());
+                            Collections.sort(mAlumniTalks, Collections.reverseOrder());
                             int length = mAlumniTalks.size();
                             if (length > Constant.MAX_ROW) {
                                 for (int i = length - 1; i > Constant.MAX_ROW; i--) {
@@ -335,7 +334,7 @@ public class AlumniDynamicFragment extends BaseFragment {
         if (!username.equals("")) {
             navNameTv.setText(username);
         } else {
-            navNameTv.setText("访客");
+            navNameTv.setText("");
         }
 
         ImageView navImg = getHostActivity().navHeadImg();
@@ -465,7 +464,8 @@ public class AlumniDynamicFragment extends BaseFragment {
     private void initListView(final View view) {
         mContentEditText = CommentUtil.getCommentEdit(this, view);
         mListView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(mListView);
+        mHead = new ListViewHead(this);
+        mHead.setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
@@ -522,19 +522,6 @@ public class AlumniDynamicFragment extends BaseFragment {
         mContentEditText.invalidate();
     }
 
-    private static class AlumniTalkSort implements Comparator<AlumniTalk> {
-        @Override
-        public int compare(AlumniTalk lhs, AlumniTalk rhs) {
-            final int lhsId = lhs.getId();
-            final int rhsId = rhs.getId();
-            if (lhsId > rhsId) {
-                return -1;
-            } else if (lhsId < rhsId) {
-                return 1;
-            }
-            return 0;
-        }
-    }
 
     private static class ExeCacheTask extends AsyncTask<String, Void, ArrayList<AlumniTalk>> {
         private final WeakReference<AlumniDynamicFragment> mAlumniDynamicWeakRef;
@@ -571,7 +558,7 @@ public class AlumniDynamicFragment extends BaseFragment {
             if (alumniDynamicFragment != null) {
                 if (alumniTalks != null && alumniTalks.size() > 0) {
                     Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniTalks));
-                    Collections.sort(alumniTalks, new AlumniTalkSort());
+                    Collections.sort(alumniTalks, Collections.reverseOrder());
                     ArrayList<AlumniTalk> source = alumniDynamicFragment.mAlumniTalks;
                     source.clear();
                     source.addAll(alumniTalks);

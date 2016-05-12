@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by cun on 2016/4/14.
  */
-public class AlumnicTalkPraise implements Parcelable {
+public class AlumnicTalkPraise implements Parcelable{
     public static final Creator<AlumnicTalkPraise> CREATOR = new Creator<AlumnicTalkPraise>() {
         @Override
         public AlumnicTalkPraise createFromParcel(Parcel in) {
@@ -87,4 +87,6 @@ public class AlumnicTalkPraise implements Parcelable {
         dest.writeInt(id);
         dest.writeString(date);
     }
+
+
 }

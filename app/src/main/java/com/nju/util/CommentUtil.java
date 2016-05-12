@@ -150,6 +150,13 @@ public class CommentUtil {
         mEmotionLineLayout.setVisibility(View.GONE);
     }
 
+    public static void closeSoftKeyWithComment(Context context, View view) {
+        final FrameLayout mEmotionLineLayout = (FrameLayout) view.findViewById(R.id.comment_input_emotion_main);
+        final RelativeLayout hideReLayout = (RelativeLayout) view.findViewById(R.id.re_work_item_detail_hide_main_layout);
+        SoftInput.close(context, hideReLayout);
+        mEmotionLineLayout.setVisibility(View.GONE);
+    }
+
     public static void addViewPageEvent(final Context context, View view) {
         final int[] mSlidePosition = {0};
         ArrayList<View> mSlideCircleViews = new ArrayList<>();
