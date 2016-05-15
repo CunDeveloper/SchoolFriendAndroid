@@ -7,9 +7,10 @@
     android:layout_marginBottom="@dimen/phone_apadding"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/phone_head_length"
+        android:layout_height="@dimen/phone_head_length"
         android:id="@+id/head_icon"
+        android:scaleType="fitXY"
         android:background="@drawable/circle_bg"
         android:src="@drawable/head"
         android:layout_alignParentTop="true"
@@ -20,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
         android:textColor="@android:color/black"
         android:id="@+id/name_tv"
         android:layout_alignParentTop="true"
@@ -29,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
         android:id="@+id/label_tv"
         android:layout_below="@+id/name_tv"
         android:layout_toEndOf="@+id/head_icon" />
@@ -54,7 +53,7 @@
         android:layout_toEndOf="@+id/mCheckBox"
         android:layout_toStartOf="@+id/date_tv"
         android:id="@+id/frameLayout4">
-        <TextView
+        <com.nju.View.SchoolFriendTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"

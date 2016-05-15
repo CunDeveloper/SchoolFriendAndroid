@@ -18,11 +18,14 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniVoiceItemAdapter;
 import com.nju.db.db.service.AlumniVoiceDbService;
+import com.nju.event.MessageAuthorImageEvent;
 import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageDegreeEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.NetworkInfoEvent;
 import com.nju.http.ResponseCallback;
@@ -48,7 +51,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AlumniVoiceFragment extends BaseFragment {
@@ -61,6 +63,7 @@ public class AlumniVoiceFragment extends BaseFragment {
     private AtomicInteger mVoiceId;
     private AlumniVoiceItemAdapter mAlumniVoiceItemAdapter;
     private String mDegree = Constant.ALL;
+    private View mView;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -161,19 +164,19 @@ public class AlumniVoiceFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tu_cao, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
-        setListView(view);
-        BottomToolBar.showVoiceTool(this, view);
-        setUpOnRefreshListener(view);
-        SearchViewUtil.setUp(this, view);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_tu_cao, container, false);
+        mView.setPadding(mView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mView.getPaddingRight(), mView.getPaddingBottom());
+        setListView(mView);
+        BottomToolBar.showVoiceTool(this, mView);
+        setUpOnRefreshListener(mView);
+        SearchViewUtil.setUp(this, mView);
+        return mView;
     }
 
     private void setListView(View view) {
 
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(listView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
@@ -232,6 +235,7 @@ public class AlumniVoiceFragment extends BaseFragment {
                 dialog.show();
             }
         });
+        ListViewHead.initView(view, this);
     }
 
 
@@ -277,6 +281,16 @@ public class AlumniVoiceFragment extends BaseFragment {
         if (event.getMessage().equals(getString(R.string.complain))) {
             ComplainFragment fragment = ComplainFragment.newInstance();
             getHostActivity().open(fragment,fragment);        }
+    }
+
+    @Subscribe
+    public void onMessageAuthorImageEvent(MessageAuthorImageEvent event) {
+        ListViewHead.initView(mView,this);
+    }
+
+    @Subscribe
+    public void onMessageDegreeEvent(MessageDegreeEvent event){
+        BottomToolBar.showVoiceTool(this, mView);
     }
 
     @Override

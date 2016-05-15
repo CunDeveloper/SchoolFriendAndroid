@@ -9,21 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.http.ImageDownloader;
+import com.nju.model.AlumniDynamicCollect;
 import com.nju.model.DynamicCollect;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 
 
 public class DynamicCollectDetailFragment extends BaseFragment {
     private static final String PARAM_KEY = "paramKey";
-    private DynamicCollect mDynamicCollect;
+    private AlumniDynamicCollect mDynamicCollect;
 
     public DynamicCollectDetailFragment() {
         // Required empty public constructor
     }
 
-    public static DynamicCollectDetailFragment newInstance(DynamicCollect dynamicCollect) {
+    public static DynamicCollectDetailFragment newInstance(AlumniDynamicCollect dynamicCollect) {
         DynamicCollectDetailFragment fragment = new DynamicCollectDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(PARAM_KEY, dynamicCollect);
@@ -51,24 +54,27 @@ public class DynamicCollectDetailFragment extends BaseFragment {
 
     private void initView(View view) {
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
-        nameTV.setText(mDynamicCollect.getAuthorInfo().getAuthorName());
+        //nameTV.setText(mDynamicCollect.getAuthorInfo().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
-        labelTV.setText(mDynamicCollect.getAuthorInfo().getLabel());
+        //labelTV.setText(mDynamicCollect.getAuthorInfo().getLabel());
         TextView contentTV = (TextView) view.findViewById(R.id.content_tv);
-
+        ImageView headImg = (ImageView) view.findViewById(R.id.head_icon);
+        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url),"");
+        ImageDownloader.with(getContext()).download(headUrl,headImg);
         ImageView contentImg = (ImageView) view.findViewById(R.id.collect_img);
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
         dateTV.setText(getString(R.string.collect_with) + " " + mDynamicCollect.getDate());
-        if (mDynamicCollect.getContent() != null) {
+        if (mDynamicCollect.getText() != null) {
             try {
-                contentTV.setText(StringBase64.decode(mDynamicCollect.getContent()));
+                contentTV.setText(StringBase64.decode(mDynamicCollect.getText()));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 contentTV.setText(Constant.UNKNOWN_CHARACTER);
             }
 
         } else {
-            contentImg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.head));
+            String url = PathConstant.IMAGE_PATH + PathConstant.ALUMNI_TALK_IMG_PATH + mDynamicCollect.getImagePath();
+            ImageDownloader.with(getContext()).download(url,contentImg);
         }
     }
 }

@@ -10,16 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.PersonAskAdapter;
 import com.nju.event.NetworkInfoEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniQuestion;
+import com.nju.model.AuthorInfo;
 import com.nju.model.EntryDate;
 import com.nju.model.MyAsk;
 import com.nju.service.MajorAskService;
@@ -29,6 +33,7 @@ import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -42,8 +47,8 @@ import java.util.Collections;
 public class MyAskFragment extends BaseFragment {
 
     private static final String TAG = MyAskFragment.class.getSimpleName();
-    private static final String PARAM_TITLE = "paramTitle";
-    private static CharSequence mTitle;
+    private static final String AUTHOR_PARAM = "authorParam";
+    private AuthorInfo mAuthor;
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private ArrayList<AlumniQuestion> alumniQuestions;
@@ -106,10 +111,10 @@ public class MyAskFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static MyAskFragment newInstance(String title) {
+    public static MyAskFragment newInstance(AuthorInfo authorInfo) {
         MyAskFragment fragment = new MyAskFragment();
         Bundle args = new Bundle();
-        args.putString(PARAM_TITLE, title);
+        args.putParcelable(AUTHOR_PARAM, authorInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -118,7 +123,7 @@ public class MyAskFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(PARAM_TITLE);
+            mAuthor = getArguments().getParcelable(AUTHOR_PARAM);
         }
     }
 
@@ -134,17 +139,27 @@ public class MyAskFragment extends BaseFragment {
 
     private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        final int userId = getHostActivity().userId();
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = MajorAskService.queryOtherAuthorMajorAsk(MyAskFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+                }
+
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = MajorAskService.queryOtherAuthorMajorAsk(MyAskFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+                }
             }
         });
     }
@@ -187,11 +202,11 @@ public class MyAskFragment extends BaseFragment {
         alumniQuestions = new ArrayList<>();
         initMap();
         mListView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(mListView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        askAdapter = new PersonAskAdapter(this, mMyAsks);
+        askAdapter = new PersonAskAdapter(this, mMyAsks,mAuthor.getAuthorId());
         mListView.setAdapter(askAdapter);
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -208,12 +223,18 @@ public class MyAskFragment extends BaseFragment {
 
             }
         });
+        ListViewHead.initView(view,mAuthor,this);
     }
 
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event) {
         if (event.isConnected()) {
-            mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL, Constant.PRE);
+            int userId = getHostActivity().userId();
+            if (userId == mAuthor.getAuthorId()) {
+                mRequestJson = MajorAskService.queryMyAsk(MyAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            } else {
+                mRequestJson = MajorAskService.queryOtherAuthorMajorAsk(MyAskFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+            }
         }
     }
 
@@ -224,7 +245,7 @@ public class MyAskFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mTitle);
+            actionBar.setTitle(mAuthor.getAuthorName());
         }
         getHostActivity().display(6);
     }

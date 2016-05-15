@@ -7,6 +7,17 @@ public class QueryLimit {
     private int rowId;
     private int limit;
     private String dir;
+    private int authorId;
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
+
 
     public QueryLimit() {
     }

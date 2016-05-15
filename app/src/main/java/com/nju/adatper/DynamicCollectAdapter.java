@@ -11,7 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.fragment.BaseFragment;
+import com.nju.http.ImageDownloader;
+import com.nju.model.AlumniDynamicCollect;
 import com.nju.model.DynamicCollect;
+import com.nju.util.DateUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
@@ -20,11 +25,11 @@ import java.util.ArrayList;
  * Created by cun on 2016/3/19.
  */
 public class DynamicCollectAdapter extends BaseAdapter {
-    private ArrayList<DynamicCollect> mDynamicCollects;
-    private Context mContext;
+    private ArrayList<AlumniDynamicCollect> mDynamicCollects;
+    private BaseFragment mFragment;
 
-    public DynamicCollectAdapter(Context context, ArrayList<DynamicCollect> dynamicCollects) {
-        mContext = context;
+    public DynamicCollectAdapter(BaseFragment fragment, ArrayList<AlumniDynamicCollect> dynamicCollects) {
+        mFragment = fragment;
         mDynamicCollects = dynamicCollects;
     }
 
@@ -47,7 +52,7 @@ public class DynamicCollectAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.dynamic_collect_item, parent, false);
+            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.dynamic_collect_item, parent, false);
             holder = new ViewHolder();
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
             holder.labelTV = (TextView) convertView.findViewById(R.id.label_tv);
@@ -58,20 +63,21 @@ public class DynamicCollectAdapter extends BaseAdapter {
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.mCheckBox);
             convertView.setTag(holder);
         }
-        DynamicCollect dynamicCollect = mDynamicCollects.get(position);
+        AlumniDynamicCollect dynamicCollect = mDynamicCollects.get(position);
         holder = (ViewHolder) convertView.getTag();
-//        Picasso.with(mContext).load(R.drawable.head2)
-//                .transform(new RoundedTransformation(30, 4))
-//                .resizeDimen(30, 30).centerCrop()
-//                .into(holder.headImg);
-        holder.nameTV.setText(dynamicCollect.getAuthorInfo().getAuthorName());
-        holder.labelTV.setText(dynamicCollect.getAuthorInfo().getLabel());
-        if (dynamicCollect.getContent() != null) {
-            holder.contentTV.setText(StringBase64.decode(dynamicCollect.getContent()));
-        } else {
-            holder.contentImg.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.head));
+        String headName = mFragment.getHostActivity().getSharedPreferences().getString(mFragment.getString(R.string.head_url),"");
+        if (!headName.equals("")) {
+            String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + headName;
+            ImageDownloader.with(mFragment.getContext()).download(headUrl,holder.headImg);
         }
-        holder.dateTV.setText(dynamicCollect.getDate());
+
+        if (dynamicCollect.getText() != null) {
+            holder.contentTV.setText(StringBase64.decode(dynamicCollect.getText()));
+        } else {
+            String url = PathConstant.IMAGE_PATH + PathConstant.ALUMNI_TALK_IMG_PATH + dynamicCollect.getImagePath();
+            ImageDownloader.with(mFragment.getContext()).download(url,holder.contentImg);
+        }
+        holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(dynamicCollect.getDate()));
 
         if (dynamicCollect.getCheck() == 0) {
             holder.checkBox.setVisibility(View.GONE);

@@ -10,15 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.PersonRecommendAdapter;
 import com.nju.event.NetworkInfoEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
+import com.nju.model.AuthorInfo;
 import com.nju.model.EntryDate;
 import com.nju.model.MyRecommend;
 import com.nju.model.RecommendWork;
@@ -29,6 +33,7 @@ import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -41,10 +46,10 @@ import java.util.Collections;
 
 public class  MyRecommendFragment extends BaseFragment {
     private static final String TAG = MyRecommendFragment.class.getSimpleName();
-    private static final String PARAM_TITLE = "paramTitle";
-    private static CharSequence mTitle;
+    private static final String AUTHOR_PARAM = "authorParam";
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
+    private AuthorInfo mAuthor;
     private ArrayList<RecommendWork> mRecommendWorks;
     private ArrayList<MyRecommend> mMyRecommends = new ArrayList<>();
     private ListView listView;
@@ -102,10 +107,10 @@ public class  MyRecommendFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static MyRecommendFragment newInstance(String title) {
+    public static MyRecommendFragment newInstance(AuthorInfo authorInfo) {
         MyRecommendFragment fragment = new MyRecommendFragment();
         Bundle args = new Bundle();
-        args.putString(PARAM_TITLE, title);
+        args.putParcelable(AUTHOR_PARAM, authorInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -114,7 +119,7 @@ public class  MyRecommendFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(PARAM_TITLE);
+            mAuthor = getArguments().getParcelable(AUTHOR_PARAM);
         }
     }
 
@@ -132,11 +137,11 @@ public class  MyRecommendFragment extends BaseFragment {
         mRecommendWorks = new ArrayList<>();
         initMap();
         listView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(listView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
-        mPersonRecommendAdapter = new PersonRecommendAdapter(this, mMyRecommends);
+        mPersonRecommendAdapter = new PersonRecommendAdapter(this, mMyRecommends,mAuthor.getAuthorId());
         listView.setAdapter(mPersonRecommendAdapter);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -153,6 +158,8 @@ public class  MyRecommendFragment extends BaseFragment {
 
             }
         });
+
+        ListViewHead.initView(view,mAuthor,this);
     }
 
     private void initMap() {
@@ -190,17 +197,26 @@ public class  MyRecommendFragment extends BaseFragment {
 
     private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        final int userId = getHostActivity().userId();
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = RecommendWorkService.queryOtherAuthorRecommendWork(MyRecommendFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+                }
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = RecommendWorkService.queryOtherAuthorRecommendWork(MyRecommendFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+                }
             }
         });
     }
@@ -213,15 +229,20 @@ public class  MyRecommendFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mTitle);
+            actionBar.setTitle(mAuthor.getAuthorName());
         }
         getHostActivity().display(6);
     }
 
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event) {
+        int userId = getHostActivity().userId();
         if (event.isConnected()) {
-            mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            if (userId == mAuthor.getAuthorId()) {
+                mRequestJson = RecommendWorkService.queryMyRecommendWork(MyRecommendFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            } else {
+                mRequestJson = RecommendWorkService.queryOtherAuthorRecommendWork(MyRecommendFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+            }
         }
     }
 

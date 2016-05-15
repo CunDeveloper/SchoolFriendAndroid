@@ -69,7 +69,7 @@ public class WebViewFragment extends BaseFragment {
             actionBar.setTitle("");
 
         }
-        getHostActivity().display(5);
+        getHostActivity().display(9);
     }
 
     private void initWebView(View view) {

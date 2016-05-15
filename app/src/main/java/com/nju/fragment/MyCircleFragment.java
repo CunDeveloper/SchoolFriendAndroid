@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.nju.activity.R;
+import com.nju.model.AuthorInfo;
 import com.nju.util.Divice;
 
 public class MyCircleFragment extends BaseFragment {
 
+    private AuthorInfo mAuthor;
     public MyCircleFragment() {
         // Required empty public constructor
     }
@@ -56,13 +58,20 @@ public class MyCircleFragment extends BaseFragment {
     }
 
     private void initView(View view) {
+        mAuthor = new AuthorInfo();
+        mAuthor.setAuthorId(getHostActivity().userId());
+        String username = getHostActivity().getSharedPreferences().getString(getString(R.string.username),"");
+        mAuthor.setAuthorName(username);
+        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url),"");
+        mAuthor.setHeadUrl(headUrl);
+        String bgUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.bg_url),"");
+        mAuthor.setBgUrl(bgUrl);
+
         RelativeLayout mDynamicLay = (RelativeLayout) view.findViewById(R.id.my_dynamic);
         mDynamicLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = getHostActivity().getSharedPreferences()
-                        .getString(getString(R.string.username),"");
-                getHostActivity().open(MyDynamicFragment.newInstance(username));
+                getHostActivity().open(MyDynamicFragment.newInstance(mAuthor));
             }
         });
         RelativeLayout mDynamicCollectLay = (RelativeLayout) view.findViewById(R.id.dynamic_collect);
@@ -84,7 +93,7 @@ public class MyCircleFragment extends BaseFragment {
         mVoiceLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MyVoiceFragment.newInstance(getString(R.string.my_heart)));
+                getHostActivity().open(MyVoiceFragment.newInstance(mAuthor));
             }
         });
         RelativeLayout mVoiceCollectLay = (RelativeLayout) view.findViewById(R.id.voice_collect);
@@ -107,7 +116,7 @@ public class MyCircleFragment extends BaseFragment {
         mAskLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MyAskFragment.newInstance(getString(R.string.my_ask)));
+                getHostActivity().open(MyAskFragment.newInstance(mAuthor));
             }
         });
         RelativeLayout mAskCollect = (RelativeLayout) view.findViewById(R.id.ask_collect);
@@ -130,7 +139,7 @@ public class MyCircleFragment extends BaseFragment {
         mRecommendLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(MyRecommendFragment.newInstance(getString(R.string.my_recommend)));
+                getHostActivity().open(MyRecommendFragment.newInstance(mAuthor));
             }
         });
         RelativeLayout mRecommendCollect = (RelativeLayout) view.findViewById(R.id.recommend_collect);

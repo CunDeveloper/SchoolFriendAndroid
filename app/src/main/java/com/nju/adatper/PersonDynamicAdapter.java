@@ -28,10 +28,12 @@ import model.Content;
 public class PersonDynamicAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<MyDynamic> mMyDynamics;
+    private int mAuthorId;
 
-    public PersonDynamicAdapter(BaseFragment fragment, ArrayList<MyDynamic> dynamics) {
+    public PersonDynamicAdapter(BaseFragment fragment, ArrayList<MyDynamic> dynamics,int authorId) {
         mFragment = fragment;
         mMyDynamics = dynamics;
+        mAuthorId = authorId;
     }
 
     @Override

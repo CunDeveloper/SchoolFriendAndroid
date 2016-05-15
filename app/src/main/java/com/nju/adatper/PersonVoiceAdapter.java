@@ -9,11 +9,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.fragment.AlumniVoiceItemDetailFragment;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.PersonAlumniVoiceItemDetail;
 import com.nju.model.AlumniVoice;
 import com.nju.model.EntryDate;
 import com.nju.model.MyVoice;
+import com.nju.util.Constant;
 import com.nju.util.DateUtil;
 
 import java.util.ArrayList;
@@ -24,10 +26,12 @@ import java.util.ArrayList;
 public class PersonVoiceAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<MyVoice> mMyVoices;
+    private int mAuthorId;
 
-    public PersonVoiceAdapter(BaseFragment fragment, ArrayList<MyVoice> voices) {
+    public PersonVoiceAdapter(BaseFragment fragment, ArrayList<MyVoice> voices,int authorId) {
         mFragment = fragment;
         mMyVoices = voices;
+        mAuthorId = authorId;
     }
 
     @Override
@@ -64,7 +68,12 @@ public class PersonVoiceAdapter extends BaseAdapter {
         holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mFragment.getHostActivity().open(PersonAlumniVoiceItemDetail.newInstance(alumniVoices.get(position), "学习"));
+                int userId = mFragment.getHostActivity().userId();
+                if ( userId == mAuthorId) {
+                    mFragment.getHostActivity().open(PersonAlumniVoiceItemDetail.newInstance(alumniVoices.get(position), Constant.PERSON_VOICE));
+                }else {
+                    mFragment.getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(alumniVoices.get(position)));
+                }
             }
         });
         holder.dayTV.setText(entryDate.getDay());

@@ -15,11 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.RecommendWorkItemAdapter;
 import com.nju.db.db.service.RecommendDbService;
+import com.nju.event.MessageAuthorImageEvent;
 import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageDegreeEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.NetworkInfoEvent;
 import com.nju.event.RecommendWorkTypeEvent;
@@ -46,7 +49,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RecommendWorkFragment extends BaseFragment {
@@ -59,6 +61,7 @@ public class RecommendWorkFragment extends BaseFragment {
     private RecommendWorkItemAdapter mRecommendWorkItemAdapter;
     private RelativeLayout mFootView;
     private AtomicInteger mRecommendId;
+    private View mView;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -178,14 +181,14 @@ public class RecommendWorkFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_recommend_work, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), view.getPaddingRight(), view.getPaddingBottom());
-        setListView(view);
-        BottomToolBar.showRecommendTool(this, view);
-        setUpOnRefreshListener(view);
-        SearchViewUtil.setUp(this, view);
-        mType = BottomToolBar.getRecommendType(view);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_recommend_work, container, false);
+        mView.setPadding(mView.getPaddingLeft(), Divice.getStatusBarHeight(getActivity()), mView.getPaddingRight(), mView.getPaddingBottom());
+        setListView(mView);
+        BottomToolBar.showRecommendTool(this, mView);
+        setUpOnRefreshListener(mView);
+        SearchViewUtil.setUp(this, mView);
+        mType = BottomToolBar.getRecommendType(mView);
+        return mView;
     }
 
     private void setUpOnRefreshListener(View view) {
@@ -207,7 +210,7 @@ public class RecommendWorkFragment extends BaseFragment {
 
     private void setListView(View view) {
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(listView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
@@ -233,6 +236,7 @@ public class RecommendWorkFragment extends BaseFragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
         });
+        ListViewHead.initView(view, this);
     }
 
     @Subscribe
@@ -267,6 +271,16 @@ public class RecommendWorkFragment extends BaseFragment {
         if (event.getMessage().equals(getString(R.string.complain))) {
             ComplainFragment fragment = ComplainFragment.newInstance();
             getHostActivity().open(fragment,fragment);        }
+    }
+
+    @Subscribe
+    public void onMessageAuthorImageEvent(MessageAuthorImageEvent event) {
+        ListViewHead.initView(mView,this);
+    }
+
+    @Subscribe
+    public void onMessageDegreeEvent(MessageDegreeEvent event){
+        BottomToolBar.showRecommendTool(this, mView);
     }
 
     @Override

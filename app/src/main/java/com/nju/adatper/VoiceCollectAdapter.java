@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nju.activity.R;
+import com.nju.http.ImageDownloader;
 import com.nju.model.AlumniVoice;
+import com.nju.model.VoiceCollect;
 import com.nju.util.Constant;
 import com.nju.util.DateUtil;
+import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 
 import java.util.ArrayList;
@@ -21,22 +24,22 @@ import java.util.ArrayList;
  * Created by cun on 2016/3/19.
  */
 public class VoiceCollectAdapter extends BaseAdapter {
-    private ArrayList<AlumniVoice> mAlumniVoices;
+    private ArrayList<VoiceCollect> mVoiceCollects;
     private Context mContext;
 
-    public VoiceCollectAdapter(Context context, ArrayList<AlumniVoice> alumniVoices) {
+    public VoiceCollectAdapter(Context context, ArrayList<VoiceCollect> voiceCollects) {
         mContext = context;
-        mAlumniVoices = alumniVoices;
+        mVoiceCollects = voiceCollects;
     }
 
     @Override
     public int getCount() {
-        return mAlumniVoices.size();
+        return mVoiceCollects.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mAlumniVoices.get(position);
+        return mVoiceCollects.get(position);
     }
 
     @Override
@@ -55,31 +58,34 @@ public class VoiceCollectAdapter extends BaseAdapter {
             holder.dateTV = (TextView) convertView.findViewById(R.id.date_tv);
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.titleTV = (TextView) convertView.findViewById(R.id.title_tv);
-            holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon);
+            holder.headImg = (ImageView) convertView.findViewById(R.id.headIconImg);
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.chooseCB);
             convertView.setTag(holder);
         }
-        AlumniVoice alumniVoice = mAlumniVoices.get(position);
         holder = (ViewHolder) convertView.getTag();
-        holder.nameTV.setText(alumniVoice.getAuthorInfo().getAuthorName());
-        holder.labelTV.setText(alumniVoice.getAuthorInfo().getLabel());
-        holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniVoice.getDate()));
+        VoiceCollect collect = mVoiceCollects.get(position);
+        AlumniVoice voice = collect.getAlumnusVoice();
+        String url = PathConstant.IMAGE_PATH_SMALL + PathConstant.ALUMNI_VOICE_IMG_PATH + voice.getAuthorInfo().getHeadUrl();
+        ImageDownloader.with(mContext).download(url,holder.headImg);
+        holder.nameTV.setText(voice.getAuthorInfo().getAuthorName());
+        holder.labelTV.setText(voice.getAuthorInfo().getLabel());
+        holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(collect.getDate()));
         try {
-            holder.titleTV.setText(StringBase64.decode(alumniVoice.getTitle()));
+            holder.titleTV.setText(StringBase64.decode(voice.getTitle()));
         } catch (IllegalArgumentException e) {
             holder.titleTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         try {
-            holder.contentTV.setText(StringBase64.decode(alumniVoice.getContent()));
+            holder.contentTV.setText(StringBase64.decode(voice.getContent()));
         } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
 
-        if (alumniVoice.getCheck() == 0) {
+        if (collect.getCheck() == 0) {
             holder.checkBox.setVisibility(View.GONE);
-        } else if (alumniVoice.getCheck() == 1) {
+        } else if (collect.getCheck() == 1) {
             holder.checkBox.setVisibility(View.VISIBLE);
-        } else if (alumniVoice.getCheck() == 2) {
+        } else if (collect.getCheck() == 2) {
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setChecked(true);
         }

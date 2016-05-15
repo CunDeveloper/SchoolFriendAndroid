@@ -71,6 +71,8 @@ public class MajorAskDetailFragment extends BaseFragment {
     private PostRequestJson mRequestSaveJson, mRequestQueryJson,delectAskRequestJson;
     private View mMainView;
     private int commentType = 0;
+    private TextView mCollectTv;
+    private boolean isCollected = false;
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -317,6 +319,32 @@ public class MajorAskDetailFragment extends BaseFragment {
                 mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
             }
         });
+
+        MajorAskService.isCollected(this, mAlumniQuestion.getId(), new ResponseCallback() {
+            @Override
+            public void onFail(Exception error) {
+                Log.e(TAG,error.getMessage());
+            }
+
+            @Override
+            public void onSuccess(String responseBody) {
+                Log.i(TAG, responseBody);
+                if (FragmentUtil.isAttachedToActivity(MajorAskDetailFragment.this)) {
+                    Log.i(TAG, responseBody);
+                    ParseResponse parseResponse = new ParseResponse();
+                    try {
+                        String str = parseResponse.getInfo(responseBody);
+                        if (str != null && str.equals(1+"")){
+                            mCollectTv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                            isCollected = true;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
     private void initListView(View view) {
@@ -349,13 +377,18 @@ public class MajorAskDetailFragment extends BaseFragment {
             }
         });
 
-        final TextView collectTV = (TextView) view.findViewById(R.id.collect);
-        collectTV.setOnClickListener(new View.OnClickListener() {
+        mCollectTv = (TextView) view.findViewById(R.id.collect);
+        mCollectTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MajorAskCollectDbService(getContext()).save(mAlumniQuestion);
-                MajorAskService.saveCollect(MajorAskDetailFragment.this, mAlumniQuestion.getId(),
-                        new SaveCollectCallback(TAG,MajorAskDetailFragment.this,collectTV));
+                if (! isCollected){
+                    new MajorAskCollectDbService(getContext()).save(mAlumniQuestion);
+                    MajorAskService.saveCollect(MajorAskDetailFragment.this, mAlumniQuestion.getId(),
+                            new SaveCollectCallback(TAG,MajorAskDetailFragment.this,mCollectTv));
+                } else {
+                    ToastUtil.showShortText(getContext(),getString(R.string.you_have_collected));
+                }
+
             }
         });
 

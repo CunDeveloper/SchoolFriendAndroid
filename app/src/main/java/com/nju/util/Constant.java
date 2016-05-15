@@ -139,4 +139,8 @@ public class Constant {
     public static final String AUTHOR_ID = "authorId";
     public static final String ALUMNI_PUBLIC_PIC_ROOT = "校友圈";
     public static final String EMPTY_STR = "";
+    public static final String COLLECT = "收藏";
+    public static final String COMPLAIN = "投诉";
+    public static final String PERSON_VOICE = "我的心声";
+    public static final String LEVEL_ALL = "所有";
 }

@@ -52,7 +52,17 @@ public class AlumniVoiceService {
     public static PostRequestJson queryVoices(BaseFragment fragment, Callback callback, final String level, String dir, int rowId) {
         final String json = QueryJson.queryLimitToString(fragment, rowId, dir);
         Log.i(TAG, json);
-        String url = PathConstant.BASE_URL + PathConstant.ALUMNS_VOICE_PATH + PathConstant.ALUMNIS_VOICE_SUB_PATH_QUERY + "?level=" + level;
+        String url = PathConstant.BASE_URL + PathConstant.ALUMNS_VOICE_PATH + PathConstant.ALUMNS_VOICE_SUB_PATH_GET_ALL_VOICE + "?level=" + level;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
+    public static PostRequestJson queryOtherAuthorAlumniVoices(BaseFragment fragment, Callback callback, String dir, int rowId,int authorId) {
+        final String json = QueryJson.queryLimitToString(fragment, rowId, dir,authorId);
+        Log.i(TAG, json);
+        String url = PathConstant.BASE_URL + PathConstant.ALUMNS_VOICE_PATH + PathConstant.ALUMNIS_VOICE_SUB_PATH_GET_VOICES_BY_AUTHORID ;
         PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
         Log.i(TAG, url);
         HttpManager.getInstance().exeRequest(mRequestJson);
@@ -157,6 +167,27 @@ public class AlumniVoiceService {
         IdParam idParam = new IdParam(commentId);
         final String json = QueryJson.deleteContentById(fragment, idParam);
         String url = PathConstant.BASE_URL + PathConstant.ALUMNUS_VOICE_COMMENT_PATH + PathConstant.ALUMNUS_VOICE_COMMENT_SUB_PATH_CANCEL;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
+    public static PostRequestJson queryCollects(BaseFragment fragment, Callback callback) {
+        final String json = QueryJson.emptyBodyToString(fragment);
+        String url = PathConstant.BASE_URL + PathConstant.VOICE_COLLECT + PathConstant.GET_VOICE_COLLECT;
+        PostRequestJson mRequestQueryJson = new PostRequestJson(url, json, callback);
+        Log.e(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestQueryJson);
+        return mRequestQueryJson;
+    }
+
+    public static PostRequestJson isCollected(BaseFragment fragment, int commentId, Callback callback) {
+        IdParam idParam = new IdParam(commentId);
+        final String json = QueryJson.idToString(fragment, idParam);
+        String url = PathConstant.BASE_URL + PathConstant.VOICE_COLLECT + PathConstant.IS_COLLECTED;
         PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
         Log.i(TAG, url);
         Log.i(TAG, json);

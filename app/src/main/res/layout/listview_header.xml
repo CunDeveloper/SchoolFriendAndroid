@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="张小军"
+            android:id="@+id/userNameTV"
             android:textColor="@android:color/white"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/head_icon_img"

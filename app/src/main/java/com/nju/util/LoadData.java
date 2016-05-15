@@ -5,6 +5,7 @@ import android.util.Log;
 import com.nju.activity.BaseActivity;
 import com.nju.activity.FragmentHostActivity;
 import com.nju.activity.R;
+import com.nju.event.MessageDegreeEvent;
 import com.nju.fragment.BaseFragment;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
@@ -14,6 +15,8 @@ import com.nju.http.request.RequestBodyJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.http.response.QueryJson;
 import com.nju.model.DegreeInfo;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +31,6 @@ public class LoadData {
     private static final String TAG = LoadData.class.getSimpleName();
     private static SchoolFriendGson gson;
     private BaseActivity mBaseActivity;
-    private BaseFragment mFragment;
     private GetRequest voiceRequest, askRequest;
     private PostRequestJson collegeRequestJson;
     private ResponseCallback getCollegesCallback = new ResponseCallback() {
@@ -44,7 +46,7 @@ public class LoadData {
             try {
                 String info = parseResponse.getInfo(responseBody);
                 if (info != null) {
-                    Log.i(TAG, info + "info");
+                    Log.i(TAG, info );
                     Map<String, ArrayList<String>> colleges = gson.fromJsonToMap(info);
                     for (Map.Entry<String, ArrayList<String>> entry : colleges.entrySet()) {
                         Log.i(TAG, entry.getKey());
@@ -130,12 +132,6 @@ public class LoadData {
         }
     }
 
-    public LoadData(BaseFragment fragment) {
-        mFragment = fragment;
-        if (gson == null) {
-            gson = SchoolFriendGson.newInstance();
-        }
-    }
 
     public LoadData loadCollege() {
         String colleges = mBaseActivity.getSharedPreferences().getString(Constant.COLLEGES, "");
@@ -165,11 +161,11 @@ public class LoadData {
     }
 
     public LoadData loadPersonInfo() {
-        final FragmentHostActivity activity = mFragment.getHostActivity();
-        String personInfo = activity.getSharedPreferences().getString(mFragment.getString(R.string.person_info), "");
+
+        String personInfo = mBaseActivity.getSharedPreferences().getString(mBaseActivity.getString(R.string.person_info), "");
         if (personInfo.equals("")) {
             RequestBodyJson<String> bodyJson = new RequestBodyJson<>();
-            bodyJson.setAuthorization(activity.token());
+            bodyJson.setAuthorization(mBaseActivity.token());
             bodyJson.setBody("");
             String body = gson.toJson(bodyJson);
             String url = PathConstant.BASE_URL + PathConstant.USER_DEGREE_INFO_PATH + PathConstant.USER_DEGREE_QUERY;
@@ -188,14 +184,23 @@ public class LoadData {
                         Object object = parseResponse.getInfo(responseBody, DegreeInfo.class);
                         if (object != null) {
                             ArrayList list = (ArrayList) object;
+                            Set<String> degrees = new HashSet<>();
+                            Set<String> levels = new HashSet<>();
                             if (list.size() > 0) {
                                 for (Object obj : list) {
                                     DegreeInfo info = (DegreeInfo) obj;
+                                    degrees.add(info.getLevel()+":"+info.getStartDate());
+                                    levels.add(info.getLevel());
                                     infos.add(info);
                                 }
-                                activity.getSharedPreferences().edit().putString(mFragment.
+                                levels.add(Constant.LEVEL_ALL);
+                                mBaseActivity.getSharedPreferences().edit().putStringSet(mBaseActivity.getString(R.string.level),levels).commit();
+                                mBaseActivity.getSharedPreferences().edit().putStringSet(Constant.DEGREES,degrees).commit();
+                                mBaseActivity.getSharedPreferences().edit().putString(mBaseActivity.
                                         getString(R.string.person_info), gson.toJson(infos)).commit();
-                                activity.getSharedPreferences().edit().putString(mFragment.getString(R.string.username), infos.get(0).getRealName()).commit();
+                                mBaseActivity.getSharedPreferences().edit().putString(mBaseActivity.getString(R.string.username),
+                                        infos.get(0).getRealName()).commit();
+                                EventBus.getDefault().post(new MessageDegreeEvent(Constant.OK_MSG));
                             }
                         }
                     } catch (IOException e) {

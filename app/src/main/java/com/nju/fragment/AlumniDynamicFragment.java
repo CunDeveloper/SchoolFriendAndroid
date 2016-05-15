@@ -17,29 +17,34 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nju.View.RoundedTransformation;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.AlumniTalkAdapter;
 import com.nju.db.db.service.AlumniDynamicDbService;
 import com.nju.event.CommentEvent;
 import com.nju.event.CommentOtherEvent;
 import com.nju.event.DeleteCommentEvent;
+import com.nju.event.MessageAuthorImageEvent;
 import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageDegreeEvent;
 import com.nju.event.MessageDeleteEvent;
+import com.nju.event.MessageDynamicCollectEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.PersonInfoEvent;
 import com.nju.event.PraiseEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
+import com.nju.http.callback.SaveCollectCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
+import com.nju.model.AlumniDynamicCollect;
 import com.nju.model.AlumniTalk;
 import com.nju.model.AlumnicTalkPraise;
 import com.nju.model.ContentComment;
 import com.nju.service.AlumniTalkService;
 import com.nju.service.CacheIntentService;
-import com.nju.util.BitmapUtil;
 import com.nju.util.BottomToolBar;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -47,11 +52,10 @@ import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
-import com.nju.util.LoadData;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.ToastUtil;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,7 +64,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AlumniDynamicFragment extends BaseFragment {
@@ -70,7 +73,6 @@ public class AlumniDynamicFragment extends BaseFragment {
     private PostRequestJson mRequestJson, mRequestPraiseJson, mRequestCommentJson, getPraisesJson, getCommentsJson, deleteCommentJson, deleteContentJson;
     private SwipeRefreshLayout mRefreshLayout;
     private RelativeLayout mFootView;
-    private View mainView;
     private ListView mListView;
     private EditText mContentEditText;
     private int mIndex;
@@ -78,6 +80,7 @@ public class AlumniDynamicFragment extends BaseFragment {
     private AtomicInteger dynamicId;
     private ListViewHead mHead;
     private String mDegree = Constant.ALL;
+    private View mView;
     private ResponseCallback getPraiseCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -309,7 +312,6 @@ public class AlumniDynamicFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new LoadData(this).loadPersonInfo();
     }
 
     @Override
@@ -322,30 +324,14 @@ public class AlumniDynamicFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_alumni_dynamice, container, false);
-        mainView = view;
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getBottom());
-        initListView(view);
+        mView = inflater.inflate(R.layout.fragment_alumni_dynamice, container, false);
+        mView.setPadding(mView.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), mView.getPaddingRight(), mView.getBottom());
+        initListView(mView);
         getHostActivity().openDrawLayout();
-        setUpOnRefreshListener(view);
-        BottomToolBar.show(this, view);
-        TextView navNameTv = getHostActivity().navNameTV();
-        String username = getHostActivity().getSharedPreferences().getString(getString(R.string.username), "");
-        if (!username.equals("")) {
-            navNameTv.setText(username);
-        } else {
-            navNameTv.setText("");
-        }
-
-        ImageView navImg = getHostActivity().navHeadImg();
-        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url_filename), "");
-        if (!headUrl.equals("")) {
-            Picasso.with(getContext()).load(BitmapUtil.file(headUrl))
-                    .transform(new RoundedTransformation(R.dimen.bottom_choose_height, 4))
-                    .resizeDimen(R.dimen.bottom_choose_height, R.dimen.bottom_choose_height).centerCrop()
-                    .into(navImg);
-        }
-        return view;
+        setUpOnRefreshListener(mView);
+        BottomToolBar.show(this, mView);
+        initNagImg();
+        return mView;
     }
 
     @Override
@@ -407,7 +393,7 @@ public class AlumniDynamicFragment extends BaseFragment {
             }
         });
         SoftInput.open(getContext());
-        CommentUtil.getHideLayout(mainView).setVisibility(View.VISIBLE);
+        CommentUtil.getHideLayout(mView).setVisibility(View.VISIBLE);
     }
 
     @Subscribe
@@ -419,9 +405,9 @@ public class AlumniDynamicFragment extends BaseFragment {
     public void onMessageCommentOther(CommentOtherEvent event) {
         ContentComment comment = event.getComment();
         commentId = comment.getId();
-        mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+        mContentEditText.setHint(Constant.REPLAY + comment.getCommentAuthor().getAuthorName());
         SoftInput.open(getContext());
-        CommentUtil.getHideLayout(mainView).setVisibility(View.VISIBLE);
+        CommentUtil.getHideLayout(mView).setVisibility(View.VISIBLE);
     }
 
     @Subscribe
@@ -447,6 +433,14 @@ public class AlumniDynamicFragment extends BaseFragment {
     }
 
     @Subscribe
+    public void onMessageCollectEvent(MessageDynamicCollectEvent event){
+        AlumniDynamicCollect collect = new AlumniDynamicCollect();
+        collect.setText(event.getText());
+        collect.setImagePath(event.getImgPath());
+        AlumniTalkService.saveCollect(this, collect,new SaveCollectCallback(TAG,AlumniDynamicFragment.this,null));
+    }
+
+    @Subscribe
     public void onMessageDeleteContent(MessageContentIdEvent event) {
         dynamicId = new AtomicInteger();
         dynamicId.set(event.getId());
@@ -455,17 +449,45 @@ public class AlumniDynamicFragment extends BaseFragment {
 
     @Subscribe
     public void onMessageComplainEvent(MessageComplainEvent event) {
-        if (event.getMessage().equals(getString(R.string.complain))) {
+        if (event.getMessage().equals(Constant.COMPLAIN)) {
             ComplainFragment fragment = ComplainFragment.newInstance();
             getHostActivity().open(fragment,fragment);
+        }
+    }
+
+    @Subscribe
+    public void onMessageAuthorImageEvent(MessageAuthorImageEvent event) {
+        ToastUtil.showShortText(getContext(),event.getOk()+"ok");
+        ListViewHead.initView(mView,this);
+        initNagImg();
+    }
+
+    @Subscribe
+    public void onMessageDegreeEvent(MessageDegreeEvent event){
+        BottomToolBar.show(this, mView);
+    }
+
+    private void initNagImg(){
+        ImageView navImg = getHostActivity().navHeadImg();
+        String headName = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url), "");
+        if (!headName.equals("")) {
+            String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + headName;
+            ImageDownloader.with(getContext()).download(headUrl, navImg);
+        }
+
+        TextView navNameTv = getHostActivity().navNameTV();
+        String username = getHostActivity().getSharedPreferences().getString(getString(R.string.username), "");
+        if (!username.equals("")) {
+            navNameTv.setText(username);
+        } else {
+            navNameTv.setText("");
         }
     }
 
     private void initListView(final View view) {
         mContentEditText = CommentUtil.getCommentEdit(this, view);
         mListView = (ListView) view.findViewById(R.id.listView);
-        mHead = new ListViewHead(this);
-        mHead.setUp(mListView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
@@ -496,6 +518,7 @@ public class AlumniDynamicFragment extends BaseFragment {
 
             }
         });
+        ListViewHead.initView(view,this);
     }
 
     private void setUpOnRefreshListener(View view) {

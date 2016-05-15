@@ -34,6 +34,7 @@ public class RecommendDbService {
         mDb.execSQL(Constant.DELETE_FROM + RecommendEntity.TABLE_NAME);
         ContentValues contentValues;
         for (RecommendWork recommendWork : recommendWorks) {
+            Log.i(TAG,SchoolFriendGson.newInstance().toJson(recommendWork));
             contentValues = new ContentValues();
             contentValues.put(RecommendEntity.ID, recommendWork.getId());
             int type = recommendWork.getType();

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.http.ByteResponseCallback;
 import com.nju.http.HttpManager;
@@ -40,6 +41,7 @@ import com.nju.util.CryptUtil;
 import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.LoadData;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.SoftInput;
 import com.nju.util.ToastUtil;
@@ -360,6 +362,7 @@ public class XueXinAuthFragment extends BaseFragment {
                                 Log.i(TAG, tokenValue);
                                 getHostActivity().getSharedPreferences().edit().putInt(Constant.USER_ID, token.getUserId()).commit();
                                 getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(tokenValue)).commit();
+                                new LoadData((BaseActivity)getHostActivity()).loadCollege().loadQuestionLable().loadVoiceLable().loadPersonInfo();
                                 UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, loginCallback);
 
                             }
@@ -408,6 +411,7 @@ public class XueXinAuthFragment extends BaseFragment {
                                     String tokenValue = SchoolFriendGson.newInstance().toJson(token);
                                     Log.i(TAG, tokenValue);
                                     getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(tokenValue)).commit();
+                                    new LoadData((BaseActivity)getHostActivity()).loadCollege().loadQuestionLable().loadVoiceLable().loadPersonInfo();
                                     UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, loginCallback);
                                 }
                             } catch (IOException e) {

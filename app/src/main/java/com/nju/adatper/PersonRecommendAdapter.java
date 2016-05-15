@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.PersonRecommendWorkItemDetailFragment;
+import com.nju.fragment.RecommendWorkItemDetailFragment;
 import com.nju.model.EntryDate;
 import com.nju.model.MyRecommend;
 import com.nju.model.RecommendWork;
@@ -24,10 +25,12 @@ import java.util.ArrayList;
 public class PersonRecommendAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<MyRecommend> mMyRecommends;
+    private int mAuthorId;
 
-    public PersonRecommendAdapter(BaseFragment fragment, ArrayList<MyRecommend> recommends) {
+    public PersonRecommendAdapter(BaseFragment fragment, ArrayList<MyRecommend> recommends,int authorId) {
         mFragment = fragment;
         mMyRecommends = recommends;
+        mAuthorId = authorId;
     }
 
     @Override
@@ -67,7 +70,12 @@ public class PersonRecommendAdapter extends BaseAdapter {
         holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mFragment.getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+                int userId = mFragment.getHostActivity().userId();
+                if (userId == mAuthorId) {
+                    mFragment.getHostActivity().open(PersonRecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+                } else {
+                    mFragment.getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(recommendWorks.get(position)));
+                }
             }
         });
 

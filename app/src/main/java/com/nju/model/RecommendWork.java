@@ -7,34 +7,9 @@ import java.util.ArrayList;
 
 
 public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
-    public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
-        @Override
-        public RecommendWork createFromParcel(Parcel in) {
-            return new RecommendWork(in);
-        }
 
-        @Override
-        public RecommendWork[] newArray(int size) {
-            return new RecommendWork[size];
-        }
-    };
     private int id;
     private String date;
-    private AuthorInfo authorInfo;
-
-
-    public static Creator<RecommendWork> getCREATOR() {
-        return CREATOR;
-    }
-
-    public AuthorInfo getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(AuthorInfo author) {
-        this.author = author;
-    }
-
     private AuthorInfo author;
     private String title;
     private String content;
@@ -49,10 +24,11 @@ public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
     public RecommendWork() {
     }
 
+
     protected RecommendWork(Parcel in) {
         id = in.readInt();
         date = in.readString();
-        authorInfo = in.readParcelable(AuthorInfo.class.getClassLoader());
+        author = in.readParcelable(AuthorInfo.class.getClassLoader());
         title = in.readString();
         content = in.readString();
         imgPaths = in.readString();
@@ -60,8 +36,20 @@ public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
         email = in.readString();
         type = in.readInt();
         comments = in.createTypedArrayList(ContentComment.CREATOR);
+        check = in.readInt();
     }
 
+    public static final Creator<RecommendWork> CREATOR = new Creator<RecommendWork>() {
+        @Override
+        public RecommendWork createFromParcel(Parcel in) {
+            return new RecommendWork(in);
+        }
+
+        @Override
+        public RecommendWork[] newArray(int size) {
+            return new RecommendWork[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -135,40 +123,11 @@ public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
         this.date = date;
     }
 
-    public AuthorInfo getAuthorInfo() {
-        return authorInfo;
+    public AuthorInfo getAuthor() {
+        return author;
     }
-
-    public void setAuthorInfo(AuthorInfo authorInfo) {
-        this.authorInfo = authorInfo;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(date);
-        dest.writeParcelable(authorInfo, flags);
-        dest.writeString(title);
-        dest.writeString(content);
-        dest.writeString(imgPaths);
-        dest.writeInt(commentCount);
-        dest.writeString(email);
-        dest.writeInt(type);
-        dest.writeTypedList(comments);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        RecommendWork that = (RecommendWork) o;
-        if (this.getId() == that.getId()) {
-            return true;
-        }
-        return false;
+    public void setAuthor(AuthorInfo author) {
+        this.author = author;
     }
 
     public int getCheck() {
@@ -179,6 +138,18 @@ public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
         this.check = check;
     }
 
+
+
+    @Override
+    public boolean equals(Object o) {
+        RecommendWork that = (RecommendWork) o;
+        if (this.getId() == that.getId()) {
+            return true;
+        }
+        return false;
+    }
+
+
     @Override
     public int compareTo(RecommendWork another) {
         if (this.getId() > another.getId()){
@@ -187,5 +158,26 @@ public class RecommendWork implements Parcelable,Comparable<RecommendWork> {
             return -1;
         }
         return 0;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeParcelable(author, flags);
+        dest.writeString(title);
+        dest.writeString(content);
+        dest.writeString(imgPaths);
+        dest.writeInt(commentCount);
+        dest.writeString(email);
+        dest.writeInt(type);
+        dest.writeTypedList(comments);
+        dest.writeInt(check);
     }
 }

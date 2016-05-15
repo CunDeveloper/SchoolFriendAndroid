@@ -7,8 +7,9 @@
     android:layout_marginBottom="@dimen/phone_apadding"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/phone_head_length"
+        android:layout_height="@dimen/phone_head_length"
+        android:scaleType="fitXY"
         android:id="@+id/head_icon"
         android:background="@drawable/circle_bg"
         android:src="@drawable/head"
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+
         android:textColor="@android:color/black"
         android:id="@+id/name_tv"
         android:layout_alignParentTop="true"
@@ -29,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+
         android:id="@+id/label_tv"
         android:layout_below="@+id/name_tv"
         android:layout_toEndOf="@+id/head_icon" />
@@ -45,7 +46,7 @@
         android:layout_marginTop="@dimen/phone_apadding"
         android:layout_height="wrap_content"
         android:id="@+id/frameLayout">
-        <TextView
+        <com.nju.View.SchoolFriendTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"

@@ -10,16 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.PersonVoiceAdapter;
 import com.nju.event.NetworkInfoEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniVoice;
+import com.nju.model.AuthorInfo;
 import com.nju.model.EntryDate;
 import com.nju.model.MyVoice;
 import com.nju.service.AlumniVoiceService;
@@ -29,6 +34,7 @@ import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -41,12 +47,12 @@ import java.util.Collections;
 
 public class MyVoiceFragment extends BaseFragment {
     private static final String TAG = MyVoiceFragment.class.getSimpleName();
-    private static final String PARAM_TITLE = "paramTitle";
-    private static CharSequence mTitle;
+    private static final String AUTHOR_PARAM = "authorParam";
     private PostRequestJson mRequestJson;
     private SwipeRefreshLayout mRefreshLayout;
     private ArrayList<AlumniVoice> mAlumniVoices;
     private PersonVoiceAdapter mPersonVoiceAdapter;
+    private AuthorInfo mAuthor;
     private RelativeLayout mFootView;
     private ArrayList<MyVoice> mMyVoices = new ArrayList<>();
     private ListView mListView;
@@ -112,10 +118,10 @@ public class MyVoiceFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static MyVoiceFragment newInstance(String title) {
+    public static MyVoiceFragment newInstance(AuthorInfo authorInfo) {
         MyVoiceFragment fragment = new MyVoiceFragment();
         Bundle args = new Bundle();
-        args.putString(PARAM_TITLE, title);
+        args.putParcelable(AUTHOR_PARAM,authorInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -124,7 +130,7 @@ public class MyVoiceFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(PARAM_TITLE);
+            mAuthor = getArguments().getParcelable(AUTHOR_PARAM);
         }
     }
 
@@ -147,17 +153,26 @@ public class MyVoiceFragment extends BaseFragment {
 
     private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        final int userId = getHostActivity().userId();
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = AlumniVoiceService.queryOtherAuthorAlumniVoices(MyVoiceFragment.this, callback, Constant.PRE, 0, mAuthor.getAuthorId());
+                }
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = AlumniVoiceService.queryOtherAuthorAlumniVoices(MyVoiceFragment.this, callback,Constant.PRE, 0,mAuthor.getAuthorId());
+                }
             }
         });
     }
@@ -199,11 +214,11 @@ public class MyVoiceFragment extends BaseFragment {
     private void initListView(View view) {
         mAlumniVoices =  new ArrayList<>();
         mListView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(mListView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        mPersonVoiceAdapter = new PersonVoiceAdapter(this, mMyVoices);
+        mPersonVoiceAdapter = new PersonVoiceAdapter(this, mMyVoices,mAuthor.getAuthorId());
         mListView.setAdapter(mPersonVoiceAdapter);
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -220,12 +235,18 @@ public class MyVoiceFragment extends BaseFragment {
 
             }
         });
+        ListViewHead.initView(view,mAuthor,this);
     }
 
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event) {
+        int userId = getHostActivity().userId();
         if (event.isConnected()) {
-            mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL, Constant.PRE);
+            if (userId == mAuthor.getAuthorId()) {
+                mRequestJson = AlumniVoiceService.queryMyVoices(MyVoiceFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            } else {
+                mRequestJson = AlumniVoiceService.queryOtherAuthorAlumniVoices(MyVoiceFragment.this, callback,Constant.PRE, 0,mAuthor.getAuthorId());
+            }
         }
     }
 
@@ -236,7 +257,7 @@ public class MyVoiceFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mTitle);
+            actionBar.setTitle(mAuthor.getAuthorName());
         }
         getHostActivity().display(6);
     }

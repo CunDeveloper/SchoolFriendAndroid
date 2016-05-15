@@ -39,6 +39,7 @@ import com.nju.model.AuthorInfo;
 import com.nju.model.ContentComment;
 import com.nju.model.RespPraise;
 import com.nju.service.AlumniVoiceService;
+import com.nju.service.MajorAskService;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
 import com.nju.util.Constant;
@@ -77,6 +78,8 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
     private View mMainView;
     private int commentType = 0;
     private boolean isPraise = true;
+    private TextView mCollectTv;
+    private boolean isCollected = false;
     private PostRequestJson mRequestSaveJson, mRequestQueryJson, mRequestSavePraiseJson,
             mRequestQueryPraiseJson,mDeleteRequestJson;
     private ResponseCallback queryPraiseCallback = new ResponseCallback() {
@@ -345,6 +348,31 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
         });
         mRequestQueryJson = AlumniVoiceService.queryComment(this, mVoice.getId(), queryCommentCallback);
         mRequestQueryPraiseJson = AlumniVoiceService.queryPraise(this, mVoice.getId(), queryPraiseCallback);
+
+        AlumniVoiceService.isCollected(this,mVoice.getId(), new ResponseCallback() {
+            @Override
+            public void onFail(Exception error) {
+                Log.e(TAG, error.getMessage());
+            }
+
+            @Override
+            public void onSuccess(String responseBody) {
+                Log.i(TAG, responseBody);
+                if (FragmentUtil.isAttachedToActivity(AlumniVoiceItemDetailFragment.this)) {
+                    Log.i(TAG, responseBody);
+                    ParseResponse parseResponse = new ParseResponse();
+                    try {
+                        String str = parseResponse.getInfo(responseBody);
+                        if (str != null && str.equals(1 + "")) {
+                            mCollectTv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                            isCollected = true;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
 
@@ -373,15 +401,18 @@ public class AlumniVoiceItemDetailFragment extends BaseFragment {
             }
         });
 
-        final TextView collectTV = (TextView) view.findViewById(R.id.collect);
-        collectTV.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View v) {
-                                             new AlumniVoiceCollectDbService(getContext()).save(mVoice);
-                                              AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this, mVoice.getId(),
-                                                     new SaveCollectCallback(TAG,AlumniVoiceItemDetailFragment.this,collectTV));
-                                         }
-                                     });
+        mCollectTv = (TextView) view.findViewById(R.id.collect);
+        mCollectTv.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if (! isCollected) {
+                     new AlumniVoiceCollectDbService(getContext()).save(mVoice);
+                     AlumniVoiceService.saveCollect(AlumniVoiceItemDetailFragment.this, mVoice.getId(),
+                             new SaveCollectCallback(TAG, AlumniVoiceItemDetailFragment.this, mCollectTv));
+                 }else {
+                     ToastUtil.showShortText(getContext(),getString(R.string.you_have_collected));
+                 }
+             }});
 
         TextView shareTV = (TextView) view.findViewById(R.id.share);
         shareTV.setOnClickListener(new View.OnClickListener() {

@@ -42,7 +42,8 @@ public class SaveCollectCallback extends ResponseCallback {
                 String str = parseResponse.getInfo(responseBody);
                 if (str != null && str.equals(Constant.OK_MSG)){
                     ToastUtil.ShowText(mFragment.getContext(), mFragment.getString(R.string.collect_ok));
-                    mCollectTV.setTextColor(ContextCompat.getColor(mFragment.getContext(), android.R.color.holo_orange_dark));
+                    if (mCollectTV != null)
+                        mCollectTV.setTextColor(ContextCompat.getColor(mFragment.getContext(), android.R.color.holo_orange_dark));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

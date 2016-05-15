@@ -10,16 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.PersonDynamicAdapter;
 import com.nju.event.NetworkInfoEvent;
+import com.nju.http.ImageDownloader;
 import com.nju.http.ResponseCallback;
 import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.AlumniTalk;
+import com.nju.model.AuthorInfo;
 import com.nju.model.EntryDate;
 import com.nju.model.MyDynamic;
 import com.nju.service.AlumniTalkService;
@@ -29,6 +33,7 @@ import com.nju.util.DateUtil;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
 import com.nju.util.ListViewHead;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 
@@ -42,13 +47,13 @@ import java.util.Collections;
 
 public class MyDynamicFragment extends BaseFragment {
     private static final String TAG = MyDynamicFragment.class.getSimpleName();
-    private static final String TITLE_PARAM = "titleParam";
-    private static CharSequence mTitle;
+    private static final String AUTHOR_PARAM = "authorParam";
     private ListView mListView;
     private RelativeLayout mFootView;
     private PersonDynamicAdapter mDynamiceAdapter;
     private SwipeRefreshLayout mRefreshLayout;
     private PostRequestJson mRequestJson;
+    private AuthorInfo mAuthor;
     private ArrayList<MyDynamic> mMyDynamics = new ArrayList<>();
     private ArrayList<AlumniTalk> mAlumniTalks = new ArrayList<>();
     private ResponseCallback callback = new ResponseCallback() {
@@ -108,10 +113,10 @@ public class MyDynamicFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static MyDynamicFragment newInstance(String title) {
+    public static MyDynamicFragment newInstance(AuthorInfo authorInfo) {
         MyDynamicFragment fragment = new MyDynamicFragment();
         Bundle args = new Bundle();
-        args.putString(TITLE_PARAM, title);
+        args.putParcelable(AUTHOR_PARAM,authorInfo);
         fragment.setArguments(args);
         return fragment;
     }
@@ -120,7 +125,7 @@ public class MyDynamicFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(TITLE_PARAM);
+            mAuthor = getArguments().getParcelable(AUTHOR_PARAM);
         }
     }
 
@@ -142,7 +147,7 @@ public class MyDynamicFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mTitle);
+            actionBar.setTitle(mAuthor.getAuthorName());
         }
         getHostActivity().display(6);
     }
@@ -166,11 +171,11 @@ public class MyDynamicFragment extends BaseFragment {
     private void initListView(View view) {
         initMap();
         mListView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(mListView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(mListView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, mListView, false);
         mFootView.setVisibility(View.GONE);
         mListView.addFooterView(mFootView);
-        mDynamiceAdapter = new PersonDynamicAdapter(this, mMyDynamics);
+        mDynamiceAdapter = new PersonDynamicAdapter(this, mMyDynamics,mAuthor.getAuthorId());
         mListView.setAdapter(mDynamiceAdapter);
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -190,25 +195,41 @@ public class MyDynamicFragment extends BaseFragment {
 
     private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        final int userId = getHostActivity().userId();
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = AlumniTalkService.queryOtherAuthorAlumniTalks(MyDynamicFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+                }
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                if (userId == mAuthor.getAuthorId()) {
+                    mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+                } else {
+                    mRequestJson = AlumniTalkService.queryOtherAuthorAlumniTalks(MyDynamicFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+                }
             }
         });
+
+        ListViewHead.initView(view, mAuthor,this);
     }
 
     @Subscribe
     public void onNetStateMessageState(NetworkInfoEvent event) {
         if (event.isConnected()) {
-            mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            int userId = getHostActivity().userId();
+            if (userId == mAuthor.getAuthorId()) {
+                mRequestJson = AlumniTalkService.queryOwnAlumniTalks(MyDynamicFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            } else {
+                mRequestJson = AlumniTalkService.queryOtherAuthorAlumniTalks(MyDynamicFragment.this, callback, Constant.PRE, 0,mAuthor.getAuthorId());
+            }
         }
     }
 

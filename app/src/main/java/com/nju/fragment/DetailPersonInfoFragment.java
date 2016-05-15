@@ -16,6 +16,7 @@ import com.nju.model.DegreeInfo;
 import com.nju.model.UserInfo;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.PathConstant;
 import com.nju.util.SchoolFriendGson;
 
 import java.util.ArrayList;
@@ -83,8 +84,9 @@ public class DetailPersonInfoFragment extends BaseFragment {
             }
         });
         ImageView headImg = (ImageView) view.findViewById(R.id.imageView);
-        String headUrl = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url), "");
-        if (!headUrl.equals("")) {
+        String headName = getHostActivity().getSharedPreferences().getString(getString(R.string.head_url), "");
+        if (!headName.equals("")) {
+            String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + headName;
             ImageDownloader.with(getContext()).download(headUrl, headImg);
         }
         String name = "", label = "";

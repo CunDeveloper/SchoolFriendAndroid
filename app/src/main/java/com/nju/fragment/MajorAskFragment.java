@@ -16,11 +16,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.adatper.MajorAskAdapter;
 import com.nju.db.db.service.MajorAskDbService;
+import com.nju.event.MessageAuthorImageEvent;
 import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageDegreeEvent;
 import com.nju.event.MessageEvent;
 import com.nju.event.MessageLabelEvent;
 import com.nju.event.NetworkInfoEvent;
@@ -47,7 +50,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -56,12 +58,12 @@ public class MajorAskFragment extends BaseFragment {
     private SwipeRefreshLayout mRefreshLayout;
     private PostRequestJson mRequestJson, delectAskRequestJson;
     private ArrayList<AlumniQuestion> mAlumniQuestions = new ArrayList<>();
-    ;
     private RelativeLayout mFootView;
     private MajorAskAdapter mMajorAskAdapter;
     private AtomicInteger mAskId;
     private CharSequence mLabel = "";
     private CharSequence mDegree = Constant.ALL;
+    private View mView;
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -185,14 +187,14 @@ public class MajorAskFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_major_ask, container, false);
-        view.setPadding(view.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), view.getPaddingRight(), view.getPaddingBottom());
-        initListView(view);
+        mView = inflater.inflate(R.layout.fragment_major_ask, container, false);
+        mView.setPadding(mView.getPaddingLeft(), Divice.getStatusBarHeight(getContext()), mView.getPaddingRight(), mView.getPaddingBottom());
+        initListView(mView);
         initCameraView();
-        BottomToolBar.showMajorTool(this, view);
-        setUpOnRefreshListener(view);
-        SearchViewUtil.setUp(this, view);
-        return view;
+        BottomToolBar.showMajorTool(this, mView);
+        setUpOnRefreshListener(mView);
+        SearchViewUtil.setUp(this, mView);
+        return mView;
     }
 
     private void setUpOnRefreshListener(View view) {
@@ -223,7 +225,7 @@ public class MajorAskFragment extends BaseFragment {
 
     private void initListView(View view) {
         ListView listView = (ListView) view.findViewById(R.id.listView);
-        new ListViewHead(this).setUp(listView);
+        new ListViewHead((BaseActivity)getHostActivity()).setUp(listView);
         mFootView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.list_footer, listView, false);
         mFootView.setVisibility(View.GONE);
         listView.addFooterView(mFootView);
@@ -233,7 +235,7 @@ public class MajorAskFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MajorAskDetailFragment fragment = MajorAskDetailFragment.newInstance(mAlumniQuestions.get(position));
-                        getHostActivity().open(fragment,fragment);
+                getHostActivity().open(fragment, fragment);
             }
         });
 
@@ -251,6 +253,7 @@ public class MajorAskFragment extends BaseFragment {
 
             }
         });
+        ListViewHead.initView(view, this);
     }
 
     @Subscribe
@@ -279,11 +282,21 @@ public class MajorAskFragment extends BaseFragment {
     }
 
     @Subscribe
+    public void onMessageDegreeEvent(MessageDegreeEvent event){
+        BottomToolBar.showMajorTool(this, mView);
+    }
+
+    @Subscribe
     public void onMessageLabel(MessageLabelEvent event) {
         ToastUtil.showShortText(getContext(), event.getLabel());
         mLabel = event.getLabel();
         // new ExeCacheTask(this).execute(mDegree.toString(),mLabel.toString());
         mRequestJson = MajorAskService.queryMajorAskByLabel(this, callback, mDegree.toString(), event.getLabel(), Constant.PRE, 0);
+    }
+
+    @Subscribe
+    public void onMessageAuthorImageEvent(MessageAuthorImageEvent event) {
+        ListViewHead.initView(mView,this);
     }
 
     @Override

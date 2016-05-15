@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.nju.View.RoundedTransformation;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.event.MessageEventMore;
@@ -49,7 +48,6 @@ import com.nju.util.LoadData;
 import com.nju.util.SchoolFriendGson;
 import com.nju.util.ToastUtil;
 import com.splunk.mint.Mint;
-import com.squareup.picasso.Picasso;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -64,6 +62,7 @@ import java.util.Set;
 public class MainActivity extends BaseActivity {
     private static final String WX_APPID = "wx0e7d0e1f21f36288";
     private static final String WX_APP_SECRET = "0fb14de9a1832a7741f2caee321e89a1";
+    private static final String MINT_ID = "378226b0";
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String FINAL_TAG = "final_tag";
     private static final SchoolFriendGson gson = SchoolFriendGson.newInstance();
@@ -84,7 +83,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mint.setApplicationEnvironment(Mint.appEnvironmentStaging);
-        Mint.initAndStartSession(MainActivity.this, "378226b0");
+        Mint.initAndStartSession(MainActivity.this, MINT_ID);
         api = WXAPIFactory.createWXAPI(this, WX_APPID, true);
         api.registerApp(WX_APPID);
         setContentView(R.layout.activity_main);
@@ -99,6 +98,7 @@ public class MainActivity extends BaseActivity {
             XueXinAuthFragment fragment = XueXinAuthFragment.newInstance(getString(R.string.hasToken));
             open(fragment, true, fragment);
         } else if (isAuthorization == 1) {
+            new LoadData(this).loadCollege().loadQuestionLable().loadVoiceLable().loadPersonInfo();
             open(AlumniDynamicFragment.newInstance());
         }
     }
@@ -132,17 +132,12 @@ public class MainActivity extends BaseActivity {
         mNavNameTV = (TextView) headerView.findViewById(R.id.nav_header_username);
         mNavNameTV.setText(username);
         mNavHeadImg = (ImageView) headerView.findViewById(R.id.headIMG);
-        Picasso.with(getBaseContext()).load(R.drawable.head)
-                .transform(new RoundedTransformation(R.dimen.bottom_choose_height, 4))
-                .resizeDimen(R.dimen.bottom_choose_height, R.dimen.bottom_choose_height).centerCrop()
-                .into(mNavHeadImg);
-    }
+     }
 
     @Override
     public void onStart() {
         super.onStart();
         initFinalValue();
-        new LoadData(this).loadCollege().loadQuestionLable().loadVoiceLable();
         EventBus.getDefault().register(this);
     }
 
@@ -186,18 +181,6 @@ public class MainActivity extends BaseActivity {
         getSharedPreferences().edit().putInt(getString(R.string.diviceWidth), deviceWidth).commit();
         getSharedPreferences().edit().putInt(getString(R.string.diviceHeight), deviceHeight).commit();
         getSharedPreferences().edit().putInt(getString(R.string.visiDiviceHeight), visibleDeviceHeight).commit();
-
-        //for only test
-        Set<String> levels = new HashSet<>();
-        levels.add("本科");
-        levels.add("所有");
-        levels.add("硕士");
-        Set<String> degrees = new HashSet<>();
-        degrees.add("本科;2010");
-        degrees.add("硕士;2014");
-        getSharedPreferences().edit().putStringSet(Constant.DEGREES, degrees).commit();
-        getSharedPreferences().edit().putStringSet(getString(R.string.level), levels).commit();
-
         //设置推荐工作的默认查询参数
         setRecommendWorkDefaultQueryParam();
     }

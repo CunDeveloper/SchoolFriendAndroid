@@ -11,6 +11,7 @@ import com.nju.activity.R;
 import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageDeleteEvent;
 import com.nju.event.MessageEvent;
+import com.nju.util.Constant;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -80,8 +81,8 @@ public class SchoolFriendDialog extends MaterialDialog {
 
     public static SchoolFriendDialog listItemDialog(final Context context) {
         String[] items = {
-                "收藏",
-                "投诉"
+                Constant.COLLECT,
+                Constant.COMPLAIN
         };
         Builder builder = new Builder(context)
                 .items(items).contentColor(ContextCompat.getColor(context, android.R.color.black))
@@ -91,6 +92,17 @@ public class SchoolFriendDialog extends MaterialDialog {
                         EventBus.getDefault().post(new MessageComplainEvent(charSequence.toString()));
                     }
                 });
+        return new SchoolFriendDialog(builder);
+    }
+
+    public static SchoolFriendDialog listItemDialog(final Context context,ListItemCallback callback) {
+        String[] items = {
+                Constant.COLLECT,
+                Constant.COMPLAIN
+        };
+        Builder builder = new Builder(context)
+                .items(items).contentColor(ContextCompat.getColor(context, android.R.color.black))
+                .itemsCallback(callback);
         return new SchoolFriendDialog(builder);
     }
 

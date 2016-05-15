@@ -71,7 +71,7 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         }
         holder = (ViewHolder) convertView.getTag();
         final RecommendWork recommendWork = mRecommendWorks.get(position);
-        int author_id = recommendWork.getAuthorInfo().getAuthorId();
+        int author_id = recommendWork.getAuthor().getAuthorId();
         if (author_id == mFragment.getHostActivity().userId()) {
             holder.deleteTV.setText(Constant.DELETE);
         } else {
@@ -98,7 +98,7 @@ public class RecommendWorkItemAdapter extends BaseAdapter {
         holder.usernameTx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFragment.getHostActivity().open(CircleFragment.newInstance(recommendWork.getAuthorInfo()));
+                mFragment.getHostActivity().open(CircleFragment.newInstance(recommendWork.getAuthor()));
             }
         });
         try {

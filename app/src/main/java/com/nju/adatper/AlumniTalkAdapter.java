@@ -13,11 +13,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nju.View.SchoolFriendDialog;
 import com.nju.activity.R;
 import com.nju.event.CommentOtherEvent;
 import com.nju.event.DeleteCommentEvent;
+import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
+import com.nju.event.MessageDynamicCollectEvent;
 import com.nju.event.PersonInfoEvent;
 import com.nju.fragment.BaseFragment;
 import com.nju.fragment.CircleFragment;
@@ -105,6 +108,24 @@ public class AlumniTalkAdapter extends BaseAdapter {
         } catch (IllegalArgumentException e) {
             holder.contentTV.setText(Constant.UNKNOWN_CHARACTER);
         }
+        holder.contentTV.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SchoolFriendDialog.listItemDialog(mContext.getContext(), new SchoolFriendDialog.ListItemCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        if (charSequence.toString().equals(Constant.COMPLAIN)){
+                            EventBus.getDefault().post(new MessageComplainEvent(charSequence.toString()));
+                        }else {
+                            MessageDynamicCollectEvent event = new MessageDynamicCollectEvent();
+                            event.setText(alumniTalk.getContent());
+                            EventBus.getDefault().post(event);
+                        }
+                    }
+                }).show();
+                return true;
+            }
+        });
         if (alumniTalk.getLocation() != null) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.locationTV.setLayoutParams(params);
@@ -178,9 +199,20 @@ public class AlumniTalkAdapter extends BaseAdapter {
         });
 
         holder.mPicGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                SchoolFriendDialog.listItemDialog(mContext.getContext()).show();
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                SchoolFriendDialog.listItemDialog(mContext.getContext(), new SchoolFriendDialog.ListItemCallback() {
+                    String imgPaths[] = alumniTalk.getImagePaths().split(",");
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        if (charSequence.toString().equals(Constant.COMPLAIN)){
+                            EventBus.getDefault().post(new MessageComplainEvent(charSequence.toString()));
+                        }else {
+                            EventBus.getDefault().post(new MessageDynamicCollectEvent(imgPaths[position]));
+                        }
+                    }
+                }).show();
                 return true;
             }
         });

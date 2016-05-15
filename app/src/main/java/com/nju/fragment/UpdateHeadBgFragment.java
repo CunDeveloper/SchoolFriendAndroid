@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.nju.View.CustomImageVIew;
 import com.nju.View.SchoolFriendDialog;
+import com.nju.activity.BaseActivity;
 import com.nju.activity.R;
 import com.nju.http.HttpManager;
 import com.nju.http.ResponseCallback;
@@ -22,6 +23,7 @@ import com.nju.model.BitmapWrapper;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
 import com.nju.util.FragmentUtil;
+import com.nju.util.ListViewHead;
 import com.nju.util.PathConstant;
 import com.nju.util.ToastUtil;
 import com.squareup.picasso.Picasso;
@@ -138,6 +140,7 @@ public class UpdateHeadBgFragment extends BaseFragment {
                                 String str = parseResponse.getInfo(responseBody);
                                 if (str != null && str.equals(Constant.OK_MSG)) {
                                     ToastUtil.showShortText(getContext(), getString(R.string.update_ok));
+                                    new ListViewHead((BaseActivity)getHostActivity()).queryAuthorImage();
                                     Stack<BaseFragment> fragments = getHostActivity().getBackStack();
                                     if (fragments.size() >= 1) {
                                         getHostActivity().open(fragments.peek());

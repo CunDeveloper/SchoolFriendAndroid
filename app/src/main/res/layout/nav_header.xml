@@ -9,17 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="张小军"
         android:textColor="@android:color/white"
         android:id="@+id/nav_header_username"
-
         android:layout_below="@+id/headIMG"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <com.nju.View.CircleImageView
+        android:layout_width="@dimen/dp80"
+        android:layout_height="@dimen/dp80"
         android:id="@+id/headIMG"
         android:scaleType="fitXY"
         android:src="@drawable/head"

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.nju.activity.R;
 import com.nju.fragment.BaseFragment;
+import com.nju.fragment.MajorAskDetailFragment;
 import com.nju.fragment.PersonAskDetailFragment;
 import com.nju.model.AlumniQuestion;
 import com.nju.model.EntryDate;
@@ -24,10 +25,12 @@ import java.util.ArrayList;
 public class PersonAskAdapter extends BaseAdapter {
     private BaseFragment mFragment;
     private ArrayList<MyAsk> mMyAsks;
+    private int mAuthorId;
 
-    public PersonAskAdapter(BaseFragment fragment, ArrayList<MyAsk> asks) {
+    public PersonAskAdapter(BaseFragment fragment, ArrayList<MyAsk> asks,int authorId) {
         mFragment = fragment;
         mMyAsks = asks;
+        mAuthorId = authorId;
     }
 
     @Override
@@ -64,7 +67,13 @@ public class PersonAskAdapter extends BaseAdapter {
         holder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mFragment.getHostActivity().open(PersonAskDetailFragment.newInstance(alumniQuestions.get(position)));
+                int userId = mFragment.getHostActivity().userId();
+                if (userId == mAuthorId ){
+                    mFragment.getHostActivity().open(PersonAskDetailFragment.newInstance(alumniQuestions.get(position)));
+                } else {
+                    mFragment.getHostActivity().open(MajorAskDetailFragment.newInstance(alumniQuestions.get(position)));
+                }
+
             }
         });
 

@@ -116,6 +116,16 @@ public class MajorAskService {
         return mRequestJson;
     }
 
+    public static PostRequestJson queryOtherAuthorMajorAsk(BaseFragment fragment, Callback callback, String dir, int rowId,int authorId) {
+        final String json = QueryJson.queryLimitToString(fragment, rowId, dir,authorId);
+        Log.i(TAG, json);
+        String url = PathConstant.BASE_URL + PathConstant.ALUMNIS_QUESTION_PATH + PathConstant.ALUMNIS_QUESTION_SUB_PATH_GET_BYAUTHOR_ID ;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
     public static PostRequestJson queryMajorAskByLabel(BaseFragment fragment, Callback callback, String level, String label, String dir, int rowId) {
         final String json = QueryJson.queryLimitLabelToString(fragment, rowId, dir, label);
         Log.i(TAG, json);
@@ -137,6 +147,17 @@ public class MajorAskService {
         return mRequestJson;
     }
 
+    public static PostRequestJson isCollected(BaseFragment fragment, int commentId, Callback callback) {
+        IdParam idParam = new IdParam(commentId);
+        final String json = QueryJson.idToString(fragment, idParam);
+        String url = PathConstant.BASE_URL + PathConstant.QUESTION_COLLECT + PathConstant.IS_COLLECTED;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
     public static PostRequestJson deleteComment(BaseFragment fragment, int commentId, Callback callback) {
         IdParam idParam = new IdParam(commentId);
         final String json = QueryJson.deleteContentById(fragment, idParam);
@@ -146,5 +167,15 @@ public class MajorAskService {
         Log.i(TAG, json);
         HttpManager.getInstance().exeRequest(mRequestJson);
         return mRequestJson;
+    }
+
+    public static PostRequestJson queryCollects(BaseFragment fragment, Callback callback) {
+        final String json = QueryJson.emptyBodyToString(fragment);
+        String url = PathConstant.BASE_URL + PathConstant.QUESTION_COLLECT + PathConstant.GET_QUESTION_COLLECT;
+        PostRequestJson mRequestQueryJson = new PostRequestJson(url, json, callback);
+        Log.e(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestQueryJson);
+        return mRequestQueryJson;
     }
 }

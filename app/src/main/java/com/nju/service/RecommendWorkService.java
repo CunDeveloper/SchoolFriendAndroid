@@ -46,6 +46,16 @@ public class RecommendWorkService {
         return mRequestJson;
     }
 
+    public static PostRequestJson queryOtherAuthorRecommendWork(BaseFragment fragment, Callback callback, String dir, int rowId,int authorId) {
+        final String json = QueryJson.queryLimitToString(fragment, rowId, dir,authorId);
+        Log.i(TAG, json);
+        String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_WORK_PATH + PathConstant.RECOMMEND_WORK_SUB_PATH_GET_BYAUTHOR_ID ;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
     public static PostRequestJson queryRecommendWorkByType(BaseFragment fragment, Callback callback, final String level, int type, String dir) {
         final String json = QueryJson.queryLimitByTypeToString(fragment, dir, type);
         Log.i(TAG, json);
@@ -156,6 +166,17 @@ public class RecommendWorkService {
         IdParam idParam = new IdParam(commentId);
         final String json = QueryJson.deleteContentById(fragment, idParam);
         String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_COLLECT + PathConstant.ALUMNI_TALK_COMMENT_SUB_PATH_CANCEL;
+        PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
+        Log.i(TAG, url);
+        Log.i(TAG, json);
+        HttpManager.getInstance().exeRequest(mRequestJson);
+        return mRequestJson;
+    }
+
+    public static PostRequestJson isCollected(BaseFragment fragment, int commentId, Callback callback) {
+        IdParam idParam = new IdParam(commentId);
+        final String json = QueryJson.idToString(fragment, idParam);
+        String url = PathConstant.BASE_URL + PathConstant.RECOMMEND_COLLECT + PathConstant.IS_COLLECTED;
         PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
         Log.i(TAG, url);
         Log.i(TAG, json);

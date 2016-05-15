@@ -241,5 +241,7 @@
     <string name="delete_failure">删除失败</string>
     <string name="delete_ok">删除成功</string>
     <string name="collect_faiure">收藏失败</string>
+    <string name="you_have_collected">你已经收藏过</string>
+    <string name="bg_url">bgUrl</string>
 
 </resources>

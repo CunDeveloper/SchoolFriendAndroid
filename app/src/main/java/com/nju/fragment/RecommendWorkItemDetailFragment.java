@@ -36,6 +36,7 @@ import com.nju.http.request.PostRequestJson;
 import com.nju.http.response.ParseResponse;
 import com.nju.model.ContentComment;
 import com.nju.model.RecommendWork;
+import com.nju.service.MajorAskService;
 import com.nju.service.RecommendWorkService;
 import com.nju.util.CloseRequestUtil;
 import com.nju.util.CommentUtil;
@@ -74,6 +75,8 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
     private CommentAdapter mCommentAdapter;
     private View mMainView;
     private int mCommentType = 0;
+    private TextView mCollectTv;
+    private boolean isCollected = false;
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -217,27 +220,31 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         nameTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(CircleFragment.newInstance(mRecommendWork.getAuthorInfo()));
+                getHostActivity().open(CircleFragment.newInstance(mRecommendWork.getAuthor()));
             }
         });
         TextView labelTV = (TextView) view.findViewById(R.id.label_tv);
         labelTV.setText(mRecommendWork.getAuthor().getLabel());
         mEmailTV = (TextView) view.findViewById(R.id.email_tv);
-        //mEmailTV.setText(mRecommendWork.getEmail());
+        mEmailTV.setText(mRecommendWork.getEmail());
         mEmailTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendEmail();
             }
         });
-        final TextView collectTV = (TextView) view.findViewById(R.id.collect_tv);
+        mCollectTv = (TextView) view.findViewById(R.id.collect_tv);
 
-        collectTV.setOnClickListener(new View.OnClickListener() {
+        mCollectTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new RecommendWorkCollectDbService(getContext()).save(mRecommendWork);
-                RecommendWorkService.saveCollect(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(),
-                        new SaveCollectCallback(TAG,RecommendWorkItemDetailFragment.this,collectTV));
+                if (! isCollected) {
+                    new RecommendWorkCollectDbService(getContext()).save(mRecommendWork);
+                    RecommendWorkService.saveCollect(RecommendWorkItemDetailFragment.this, mRecommendWork.getId(),
+                            new SaveCollectCallback(TAG, RecommendWorkItemDetailFragment.this, mCollectTv));
+                }else {
+                    ToastUtil.showShortText(getContext(),getString(R.string.you_have_collected));
+                }
             }
         });
 
@@ -258,7 +265,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ContentComment comment = mContentComments.get(position);
                 //commentId = comment.getId();
-                mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                mContentEditText.setHint(Constant.REPLAY + comment.getCommentAuthor().getAuthorName());
                 SoftInput.open(getContext());
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
@@ -266,7 +273,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         hotListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mRecommendWork.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
+                if (mRecommendWork.getAuthor().getAuthorId() == getHostActivity().userId()) {
                     String[] strings = {getString(R.string.delete)};
                     SchoolFriendDialog.listItemDialog(getContext(), strings).show();
                 }
@@ -281,7 +288,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ContentComment comment = mContentComments.get(position);
                 //commentId = comment.getId();
-                mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                mContentEditText.setHint(Constant.REPLAY + comment.getCommentAuthor().getAuthorName());
                 SoftInput.open(getContext());
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
@@ -289,7 +296,7 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
         newListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mRecommendWork.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
+                if (mRecommendWork.getAuthor().getAuthorId() == getHostActivity().userId()) {
                     String[] strings = {getString(R.string.delete)};
                     SchoolFriendDialog.listItemDialog(getContext(), strings).show();
                 }
@@ -350,9 +357,35 @@ public class RecommendWorkItemDetailFragment extends BaseFragment {
             }
         });
 
-        if (mRecommendWork.getAuthorInfo().getAuthorId() == getHostActivity().userId()) {
+        if (mRecommendWork.getAuthor().getAuthorId() == getHostActivity().userId()) {
             deleteTV.setText(Constant.DELETE);
         }
+
+         RecommendWorkService.isCollected(this, mRecommendWork.getId(), new ResponseCallback() {
+             @Override
+             public void onFail(Exception error) {
+                 Log.e(TAG, error.getMessage());
+             }
+
+             @Override
+             public void onSuccess(String responseBody) {
+                 Log.i(TAG, responseBody);
+                 if (FragmentUtil.isAttachedToActivity(RecommendWorkItemDetailFragment.this)) {
+                     Log.i(TAG, responseBody);
+                     ParseResponse parseResponse = new ParseResponse();
+                     try {
+                         String str = parseResponse.getInfo(responseBody);
+                         if (str != null && str.equals(1 + "")) {
+                             mCollectTv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
+                             isCollected = true;
+                         }
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                 }
+             }
+         });
+
 
     }
 

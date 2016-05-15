@@ -17,6 +17,9 @@ import com.nju.activity.R;
 import com.nju.http.ImageDownloader;
 import com.nju.util.Constant;
 import com.nju.util.Divice;
+import com.nju.util.PathConstant;
+
+import java.util.HashSet;
 
 
 public class SettingFragment extends BaseFragment {
@@ -65,9 +68,10 @@ public class SettingFragment extends BaseFragment {
 
     private void addViewEvent(View view) {
         ImageView headImg = (ImageView) view.findViewById(R.id.headIconImg);
-        String headUrl = getHostActivity().getSharedPreferences().
+        String headName = getHostActivity().getSharedPreferences().
                 getString(getString(R.string.head_url), "");
-        if (!headUrl.equals("")) {
+        if (!headName.equals("")) {
+            String headUrl = PathConstant.IMAGE_PATH_SMALL + PathConstant.HEAD_ICON_IMG + headName;
             ImageDownloader.with(getContext()).download(headUrl, headImg);
         }
         TextView functionTV = (TextView) view.findViewById(R.id.function_desc);
@@ -123,6 +127,15 @@ public class SettingFragment extends BaseFragment {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, "").commit();
+                        getHostActivity().getSharedPreferences().edit().putString(getString(R.string.username),"").commit();
+                        getHostActivity().getSharedPreferences().edit().putString(getString(R.string.head_url),"").commit();
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.COLLEGES, "").commit();
+                        getHostActivity().getSharedPreferences().edit().putString(getString(R.string.bg_url),"").commit();
+                        getHostActivity().getSharedPreferences().edit().putString(getString(R.string.person_info), "").commit();
+                        getHostActivity().getSharedPreferences().edit().putStringSet(Constant.DEGREES, new HashSet<String>()).commit();
+                        getHostActivity().getSharedPreferences().edit().putString(Constant.COLLEGES, "").commit();
+                        getHostActivity().getSharedPreferences().edit().putStringSet(getString(R.string.level), new HashSet<String>()).commit();
+
                         getActivity().finish();
                     }
                 });
@@ -140,7 +153,8 @@ public class SettingFragment extends BaseFragment {
         headLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHostActivity().open(SingleChoosePicFragment.newInstance(getString(R.string.update_head)));
+                SingleChoosePicFragment fragment = SingleChoosePicFragment.newInstance(getString(R.string.update_head));
+                getHostActivity().open(fragment,fragment);
             }
         });
 

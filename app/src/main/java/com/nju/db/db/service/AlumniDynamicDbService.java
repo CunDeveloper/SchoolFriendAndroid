@@ -40,7 +40,7 @@ public class AlumniDynamicDbService {
             String entryYear = alumniVoice.getAuthorInfo().getLabel().split(" ")[2];
             HashMap<String, String> degrees = DegreeUtil.degrees(mContext);
             String degree = degrees.get(entryYear);
-            Log.i(TAG, degree);
+            Log.i(TAG, degree+"DEGREE");
             if (degree != null && !degree.trim().equals("")) {
                 contentValues.put(AlumniDynamicEntity.DEGREE, degree);
                 db.replace(AlumniDynamicEntity.TABLE_NAME, null, contentValues);
