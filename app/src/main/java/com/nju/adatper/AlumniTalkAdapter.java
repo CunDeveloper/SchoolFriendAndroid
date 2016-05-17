@@ -45,11 +45,11 @@ import java.util.ArrayList;
 public class AlumniTalkAdapter extends BaseAdapter {
     private static final String TAG = AlumniTalkAdapter.class.getSimpleName();
     private static String[] empty = {};
-    private BaseFragment mContext;
+    private BaseFragment mFragment;
     private ArrayList<AlumniTalk> mAlumniTalks;
 
     public AlumniTalkAdapter(BaseFragment context, ArrayList<AlumniTalk> alumniTalks) {
-        this.mContext = context;
+        this.mFragment = context;
         this.mAlumniTalks = alumniTalks;
     }
 
@@ -71,8 +71,9 @@ public class AlumniTalkAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
+        final int userId = mFragment.getHostActivity().userId();
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext.getContext()).inflate(R.layout.alumni_talk_item, parent, false);
+            convertView = LayoutInflater.from(mFragment.getContext()).inflate(R.layout.alumni_talk_item, parent, false);
             holder = new ViewHolder();
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
             holder.nameTV = (TextView) convertView.findViewById(R.id.name_tv);
@@ -81,13 +82,12 @@ public class AlumniTalkAdapter extends BaseAdapter {
             holder.locationTV = (TextView) convertView.findViewById(R.id.location_tv);
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
             holder.headImg = (ImageView) convertView.findViewById(R.id.head_icon_img);
-            holder.listViewHead = (LinearLayout) LayoutInflater.from(mContext.getContext()).inflate(R.layout.comment_list_head, parent, false);
+            holder.listViewHead = (LinearLayout) LayoutInflater.from(mFragment.getContext()).inflate(R.layout.comment_list_head, parent, false);
             holder.commentTV = (TextView) convertView.findViewById(R.id.comment_icon_tv);
             holder.deleteTV = (TextView) convertView.findViewById(R.id.delete_tv);
             holder.commentListView = (ListView) convertView.findViewById(R.id.comment_listView);
             holder.commentListView.addHeaderView(holder.listViewHead);
             holder.mPicGridView = (GridView) convertView.findViewById(R.id.pics_gridview);
-
             convertView.setTag(holder);
 
         }
@@ -97,8 +97,16 @@ public class AlumniTalkAdapter extends BaseAdapter {
         tempTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListPopupWindow listPopupWindow = new CommentPopupWindow(mContext.getContext(), tempTV);
-                listPopupWindow.setAdapter(new UserCommentItemListAdapter(mContext.getContext(), listPopupWindow, position));
+                ArrayList<AlumnicTalkPraise> praises = alumniTalk.getTalkPraises();
+                boolean isPraise = false;
+                for (AlumnicTalkPraise praise : praises) {
+                    if (userId == praise.getPraiseAuthor().getAuthorId()){
+                        isPraise = true;
+                        break;
+                    }
+                }
+                ListPopupWindow listPopupWindow = new CommentPopupWindow(mFragment.getContext(), tempTV);
+                listPopupWindow.setAdapter(new UserCommentItemListAdapter(mFragment.getContext(), listPopupWindow, position,isPraise));
                 listPopupWindow.show();
             }
         });
@@ -111,7 +119,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
         holder.contentTV.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                SchoolFriendDialog.listItemDialog(mContext.getContext(), new SchoolFriendDialog.ListItemCallback() {
+                SchoolFriendDialog.listItemDialog(mFragment.getContext(), new SchoolFriendDialog.ListItemCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                         if (charSequence.toString().equals(Constant.COMPLAIN)){
@@ -137,7 +145,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
             holder.locationTV.setVisibility(View.GONE);
         }
         int authorId = alumniTalk.getAuthorInfo().getAuthorId();
-        if (authorId == mContext.getHostActivity().userId()) {
+        if (authorId == mFragment.getHostActivity().userId()) {
             holder.deleteTV.setText(Constant.DELETE);
         } else {
             holder.deleteTV.setText("");
@@ -159,25 +167,25 @@ public class AlumniTalkAdapter extends BaseAdapter {
         holder.dateTV.setText(DateUtil.getRelativeTimeSpanString(alumniTalk.getDate()));
 
         if (alumniTalk.getImagePaths() == null) {
-            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(), PathConstant.ALUMNI_TALK_IMG_PATH, empty));
+            holder.mPicGridView.setAdapter(new ContentPicAdater(mFragment.getContext(), PathConstant.ALUMNI_TALK_IMG_PATH, empty));
         } else {
-            holder.mPicGridView.setAdapter(new ContentPicAdater(mContext.getContext(), PathConstant.ALUMNI_TALK_IMG_PATH, alumniTalk.getImagePaths().split(",")));
+            holder.mPicGridView.setAdapter(new ContentPicAdater(mFragment.getContext(), PathConstant.ALUMNI_TALK_IMG_PATH, alumniTalk.getImagePaths().split(",")));
         }
         holder.mPicGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mContext.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","), position, PathConstant.ALUMNI_TALK_IMG_PATH));
+                mFragment.getHostActivity().open(CircleImageViewFragment.newInstance(alumniTalk.getImagePaths().split(","), position, PathConstant.ALUMNI_TALK_IMG_PATH));
             }
         });
         holder.listViewHead.removeAllViews();
         final ArrayList<AlumnicTalkPraise> alumnicTalkPraises = alumniTalk.getTalkPraises();
         for (int i = 0; i < alumnicTalkPraises.size(); i++) {
-            TextView textView = (TextView) LayoutInflater.from(mContext.getContext()).inflate(R.layout.dynamic_praise_item, parent, false);
+            TextView textView = (TextView) LayoutInflater.from(mFragment.getContext()).inflate(R.layout.dynamic_praise_item, parent, false);
             final AlumnicTalkPraise talkPraise = alumnicTalkPraises.get(i);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.getHostActivity().open(CircleFragment.newInstance(talkPraise.getPraiseAuthor()));
+                    mFragment.getHostActivity().open(CircleFragment.newInstance(talkPraise.getPraiseAuthor()));
                 }
             });
             textView.setText(talkPraise.getPraiseAuthor().getAuthorName());
@@ -190,7 +198,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
 
             }
         });
-        holder.commentListView.setAdapter(new CommentListAdapter(mContext, comments));
+        holder.commentListView.setAdapter(new CommentListAdapter(mFragment, comments));
         holder.commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -202,7 +210,7 @@ public class AlumniTalkAdapter extends BaseAdapter {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                SchoolFriendDialog.listItemDialog(mContext.getContext(), new SchoolFriendDialog.ListItemCallback() {
+                SchoolFriendDialog.listItemDialog(mFragment.getContext(), new SchoolFriendDialog.ListItemCallback() {
                     String imgPaths[] = alumniTalk.getImagePaths().split(",");
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {

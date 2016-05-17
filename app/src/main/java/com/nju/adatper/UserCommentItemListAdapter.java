@@ -1,6 +1,7 @@
 package com.nju.adatper;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.nju.activity.R;
 import com.nju.event.CommentEvent;
 import com.nju.event.PraiseEvent;
+import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,12 +29,14 @@ public class UserCommentItemListAdapter extends BaseAdapter {
     private Context mContext;
     private int mPosition;
     private ListPopupWindow mPopupWindow;
+    private boolean mIsPraise;
     private Dictionary<Integer, Integer> listViewItemHeights = new Hashtable<>();
 
-    public UserCommentItemListAdapter(Context context, ListPopupWindow popupWindow, int position) {
+    public UserCommentItemListAdapter(Context context, ListPopupWindow popupWindow, int position,boolean isPraise) {
         mContext = context;
         mPosition = position;
         mPopupWindow = popupWindow;
+        mIsPraise = isPraise;
     }
 
     @Override
@@ -62,10 +66,20 @@ public class UserCommentItemListAdapter extends BaseAdapter {
         }
 
         holder = (ViewHolder) convertView.getTag();
+        if (mIsPraise) {
+            holder.praiseTextView.setTextColor(ContextCompat.getColor(mContext, android.R.color.holo_red_dark));
+        }else {
+            holder.praiseTextView.setTextColor(ContextCompat.getColor(mContext,android.R.color.white));
+
+        }
         holder.praiseTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new PraiseEvent(mPosition));
+                if (mIsPraise) {
+                    ToastUtil.showShortText(mContext,mContext.getString(R.string.you_have_praised));
+                }else {
+                    EventBus.getDefault().post(new PraiseEvent(mPosition));
+                }
                 mPopupWindow.dismiss();
             }
         });

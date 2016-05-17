@@ -79,13 +79,23 @@
                                 android:textColor="@color/light_blue"
                                 android:id="@+id/locationTV"
                                 />
-
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/light_blue"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:id="@+id/deleteTv" />
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/light_blue"
+                                    android:layout_marginEnd="@dimen/dp5"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:id="@+id/deleteTv" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:id="@+id/whoScanTV" />
+                            </LinearLayout>
 
                             <com.nju.View.SchoolFriendAweTextView
                                 android:layout_width="@dimen/dp22"

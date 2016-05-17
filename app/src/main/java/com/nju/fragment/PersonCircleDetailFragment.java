@@ -44,6 +44,7 @@ import com.nju.util.FragmentUtil;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
+import com.nju.util.WhoScanUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,6 +66,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
     private PraiseHeadAdapter mPraiseHeadAdapter;
     private int mOtherIndex = 0;
     private int mDeleteIndex = 0;
+    private boolean mIsPraise;
 
     private ResponseCallback getCommentCallback = new ResponseCallback() {
         @Override
@@ -110,6 +112,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         @Override
         public void onSuccess(String responseBody) {
             Log.i(TAG, responseBody);
+            int userId = getHostActivity().userId();
             if (FragmentUtil.isAttachedToActivity(PersonCircleDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 ParseResponse parseResponse = new ParseResponse();
@@ -132,6 +135,12 @@ public class PersonCircleDetailFragment extends BaseFragment {
                             }
                         }
                     }
+                    for (RespPraise talkPraise:mRespPraises){
+                        if (talkPraise.getPraiseAuthor().getAuthorId() == userId) {
+                            mIsPraise = true;
+                            break;
+                        }
+                    }
                     mPraiseHeadAdapter.notifyDataSetChanged();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -149,6 +158,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         @Override
         public void onSuccess(String responseBody) {
             Log.i(TAG, responseBody);
+            mContentEditText.setText(Constant.EMPTY_STR);
             mContentEditText.setHint(Constant.EMPTY_STR);
             mContentEditText.invalidate();
             ToastUtil.showShortText(getContext(), Constant.COMMENT_OK);
@@ -173,6 +183,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
                     if (str.equals(Constant.OK_MSG)) {
                         queryPraiseAndComment();
                     }
+                    mPersonCommentAdapter.notifyDataSetChanged();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -236,11 +247,6 @@ public class PersonCircleDetailFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onMessagePraiseEvent(PraiseEvent event){
-        Log.i(TAG, "event:" + event.getId());
-    }
-
-    @Subscribe
     public void onMessageCommentEvent(CommentEvent event){
         Log.i(TAG,"event:" + event.getId());
     }
@@ -251,6 +257,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
         TextView labelTV = (TextView) view.findViewById(R.id.school_friend_item_label_text);
         TextView dateTV = (TextView) view.findViewById(R.id.school_friend_item_publish_date);
         TextView deleteTV = (TextView) view.findViewById(R.id.deleteTv);
+        TextView whoScanTV = (TextView) view.findViewById(R.id.whoScanTV);
         TextView locationTV = (TextView) view.findViewById(R.id.locationTV);
         ImageView headImg = (ImageView) view.findViewById(R.id.headIconImg);
         deleteTV.setOnClickListener(new View.OnClickListener() {
@@ -275,8 +282,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
                 ImageDownloader.with(getContext()).download(headUrl,headImg);
                 if (getHostActivity().userId() == authorInfo.getAuthorId()){
                     deleteTV.setText(Constant.DELETE);
-                } else {
-                    deleteTV.setText(Constant.EMPTY_STR);
+                    whoScanTV.setText(WhoScanUtil.accessStr(mTalk.getWhoScan()));
                 }
             }
             dateTV.setText(DateUtil.getRelativeTimeSpanString(mTalk.getDate()));
@@ -288,7 +294,7 @@ public class PersonCircleDetailFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ListPopupWindow listPopupWindow = new CommentPopupWindow(getContext(), commentIconTv);
-                listPopupWindow.setAdapter(new UserCommentItemListAdapter(getContext(), listPopupWindow,0));
+                listPopupWindow.setAdapter(new UserCommentItemListAdapter(getContext(), listPopupWindow,0,mIsPraise));
                 listPopupWindow.show();
             }
         });
@@ -341,10 +347,12 @@ public class PersonCircleDetailFragment extends BaseFragment {
                 if (mOtherIndex == 0) {
                     mRequestCommentJson = AlumniTalkService.saveComment(PersonCircleDetailFragment.this, view, mTalk.getId(), saveCommentCallback);
                     CommentUtil.closeSoftKeyWithComment(getContext(), view);
+                    mContentEditText.setText(Constant.EMPTY_STR);
                     mContentEditText.setHint("");
                 }else {
                     mRequestCommentJson = AlumniTalkService.saveOtherComment(PersonCircleDetailFragment.this, view, mOtherIndex, saveCommentCallback);
                     CommentUtil.closeSoftKeyWithComment(getContext(), view);
+                    mContentEditText.setText(Constant.EMPTY_STR);
                     mContentEditText.setHint("");
                     mOtherIndex = 0;
                 }
@@ -356,6 +364,24 @@ public class PersonCircleDetailFragment extends BaseFragment {
     public void onMessageDeleteComment(MessageDeleteEvent deleteEvent) {
         mDeleteCommentJson = AlumniTalkService.deleteComment(this, mDeleteIndex, deleteCommentCallback);
         mDeleteIndex = 0;
+    }
+
+    @Subscribe
+    public void onMessagePraiseEvent(PraiseEvent event) {
+         AlumniTalkService.savePraise(this, mTalk.getId(), new ResponseCallback() {
+             @Override
+             public void onFail(Exception error) {
+                 Log.e(TAG, error.getMessage());
+             }
+
+             @Override
+             public void onSuccess(String responseBody) {
+                 Log.i(TAG, responseBody);
+                 if (getContext() != null)
+                     ToastUtil.showShortText(getContext(), Constant.PRAISE_OK);
+                 queryPraiseAndComment();
+             }
+         });
     }
 
     public void inputEmotion(String text) {

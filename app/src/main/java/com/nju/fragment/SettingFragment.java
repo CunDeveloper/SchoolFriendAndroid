@@ -133,7 +133,6 @@ public class SettingFragment extends BaseFragment {
                         getHostActivity().getSharedPreferences().edit().putString(getString(R.string.bg_url),"").commit();
                         getHostActivity().getSharedPreferences().edit().putString(getString(R.string.person_info), "").commit();
                         getHostActivity().getSharedPreferences().edit().putStringSet(Constant.DEGREES, new HashSet<String>()).commit();
-                        getHostActivity().getSharedPreferences().edit().putString(Constant.COLLEGES, "").commit();
                         getHostActivity().getSharedPreferences().edit().putStringSet(getString(R.string.level), new HashSet<String>()).commit();
 
                         getActivity().finish();

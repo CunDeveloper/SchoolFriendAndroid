@@ -48,6 +48,7 @@ import com.nju.util.SoftInput;
 import com.nju.util.SortUtil;
 import com.nju.util.StringBase64;
 import com.nju.util.ToastUtil;
+import com.nju.util.WhoScanUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -235,6 +236,13 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         nameTV.setText(mVoice.getAuthorInfo().getAuthorName());
         TextView labelTV = (TextView) view.findViewById(R.id.alumni_vo_label);
         labelTV.setText(mVoice.getAuthorInfo().getLabel());
+        TextView voiceLabelTV = (TextView) view.findViewById(R.id.labelTV);
+        voiceLabelTV.setText(mVoice.getLabel());
+        TextView whoScanTV = (TextView) view.findViewById(R.id.whoScanTV);
+        int userId = getHostActivity().userId();
+        if (userId == mVoice.getAuthorInfo().getAuthorId()){
+            whoScanTV.setText(WhoScanUtil.accessStr(mVoice.getWhoScan()));
+        }
         TextView titleTV = (TextView) view.findViewById(R.id.alumni_vo_title);
         try {
             titleTV.setText(StringBase64.decode(mVoice.getTitle()));
@@ -336,6 +344,7 @@ public class PersonAlumniVoiceItemDetail extends BaseFragment {
         RelativeLayout deleteLayout = (RelativeLayout) view.findViewById(R.id.delete_reLayout);
         RelativeLayout replayLayout = (RelativeLayout) view.findViewById(R.id.replay_reLayout);
         RelativeLayout closeRelayout = (RelativeLayout) view.findViewById(R.id.close_reLayout);
+        closeRelayout.setVisibility(View.GONE);
         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.mScrollView);
         final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.new_comment_layout);
         deleteLayout.setOnClickListener(new View.OnClickListener() {

@@ -224,6 +224,7 @@ public class PersonRecommendWorkItemDetailFragment extends BaseFragment {
             }
         });
         RelativeLayout closeReLayout = (RelativeLayout) view.findViewById(R.id.close_reLayout);
+        closeReLayout.setVisibility(View.GONE);
         closeReLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

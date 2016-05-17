@@ -8,6 +8,34 @@ import android.os.Parcelable;
  */
 public class AlumniQuestion implements Parcelable,Comparable<AlumniQuestion> {
 
+    private int id;
+    private String date;
+    private String problem;
+    private String description;
+    private String imgPaths;
+    private AuthorInfo author;
+    private int replayCount;
+    private boolean solved;
+    private String label;
+    private int check = 0;
+
+
+    public AlumniQuestion() {
+    }
+
+
+    protected AlumniQuestion(Parcel in) {
+        id = in.readInt();
+        date = in.readString();
+        problem = in.readString();
+        description = in.readString();
+        imgPaths = in.readString();
+        author = in.readParcelable(AuthorInfo.class.getClassLoader());
+        replayCount = in.readInt();
+        label = in.readString();
+        check = in.readInt();
+    }
+
     public static final Creator<AlumniQuestion> CREATOR = new Creator<AlumniQuestion>() {
         @Override
         public AlumniQuestion createFromParcel(Parcel in) {
@@ -19,55 +47,6 @@ public class AlumniQuestion implements Parcelable,Comparable<AlumniQuestion> {
             return new AlumniQuestion[size];
         }
     };
-    private int id;
-    private String date;
-    private String problem;
-    private String description;
-    private String imgPaths;
-    private AuthorInfo author;
-    private int replayCount;
-    private boolean isSolved;
-    private int whoScan;
-    private String label;
-    private int check = 0;
-
-
-    public AlumniQuestion() {
-    }
-
-    protected AlumniQuestion(Parcel in) {
-        id = in.readInt();
-        date = in.readString();
-        problem = in.readString();
-        description = in.readString();
-        imgPaths = in.readString();
-        author = in.readParcelable(AuthorInfo.class.getClassLoader());
-        replayCount = in.readInt();
-        whoScan = in.readInt();
-        label = in.readString();
-    }
-
-    public static Creator<AlumniQuestion> getCREATOR() {
-        return CREATOR;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(date);
-        dest.writeString(problem);
-        dest.writeString(description);
-        dest.writeString(imgPaths);
-        dest.writeParcelable(author, flags);
-        dest.writeInt(replayCount);
-        dest.writeInt(whoScan);
-        dest.writeString(label);
-    }
 
     public int getId() {
         return id;
@@ -121,25 +100,7 @@ public class AlumniQuestion implements Parcelable,Comparable<AlumniQuestion> {
         return replayCount;
     }
 
-    public void setReplayCount(int replayCount) {
-        this.replayCount = replayCount;
-    }
 
-    public boolean isSolved() {
-        return isSolved;
-    }
-
-    public void setIsSolved(boolean isSolved) {
-        this.isSolved = isSolved;
-    }
-
-    public int getWhoScan() {
-        return whoScan;
-    }
-
-    public void setWhoScan(int whoScan) {
-        this.whoScan = whoScan;
-    }
 
     public String getLabel() {
         return label;
@@ -177,5 +138,35 @@ public class AlumniQuestion implements Parcelable,Comparable<AlumniQuestion> {
             return -1;
         }
         return 0;
+    }
+
+    public void setReplayCount(int replayCount) {
+        this.replayCount = replayCount;
+    }
+
+    public boolean isSolved() {
+        return solved;
+    }
+
+    public void setSolved(boolean solved) {
+        this.solved = solved;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(date);
+        dest.writeString(problem);
+        dest.writeString(description);
+        dest.writeString(imgPaths);
+        dest.writeParcelable(author, flags);
+        dest.writeInt(replayCount);
+        dest.writeString(label);
+        dest.writeInt(check);
     }
 }

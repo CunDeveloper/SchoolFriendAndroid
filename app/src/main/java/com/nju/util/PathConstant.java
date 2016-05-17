@@ -37,6 +37,7 @@ public interface PathConstant {
     String USER_DEGREE_INFO_SUB_PATH_SAVE = "save";
     String USER_DEGREE_IS_AUTHORIZATION = "isAuthorization";
     String USER_DEGREE_QUERY = "query";
+    String USER_DEGREE_QUERY_OTHER_AUTHOR = "queryOtherAuthorDegree";
 
     String AUTHORIZATION_PATH = "authorization/";
     String AUTHORIZATION_SUB_PATH_XUE_XIN_NET = "xueXinNet";

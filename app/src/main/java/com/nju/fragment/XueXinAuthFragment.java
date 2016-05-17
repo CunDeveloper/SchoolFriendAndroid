@@ -98,7 +98,6 @@ public class XueXinAuthFragment extends BaseFragment {
                         String[] strs = result.split(":\\[");
                         String temp = "[" + strs[1];
                         ArrayList<UserInfo> userInfos = gson.fromJsonToList(temp.substring(0, temp.length() - 1), UserInfo.class);
-                        getHostActivity().getSharedPreferences().edit().putString(getString(R.string.person_info), gson.toJson(userInfos)).commit();
                         getHostActivity().getSharedPreferences().edit().putInt(getString(R.string.is_authorization), 1).commit();
                         getHostActivity().open(UserInfoFragment.newInstance(userInfos));
                     }
@@ -362,7 +361,8 @@ public class XueXinAuthFragment extends BaseFragment {
                                 Log.i(TAG, tokenValue);
                                 getHostActivity().getSharedPreferences().edit().putInt(Constant.USER_ID, token.getUserId()).commit();
                                 getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(tokenValue)).commit();
-                                new LoadData((BaseActivity)getHostActivity()).loadCollege().loadQuestionLable().loadVoiceLable().loadPersonInfo();
+                                new LoadData((BaseActivity)getHostActivity()).loadCollege().
+                                        loadQuestionLable().loadVoiceLable().loadPersonInfo();
                                 UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, loginCallback);
 
                             }
@@ -411,7 +411,8 @@ public class XueXinAuthFragment extends BaseFragment {
                                     String tokenValue = SchoolFriendGson.newInstance().toJson(token);
                                     Log.i(TAG, tokenValue);
                                     getHostActivity().getSharedPreferences().edit().putString(Constant.AUTHORIZATION, CryptUtil.getEncryptiedData(tokenValue)).commit();
-                                    new LoadData((BaseActivity)getHostActivity()).loadCollege().loadQuestionLable().loadVoiceLable().loadPersonInfo();
+                                    new LoadData((BaseActivity)getHostActivity()).
+                                            loadCollege().loadQuestionLable().loadVoiceLable().loadPersonInfo();
                                     UserDegreeInfoService.isAuthorization(XueXinAuthFragment.this, loginCallback);
                                 }
                             } catch (IOException e) {

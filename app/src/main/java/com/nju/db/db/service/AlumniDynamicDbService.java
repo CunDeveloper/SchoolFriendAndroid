@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.nju.db.AlumniDynamicEntity;
+import com.nju.util.DegreeUtil;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.model.AlumniTalk;
 import com.nju.util.Constant;

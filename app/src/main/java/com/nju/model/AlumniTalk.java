@@ -28,6 +28,7 @@ public class AlumniTalk implements Parcelable,Comparable<AlumniTalk> {
     private int praiseCount;
     private int commentCount;
     private AuthorInfo authorInfo;
+    private int whoScan;
     private ArrayList<AlumnicTalkPraise> talkPraises = new ArrayList<>();
     private ArrayList<ContentComment> comments = new ArrayList<>();
 
@@ -36,6 +37,7 @@ public class AlumniTalk implements Parcelable,Comparable<AlumniTalk> {
 
     protected AlumniTalk(Parcel in) {
         id = in.readInt();
+        whoScan = in.readInt();
         praiseCount = in.readInt();
         commentCount = in.readInt();
         date = in.readString();
@@ -59,6 +61,7 @@ public class AlumniTalk implements Parcelable,Comparable<AlumniTalk> {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeInt(whoScan);
         dest.writeInt(praiseCount);
         dest.writeInt(commentCount);
         dest.writeString(date);
@@ -167,5 +170,13 @@ public class AlumniTalk implements Parcelable,Comparable<AlumniTalk> {
             return true;
         }
         return false;
+    }
+
+    public int getWhoScan() {
+        return whoScan;
+    }
+
+    public void setWhoScan(int whoScan) {
+        this.whoScan = whoScan;
     }
 }

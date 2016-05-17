@@ -29,6 +29,8 @@ public class AlumniVoice implements Parcelable,Comparable<AlumniVoice> {
     private int commentCount;
     private String date;
     private AuthorInfo author;
+    private int whoScan;
+    private String label;
     private ArrayList<AuthorInfo> praiseAuthors;
     private ArrayList<ContentComment> contentComments;
 
@@ -40,6 +42,8 @@ public class AlumniVoice implements Parcelable,Comparable<AlumniVoice> {
 
     protected AlumniVoice(Parcel in) {
         id = in.readInt();
+        whoScan = in.readInt();
+        label = in.readString();
         title = in.readString();
         content = in.readString();
         imgPaths = in.readString();
@@ -140,6 +144,8 @@ public class AlumniVoice implements Parcelable,Comparable<AlumniVoice> {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(whoScan);
+        dest.writeString(label);
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(content);
@@ -175,5 +181,21 @@ public class AlumniVoice implements Parcelable,Comparable<AlumniVoice> {
             return -1;
         }
         return 0;
+    }
+
+    public int getWhoScan() {
+        return whoScan;
+    }
+
+    public void setWhoScan(int whoScan) {
+        this.whoScan = whoScan;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -1,6 +1,7 @@
 package com.nju.fragment;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.nju.activity.R;
 import com.nju.adatper.CircleImageViewAdapter;
 import com.nju.event.BitmapEvent;
 import com.nju.model.AlumniTalk;
+import com.nju.model.AlumnicTalkPraise;
 import com.nju.util.Constant;
 import com.nju.util.PathConstant;
 import com.nju.util.StringBase64;
@@ -19,6 +21,8 @@ import com.nju.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 
 public class PersonCircleDetailPicFragment extends BaseFragment {
@@ -28,6 +32,7 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
     private static final String POSITION_PARAM = "position";
     private AlumniTalk  mTalk;
     private int mPosition;
+    private boolean mIsPraise = false;
     private CircleImageViewAdapter mCircleImageViewAdapter;
 
     public PersonCircleDetailPicFragment() {
@@ -81,6 +86,18 @@ public class PersonCircleDetailPicFragment extends BaseFragment {
 
 
     private void initView(View view) {
+        int userId = getHostActivity().userId();
+        ArrayList<AlumnicTalkPraise> praises = mTalk.getTalkPraises();
+        for (AlumnicTalkPraise praise:praises){
+            if (userId == praise.getPraiseAuthor().getAuthorId()){
+                mIsPraise = true;
+                break;
+            }
+        }
+        TextView praiseIconTV = (TextView) view.findViewById(R.id.praiseIconTV);
+        if (mIsPraise){
+            praiseIconTV.setTextColor(ContextCompat.getColor(getContext(),android.R.color.holo_red_dark ));
+        }
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_person_circle_detail_pic_viewpager);
         TextView  contentTV = (TextView) view.findViewById(R.id.fragment_person_circle_detail_pic_content_tv);
         if (mTalk != null){

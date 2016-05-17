@@ -71,7 +71,7 @@ public class MajorAskDetailFragment extends BaseFragment {
     private PostRequestJson mRequestSaveJson, mRequestQueryJson,delectAskRequestJson;
     private View mMainView;
     private int commentType = 0;
-    private TextView mCollectTv;
+    private TextView mCollectTv,mReplayNumberTV;
     private boolean isCollected = false;
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
@@ -90,8 +90,8 @@ public class MajorAskDetailFragment extends BaseFragment {
                     if (object != null) {
                         ArrayList comments = (ArrayList) object;
                         if (comments.size() > 0) {
+                            mContentComments.clear();
                             for (Object obj : comments) {
-                                mContentComments.clear();
                                 ContentComment contentComment = (ContentComment) obj;
                                 Log.i(TAG, SchoolFriendGson.newInstance().toJson(contentComment));
                                 mContentComments.add(contentComment);
@@ -119,6 +119,7 @@ public class MajorAskDetailFragment extends BaseFragment {
             if (FragmentUtil.isAttachedToActivity(MajorAskDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
+                mReplayNumberTV.setText((mAlumniQuestion.getReplayCount()+1)+"");
                 mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
             }
         }
@@ -258,6 +259,7 @@ public class MajorAskDetailFragment extends BaseFragment {
             descTV.setText(Constant.UNKNOWN_CHARACTER);
         }
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
+
         nameTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,6 +268,8 @@ public class MajorAskDetailFragment extends BaseFragment {
         });
         nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());
         TextView dateTV = (TextView) view.findViewById(R.id.date_tv);
+        mReplayNumberTV = (TextView) view.findViewById(R.id.replayNumberTV);
+        mReplayNumberTV.setText(mAlumniQuestion.getReplayCount()+"");
         dateTV.setText(DateUtil.getRelativeTimeSpanString(mAlumniQuestion.getDate()));
         mContentComments = new ArrayList<>();
         final ListView commentListView = (ListView) view.findViewById(R.id.new_comment_listview);
@@ -274,7 +278,7 @@ public class MajorAskDetailFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ContentComment comment = mContentComments.get(position);
                 //commentId = comment.getId();
-                mContentEditText.setHint("回复" + comment.getCommentAuthor().getAuthorName());
+                mContentEditText.setHint(Constant.REPLAY + comment.getCommentAuthor().getAuthorName());
                 SoftInput.open(getContext());
                 CommentUtil.getHideLayout(view).setVisibility(View.VISIBLE);
             }
@@ -323,7 +327,7 @@ public class MajorAskDetailFragment extends BaseFragment {
         MajorAskService.isCollected(this, mAlumniQuestion.getId(), new ResponseCallback() {
             @Override
             public void onFail(Exception error) {
-                Log.e(TAG,error.getMessage());
+                Log.e(TAG, error.getMessage());
             }
 
             @Override
@@ -334,7 +338,7 @@ public class MajorAskDetailFragment extends BaseFragment {
                     ParseResponse parseResponse = new ParseResponse();
                     try {
                         String str = parseResponse.getInfo(responseBody);
-                        if (str != null && str.equals(1+"")){
+                        if (str != null && str.equals(1 + "")) {
                             mCollectTv.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark));
                             isCollected = true;
                         }
@@ -344,7 +348,7 @@ public class MajorAskDetailFragment extends BaseFragment {
                 }
             }
         });
-
+        mRequestQueryJson = MajorAskService.queryComment(MajorAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
     }
 
     private void initListView(View view) {

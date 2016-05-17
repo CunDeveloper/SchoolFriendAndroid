@@ -5,6 +5,7 @@ import android.util.Log;
 import com.nju.activity.BaseActivity;
 import com.nju.activity.FragmentHostActivity;
 import com.nju.activity.R;
+import com.nju.event.LoadCollegeEvent;
 import com.nju.event.MessageDegreeEvent;
 import com.nju.fragment.BaseFragment;
 import com.nju.http.HttpManager;
@@ -31,7 +32,7 @@ public class LoadData {
     private static final String TAG = LoadData.class.getSimpleName();
     private static SchoolFriendGson gson;
     private BaseActivity mBaseActivity;
-    private GetRequest voiceRequest, askRequest;
+    private GetRequest voiceRequest,askRequest;
     private PostRequestJson collegeRequestJson;
     private ResponseCallback getCollegesCallback = new ResponseCallback() {
         @Override
@@ -56,8 +57,9 @@ public class LoadData {
                     }
                     mBaseActivity.getSharedPreferences().edit()
                             .putString(Constant.COLLEGES, info).commit();
+                    EventBus.getDefault().post(new MessageDegreeEvent(Constant.OK_MSG));
                 }
-            } catch (IOException e) {
+            } catch (IOException ignored) {
 
             }
         }
@@ -124,7 +126,7 @@ public class LoadData {
             }
         }
     };
-
+    
     public LoadData(BaseActivity baseActivity) {
         mBaseActivity = baseActivity;
         if (gson == null) {

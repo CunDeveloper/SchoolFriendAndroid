@@ -133,7 +133,7 @@ public class MajorAskFragment extends BaseFragment {
                                 synchronized (MajorAskFragment.this) {
                                     mAlumniQuestions.remove(alumniQuestion);
                                 }
-                                mMajorAskAdapter.notifyDataSetChanged();
+                               mMajorAskAdapter.notifyDataSetChanged();
                                 break;
                             }
                         }
@@ -199,15 +199,17 @@ public class MajorAskFragment extends BaseFragment {
 
     private void setUpOnRefreshListener(View view) {
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+                mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
+            }
+        });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, 0);
-//                if (mAlumniQuestions.size() > 0) {
-//                    mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE, mAlumniQuestions.get(0).getId());
-//                }else {
-//                    mRequestJson = MajorAskService.queryMajorAsk(MajorAskFragment.this, callback, Constant.ALL, Constant.PRE,0);
-//                }
             }
         });
     }
@@ -234,8 +236,10 @@ public class MajorAskFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MajorAskDetailFragment fragment = MajorAskDetailFragment.newInstance(mAlumniQuestions.get(position));
-                getHostActivity().open(fragment, fragment);
+                if (mAlumniQuestions.size()>0) {
+                    MajorAskDetailFragment fragment = MajorAskDetailFragment.newInstance(mAlumniQuestions.get(position));
+                    getHostActivity().open(fragment, fragment);
+                }
             }
         });
 
@@ -366,14 +370,13 @@ public class MajorAskFragment extends BaseFragment {
                     source.removeAll(tempArray);
                     if (alumniQuestions != null && alumniQuestions.size() > 0) {
                         Log.i(TAG, SchoolFriendGson.newInstance().toJson(alumniQuestions));
-                        Collections.sort(alumniQuestions,Collections.reverseOrder());
+                        Collections.sort(alumniQuestions, Collections.reverseOrder());
                         source.addAll(alumniQuestions);
                         for (AlumniQuestion alumniQuestion : alumniQuestions) {
                             Log.i(TAG, alumniQuestion.getLabel());
                         }
                         majorAskFragment.mMajorAskAdapter.notifyDataSetChanged();
-                        majorAskFragment.mRequestJson = MajorAskService.queryMajorAsk(majorAskFragment, majorAskFragment.callback, degree, Constant.PRE, 0);
-                    }
+                     }
                 }
             }
         }

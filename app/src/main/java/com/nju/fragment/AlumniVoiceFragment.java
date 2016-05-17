@@ -186,13 +186,14 @@ public class AlumniVoiceFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(mVoices.get(position-1)));
+                if (mVoices.size() > 0)
+                    getHostActivity().open(AlumniVoiceItemDetailFragment.newInstance(mVoices.get(position-1)));
             }
         });
         mFootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShortText(getContext(), "hhh");
+
             }
         });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {

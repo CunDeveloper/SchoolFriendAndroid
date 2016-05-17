@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.nju.util.DegreeUtil;
 import com.nju.db.RecommendEntity;
 import com.nju.db.SchoolFriendDbHelper;
 import com.nju.model.RecommendWork;

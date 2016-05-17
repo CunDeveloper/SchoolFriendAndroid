@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_marginTop="@dimen/FIVE_DP"
         android:id="@+id/content_tv"
-        android:background="@color/light_gray"
+        android:background="@android:color/white"
         android:textColor="@android:color/black"
         android:layout_alignTop="@+id/day_tv"
         android:layout_toEndOf="@+id/month_tv" />

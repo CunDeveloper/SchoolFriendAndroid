@@ -21,6 +21,7 @@ import com.nju.http.request.QueryLimitType;
 import com.nju.http.request.RequestBodyJson;
 import com.nju.model.AlumniDynamicCollect;
 import com.nju.model.Author;
+import com.nju.model.AuthorInfo;
 import com.nju.util.Constant;
 import com.nju.util.SchoolFriendGson;
 
@@ -35,14 +36,16 @@ public class QueryJson {
 
     public static String queryLimitToString(final BaseFragment fragment, String dir) {
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(queryLimit(fragment, dir));
         return gson.toJson(bodyJson);
     }
 
     public static String queryLimitToString(final BaseFragment fragment, int rowId, String dir) {
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimit limit = new QueryLimit();
         limit.setLimit(Constant.LIMIT);
         limit.setRowId(rowId);
@@ -53,7 +56,8 @@ public class QueryJson {
 
     public static String queryLimitToString(final BaseFragment fragment, int rowId, String dir,int authorId) {
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimit limit = new QueryLimit();
         limit.setLimit(Constant.LIMIT);
         limit.setRowId(rowId);
@@ -63,9 +67,17 @@ public class QueryJson {
         return gson.toJson(bodyJson);
     }
 
-    public static String saveAuthorToString(final BaseFragment fragment, Author authorInfo) {
+    public static String saveAuthorToString( Author authorInfo) {
         RequestBodyJson<Author> bodyJson = new RequestBodyJson<>();
         bodyJson.setAuthorization("");
+        bodyJson.setBody(authorInfo);
+        return gson.toJson(bodyJson);
+    }
+
+    public static String authorToString(BaseFragment fragment, AuthorInfo authorInfo) {
+        RequestBodyJson<AuthorInfo> bodyJson = new RequestBodyJson<>();
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(authorInfo);
         return gson.toJson(bodyJson);
     }
@@ -73,7 +85,8 @@ public class QueryJson {
 
     public static String queryLimitLabelToString(final BaseFragment fragment, int rowId, String dir, String label) {
         RequestBodyJson<QueryLimitLabel> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimitLabel limit = new QueryLimitLabel();
         limit.setLimit(Constant.LIMIT);
         limit.setRowId(rowId);
@@ -85,7 +98,8 @@ public class QueryJson {
 
     public static String queryLimitByTypeToString(final BaseFragment fragment, String dir, int type) {
         RequestBodyJson<QueryLimit> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         QueryLimitType limit = new QueryLimitType();
         QueryLimit queryLimit = queryLimit(fragment, dir);
         limit.setRowId(queryLimit.getRowId());
@@ -98,49 +112,56 @@ public class QueryJson {
 
     public static String queryCommentToString(final BaseFragment fragment, ArrayList<IdParam> idParams) {
         RequestBodyJson<ArrayList> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(idParams);
         return gson.toJson(bodyJson);
     }
 
     public static String emptyBodyToString(final BaseFragment fragment) {
         RequestBodyJson<String> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody("");
         return gson.toJson(bodyJson);
     }
 
     public static String commentAuthorToString(final BaseFragment fragment, final CommentParam commentParam) {
         RequestBodyJson<CommentParam> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(commentParam);
         return gson.toJson(bodyJson);
     }
 
     public static String saveDynamiceCollect(final BaseFragment fragment, final AlumniDynamicCollect collect) {
         RequestBodyJson<AlumniDynamicCollect> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment !=null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(collect);
         return gson.toJson(bodyJson);
     }
 
     public static String collectToString(final BaseFragment fragment, final CollectParam collectParam) {
         RequestBodyJson<CollectParam> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(collectParam);
         return gson.toJson(bodyJson);
     }
 
     public static String commentOtherAuthorToString(final BaseFragment fragment, final CommentParamId commentParam) {
         RequestBodyJson<CommentParamId> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(commentParam);
         return gson.toJson(bodyJson);
     }
 
     public static String praiseContentIdToString(final BaseFragment fragment, final ContentIdParam idParam) {
         RequestBodyJson<ContentIdParam> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(idParam);
         return gson.toJson(bodyJson);
     }
@@ -154,14 +175,16 @@ public class QueryJson {
 
     public static String deleteContentById(final BaseFragment fragment, final IdParam idParam) {
         RequestBodyJson<IdParam> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(idParam);
         return gson.toJson(bodyJson);
     }
 
     public static String idToString(final BaseFragment fragment, final IdParam idParam) {
         RequestBodyJson<IdParam> bodyJson = new RequestBodyJson<>();
-        bodyJson.setAuthorization(fragment.getHostActivity().token());
+        if (fragment != null)
+            bodyJson.setAuthorization(fragment.getHostActivity().token());
         bodyJson.setBody(idParam);
         return gson.toJson(bodyJson);
     }

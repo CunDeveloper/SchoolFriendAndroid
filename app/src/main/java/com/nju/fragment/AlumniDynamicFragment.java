@@ -25,6 +25,7 @@ import com.nju.db.db.service.AlumniDynamicDbService;
 import com.nju.event.CommentEvent;
 import com.nju.event.CommentOtherEvent;
 import com.nju.event.DeleteCommentEvent;
+import com.nju.event.LoadCollegeEvent;
 import com.nju.event.MessageAuthorImageEvent;
 import com.nju.event.MessageComplainEvent;
 import com.nju.event.MessageContentIdEvent;
@@ -232,7 +233,8 @@ public class AlumniDynamicFragment extends BaseFragment {
         @Override
         public void onSuccess(String responseBody) {
             Log.i(TAG, responseBody);
-            ToastUtil.showShortText(getContext(), Constant.PRAISE_OK);
+            if (getContext() != null)
+                ToastUtil.showShortText(getContext(), Constant.PRAISE_OK);
             queryPraiseAndComment();
         }
     };
@@ -457,7 +459,6 @@ public class AlumniDynamicFragment extends BaseFragment {
 
     @Subscribe
     public void onMessageAuthorImageEvent(MessageAuthorImageEvent event) {
-        ToastUtil.showShortText(getContext(),event.getOk()+"ok");
         ListViewHead.initView(mView,this);
         initNagImg();
     }

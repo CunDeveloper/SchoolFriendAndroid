@@ -60,11 +60,13 @@ public class MyDynamicFragment extends BaseFragment {
         @Override
         public void onFail(Exception error) {
             Log.e(TAG, error.getMessage());
-            ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
-            mRefreshLayout.setRefreshing(false);
-            error.printStackTrace();
-            Log.e(TAG, error.getMessage());
-            mFootView.setVisibility(View.GONE);
+            if (FragmentUtil.isAttachedToActivity(MyDynamicFragment.this)) {
+                ToastUtil.ShowText(getContext(), getString(R.string.fail_info_tip));
+                mRefreshLayout.setRefreshing(false);
+                error.printStackTrace();
+                Log.e(TAG, error.getMessage());
+                mFootView.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -147,7 +149,7 @@ public class MyDynamicFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mAuthor.getAuthorName());
+            actionBar.setTitle(mAuthor.getAuthorName()+Constant.DYNAMIC);
         }
         getHostActivity().display(6);
     }

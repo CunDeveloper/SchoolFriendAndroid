@@ -219,7 +219,9 @@ public class RecommendWorkFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
+                if (mRecommendWorks.size()>0) {
+                    getHostActivity().open(RecommendWorkItemDetailFragment.newInstance(mRecommendWorks.get(position)));
+                }
             }
         });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {

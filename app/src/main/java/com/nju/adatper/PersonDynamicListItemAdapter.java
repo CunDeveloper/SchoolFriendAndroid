@@ -50,6 +50,7 @@ public class PersonDynamicListItemAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.person_dynamic_item_listitem, parent, false);
             holder = new ViewHolder();
             holder.contentTV = (TextView) convertView.findViewById(R.id.content_tv);
+
             holder.gridView = (GridView) convertView.findViewById(R.id.mPersonItemGridView);
             convertView.setTag(holder);
         }

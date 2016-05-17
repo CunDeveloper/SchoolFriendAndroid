@@ -41,7 +41,7 @@ public class AuthorService {
 
     public static PostRequestJson saveAuthor(BaseFragment fragment, Author authorInfo, Callback callback) {
 
-        final String json = QueryJson.saveAuthorToString(fragment, authorInfo);
+        final String json = QueryJson.saveAuthorToString(authorInfo);
         String diviceId = Divice.getAndroidId(fragment.getContext());
         String url = PathConstant.BASE_URL + PathConstant.AUTHOR_PATH + PathConstant.AUTHOR_SUB_PATH_REGISTER + "?diviceId=" + diviceId;
         PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);
@@ -52,7 +52,7 @@ public class AuthorService {
 
     public static PostRequestJson login(BaseFragment fragment, Author authorInfo, Callback callback) {
 
-        final String json = QueryJson.saveAuthorToString(fragment, authorInfo);
+        final String json = QueryJson .saveAuthorToString( authorInfo);
         String diviceId = Divice.getAndroidId(fragment.getContext());
         String url = PathConstant.BASE_URL + PathConstant.AUTHOR_PATH + PathConstant.AUTHOR_SUB_PATH_LOGIN + "?diviceId=" + diviceId;
         PostRequestJson mRequestJson = new PostRequestJson(url, json, callback);

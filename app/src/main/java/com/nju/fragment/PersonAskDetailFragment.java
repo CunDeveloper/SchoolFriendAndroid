@@ -65,6 +65,7 @@ public class PersonAskDetailFragment extends BaseFragment {
     private View mMainView;
     private int commentType = 0;
     private int mDeleteIndex = 0;
+    private TextView mReplayNumberTV;
     private ResponseCallback queryCommentCallback = new ResponseCallback() {
         @Override
         public void onFail(Exception error) {
@@ -111,6 +112,7 @@ public class PersonAskDetailFragment extends BaseFragment {
             if (FragmentUtil.isAttachedToActivity(PersonAskDetailFragment.this)) {
                 Log.i(TAG, responseBody);
                 ToastUtil.showShortText(getContext(), getString(R.string.comment_ok));
+                mReplayNumberTV.setText((mAlumniQuestion.getReplayCount()+1)+"");
                 mRequestQueryJson = MajorAskService.queryComment(PersonAskDetailFragment.this, mAlumniQuestion.getId(), queryCommentCallback);
             }
         }
@@ -255,6 +257,19 @@ public class PersonAskDetailFragment extends BaseFragment {
             descTV.setText(StringBase64.decode(mAlumniQuestion.getDescription()));
         } catch (IllegalArgumentException e) {
             descTV.setText(Constant.UNKNOWN_CHARACTER);
+        }
+        mReplayNumberTV = (TextView) view.findViewById(R.id.replayNumberTV);
+        mReplayNumberTV.setText(mAlumniQuestion.getReplayCount()+"");
+        TextView labelTV = (TextView) view.findViewById(R.id.labelTV);
+        TextView solvedTV = (TextView) view.findViewById(R.id.closedTV);
+        labelTV.setText(mAlumniQuestion.getLabel());
+        int userId = getHostActivity().userId();
+        if (userId == mAlumniQuestion.getAuthor().getAuthorId()){
+            if (mAlumniQuestion.isSolved()){
+                solvedTV.setText(getString(R.string.question_solved));
+            }else {
+                solvedTV.setText(getString(R.string.question_no_solved));
+            }
         }
         TextView nameTV = (TextView) view.findViewById(R.id.name_tv);
         nameTV.setText(mAlumniQuestion.getAuthor().getAuthorName());

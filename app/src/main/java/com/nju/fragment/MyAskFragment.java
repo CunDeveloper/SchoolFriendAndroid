@@ -245,7 +245,7 @@ public class MyAskFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mAuthor.getAuthorName());
+            actionBar.setTitle(mAuthor.getAuthorName()+Constant.ASK);
         }
         getHostActivity().display(6);
     }

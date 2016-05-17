@@ -229,7 +229,7 @@ public class  MyRecommendFragment extends BaseFragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(mAuthor.getAuthorName());
+            actionBar.setTitle(mAuthor.getAuthorName()+Constant.RECOMMEND_STR);
         }
         getHostActivity().display(6);
     }

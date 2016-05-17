@@ -1,10 +1,7 @@
-package com.nju.db.db.service;
+package com.nju.util;
 
 import android.content.Context;
 import android.util.Log;
-
-import com.nju.util.Constant;
-import com.nju.util.SchoolFriendGson;
 
 import java.util.HashMap;
 import java.util.HashSet;

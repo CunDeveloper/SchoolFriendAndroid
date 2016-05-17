@@ -5,10 +5,10 @@
     android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_alignParentTop="true"
-    android:layout_height="match_parent"
-    tools:context="com.nju.fragment.MajorAskFragment">
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        tools:context="com.nju.fragment.MajorAskFragment">
         <android.support.v4.widget.SwipeRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefresh"

@@ -3,6 +3,7 @@ package com.nju.util;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,10 +24,12 @@ import com.nju.event.MessageEvent;
 import com.nju.event.MessageLabelEvent;
 import com.nju.event.RecommendWorkTypeEvent;
 import com.nju.fragment.BaseFragment;
+import com.nju.model.DegreeInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -35,17 +38,32 @@ import java.util.Set;
  * Created by cun on 2016/4/5.
  */
 public class BottomToolBar {
+    private static final String TAG = BottomToolBar.class.getSimpleName();
     private static SchoolFriendGson gson = SchoolFriendGson.newInstance();
     private static Map<String, ArrayList<String>> mCollegeMap;
     private static ArrayList<String> mVoiceLabels;
     private static ArrayList<String> mAskLabels;
+    private static ArrayList<DegreeInfo> mDegreeInfos;
 
     private static void initMap(BaseFragment fragment) {
-        if (mCollegeMap == null) {
+        if (mCollegeMap == null || mCollegeMap.size() == 0) {
             String collegeJson = fragment.getHostActivity().getSharedPreferences()
                     .getString(Constant.COLLEGES, "");
             if (!collegeJson.equals("")) {
+                Log.i(TAG,collegeJson);
                 mCollegeMap = gson.fromJsonToMap(collegeJson);
+            } else {
+                mCollegeMap = new HashMap<>();
+            }
+
+        }
+        if (mDegreeInfos == null || mDegreeInfos.size() == 0) {
+            String degreeStr = fragment.getHostActivity().getSharedPreferences().getString(fragment.getString(R.string.person_info),"");
+            if (!degreeStr .equals(""))
+            {
+                mDegreeInfos = gson.fromJsonToList(degreeStr,DegreeInfo.class);
+            }else {
+                mDegreeInfos = new ArrayList<>();
             }
         }
         if (mVoiceLabels == null) {
@@ -97,6 +115,14 @@ public class BottomToolBar {
                     if (!level.equals(Constant.ALL)) {
                         if (mCollegeMap != null) {
                             ArrayList<String> colleges = mCollegeMap.get(level);
+                            for (DegreeInfo dInfo : mDegreeInfos) {
+                                if (dInfo.getLevel().equals(level)) {
+                                    if (colleges != null && !colleges.contains(dInfo.getUniversityName())){
+                                        colleges.add(0, dInfo.getUniversityName());
+                                    }
+                                    break;
+                                }
+                            }
                             if (colleges != null) {
                                 listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
                                 listView.setVisibility(View.VISIBLE);
@@ -160,6 +186,12 @@ public class BottomToolBar {
                     String level = tv.getText().toString();
                     if (!level.equals(Constant.ALL)) {
                         ArrayList<String> colleges = mCollegeMap.get(level);
+                        for (DegreeInfo dInfo : mDegreeInfos) {
+                            if (dInfo.getLevel().equals(level)) {
+                                colleges.add(0, dInfo.getUniversityName());
+                                break;
+                            }
+                        }
                         if (colleges != null) {
                             listView.setAdapter(new CollageAdapter(fragment.getContext(), colleges));
                             listView.setVisibility(View.VISIBLE);
@@ -220,6 +252,13 @@ public class BottomToolBar {
                     String level = tv.getText().toString();
                     if (!level.equals(Constant.ALL)) {
                         ArrayList<String> colleges = mCollegeMap.get(level);
+                        for (DegreeInfo dInfo : mDegreeInfos) {
+                            if (dInfo.getLevel().equals(level)) {
+                                if (!colleges.contains(dInfo.getUniversityName()))
+                                    colleges.add(0, dInfo.getUniversityName());
+                                break;
+                            }
+                        }
                         if (colleges != null) {
                             typeLinearLayout.setVisibility(View.VISIBLE);
                             final ArrayAdapter<String> adapter = new ArrayAdapter<>(fragment.getContext(),
@@ -380,6 +419,13 @@ public class BottomToolBar {
                     String level = tv.getText().toString();
                     if (!level.equals(Constant.ALL)) {
                         ArrayList<String> colleges = mCollegeMap.get(level);
+                        for (DegreeInfo dInfo : mDegreeInfos) {
+                            if (dInfo.getLevel().equals(level)) {
+                                if (!colleges.contains(dInfo.getUniversityName()))
+                                    colleges.add(0, dInfo.getUniversityName());
+                                break;
+                            }
+                        }
                         final ArrayAdapter<String> adapter = new ArrayAdapter<>(fragment.getContext(),
                                 android.R.layout.simple_dropdown_item_1line, colleges.toArray(new String[colleges.size()]));
                         spinner.setVisibility(View.VISIBLE);

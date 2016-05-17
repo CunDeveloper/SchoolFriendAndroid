@@ -143,4 +143,10 @@ public class Constant {
     public static final String COMPLAIN = "投诉";
     public static final String PERSON_VOICE = "我的心声";
     public static final String LEVEL_ALL = "所有";
+    public static final String DYNAMIC = "动态";
+    public static final String VOICE = "心声";
+    public static final String RECOMMEND_STR = "推荐";
+    public static final String ASK = "提问";
+    public static final String ASK_LABEL_GRADUATE = "askLableGraduate";
+    public static final String ASK_LABEL_MASTER = "askLabelMaster";
 }
